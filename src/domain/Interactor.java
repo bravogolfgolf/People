@@ -15,10 +15,8 @@ public class Interactor implements InteractorController {
 
     @Override
     public void handel(Request request) {
-        Response response = new Response();
         Person person = new Person(request.fullName, request.occupation, request.ageCategory, request.employmentStatus, request.uSCitizen, request.taxId, request.gender);
         database.setPerson(person);
-        response.people = database.getPeople();
-        presenter.handle(response);
+        presenter.handle(database.getPeople());
     }
 }

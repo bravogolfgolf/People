@@ -13,8 +13,8 @@ public class Presenter implements PresenterInteractor {
     }
 
     @Override
-    public void handle(Response response) {
-        for (Person person : response.people.values()) {
+    public void handle(Map<Integer, Person> response) {
+        for (Person person : response.values()) {
             results.put(person.getId(), person);
         }
         mainFrame.updatePersonTableModel(results);

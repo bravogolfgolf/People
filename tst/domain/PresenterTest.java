@@ -21,23 +21,22 @@ public class PresenterTest implements MainFramePresenter {
     public void shouldTransformResponseIntoMessage() {
         final MainFramePresenter mainFrame = this;
         final Presenter presenter = new Presenter();
-        final Response response = new Response();
         final Person person = new Person("Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
-        response.people = new HashMap<Integer, Person>() {{
+        HashMap<Integer, Person> response = new HashMap<Integer, Person>() {{
             put(person.getId(), person);
         }};
         presenter.setMainFrame(mainFrame);
 
         presenter.handle(response);
 
-        for (Integer key : response.people.keySet()) {
-            assertEquals((response.people.get(key).getFullName()), (results.get(key)).getFullName());
-            assertEquals((response.people.get(key).getOccupation()), (results.get(key)).getOccupation());
-            assertEquals((response.people.get(key).getAgeCategory()), (results.get(key)).getAgeCategory());
-            assertEquals((response.people.get(key).getEmploymentStatus()), (results.get(key)).getEmploymentStatus());
+        for (Integer key : response.keySet()) {
+            assertEquals((response.get(key).getFullName()), (results.get(key)).getFullName());
+            assertEquals((response.get(key).getOccupation()), (results.get(key)).getOccupation());
+            assertEquals((response.get(key).getAgeCategory()), (results.get(key)).getAgeCategory());
+            assertEquals((response.get(key).getEmploymentStatus()), (results.get(key)).getEmploymentStatus());
             assertTrue((results.get(key).isUsCitizen()));
-            assertEquals((response.people.get(key).getTaxId()), (results.get(key)).getTaxId());
-            assertEquals((response.people.get(key).getGender()), (results.get(key)).getGender());
+            assertEquals((response.get(key).getTaxId()), (results.get(key)).getTaxId());
+            assertEquals((response.get(key).getGender()), (results.get(key)).getGender());
         }
     }
 }
