@@ -3,7 +3,7 @@ package domain;
 import java.util.Map;
 
 public interface RepositoryInteractor {
-    void setPerson(Person person);
+    void addPerson(Person person);
 
     Map<Integer, Person> getPeople();
 }

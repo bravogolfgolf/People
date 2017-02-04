@@ -25,7 +25,7 @@ public class PersonRepository implements RepositoryInteractor {
     }};
 
     @Override
-    public void setPerson(Person person) {
+    public void addPerson(Person person) {
         people.put(person.getId(), person);
     }
 

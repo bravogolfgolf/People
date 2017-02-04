@@ -1,7 +1,5 @@
 package domain;
 
-import domain.Person;
-import domain.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,15 +30,15 @@ public class PersonRepositoryTest {
 
     @Test
     public void newDatabaseShouldExceptPerson() {
-        repository.setPerson(person);
+        repository.addPerson(person);
         people = repository.getPeople();
         assertEquals(1, people.size());
     }
 
     @Test
     public void shouldNotBeAbleToAddPeopleWithSameID() {
-        repository.setPerson(person);
-        repository.setPerson(person);
+        repository.addPerson(person);
+        repository.addPerson(person);
         people = repository.getPeople();
         assertEquals(1, people.size());
     }

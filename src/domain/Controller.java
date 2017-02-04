@@ -19,6 +19,6 @@ public class Controller {
         request.taxId = formEvent.getTaxId();
         request.gender = formEvent.getGender();
 
-        interactor.handel(request);
+        interactor.addPerson(request);
     }
 }

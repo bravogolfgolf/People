@@ -1,9 +1,5 @@
-package ui;
+package domain;
 
-import domain.Controller;
-import domain.FormEvent;
-import domain.InteractorController;
-import domain.Request;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -14,7 +10,7 @@ public class ControllerTest implements InteractorController {
     private Request request;
 
     @Override
-    public void handel(Request request) {
+    public void addPerson(Request request) {
         this.request = request;
     }
 

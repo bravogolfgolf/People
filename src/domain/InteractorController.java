@@ -1,5 +1,5 @@
 package domain;
 
 public interface InteractorController {
-    void handel(Request request);
+    void addPerson(Request request);
 }
