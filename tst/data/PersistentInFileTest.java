@@ -1,6 +1,8 @@
 package data;
 
 import domain.Person;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -12,11 +14,26 @@ import static junit.framework.TestCase.assertEquals;
 
 public class PersistentInFileTest {
 
+    private File file = new File("Test.per");
+
+    @Before
+    public void setUp() {
+        deleteFile();
+    }
+
+    @After
+    public void tearDown() {
+        deleteFile();
+
+    }
+
+    private void deleteFile() {
+        file.delete();
+    }
 
     @Test
     public void shouldSaveMapToFileAndLoadMapFromFileToRecreateMap() throws IOException {
-        File file = new File("Test.per");
-        final Person person = new Person("Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
+        Person person = new Person("Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
         Map<Integer, Person> people = new HashMap<Integer, Person>() {{
             put(person.getId(), person);
         }};
@@ -29,5 +46,4 @@ public class PersistentInFileTest {
 
         }
     }
-
 }
