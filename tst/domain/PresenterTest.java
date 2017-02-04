@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -33,15 +32,15 @@ public class PresenterTest implements MainFramePresenter {
 
         List<PersonMessage> list = Arrays.asList(response);
 
-        for (Person actaul : result.values()) {
-            assertEquals(actaul.getId(), list.get(0).id);
-            assertEquals(actaul.getFullName(), list.get(0).fullName);
-            assertEquals(actaul.getOccupation(), list.get(0).occupation);
-            assertEquals(actaul.getAgeCategory(), list.get(0).ageCategory);
-            assertEquals(actaul.getEmploymentStatus(), list.get(0).employmentStatus);
+        for (Person actual : result.values()) {
+            assertEquals(actual.getId(), list.get(0).id);
+            assertEquals(actual.getFullName(), list.get(0).fullName);
+            assertEquals(actual.getOccupation(), list.get(0).occupation);
+            assertEquals(actual.getAgeCategory(), list.get(0).ageCategory);
+            assertEquals(actual.getEmploymentStatus(), list.get(0).employmentStatus);
             assertTrue(list.get(0).uSCitizen);
-            assertEquals(actaul.getTaxId(), list.get(0).taxId);
-            assertEquals(actaul.getGender(), list.get(0).gender);
+            assertEquals(actual.getTaxId(), list.get(0).taxId);
+            assertEquals(actual.getGender(), list.get(0).gender);
         }
     }
 }

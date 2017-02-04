@@ -10,7 +10,7 @@ import java.util.Map;
 
 class PersonTableModel extends AbstractTableModel {
 
-    private Map<Integer, PersonMessage> personTableModelData = new HashMap<>();
+    private final Map<Integer, PersonMessage> personTableModelData = new HashMap<>();
     private final String[] columnNames = {"ID", "Full Name", "Occupation", "Age Category",
             "Employment Status", "US Citizen", "Tax ID", "Gender"};
 
