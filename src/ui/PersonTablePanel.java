@@ -1,10 +1,9 @@
 package ui;
 
-import domain.Person;
+import domain.PersonMessage;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
 
 class PersonTablePanel extends JPanel {
 
@@ -16,7 +15,7 @@ class PersonTablePanel extends JPanel {
         add(new JScrollPane(tablePanel), BorderLayout.CENTER);
     }
 
-    void addDataForPersonTableModel(Map<Integer, Person> response) {
+    void addDataForPersonTableModel(PersonMessage[] response) {
         personTableModel.addDataForPersonTableModel(response);
     }
 

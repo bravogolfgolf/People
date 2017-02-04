@@ -1,11 +1,12 @@
 package domain;
 
-class PersonMessage {
-    String fullName;
-    String occupation;
-    int ageCategory;
-    int employmentStatus;
-    Boolean uSCitizen;
-    String taxId;
-    String gender;
+public class PersonMessage {
+    public int id;
+    public String fullName;
+    public String occupation;
+    public int ageCategory;
+    public int employmentStatus;
+    public Boolean uSCitizen;
+    public String taxId;
+    public String gender;
 }

@@ -4,16 +4,12 @@ import com.apple.eawt.AppEvent;
 import com.apple.eawt.Application;
 import com.apple.eawt.FullScreenListener;
 import com.apple.eawt.FullScreenUtilities;
-import domain.Controller;
-import domain.ControllerMainFrame;
-import domain.MainFramePresenter;
-import domain.Person;
+import domain.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
 
 import static java.awt.event.KeyEvent.VK_F;
 import static java.awt.event.KeyEvent.VK_M;
@@ -40,12 +36,12 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         addComponents();
     }
 
-    public void setController(Controller controller) {
+    public void setController(ControllerMainFrame controller) {
         this.controller = controller;
     }
 
     @Override
-    public void updatePersonTableModel(Map<Integer, Person> response) {
+    public void updatePersonTableModel(PersonMessage[] response) {
         personTablePanel.addDataForPersonTableModel(response);
     }
 

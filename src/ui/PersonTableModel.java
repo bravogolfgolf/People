@@ -1,19 +1,24 @@
 package ui;
 
-import domain.Person;
+import domain.PersonMessage;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 class PersonTableModel extends AbstractTableModel {
 
-    private Map<Integer,Person> personTableModelData = new HashMap<>();
+    private Map<Integer, PersonMessage> personTableModelData = new HashMap<>();
     private final String[] columnNames = {"ID", "Full Name", "Occupation", "Age Category",
             "Employment Status", "US Citizen", "Tax ID", "Gender"};
 
-    void addDataForPersonTableModel(Map<Integer, Person> response) {
-        this.personTableModelData = response;
+    void addDataForPersonTableModel(PersonMessage[] response) {
+        List<PersonMessage> list = Arrays.asList(response);
+        for (PersonMessage message : list) {
+            personTableModelData.put(message.id, message);
+        }
     }
 
     @Override
@@ -33,25 +38,25 @@ class PersonTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Person person = personTableModelData.get(rowIndex);
+        PersonMessage person = personTableModelData.get(rowIndex);
 
         switch (columnIndex) {
             case 0:
-                return person.getId();
+                return person.id;
             case 1:
-                return person.getFullName();
+                return person.fullName;
             case 2:
-                return person.getOccupation();
+                return person.occupation;
             case 3:
-                return person.getAgeCategory();
+                return person.ageCategory;
             case 4:
-                return person.getEmploymentStatus();
+                return person.employmentStatus;
             case 5:
-                return person.isUsCitizen();
+                return person.uSCitizen;
             case 6:
-                return person.getTaxId();
+                return person.taxId;
             case 7:
-                return person.getGender();
+                return person.gender;
         }
         return null;
     }

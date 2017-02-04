@@ -2,7 +2,9 @@ package domain;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
@@ -10,10 +12,10 @@ import static org.junit.Assert.assertTrue;
 
 public class PresenterTest implements MainFramePresenter {
 
-    private Map<Integer, Person> response;
+    private PersonMessage[] response;
 
     @Override
-    public void updatePersonTableModel(Map<Integer, Person> response) {
+    public void updatePersonTableModel(PersonMessage[] response) {
         this.response = response;
     }
 
@@ -29,14 +31,17 @@ public class PresenterTest implements MainFramePresenter {
 
         presenter.addPerson(result);
 
-        for (Integer key : result.keySet()) {
-            assertEquals(result.get(key).getFullName(), response.get(key).getFullName());
-            assertEquals(result.get(key).getOccupation(), response.get(key).getOccupation());
-            assertEquals(result.get(key).getAgeCategory(), response.get(key).getAgeCategory());
-            assertEquals(result.get(key).getEmploymentStatus(), response.get(key).getEmploymentStatus());
-            assertTrue(response.get(key).isUsCitizen());
-            assertEquals(result.get(key).getTaxId(), response.get(key).getTaxId());
-            assertEquals(result.get(key).getGender(), response.get(key).getGender());
+        List<PersonMessage> list = Arrays.asList(response);
+
+        for (Person actaul : result.values()) {
+            assertEquals(actaul.getId(), list.get(0).id);
+            assertEquals(actaul.getFullName(), list.get(0).fullName);
+            assertEquals(actaul.getOccupation(), list.get(0).occupation);
+            assertEquals(actaul.getAgeCategory(), list.get(0).ageCategory);
+            assertEquals(actaul.getEmploymentStatus(), list.get(0).employmentStatus);
+            assertTrue(list.get(0).uSCitizen);
+            assertEquals(actaul.getTaxId(), list.get(0).taxId);
+            assertEquals(actaul.getGender(), list.get(0).gender);
         }
     }
 }
