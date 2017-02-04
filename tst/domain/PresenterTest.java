@@ -22,21 +22,21 @@ public class PresenterTest implements MainFramePresenter {
         final MainFramePresenter mainFrame = this;
         final Presenter presenter = new Presenter();
         final Person person = new Person("Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
-        HashMap<Integer, Person> response = new HashMap<Integer, Person>() {{
+        HashMap<Integer, Person> result = new HashMap<Integer, Person>() {{
             put(person.getId(), person);
         }};
         presenter.setMainFrame(mainFrame);
 
-        presenter.addPerson(response);
+        presenter.addPerson(result);
 
-        for (Integer key : response.keySet()) {
-            assertEquals((response.get(key).getFullName()), (this.response.get(key)).getFullName());
-            assertEquals((response.get(key).getOccupation()), (this.response.get(key)).getOccupation());
-            assertEquals((response.get(key).getAgeCategory()), (this.response.get(key)).getAgeCategory());
-            assertEquals((response.get(key).getEmploymentStatus()), (this.response.get(key)).getEmploymentStatus());
-            assertTrue((this.response.get(key).isUsCitizen()));
-            assertEquals((response.get(key).getTaxId()), (this.response.get(key)).getTaxId());
-            assertEquals((response.get(key).getGender()), (this.response.get(key)).getGender());
+        for (Integer key : result.keySet()) {
+            assertEquals(result.get(key).getFullName(), response.get(key).getFullName());
+            assertEquals(result.get(key).getOccupation(), response.get(key).getOccupation());
+            assertEquals(result.get(key).getAgeCategory(), response.get(key).getAgeCategory());
+            assertEquals(result.get(key).getEmploymentStatus(), response.get(key).getEmploymentStatus());
+            assertTrue(response.get(key).isUsCitizen());
+            assertEquals(result.get(key).getTaxId(), response.get(key).getTaxId());
+            assertEquals(result.get(key).getGender(), response.get(key).getGender());
         }
     }
 }

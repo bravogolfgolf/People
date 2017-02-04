@@ -3,7 +3,7 @@ package domain;
 public class Controller implements ControllerMainFrame {
 
     private InteractorController interactor;
-    private final Request request = new Request();
+    private final PersonMessage request = new PersonMessage();
 
     public void setInteractor(InteractorController interactor) {
         this.interactor = interactor;

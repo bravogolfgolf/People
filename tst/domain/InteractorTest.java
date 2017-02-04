@@ -21,7 +21,7 @@ public class InteractorTest implements PresenterInteractor {
         final PersonRepository repository = new PersonRepository();
         final PresenterInteractor presenter = this;
         final Interactor interactor = new Interactor();
-        final Request request = new Request();
+        final PersonMessage request = new PersonMessage();
         interactor.setRepository(repository);
         interactor.setPresenter(presenter);
         request.fullName = "Full Name";

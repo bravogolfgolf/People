@@ -1,6 +1,6 @@
 package domain;
 
-class Request {
+class PersonMessage {
     String fullName;
     String occupation;
     int ageCategory;

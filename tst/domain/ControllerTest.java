@@ -7,10 +7,10 @@ import static junit.framework.TestCase.assertTrue;
 
 public class ControllerTest implements InteractorController {
 
-    private Request request;
+    private PersonMessage request;
 
     @Override
-    public void addPerson(Request request) {
+    public void addPerson(PersonMessage request) {
         this.request = request;
     }
 
