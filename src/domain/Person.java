@@ -1,6 +1,8 @@
 package domain;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
 
     private static int count;
     private final int id;
