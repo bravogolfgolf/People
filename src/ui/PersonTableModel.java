@@ -12,8 +12,8 @@ class PersonTableModel extends AbstractTableModel {
     private final String[] columnNames = {"ID", "Full Name", "Occupation", "Age Category",
             "Employment Status", "US Citizen", "Tax ID", "Gender"};
 
-    void addDataForPersonTableModel(Map<Integer, Person> personTableModelData) {
-        this.personTableModelData = personTableModelData;
+    void addDataForPersonTableModel(Map<Integer, Person> response) {
+        this.personTableModelData = response;
     }
 
     @Override

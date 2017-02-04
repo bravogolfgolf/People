@@ -9,15 +9,15 @@ import static org.junit.Assert.assertTrue;
 
 public class InteractorTest implements PresenterInteractor {
 
-    private Map<Integer, Person> map;
+    private Map<Integer, Person> result;
 
     @Override
-    public void addPerson(Map<Integer, Person> map) {
-        this.map = map;
+    public void addPerson(Map<Integer, Person> result) {
+        this.result = result;
     }
 
     @Test
-    public void shouldProcessRequestIntoResult() {
+    public void shouldProcessAddPersonRequestIntoAddPersonResult() {
         final PersonRepository repository = new PersonRepository();
         final PresenterInteractor presenter = this;
         final Interactor interactor = new Interactor();
@@ -34,7 +34,7 @@ public class InteractorTest implements PresenterInteractor {
 
         interactor.addPerson(request);
 
-        for (Person expected : map.values()) {
+        for (Person expected : result.values()) {
             assertEquals(request.fullName, expected.getFullName());
             assertEquals(request.occupation, expected.getOccupation());
             assertEquals(request.ageCategory, expected.getAgeCategory());

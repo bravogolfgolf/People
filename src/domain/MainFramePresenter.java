@@ -5,5 +5,5 @@ import domain.Person;
 import java.util.Map;
 
 public interface MainFramePresenter {
-    void updatePersonTableModel(Map<Integer, Person> results);
+    void updatePersonTableModel(Map<Integer, Person> response);
 }

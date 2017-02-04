@@ -45,8 +45,8 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     }
 
     @Override
-    public void updatePersonTableModel(Map<Integer, Person> results) {
-        personTablePanel.addDataForPersonTableModel(results);
+    public void updatePersonTableModel(Map<Integer, Person> response) {
+        personTablePanel.addDataForPersonTableModel(response);
     }
 
     private void setup() {

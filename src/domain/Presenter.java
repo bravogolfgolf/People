@@ -5,19 +5,19 @@ import java.util.Map;
 
 public class Presenter implements PresenterInteractor {
 
-    private final Map<Integer, Person> results = new HashMap<>();
     private MainFramePresenter mainFrame;
+    private final Map<Integer, Person> response = new HashMap<>();
 
     public void setMainFrame(MainFramePresenter mainFrame) {
         this.mainFrame = mainFrame;
     }
 
     @Override
-    public void addPerson(Map<Integer, Person> response) {
-        for (Person person : response.values()) {
-            results.put(person.getId(), person);
+    public void addPerson(Map<Integer, Person> result) {
+        for (Person person : result.values()) {
+            response.put(person.getId(), person);
         }
-        mainFrame.updatePersonTableModel(results);
+        mainFrame.updatePersonTableModel(response);
     }
 }
 

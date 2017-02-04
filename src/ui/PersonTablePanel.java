@@ -16,8 +16,8 @@ class PersonTablePanel extends JPanel {
         add(new JScrollPane(tablePanel), BorderLayout.CENTER);
     }
 
-    void addDataForPersonTableModel(Map<Integer, Person> personTableModelData) {
-        personTableModel.addDataForPersonTableModel(personTableModelData);
+    void addDataForPersonTableModel(Map<Integer, Person> response) {
+        personTableModel.addDataForPersonTableModel(response);
     }
 
     void refresh() {
