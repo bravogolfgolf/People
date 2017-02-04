@@ -4,8 +4,7 @@ import domain.Person;
 import org.junit.Test;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -20,34 +19,40 @@ public class PersistentStorageTest {
             put(person.getId(), person);
         }};
 
-        writeToFile(person, file);
-        Person loaded = loadFromFile(file);
+        writeToFile(people, file);
+        Map<Integer, Person> loaded = loadFromFile(file);
 
         for (Integer key : people.keySet()) {
-            assertEquals(people.get(key).getFullName(), loaded.getFullName());
+            assertEquals(people.get(key).getFullName(), loaded.get(key).getFullName());
+
         }
     }
 
-    private void writeToFile(Person person, File file) throws IOException {
+    private void writeToFile(Map<Integer, Person> map, File file) throws IOException {
+        List<Person> list = new ArrayList<>(map.values());
+        Person[] array = list.toArray(new Person[list.size()]);
         try (FileOutputStream fos = new FileOutputStream(file)) {
             try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-                oos.writeObject(person);
+                oos.writeObject(array);
             }
         }
     }
 
-    private Person loadFromFile(File file) throws IOException {
-        Person person = null;
+    private Map<Integer, Person> loadFromFile(File file) throws IOException {
+        Map<Integer, Person> map = new HashMap<>();
         try (FileInputStream fis = new FileInputStream(file)) {
             try (ObjectInputStream ois = new ObjectInputStream(fis)) {
                 try {
-                    person = (Person) ois.readObject();
+                    Person[] people = (Person[]) ois.readObject();
+                    List<Person> list = Arrays.asList(people);
+                    for (Person person : list) {
+                        map.put(person.getId(), person);
+                    }
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
             }
         }
-        return person;
+        return map;
     }
 }
-
