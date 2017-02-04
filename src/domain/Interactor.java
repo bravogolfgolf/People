@@ -2,11 +2,11 @@ package domain;
 
 public class Interactor implements InteractorController {
 
-    private DatabaseInteractor database;
+    private RepositoryInteractor repository;
     private PresenterInteractor presenter;
 
-    public void setDatabase(DatabaseInteractor database) {
-        this.database = database;
+    public void setRepository(RepositoryInteractor repository) {
+        this.repository = repository;
     }
 
     public void setPresenter(PresenterInteractor presenter) {
@@ -16,7 +16,7 @@ public class Interactor implements InteractorController {
     @Override
     public void handel(Request request) {
         Person person = new Person(request.fullName, request.occupation, request.ageCategory, request.employmentStatus, request.uSCitizen, request.taxId, request.gender);
-        database.setPerson(person);
-        presenter.handle(database.getPeople());
+        repository.setPerson(person);
+        presenter.handle(repository.getPeople());
     }
 }

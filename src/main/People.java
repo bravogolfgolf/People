@@ -1,6 +1,6 @@
 package main;
 
-import data.Database;
+import domain.PersonRepository;
 import domain.Interactor;
 import domain.Presenter;
 import domain.Controller;
@@ -22,10 +22,10 @@ class People {
             Presenter presenter = new Presenter();
             presenter.setMainFrame(mainFrame);
 
-            Database database = new Database();
+            PersonRepository repository = new PersonRepository();
 
             Interactor interactor = new Interactor();
-            interactor.setDatabase(database);
+            interactor.setRepository(repository);
             interactor.setPresenter(presenter);
 
             controller.setInteractor(interactor);

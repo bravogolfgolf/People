@@ -1,10 +1,8 @@
 package domain;
 
-import domain.Person;
-
 import java.util.Map;
 
-public interface DatabaseInteractor {
+public interface RepositoryInteractor {
     void setPerson(Person person);
 
     Map<Integer, Person> getPeople();

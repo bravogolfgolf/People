@@ -1,6 +1,7 @@
-package data;
+package domain;
 
 import domain.Person;
+import domain.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,15 +10,15 @@ import java.util.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class DatabaseTest {
+public class PersonRepositoryTest {
 
-    private Database db;
+    private PersonRepository repository;
     private Person person;
     private Map<Integer,Person> people;
 
     @Before
     public void setUp() throws Exception {
-        db = new Database();
+        repository = new PersonRepository();
         person = new Person("Full Name", "Occupation", 0, 2, true, "Tax ID",
                 "Female");
         people = new HashMap<>();
@@ -25,28 +26,28 @@ public class DatabaseTest {
 
     @Test
     public void newDatabaseShouldBeEmpty() {
-        people = db.getPeople();
+        people = repository.getPeople();
         assertEquals(0, people.size());
     }
 
     @Test
     public void newDatabaseShouldExceptPerson() {
-        db.setPerson(person);
-        people = db.getPeople();
+        repository.setPerson(person);
+        people = repository.getPeople();
         assertEquals(1, people.size());
     }
 
     @Test
     public void shouldNotBeAbleToAddPeopleWithSameID() {
-        db.setPerson(person);
-        db.setPerson(person);
-        people = db.getPeople();
+        repository.setPerson(person);
+        repository.setPerson(person);
+        people = repository.getPeople();
         assertEquals(1, people.size());
     }
 
     @Test
     public void getAgeCategoriesShouldReturnProperlySortedMap() {
-        Map<Integer, String> actual = db.getAgeCategories();
+        Map<Integer, String> actual = repository.getAgeCategories();
         assertEquals(3, actual.size());
         assertTrue("Under 18".equals(actual.get(0)));
         assertTrue("18 to 65".equals(actual.get(1)));
@@ -55,7 +56,7 @@ public class DatabaseTest {
 
     @Test
     public void getEmploymentStatusesShouldReturnProperlySortedMap() {
-        Map<Integer, String> actual = db.getEmploymentStatuses();
+        Map<Integer, String> actual = repository.getEmploymentStatuses();
         assertEquals(3, actual.size());
         assertTrue("Employed".equals(actual.get(0)));
         assertTrue("Self-employed".equals(actual.get(1)));
