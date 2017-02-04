@@ -1,8 +1,8 @@
-package ui;
+package domain;
 
 import java.util.EventObject;
 
-class FormEvent extends EventObject {
+public class FormEvent extends EventObject {
     private final String fullName;
     private final String occupation;
     private final int ageCategory;
@@ -11,7 +11,7 @@ class FormEvent extends EventObject {
     private final String taxId;
     private final String gender;
 
-    FormEvent(Object source, String fullName, String occupation, int ageCategory, int employmentStatus, Boolean uSCitizen, String taxId, String gender) {
+    public FormEvent(Object source, String fullName, String occupation, int ageCategory, int employmentStatus, Boolean uSCitizen, String taxId, String gender) {
         super(source);
         this.fullName = fullName;
         this.occupation = occupation;
@@ -38,7 +38,7 @@ class FormEvent extends EventObject {
         return employmentStatus;
     }
 
-    public Boolean isUsCitizen() {
+    Boolean isUsCitizen() {
         return uSCitizen;
     }
 

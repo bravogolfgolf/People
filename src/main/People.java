@@ -3,7 +3,7 @@ package main;
 import data.Database;
 import domain.Interactor;
 import domain.Presenter;
-import ui.Controller;
+import domain.Controller;
 import ui.MainFrame;
 
 import javax.swing.*;

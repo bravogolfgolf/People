@@ -1,5 +1,7 @@
 package ui;
 
+import domain.Controller;
+import domain.FormEvent;
 import domain.InteractorController;
 import domain.Request;
 import org.junit.Test;

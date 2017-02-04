@@ -1,7 +1,4 @@
-package ui;
-
-import domain.InteractorController;
-import domain.Request;
+package domain;
 
 public class Controller {
 
@@ -13,7 +10,7 @@ public class Controller {
     }
 
 
-    void handle(FormEvent formEvent) {
+    public void handle(FormEvent formEvent) {
         request.fullName = formEvent.getFullName();
         request.occupation = formEvent.getOccupation();
         request.ageCategory = formEvent.getAgeCategory();

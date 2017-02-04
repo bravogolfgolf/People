@@ -4,6 +4,7 @@ import com.apple.eawt.AppEvent;
 import com.apple.eawt.Application;
 import com.apple.eawt.FullScreenListener;
 import com.apple.eawt.FullScreenUtilities;
+import domain.Controller;
 import domain.MainFramePresenter;
 import domain.Person;
 
