@@ -3,5 +3,5 @@ package domain;
 import java.util.Map;
 
 public interface PresenterInteractor {
-    void handle(Map<Integer, Person> response);
+    void addPerson(Map<Integer, Person> response);
 }

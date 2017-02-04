@@ -17,6 +17,6 @@ public class Interactor implements InteractorController {
     public void addPerson(Request request) {
         Person person = new Person(request.fullName, request.occupation, request.ageCategory, request.employmentStatus, request.uSCitizen, request.taxId, request.gender);
         repository.addPerson(person);
-        presenter.handle(repository.getPeople());
+        presenter.addPerson(repository.getPeople());
     }
 }

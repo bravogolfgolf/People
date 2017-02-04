@@ -5,6 +5,7 @@ import com.apple.eawt.Application;
 import com.apple.eawt.FullScreenListener;
 import com.apple.eawt.FullScreenUtilities;
 import domain.Controller;
+import domain.ControllerMainFrame;
 import domain.MainFramePresenter;
 import domain.Person;
 
@@ -30,7 +31,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     private JMenuItem minimizeMenuItem;
     private JMenuItem zoomMenuItem;
     private JMenuItem fullScreenToggleMenuItem;
-    private Controller controller;
+    private ControllerMainFrame controller;
 
     public MainFrame() {
         super();
@@ -198,7 +199,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
 
     private void addFormPanelListener() {
         formPanel = new FormPanel(formEvent -> {
-            controller.handle(formEvent);
+            controller.addPerson(formEvent);
             personTablePanel.refresh();
         });
     }

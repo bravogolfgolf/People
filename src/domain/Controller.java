@@ -1,6 +1,6 @@
 package domain;
 
-public class Controller {
+public class Controller implements ControllerMainFrame {
 
     private InteractorController interactor;
     private final Request request = new Request();
@@ -9,8 +9,8 @@ public class Controller {
         this.interactor = interactor;
     }
 
-
-    public void handle(FormEvent formEvent) {
+    @Override
+    public void addPerson(FormEvent formEvent) {
         request.fullName = formEvent.getFullName();
         request.occupation = formEvent.getOccupation();
         request.ageCategory = formEvent.getAgeCategory();

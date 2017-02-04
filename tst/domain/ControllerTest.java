@@ -21,7 +21,7 @@ public class ControllerTest implements InteractorController {
         FormEvent formEvent = new FormEvent(new Object(), "Full Name", "Occupation", 0, 0, true, "Tax ID", "Gender");
         controller.setInteractor(interactor);
 
-        controller.handle(formEvent);
+        controller.addPerson(formEvent);
 
         assertEquals(formEvent.getFullName(),request.fullName);
         assertEquals(formEvent.getOccupation(),request.occupation);

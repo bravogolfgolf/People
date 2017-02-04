@@ -27,7 +27,7 @@ public class PresenterTest implements MainFramePresenter {
         }};
         presenter.setMainFrame(mainFrame);
 
-        presenter.handle(response);
+        presenter.addPerson(response);
 
         for (Integer key : response.keySet()) {
             assertEquals((response.get(key).getFullName()), (results.get(key)).getFullName());

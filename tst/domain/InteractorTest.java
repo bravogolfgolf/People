@@ -12,7 +12,7 @@ public class InteractorTest implements PresenterInteractor {
     private Map<Integer, Person> map;
 
     @Override
-    public void handle(Map<Integer, Person> map) {
+    public void addPerson(Map<Integer, Person> map) {
         this.map = map;
     }
 
