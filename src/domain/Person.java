@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Person implements Serializable {
 
     private static final long serialVersionUID = -5198481705816510388L;
-    private static int count;
+    private static int counter;
     private final int id;
     private final String fullName;
     private final String occupation;
@@ -16,7 +16,7 @@ public class Person implements Serializable {
     private final String gender;
 
     public Person(String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {
-        this.id = count++;
+        this.id = counter++;
         this.fullName = fullName;
         this.occupation = occupation;
         this.ageCategory = ageCategory;
@@ -24,6 +24,10 @@ public class Person implements Serializable {
         this.uSCitizen = uSCitizen;
         this.taxId = taxId;
         this.gender = gender;
+    }
+
+    static void setCounter(int counter) {
+        Person.counter = counter;
     }
 
     public int getId() {

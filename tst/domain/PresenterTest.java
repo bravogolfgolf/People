@@ -20,6 +20,7 @@ public class PresenterTest implements MainFramePresenter {
 
     @Test
     public void shouldTransformResponseIntoMessage() {
+        Person.setCounter(0);
         final MainFramePresenter mainFrame = this;
         final Presenter presenter = new Presenter();
         final Person person = new Person("Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
@@ -32,15 +33,15 @@ public class PresenterTest implements MainFramePresenter {
 
         List<PersonMessage> list = Arrays.asList(response);
 
-        for (Person actual : result.values()) {
-            assertEquals(actual.getId(), list.get(0).id);
-            assertEquals(actual.getFullName(), list.get(0).fullName);
-            assertEquals(actual.getOccupation(), list.get(0).occupation);
-            assertEquals(actual.getAgeCategory(), list.get(0).ageCategory);
-            assertEquals(actual.getEmploymentStatus(), list.get(0).employmentStatus);
-            assertTrue(list.get(0).uSCitizen);
-            assertEquals(actual.getTaxId(), list.get(0).taxId);
-            assertEquals(actual.getGender(), list.get(0).gender);
+        for (Integer key : result.keySet()) {
+            assertEquals(result.get(key).getId(), list.get(key).id);
+            assertEquals(result.get(key).getFullName(), list.get(key).fullName);
+            assertEquals(result.get(key).getOccupation(), list.get(key).occupation);
+            assertEquals(result.get(key).getAgeCategory(), list.get(key).ageCategory);
+            assertEquals(result.get(key).getEmploymentStatus(), list.get(key).employmentStatus);
+            assertTrue(list.get(key).uSCitizen);
+            assertEquals(result.get(key).getTaxId(), list.get(key).taxId);
+            assertEquals(result.get(key).getGender(), list.get(key).gender);
         }
     }
 }

@@ -33,6 +33,8 @@ public class Interactor implements InteractorController {
     @Override
     public void loadRepository(File file) throws IOException {
         repository.setPeople(Persistent.load(file));
+        int counter = repository.getPeople().size();
+        Person.setCounter(counter);
         presenter.addPerson(repository.getPeople());
     }
 }

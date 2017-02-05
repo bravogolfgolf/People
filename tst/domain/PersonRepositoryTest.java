@@ -17,6 +17,7 @@ public class PersonRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
+        Person.setCounter(0);
         repository = new PersonRepository();
         person = new Person("Full Name", "Occupation", 0, 2, true, "Tax ID",
                 "Female");

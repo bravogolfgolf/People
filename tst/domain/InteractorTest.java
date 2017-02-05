@@ -27,6 +27,7 @@ public class InteractorTest implements PresenterInteractor {
 
     @Before
     public void setUp() throws Exception {
+        Person.setCounter(0);
         interactor.setRepository(repository);
         interactor.setPresenter(presenter);
     }
@@ -77,17 +78,25 @@ public class InteractorTest implements PresenterInteractor {
     }
 
     @Test
-    public void shouldImportPersonRepositoryFromFile() throws IOException {
+    public void shouldImportPersonRepositoryFromFileAndResetPersonCounter() throws IOException {
         createRequest("Import");
         file = new File(("ImportTest.per"));
         assertTrue(!deleteFile());
+
         interactor.addPerson(request);
-        result = null;
+        assertEquals(1, result.size());
+
         interactor.exportRepository(file);
+
+        interactor.addPerson(request);
+        assertEquals(2, result.size());
+
         assertTrue(file.exists());
 
         try {
             interactor.loadRepository(file);
+            assertEquals(1, result.size());
+
             for (Person expected : result.values()) {
                 assertEquals(request.fullName, expected.getFullName());
                 assertEquals(request.occupation, expected.getOccupation());
@@ -97,6 +106,13 @@ public class InteractorTest implements PresenterInteractor {
                 assertEquals(request.taxId, expected.getTaxId());
                 assertEquals(request.gender, expected.getGender());
             }
+
+            interactor.addPerson(request);
+            assertEquals(2, result.size());
+            for (Integer key : result.keySet()) {
+                assertTrue(key.equals(result.get(key).getId()));
+            }
+
         } finally {
             assertTrue(deleteFile());
         }
