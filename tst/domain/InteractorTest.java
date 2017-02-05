@@ -35,7 +35,7 @@ public class InteractorTest implements PresenterInteractor {
     @Test
     public void shouldProcessAddPersonRequestIntoAddPersonResult() {
         createRequest("Add Person");
-        interactor.addPerson(request);
+        addEntryToRepository();
 
         for (Person expected : result.values()) {
             assertEquals(request.fullName, expected.getFullName());
@@ -60,61 +60,76 @@ public class InteractorTest implements PresenterInteractor {
 
     @Test
     public void shouldExportPersonRepositoryToFile() throws IOException {
+        makeSureTestFileDoesNotAlreadyExist("ExportTest.per");
         createRequest("Export");
-        file = new File(("ExportTest.per"));
-        assertTrue(!deleteFile());
+        addEntryToRepository();
         try {
-            interactor.addPerson(request);
-            interactor.exportRepository(file);
-            assertTrue(file.exists());
+            exportRepository();
         } finally {
-            assertTrue(deleteFile());
+            deleteFile();
         }
     }
 
+    private void exportRepository() throws IOException {
+        interactor.exportRepository(file);
+        assertTrue(file.exists());
+    }
 
-    private boolean deleteFile() {
-        return file.delete();
+    private void makeSureTestFileDoesNotAlreadyExist(String pathname) {
+        file = new File(pathname);
+        assertTrue(!file.exists());
+    }
+
+    private void addEntryToRepository() {
+        interactor.addPerson(request);
+    }
+
+    private void deleteFile() {
+        assertTrue(file.delete());
     }
 
     @Test
     public void shouldImportPersonRepositoryFromFileAndResetPersonCounter() throws IOException {
-        createRequest("Import");
-        file = new File(("ImportTest.per"));
-        assertTrue(!deleteFile());
+        final int SAME_KEY_BEFORE_AFTER_IMPORT_RETURN_PROPER_RESULT = 1;
+        makeSureTestFileDoesNotAlreadyExist(("ImportTest.per"));
 
-        interactor.addPerson(request);
+        createRequest("Import0");
+        addEntryToRepository();
         assertEquals(1, result.size());
 
-        interactor.exportRepository(file);
+        exportRepository();
 
-        interactor.addPerson(request);
+        createRequest("Import1");
+        addEntryToRepository();
         assertEquals(2, result.size());
+        assertEquals("Import1", result.get(SAME_KEY_BEFORE_AFTER_IMPORT_RETURN_PROPER_RESULT).getFullName());
 
-        assertTrue(file.exists());
+        interactor.loadRepository(file);
+        assertEquals(1, result.size());
 
-        try {
-            interactor.loadRepository(file);
-            assertEquals(1, result.size());
-
-            for (Person expected : result.values()) {
-                assertEquals(request.fullName, expected.getFullName());
-                assertEquals(request.occupation, expected.getOccupation());
-                assertEquals(request.ageCategory, expected.getAgeCategory());
-                assertEquals(request.employmentStatus, expected.getEmploymentStatus());
-                assertTrue(expected.isUsCitizen());
-                assertEquals(request.taxId, expected.getTaxId());
-                assertEquals(request.gender, expected.getGender());
-            }
-
-            interactor.addPerson(request);
-            assertEquals(2, result.size());
-            for (Integer key : result.keySet()) {
-                assertTrue(key.equals(result.get(key).getId()));
-            }
-
-        } finally {
-            assertTrue(deleteFile());
+        for (Person expected : result.values()) {
+            assertEquals("Import0", expected.getFullName());
+            assertEquals(request.occupation, expected.getOccupation());
+            assertEquals(request.ageCategory, expected.getAgeCategory());
+            assertEquals(request.employmentStatus, expected.getEmploymentStatus());
+            assertTrue(expected.isUsCitizen());
+            assertEquals(request.taxId, expected.getTaxId());
+            assertEquals(request.gender, expected.getGender());
         }
+
+        createRequest("Import2");
+        addEntryToRepository();
+        assertEquals(2, result.size());
+        assertEquals("Import2", result.get(SAME_KEY_BEFORE_AFTER_IMPORT_RETURN_PROPER_RESULT).getFullName());
+
+        mapKeysMatchPersonIDs();
+
+        deleteFile();
     }
+
+    private void mapKeysMatchPersonIDs() {
+        for (Integer key : result.keySet())
+            assertTrue(key.equals(result.get(key).getId()));
+    }
+
 }

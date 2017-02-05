@@ -40,7 +40,7 @@ public class PersonTest {
     }
 
     @Test
-    public void shouldSetCounterSoAdditonalPersonIdImcrementsProperlyIfPersonRepositoryIsImported() {
+    public void shouldSetCounterSoAdditionalPersonIdIncrementsProperlyIfPersonRepositoryIsImported() {
         Person.setCounter(2);
         Person person = new Person("New Full Name", "New Occupation",
                 0, 1, false,
