@@ -5,9 +5,9 @@ import domain.Person;
 import java.io.*;
 import java.util.*;
 
-class PersistentInFile {
+public class Persistent {
 
-    static void writeToFile(Map<Integer, Person> map, File file) throws IOException {
+    public static void export(Map<Integer, Person> map, File file) throws IOException {
         List<Person> list = new ArrayList<>(map.values());
         Person[] array = list.toArray(new Person[list.size()]);
         try (FileOutputStream fos = new FileOutputStream(file)) {
@@ -17,7 +17,7 @@ class PersistentInFile {
         }
     }
 
-    static Map<Integer, Person> loadFromFile(File file) throws IOException {
+    public static Map<Integer, Person> load(File file) throws IOException {
         Map<Integer, Person> map = new HashMap<>();
         try (FileInputStream fis = new FileInputStream(file)) {
             try (ObjectInputStream ois = new ObjectInputStream(fis)) {

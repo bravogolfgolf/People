@@ -4,12 +4,15 @@ import com.apple.eawt.AppEvent;
 import com.apple.eawt.Application;
 import com.apple.eawt.FullScreenListener;
 import com.apple.eawt.FullScreenUtilities;
-import domain.*;
+import domain.ControllerMainFrame;
+import domain.MainFramePresenter;
+import domain.PersonMessage;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import static java.awt.event.KeyEvent.VK_F;
 import static java.awt.event.KeyEvent.VK_M;
@@ -68,12 +71,21 @@ public class MainFrame extends JFrame implements MainFramePresenter {
 
         final JMenuItem exportDataMenuItem = newJMenuItemWithListener("Export Data...", e -> {
             if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION)
-                System.out.println(fileChooser.getSelectedFile());
+                try {
+                    controller.exportRepository(fileChooser.getSelectedFile());
+                } catch (IOException e1) {
+                    JOptionPane.showMessageDialog(this, "Could not export file.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
         });
 
         final JMenuItem importDataMenuItem = newJMenuItemWithListener("Import Data...", e -> {
             if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION)
-                System.out.println(fileChooser.getSelectedFile());
+                try {
+                    controller.loadRepository(fileChooser.getSelectedFile());
+                    personTablePanel.refresh();
+                } catch (IOException e1) {
+                    JOptionPane.showMessageDialog(this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
         });
 
         fileMenu.add(exportDataMenuItem);

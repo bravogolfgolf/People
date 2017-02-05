@@ -1,8 +1,5 @@
 package domain;
 
-import domain.RepositoryInteractor;
-import domain.Person;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +7,7 @@ import java.util.TreeMap;
 
 public class PersonRepository implements RepositoryInteractor {
 
-    private final Map<Integer, Person> people = new HashMap<>();
+    private Map<Integer, Person> people = new HashMap<>();
 
     private final Map<Integer, String> ageCategories = new TreeMap<Integer, String>() {{
         put(0, "Under 18");
@@ -32,6 +29,11 @@ public class PersonRepository implements RepositoryInteractor {
     @Override
     public Map<Integer, Person> getPeople() {
         return people;
+    }
+
+    @Override
+    public void setPeople(Map<Integer, Person> people) {
+        this.people = people;
     }
 
     Map<Integer, String> getEmploymentStatuses() {
