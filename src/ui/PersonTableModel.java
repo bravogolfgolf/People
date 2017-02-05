@@ -14,8 +14,8 @@ class PersonTableModel extends AbstractTableModel {
     private final String[] columnNames = {"ID", "Full Name", "Occupation", "Age Category",
             "Employment Status", "US Citizen", "Tax ID", "Gender"};
 
-    void addDataForPersonTableModel(PersonMessage[] response) {
-        List<PersonMessage> list = Arrays.asList(response);
+    void addDataForPersonTableModel(PersonMessage[] people) {
+        List<PersonMessage> list = Arrays.asList(people);
         personTableModelData.clear();
         for (PersonMessage message : list) {
             personTableModelData.put(message.id, message);

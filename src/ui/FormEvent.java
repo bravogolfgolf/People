@@ -1,8 +1,10 @@
-package domain;
+package ui;
+
+import domain.FormEventController;
 
 import java.util.EventObject;
 
-public class FormEvent extends EventObject {
+public class FormEvent extends EventObject implements FormEventController {
     private final String fullName;
     private final String occupation;
     private final int ageCategory;
@@ -22,30 +24,37 @@ public class FormEvent extends EventObject {
         this.gender = gender;
     }
 
+    @Override
     public String getFullName() {
         return fullName;
     }
 
+    @Override
     public String getOccupation() {
         return occupation;
     }
 
+    @Override
     public int getAgeCategory() {
         return ageCategory;
     }
 
+    @Override
     public int getEmploymentStatus() {
         return employmentStatus;
     }
 
-    Boolean isUsCitizen() {
+    @Override
+    public Boolean isUsCitizen() {
         return uSCitizen;
     }
 
+    @Override
     public String getTaxId() {
         return taxId;
     }
 
+    @Override
     public String getGender() {
         return gender;
     }

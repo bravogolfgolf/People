@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 public interface ControllerMainFrame {
-    void addPerson(FormEvent formEvent);
+    void addPerson(FormEventController formEvent);
 
     void exportRepository(File file) throws IOException;
 

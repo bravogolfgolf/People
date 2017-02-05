@@ -13,7 +13,7 @@ public class Controller implements ControllerMainFrame {
     }
 
     @Override
-    public void addPerson(FormEvent formEvent) {
+    public void addPerson(FormEventController formEvent) {
         request.fullName = formEvent.getFullName();
         request.occupation = formEvent.getOccupation();
         request.ageCategory = formEvent.getAgeCategory();
