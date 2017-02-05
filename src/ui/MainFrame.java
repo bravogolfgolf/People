@@ -9,6 +9,8 @@ import domain.MainFramePresenter;
 import domain.PersonMessage;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +21,11 @@ import static java.awt.event.KeyEvent.VK_M;
 
 public class MainFrame extends JFrame implements MainFramePresenter {
 
+    private static final String PERSON_DATABASE_FILE_EXTENSION = "per";
+    private static final String PERSON_DATABASE_FILE_EXTENSION_DESC = "Person database files (*.per)";
+
     static final String NEW_LINE = System.lineSeparator();
+
     private static final String ENTER_FULL_SCREEN = "Enter Full Screen";
     private static final String HIDE_FORM = "Hide Form";
     //    private ToolBar toolBar;
@@ -66,9 +72,10 @@ public class MainFrame extends JFrame implements MainFramePresenter {
 
         final JMenu fileMenu = new JMenu("File");
 
-        final JFileChooser fileChooser = new JFileChooser();
-        fileChooser.addChoosableFileFilter(new CustomFileFilter());
 
+        final JFileChooser fileChooser = new JFileChooser();
+        FileFilter filter = new FileNameExtensionFilter(PERSON_DATABASE_FILE_EXTENSION_DESC, PERSON_DATABASE_FILE_EXTENSION);
+        fileChooser.addChoosableFileFilter(filter);
         final JMenuItem exportDataMenuItem = newJMenuItemWithListener("Export Data...", e -> {
             if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION)
                 try {
