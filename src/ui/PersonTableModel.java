@@ -16,6 +16,7 @@ class PersonTableModel extends AbstractTableModel {
 
     void addDataForPersonTableModel(PersonMessage[] response) {
         List<PersonMessage> list = Arrays.asList(response);
+        personTableModelData.clear();
         for (PersonMessage message : list) {
             personTableModelData.put(message.id, message);
         }
