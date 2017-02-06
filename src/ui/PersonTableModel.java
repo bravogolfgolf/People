@@ -25,6 +25,30 @@ class PersonTableModel extends AbstractTableModel {
     }
 
     @Override
+    public Class getColumnClass(int columnIndex) {
+        switch (columnIndex) {
+            case 0:
+                return Integer.class;
+            case 1:
+                return String.class;
+            case 2:
+                return String.class;
+            case 3:
+                return Integer.class;
+            case 4:
+                return Integer.class;
+            case 5:
+                return Boolean.class;
+            case 6:
+                return String.class;
+            case 7:
+                return String.class;
+            default:
+                return String.class;
+        }
+    }
+
+    @Override
     public int getRowCount() {
         return personTableModelData == null ? 0 : personTableModelData.length;
     }
@@ -55,7 +79,8 @@ class PersonTableModel extends AbstractTableModel {
                 return person.taxId;
             case 7:
                 return person.gender;
+            default:
+                return null;
         }
-        return null;
     }
 }

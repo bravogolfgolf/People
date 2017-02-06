@@ -3,9 +3,12 @@ package ui;
 import domain.PersonMessage;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.*;
+import java.util.List;
 
 class PersonTablePanel extends JPanel {
 
@@ -47,6 +50,14 @@ class PersonTablePanel extends JPanel {
     }
 
     private void addComponents() {
+        TableRowSorter<PersonTableModel> sorter = new TableRowSorter<>(personTableModel);
+        tablePanel.setRowSorter(sorter);
+
+        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+        sorter.setSortKeys(sortKeys);
+
+
         setLayout(new BorderLayout());
         popupMenu.add(deleteRowMenuItem);
         add(popupMenu);
