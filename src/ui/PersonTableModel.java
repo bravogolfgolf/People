@@ -3,23 +3,20 @@ package ui;
 import domain.PersonMessage;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 class PersonTableModel extends AbstractTableModel {
 
-    private final Map<Integer, PersonMessage> personTableModelData = new HashMap<>();
+    private PersonMessage[] personTableModelData;
     private final String[] columnNames = {"ID", "Full Name", "Occupation", "Age Category",
             "Employment Status", "US Citizen", "Tax ID", "Gender"};
 
     void addDataForPersonTableModel(PersonMessage[] people) {
-        List<PersonMessage> list = Arrays.asList(people);
-        personTableModelData.clear();
-        for (PersonMessage message : list) {
-            personTableModelData.put(message.id, message);
-        }
+        personTableModelData = new PersonMessage[people.length];
+        personTableModelData = people;
+    }
+
+    int getIdOfPersonOn(int rowNumber) {
+        return (int) getValueAt(rowNumber, 0);
     }
 
     @Override
@@ -29,7 +26,7 @@ class PersonTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return personTableModelData.size();
+        return personTableModelData == null ? 0 : personTableModelData.length;
     }
 
     @Override
@@ -39,7 +36,7 @@ class PersonTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        PersonMessage person = personTableModelData.get(rowIndex);
+        PersonMessage person = personTableModelData[rowIndex];
 
         switch (columnIndex) {
             case 0:

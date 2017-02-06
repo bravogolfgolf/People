@@ -8,4 +8,6 @@ interface RepositoryInteractor {
     Map<Integer, Person> getPeople();
 
     void setPeople(Map<Integer, Person> people);
+
+    void deletePerson(int id);
 }

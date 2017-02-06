@@ -34,4 +34,9 @@ public class Controller implements ControllerMainFrame {
     public void loadRepository(File file) throws IOException {
         interactor.loadRepository(file);
     }
+
+    @Override
+    public void deletePerson(int id) {
+        interactor.deletePerson(id);
+    }
 }

@@ -36,6 +36,11 @@ public class PersonRepository implements RepositoryInteractor {
         this.people = people;
     }
 
+    @Override
+    public void deletePerson(int id) {
+        people.remove(id);
+    }
+
     Map<Integer, String> getEmploymentStatuses() {
         return Collections.unmodifiableMap(employmentStatuses);
     }

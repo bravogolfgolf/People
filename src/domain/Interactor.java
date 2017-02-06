@@ -4,6 +4,7 @@ import data.Persistent;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 
 public class Interactor implements InteractorController {
 
@@ -22,7 +23,7 @@ public class Interactor implements InteractorController {
     public void addPerson(PersonMessage request) {
         Person person = new Person(request.fullName, request.occupation, request.ageCategory, request.employmentStatus, request.uSCitizen, request.taxId, request.gender);
         repository.addPerson(person);
-        presenter.addPerson(repository.getPeople());
+        presenter.presentPeople(repository.getPeople());
     }
 
     @Override
@@ -33,8 +34,14 @@ public class Interactor implements InteractorController {
     @Override
     public void loadRepository(File file) throws IOException {
         repository.setPeople(Persistent.load(file));
-        int counter = repository.getPeople().size();
+        int counter = Collections.max(repository.getPeople().keySet()) + 1;
         Person.setCounter(counter);
-        presenter.addPerson(repository.getPeople());
+        presenter.presentPeople(repository.getPeople());
+    }
+
+    @Override
+    public void deletePerson(int id) {
+        repository.deletePerson(id);
+        presenter.presentPeople(repository.getPeople());
     }
 }

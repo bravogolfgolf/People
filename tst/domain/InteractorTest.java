@@ -15,7 +15,7 @@ public class InteractorTest implements PresenterInteractor {
     private Map<Integer, Person> result;
 
     @Override
-    public void addPerson(Map<Integer, Person> result) {
+    public void presentPeople(Map<Integer, Person> result) {
         this.result = result;
     }
 
@@ -130,6 +130,19 @@ public class InteractorTest implements PresenterInteractor {
     private void mapKeysMatchPersonIDs() {
         for (Integer key : result.keySet())
             assertTrue(key.equals(result.get(key).getId()));
+    }
+
+    @Test
+    public void shouldDeletePersonWithId() {
+        int id = 0;
+        createRequest("Person0");
+        addEntryToRepository();
+        createRequest("Person1");
+        addEntryToRepository();
+        assertEquals(2, this.result.size());
+        result = null;
+        interactor.deletePerson(id);
+        assertEquals(1, this.result.size());
     }
 
 }

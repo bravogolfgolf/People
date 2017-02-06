@@ -46,6 +46,18 @@ public class PersonRepositoryTest {
     }
 
     @Test
+    public void shouldBeAbleToDeletePerson() {
+        int id = 0;
+        Person person1 = new Person("Full Name", "Occupation", 0, 2, true, "Tax ID",
+                "Female");
+        repository.addPerson(person);
+        repository.addPerson(person1);
+        assertEquals(2, repository.getPeople().size());
+        repository.deletePerson(id);
+        assertEquals(1, repository.getPeople().size());
+    }
+
+    @Test
     public void shouldBeAbleToReplaceRepository() {
         repository.addPerson(person);
         Map<Integer, Person> expected = new HashMap<>(repository.getPeople());

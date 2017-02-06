@@ -11,7 +11,7 @@ public class Presenter implements PresenterInteractor {
     }
 
     @Override
-    public void addPerson(Map<Integer, Person> result) {
+    public void presentPeople(Map<Integer, Person> result) {
         PersonMessage[] response = new PersonMessage[result.size()];
         int i = 0;
         for (Person person : result.values()) {

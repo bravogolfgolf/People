@@ -14,6 +14,7 @@ public class ControllerTest implements InteractorController {
 
     private PersonMessage request;
     private File file;
+    private int id;
 
     @Override
     public void addPerson(PersonMessage request) {
@@ -28,6 +29,11 @@ public class ControllerTest implements InteractorController {
     @Override
     public void loadRepository(File file) {
         this.file = file;
+    }
+
+    @Override
+    public void deletePerson(int id) {
+        this.id = id;
     }
 
     private final Controller controller = new Controller();
@@ -67,6 +73,13 @@ public class ControllerTest implements InteractorController {
         controller.loadRepository(file);
         assertEquals(this.file.getName(), file.getName());
 
+    }
+
+    @Test
+    public void verifyDeletePersonMethodCalled() {
+        int id = 1;
+        controller.deletePerson(id);
+        assertEquals(this.id, id);
     }
 }
 

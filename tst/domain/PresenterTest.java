@@ -29,7 +29,7 @@ public class PresenterTest implements MainFramePresenter {
         }};
         presenter.setMainFrame(mainFrame);
 
-        presenter.addPerson(result);
+        presenter.presentPeople(result);
 
         List<PersonMessage> list = Arrays.asList(response);
 

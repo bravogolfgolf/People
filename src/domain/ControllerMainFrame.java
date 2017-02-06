@@ -9,4 +9,6 @@ public interface ControllerMainFrame {
     void exportRepository(File file) throws IOException;
 
     void loadRepository(File file) throws IOException;
+
+    void deletePerson(int id);
 }

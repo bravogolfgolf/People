@@ -28,11 +28,11 @@ public class MainFrame extends JFrame implements MainFramePresenter {
 
     private static final String ENTER_FULL_SCREEN = "Enter Full Screen";
     private static final String HIDE_FORM = "Hide Form";
-    //    private ToolBar toolBar;
+    private ToolBar toolBar;
     private final JMenuBar menuBar = new JMenuBar();
     private FormPanel formPanel;
-    private final PersonTablePanel personTablePanel = new PersonTablePanel();
-    //    private final TextPanel textPanel = new TextPanel();
+    private PersonTablePanel personTablePanel;
+    private TextPanel textPanel;
     private JMenuItem minimizeMenuItem;
     private JMenuItem zoomMenuItem;
     private JMenuItem fullScreenToggleMenuItem;
@@ -163,7 +163,13 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         addFullScreenListener();
         addWindowStateListener();
         addFormPanelListener();
-//        addToolBarListener();
+
+        personTablePanel = new PersonTablePanel(id -> {
+            controller.deletePerson(id);
+            personTablePanel.refresh();
+        });
+
+        addToolBarListener();
     }
 
     private void addFullScreenListener() {
@@ -220,13 +226,16 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     }
 
     private void addToolBarListener() {
-//        toolBar = new ToolBar(textPanel::appendText);
+        textPanel = new TextPanel();
+        textPanel.setVisible(false);
+        toolBar = new ToolBar(textPanel::appendText);
+        toolBar.setVisible(false);
     }
 
     private void addComponents() {
+        add(textPanel, BorderLayout.CENTER);
         add(personTablePanel, BorderLayout.CENTER);
-//        add(textPanel, BorderLayout.CENTER);
-//        add(toolBar, BorderLayout.PAGE_START);
+        add(toolBar, BorderLayout.PAGE_START);
         add(formPanel, BorderLayout.LINE_START);
         SwingUtilities.getRootPane(formPanel.okButton).setDefaultButton(formPanel.okButton);
 
