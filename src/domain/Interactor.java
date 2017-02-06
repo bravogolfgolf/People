@@ -1,7 +1,5 @@
 package domain;
 
-import data.Persistent;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
@@ -10,9 +8,14 @@ public class Interactor implements InteractorController {
 
     private RepositoryInteractor repository;
     private PresenterInteractor presenter;
+    private PersistentInteractor persistent;
 
     public void setRepository(RepositoryInteractor repository) {
         this.repository = repository;
+    }
+
+    public void setPersistent(PersistentInteractor persistent) {
+        this.persistent = persistent;
     }
 
     public void setPresenter(PresenterInteractor presenter) {
@@ -28,12 +31,12 @@ public class Interactor implements InteractorController {
 
     @Override
     public void exportRepository(File file) throws IOException {
-        Persistent.export(repository.getPeople(), file);
+        persistent.export(repository.getPeople(), file);
     }
 
     @Override
     public void loadRepository(File file) throws IOException {
-        repository.setPeople(Persistent.load(file));
+        repository.setPeople(persistent.load(file));
         int counter = Collections.max(repository.getPeople().keySet()) + 1;
         Person.setCounter(counter);
         presenter.presentPeople(repository.getPeople());

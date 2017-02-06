@@ -1,5 +1,6 @@
 package domain;
 
+import data.Persistent;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,6 +21,7 @@ public class InteractorTest implements PresenterInteractor {
     }
 
     private final PersonRepository repository = new PersonRepository();
+    private final PersistentInteractor persistent = new Persistent();
     private final PresenterInteractor presenter = this;
     private final Interactor interactor = new Interactor();
     private final PersonMessage request = new PersonMessage();
@@ -29,6 +31,7 @@ public class InteractorTest implements PresenterInteractor {
     public void setUp() throws Exception {
         Person.setCounter(0);
         interactor.setRepository(repository);
+        interactor.setPersistent(persistent);
         interactor.setPresenter(presenter);
     }
 

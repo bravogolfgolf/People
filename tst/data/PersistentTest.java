@@ -14,6 +14,7 @@ import static junit.framework.TestCase.assertEquals;
 public class PersistentTest {
 
     private final File file = new File("Test.per");
+    private final Persistent persistent = new Persistent();
 
     @Test
     public void shouldSaveMapToFileAndLoadMapFromFileToRecreateMap() throws IOException {
@@ -24,8 +25,8 @@ public class PersistentTest {
             put(person.getId(), person);
         }};
 
-        Persistent.export(people, file);
-        Map<Integer, Person> loaded = Persistent.load(file);
+        persistent.export(people, file);
+        Map<Integer, Person> loaded = persistent.load(file);
 
         for (Integer key : people.keySet()) {
             assertEquals(people.get(key).getId(), loaded.get(key).getId());

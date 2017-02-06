@@ -1,13 +1,15 @@
 package data;
 
+import domain.PersistentInteractor;
 import domain.Person;
 
 import java.io.*;
 import java.util.*;
 
-public class Persistent {
+public class Persistent implements PersistentInteractor {
 
-    public static void export(Map<Integer, Person> map, File file) throws IOException {
+    @Override
+    public void export(Map<Integer, Person> map, File file) throws IOException {
         List<Person> list = new ArrayList<>(map.values());
         Person[] array = list.toArray(new Person[list.size()]);
         try (FileOutputStream fos = new FileOutputStream(file)) {
@@ -17,7 +19,8 @@ public class Persistent {
         }
     }
 
-    public static Map<Integer, Person> load(File file) throws IOException {
+    @Override
+    public Map<Integer, Person> load(File file) throws IOException {
         Map<Integer, Person> map = new HashMap<>();
         try (FileInputStream fis = new FileInputStream(file)) {
             try (ObjectInputStream ois = new ObjectInputStream(fis)) {

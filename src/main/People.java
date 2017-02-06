@@ -1,5 +1,6 @@
 package main;
 
+import data.Persistent;
 import domain.PersonRepository;
 import domain.Interactor;
 import domain.Presenter;
@@ -23,10 +24,13 @@ class People {
             presenter.setMainFrame(mainFrame);
 
             PersonRepository repository = new PersonRepository();
+            Persistent persistent = new Persistent();
 
             Interactor interactor = new Interactor();
             interactor.setRepository(repository);
+            interactor.setPersistent(persistent);
             interactor.setPresenter(presenter);
+
 
             controller.setInteractor(interactor);
         });
