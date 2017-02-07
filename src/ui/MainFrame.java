@@ -1,9 +1,6 @@
 package ui;
 
-import com.apple.eawt.AppEvent;
-import com.apple.eawt.Application;
-import com.apple.eawt.FullScreenListener;
-import com.apple.eawt.FullScreenUtilities;
+import com.apple.eawt.*;
 import domain.ControllerMainFrame;
 import domain.MainFramePresenter;
 import domain.PersonMessage;
@@ -28,21 +25,41 @@ public class MainFrame extends JFrame implements MainFramePresenter {
 
     private static final String ENTER_FULL_SCREEN = "Enter Full Screen";
     private static final String HIDE_FORM = "Hide Form";
-    private ToolBar toolBar;
-    private final JMenuBar menuBar = new JMenuBar();
-    private EntryPanel entryPanel;
-    private PersonTablePanel personTablePanel;
-    private TextPanel textPanel;
+
+    //Menu Bar Components
+    private JMenu fileMenu;
+    private JFileChooser fileChooser;
+    private JMenu viewMenu;
+    private JMenuItem fullScreenToggleMenuItem;
+    private JMenu windowMenu;
     private JMenuItem minimizeMenuItem;
     private JMenuItem zoomMenuItem;
-    private JMenuItem fullScreenToggleMenuItem;
+
+    private EntryPanel entryPanel;
+    private PersonTablePanel personTablePanel;
+
+    // Delete if never used by end of tutorial
+    private TextPanel textPanel;
+
+    // MacOS Specific
+    private final Application application;
+    private PreferenceDialog preferenceDialog;
+
+    //Application Specific
     private ControllerMainFrame controller;
 
     public MainFrame() {
         super();
-        setup();
-        addListeners();
-        addComponents();
+
+        // MacOS Specific
+        application = Application.getApplication();
+        macOSPreferencesMenuHandling();
+        macOSFullScreenHandling();
+
+        //Application Specific
+        setupMainFrame();
+        createAndAddComponentsToMainFrame();
+        setMainFrameVisible();
     }
 
     public void setController(ControllerMainFrame controller) {
@@ -54,125 +71,21 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         personTablePanel.addDataForPersonTableModel(response);
     }
 
-    private void setup() {
-        createMenuBar();
-        setupMainFrame();
-    }
+    private void macOSPreferencesMenuHandling() {
+        application.setPreferencesHandler(preferencesEvent -> preferenceDialog.setVisible(true));
 
-    private void createMenuBar() {
-        final JMenu fileMenu = createFileMenu();
-        final JMenu viewMenu = createViewMenu();
-        final JMenu windowMenu = createWindowMenu();
-        menuBar.add(fileMenu);
-        menuBar.add(viewMenu);
-        menuBar.add(windowMenu);
-    }
-
-    private JMenu createFileMenu() {
-
-        final JMenu fileMenu = new JMenu("File");
-
-
-        final JFileChooser fileChooser = new JFileChooser();
-        FileFilter filter = new FileNameExtensionFilter(PERSON_DATABASE_FILE_EXTENSION_DESC, PERSON_DATABASE_FILE_EXTENSION);
-        fileChooser.addChoosableFileFilter(filter);
-        final JMenuItem exportDataMenuItem = newJMenuItemWithListener("Export Data...", e -> {
-            if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION)
-                try {
-                    controller.exportRepository(fileChooser.getSelectedFile());
-                } catch (IOException e1) {
-                    JOptionPane.showMessageDialog(this, "Could not export file.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+        //TODO move this to pref creation
+        preferenceDialog = new PreferenceDialog((userName, password, port) -> {
+            System.out.print("Username: " + userName);
+            System.out.print(", ");
+            System.out.print("Password: " + password.toString());
+            System.out.print(", ");
+            System.out.println("Port: " + port);
         });
-
-        final JMenuItem importDataMenuItem = newJMenuItemWithListener("Import Data...", e -> {
-            if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION)
-                try {
-                    controller.loadRepository(fileChooser.getSelectedFile());
-                    personTablePanel.refresh();
-                } catch (IOException e1) {
-                    JOptionPane.showMessageDialog(this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-        });
-
-        fileMenu.add(exportDataMenuItem);
-        fileMenu.add(importDataMenuItem);
-        return fileMenu;
     }
 
-    private JMenuItem newJMenuItemWithListener(String text, ActionListener actionListener) {
-        final JMenuItem menuItem = new JMenuItem(text);
-        menuItem.addActionListener(actionListener);
-        return menuItem;
-    }
-
-    private JMenu createViewMenu() {
-        JMenu viewMenu = new JMenu("View");
-
-        final JMenuItem formToggleMenuItem = new JMenuItem(HIDE_FORM);
-        formToggleMenuItem.addActionListener(e -> {
-            togglePanel();
-            formToggleMenuItem.setText(toggleText());
-        });
-
-        fullScreenToggleMenuItem = new JMenuItem(ENTER_FULL_SCREEN);
-        fullScreenToggleMenuItem.setAccelerator(KeyStroke.getKeyStroke(VK_F, ActionEvent.CTRL_MASK | ActionEvent.META_MASK));
-        fullScreenToggleMenuItem.addActionListener(e -> Application.getApplication().requestToggleFullScreen(MainFrame.this));
-
-        viewMenu.add(formToggleMenuItem);
-        viewMenu.addSeparator();
-        viewMenu.add(fullScreenToggleMenuItem);
-        return viewMenu;
-    }
-
-    private void togglePanel() {
-        entryPanel.setVisible(!entryPanel.isVisible());
-    }
-
-    private String toggleText() {
-        if (entryPanel.isVisible())
-            return HIDE_FORM;
-        return "Show Form";
-    }
-
-    private JMenu createWindowMenu() {
-        JMenu windowMenu = new JMenu("Window");
-
-        minimizeMenuItem = new JMenuItem("Minimize");
-        minimizeMenuItem.setAccelerator(KeyStroke.getKeyStroke(VK_M, ActionEvent.META_MASK));
-        minimizeMenuItem.addActionListener(e -> setState(JFrame.ICONIFIED));
-
-        zoomMenuItem = new JMenuItem("Zoom");
-        zoomMenuItem.addActionListener(e -> setExtendedState((getExtendedState() != MAXIMIZED_BOTH) ? MAXIMIZED_BOTH : NORMAL));
-
-        windowMenu.add(minimizeMenuItem);
-        windowMenu.add(zoomMenuItem);
-        return windowMenu;
-    }
-
-    private void setupMainFrame() {
-        setLayout(new BorderLayout());
-        setMinimumSize(new Dimension(850, 310));
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setJMenuBar(menuBar);
+    private void macOSFullScreenHandling() {
         FullScreenUtilities.setWindowCanFullScreen(this, true);
-        setVisible(true);
-    }
-
-    private void addListeners() {
-        addFullScreenListener();
-        addWindowStateListener();
-        addFormPanelListener();
-
-        personTablePanel = new PersonTablePanel(id -> {
-            controller.deletePerson(id);
-            personTablePanel.refresh();
-        });
-
-        addToolBarListener();
-    }
-
-    private void addFullScreenListener() {
         FullScreenUtilities.addFullScreenListenerTo(this, new FullScreenListener() {
             @Override
             public void windowEnteringFullScreen(AppEvent.FullScreenEvent fullScreenEvent) {
@@ -196,17 +109,10 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         });
     }
 
-    private void disableMenuItems() {
-        minimizeMenuItem.setEnabled(false);
-        zoomMenuItem.setEnabled(false);
-    }
-
-    private void enableMenuItems() {
-        minimizeMenuItem.setEnabled(true);
-        zoomMenuItem.setEnabled(true);
-    }
-
-    private void addWindowStateListener() {
+    private void setupMainFrame() {
+        setLayout(new BorderLayout());
+        setMinimumSize(new Dimension(850, 310));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         addWindowStateListener(e -> {
             if (e.getNewState() != JFrame.ICONIFIED) {
                 fullScreenToggleMenuItem.setEnabled(true);
@@ -218,26 +124,171 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         });
     }
 
-    private void addFormPanelListener() {
+    private void createAndAddComponentsToMainFrame() {
+        // Delete if never used by end of tutorial
+        createAndAddTextPanel();
+        createAndAddToolBar();
+
+        //Major Form Components
+        createAndSetMenuBar();
+        createAndAddEntryPane();
+        createAndAddPersonTablePanel();
+    }
+
+    private void createAndAddTextPanel() {
+        textPanel = new TextPanel();
+        textPanel.setVisible(false);
+        add(textPanel, BorderLayout.CENTER);
+
+    }
+
+    private void createAndAddToolBar() {
+        ToolBar toolBar = new ToolBar(textPanel::appendText);
+        toolBar.setVisible(false);
+        add(toolBar, BorderLayout.PAGE_START);
+    }
+
+    private void createAndSetMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+        fileMenu = createFileMenu();
+        viewMenu = createViewMenu();
+        windowMenu = createWindowMenu();
+        menuBar.add(fileMenu);
+        menuBar.add(viewMenu);
+        menuBar.add(windowMenu);
+        setJMenuBar(menuBar);
+    }
+
+    private JMenu createFileMenu() {
+        fileMenu = new JMenu("File");
+        addFileFilterToFileChooser();
+        addExportMenuItem();
+        addImportMenuItem();
+        return fileMenu;
+    }
+
+    private void addFileFilterToFileChooser() {
+        fileChooser = new JFileChooser();
+        FileFilter filter = new FileNameExtensionFilter(PERSON_DATABASE_FILE_EXTENSION_DESC, PERSON_DATABASE_FILE_EXTENSION);
+        fileChooser.addChoosableFileFilter(filter);
+    }
+
+    private void addExportMenuItem() {
+        final JMenuItem exportDataMenuItem = newJMenuItemWithListener("Export Data...", e -> {
+            if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION)
+                try {
+                    controller.exportRepository(fileChooser.getSelectedFile());
+                } catch (IOException e1) {
+                    JOptionPane.showMessageDialog(this, "Could not export file.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+        });
+        fileMenu.add(exportDataMenuItem);
+    }
+
+    private JMenuItem newJMenuItemWithListener(String text, ActionListener actionListener) {
+        final JMenuItem menuItem = new JMenuItem(text);
+        menuItem.addActionListener(actionListener);
+        return menuItem;
+    }
+
+    private void addImportMenuItem() {
+        final JMenuItem importDataMenuItem = newJMenuItemWithListener("Import Data...", e -> {
+            if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION)
+                try {
+                    controller.loadRepository(fileChooser.getSelectedFile());
+                    personTablePanel.refresh();
+                } catch (IOException e1) {
+                    JOptionPane.showMessageDialog(this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+        });
+        fileMenu.add(importDataMenuItem);
+    }
+
+    private JMenu createViewMenu() {
+        viewMenu = new JMenu("View");
+        addEntryFormToggleMenuItem();
+        addMenuItemSeparator();
+        addFullScreenToggleMenuItem();
+
+        return viewMenu;
+    }
+
+    private void addEntryFormToggleMenuItem() {
+        final JMenuItem entryFormToggleMenuItem = new JMenuItem(HIDE_FORM);
+        entryFormToggleMenuItem.addActionListener(e -> {
+            toggleEntryPanel();
+            entryFormToggleMenuItem.setText(toggleTextOfEntryFormToggleMenuItem());
+        });
+        viewMenu.add(entryFormToggleMenuItem);
+    }
+
+    private void toggleEntryPanel() {
+        entryPanel.setVisible(!entryPanel.isVisible());
+    }
+
+    private String toggleTextOfEntryFormToggleMenuItem() {
+        return entryPanel.isVisible() ? HIDE_FORM : "Show Form";
+    }
+
+    private void addMenuItemSeparator() {
+        viewMenu.addSeparator();
+    }
+
+    private void addFullScreenToggleMenuItem() {
+        fullScreenToggleMenuItem = new JMenuItem(ENTER_FULL_SCREEN);
+        fullScreenToggleMenuItem.setAccelerator(KeyStroke.getKeyStroke(VK_F, ActionEvent.CTRL_MASK | ActionEvent.META_MASK));
+        fullScreenToggleMenuItem.addActionListener(e -> application.requestToggleFullScreen(MainFrame.this));
+        viewMenu.add(fullScreenToggleMenuItem);
+    }
+
+    private JMenu createWindowMenu() {
+        windowMenu = new JMenu("Window");
+        addMinimizeMenuItem();
+        addZoomMenuItem();
+        return windowMenu;
+    }
+
+    private void addZoomMenuItem() {
+        zoomMenuItem = new JMenuItem("Zoom");
+        zoomMenuItem.addActionListener(e -> setExtendedState((getExtendedState() != MAXIMIZED_BOTH) ? MAXIMIZED_BOTH : NORMAL));
+        windowMenu.add(zoomMenuItem);
+    }
+
+    private void addMinimizeMenuItem() {
+        minimizeMenuItem = new JMenuItem("Minimize");
+        minimizeMenuItem.setAccelerator(KeyStroke.getKeyStroke(VK_M, ActionEvent.META_MASK));
+        minimizeMenuItem.addActionListener(e -> setState(JFrame.ICONIFIED));
+        windowMenu.add(minimizeMenuItem);
+    }
+
+    private void disableMenuItems() {
+        minimizeMenuItem.setEnabled(false);
+        zoomMenuItem.setEnabled(false);
+    }
+
+    private void enableMenuItems() {
+        minimizeMenuItem.setEnabled(true);
+        zoomMenuItem.setEnabled(true);
+    }
+
+    private void createAndAddEntryPane() {
         entryPanel = new EntryPanel(formEvent -> {
             controller.addPerson(formEvent);
             personTablePanel.refresh();
         });
-    }
-
-    private void addToolBarListener() {
-        textPanel = new TextPanel();
-        textPanel.setVisible(false);
-        toolBar = new ToolBar(textPanel::appendText);
-        toolBar.setVisible(false);
-    }
-
-    private void addComponents() {
-        add(textPanel, BorderLayout.CENTER);
-        add(personTablePanel, BorderLayout.CENTER);
-        add(toolBar, BorderLayout.PAGE_START);
         add(entryPanel, BorderLayout.LINE_START);
         SwingUtilities.getRootPane(entryPanel.okButton).setDefaultButton(entryPanel.okButton);
+    }
 
+    private void createAndAddPersonTablePanel() {
+        personTablePanel = new PersonTablePanel(id -> {
+            controller.deletePerson(id);
+            personTablePanel.refresh();
+        });
+        add(personTablePanel, BorderLayout.CENTER);
+    }
+
+    private void setMainFrameVisible() {
+        setVisible(true);
     }
 }

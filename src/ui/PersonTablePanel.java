@@ -16,20 +16,34 @@ class PersonTablePanel extends JPanel {
     private final JTable tablePanel = new JTable(personTableModel);
     private final JPopupMenu popupMenu = new JPopupMenu();
     private final JMenuItem deleteRowMenuItem = new JMenuItem("Delete row");
-    private final PersonTableListener personTableListener;
+    private final PersonTablePanelListener personTablePanelListener;
 
-    PersonTablePanel(PersonTableListener personTableListener) {
-        this.personTableListener = personTableListener;
-        addListeners();
-        addComponents();
+    PersonTablePanel(PersonTablePanelListener personTablePanelListener) {
+        this.personTablePanelListener = personTablePanelListener;
+        setLayout(new BorderLayout());
+        createAndAddPopUp();
+        createAndAddTablePanel();
     }
 
-    private void addListeners() {
-        addMouseListener();
-        addActionListener();
+    void addDataForPersonTableModel(PersonMessage[] people) {
+        personTableModel.addDataForPersonTableModel(people);
     }
 
-    private void addMouseListener() {
+    void refresh() {
+        personTableModel.fireTableDataChanged();
+    }
+
+    private void createAndAddPopUp() {
+        deleteRowMenuItem.addActionListener(e -> {
+            int rowSelected = tablePanel.getSelectedRow();
+            int id = personTableModel.getIdOfPersonOn(rowSelected);
+            personTablePanelListener.personDeleted(id);
+        });
+        popupMenu.add(deleteRowMenuItem);
+        add(popupMenu);
+    }
+
+    private void createAndAddTablePanel() {
         tablePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -39,36 +53,11 @@ class PersonTablePanel extends JPanel {
                     popupMenu.show(tablePanel, e.getX(), e.getY());
             }
         });
-    }
-
-    private void addActionListener() {
-        deleteRowMenuItem.addActionListener(e -> {
-            int rowSelected = tablePanel.getSelectedRow();
-            int id = personTableModel.getIdOfPersonOn(rowSelected);
-            personTableListener.personDeleted(id);
-        });
-    }
-
-    private void addComponents() {
         TableRowSorter<PersonTableModel> sorter = new TableRowSorter<>(personTableModel);
         tablePanel.setRowSorter(sorter);
-
         List<RowSorter.SortKey> sortKeys = new ArrayList<>();
         sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
         sorter.setSortKeys(sortKeys);
-
-
-        setLayout(new BorderLayout());
-        popupMenu.add(deleteRowMenuItem);
-        add(popupMenu);
         add(new JScrollPane(tablePanel), BorderLayout.CENTER);
-    }
-
-    void addDataForPersonTableModel(PersonMessage[] people) {
-        personTableModel.addDataForPersonTableModel(people);
-    }
-
-    void refresh() {
-        personTableModel.fireTableDataChanged();
     }
 }
