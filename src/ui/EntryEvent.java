@@ -4,7 +4,7 @@ import domain.FormEventController;
 
 import java.util.EventObject;
 
-public class FormEvent extends EventObject implements FormEventController {
+public class EntryEvent extends EventObject implements FormEventController {
     private final String fullName;
     private final String occupation;
     private final int ageCategory;
@@ -13,7 +13,7 @@ public class FormEvent extends EventObject implements FormEventController {
     private final String taxId;
     private final String gender;
 
-    public FormEvent(Object source, String fullName, String occupation, int ageCategory, int employmentStatus, Boolean uSCitizen, String taxId, String gender) {
+    public EntryEvent(Object source, String fullName, String occupation, int ageCategory, int employmentStatus, Boolean uSCitizen, String taxId, String gender) {
         super(source);
         this.fullName = fullName;
         this.occupation = occupation;

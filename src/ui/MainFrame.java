@@ -30,7 +30,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     private static final String HIDE_FORM = "Hide Form";
     private ToolBar toolBar;
     private final JMenuBar menuBar = new JMenuBar();
-    private FormPanel formPanel;
+    private EntryPanel entryPanel;
     private PersonTablePanel personTablePanel;
     private TextPanel textPanel;
     private JMenuItem minimizeMenuItem;
@@ -126,11 +126,11 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     }
 
     private void togglePanel() {
-        formPanel.setVisible(!formPanel.isVisible());
+        entryPanel.setVisible(!entryPanel.isVisible());
     }
 
     private String toggleText() {
-        if (formPanel.isVisible())
+        if (entryPanel.isVisible())
             return HIDE_FORM;
         return "Show Form";
     }
@@ -219,7 +219,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     }
 
     private void addFormPanelListener() {
-        formPanel = new FormPanel(formEvent -> {
+        entryPanel = new EntryPanel(formEvent -> {
             controller.addPerson(formEvent);
             personTablePanel.refresh();
         });
@@ -236,8 +236,8 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         add(textPanel, BorderLayout.CENTER);
         add(personTablePanel, BorderLayout.CENTER);
         add(toolBar, BorderLayout.PAGE_START);
-        add(formPanel, BorderLayout.LINE_START);
-        SwingUtilities.getRootPane(formPanel.okButton).setDefaultButton(formPanel.okButton);
+        add(entryPanel, BorderLayout.LINE_START);
+        SwingUtilities.getRootPane(entryPanel.okButton).setDefaultButton(entryPanel.okButton);
 
     }
 }

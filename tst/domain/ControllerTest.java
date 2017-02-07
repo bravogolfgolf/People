@@ -2,7 +2,7 @@ package domain;
 
 import org.junit.Before;
 import org.junit.Test;
-import ui.FormEvent;
+import ui.EntryEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class ControllerTest implements InteractorController {
 
     @Test
     public void shouldTransformFormEventIntoRequest() {
-        FormEventController formEvent = new FormEvent(new Object(), "Full Name", "Occupation", 0, 0, true, "Tax ID", "Gender");
+        FormEventController formEvent = new EntryEvent(new Object(), "Full Name", "Occupation", 0, 0, true, "Tax ID", "Gender");
 
         controller.addPerson(formEvent);
 

@@ -7,9 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 
-class FormPanel extends JPanel {
+class EntryPanel extends JPanel {
 
-    private final FormPanelListener formPanelListener;
+    private final EntryPanelListener entryPanelListener;
     private final JLabel nameLabel = new JLabel("Full Name:");
     private final JTextField nameField = new JTextField(10);
     private final JLabel occupationLabel = new JLabel("Occupation:");
@@ -36,8 +36,8 @@ class FormPanel extends JPanel {
     private Boolean uSCitizen;
     private String taxId;
 
-    FormPanel(FormPanelListener formPanelListener) {
-        this.formPanelListener = formPanelListener;
+    EntryPanel(EntryPanelListener entryPanelListener) {
+        this.entryPanelListener = entryPanelListener;
         setupComponents();
         addListeners();
         addComponentsToFormPanel();
@@ -129,7 +129,7 @@ class FormPanel extends JPanel {
                 taxId = "000-00-0000";
             }
             String gender = genderButtonGroup.getSelection().getActionCommand();
-            formPanelListener.eventEmitted(new FormEvent(e, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender));
+            entryPanelListener.eventEmitted(new EntryEvent(e, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender));
         });
     }
 
