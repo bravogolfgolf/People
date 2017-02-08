@@ -10,33 +10,59 @@ import java.util.regex.Pattern;
 
 class PreferenceDialog extends JDialog {
 
-    private final JLabel usernameLabel;
-    private final JTextField usernameField;
-    private final JLabel passwordLabel;
-    private final JPasswordField passwordField;
-    private final JLabel portLabel;
-    private final JTextField portField;
-    private final JButton oKButton;
+    private JLabel usernameLabel;
+    private JTextField usernameField;
+    private JLabel passwordLabel;
+    private JPasswordField passwordField;
+    private JLabel portLabel;
+    private JTextField portField;
+    private JButton oKButton;
     private final PreferenceDialogListener preferenceDialogListener;
-    private final JButton cancel;
+    private JButton cancel;
     private final GridBagConstraints gridBagConstraints = new GridBagConstraints();
+    private final JPanel databasePreferences = new JPanel(new GridBagLayout());
 
     PreferenceDialog(PreferenceDialogListener preferenceDialogListener) {
         this.preferenceDialogListener = preferenceDialogListener;
 
+        createComponentsForDatabasePreferencePanel();
+        addComponentsToDatabasePreferencePanel();
+
+        JTabbedPane preferences = new JTabbedPane();
+        preferences.addTab("Database", databasePreferences);
+
+        setSize(300, 300);
+        add(preferences);
+    }
+
+    private void createComponentsForDatabasePreferencePanel() {
+        createUserNameLabelAndField();
+        createPasswordLableAndField();
+        createPortLableAndField();
+        createOkButton();
+        createCancelButton();
+    }
+
+    private void createUserNameLabelAndField() {
         usernameLabel = new JLabel("Username:");
         usernameField = new JTextField(10);
+    }
 
+    private void createPasswordLableAndField() {
         passwordLabel = new JLabel("Password:");
         passwordField = new JPasswordField(10);
+    }
 
+    private void createPortLableAndField() {
         portLabel = new JLabel("Port:");
         portField = new JTextField();
         LimitDigitsDocument document = new LimitDigitsDocument(4);
         portField.setDocument(document);
         portField.setColumns(4);
         portField.setText("3306");
+    }
 
+    private void createOkButton() {
         oKButton = new JButton("OK");
         oKButton.addActionListener(e -> {
             try {
@@ -47,11 +73,14 @@ class PreferenceDialog extends JDialog {
                 JOptionPane.showMessageDialog(this, "Port number must be between 0 and 9999.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+    }
 
+    private void createCancelButton() {
         cancel = new JButton("Cancel");
         cancel.addActionListener(e -> setVisible(false));
+    }
 
-        JPanel databasePreferences = new JPanel(new GridBagLayout());
+    private void addComponentsToDatabasePreferencePanel() {
 
         setGridBagConstraints(0, 0, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.LINE_START);
         databasePreferences.add(usernameLabel, gridBagConstraints);
@@ -76,13 +105,6 @@ class PreferenceDialog extends JDialog {
 
         setGridBagConstraints(3, 1, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.LINE_START);
         databasePreferences.add(cancel, gridBagConstraints);
-
-        JTabbedPane preferences = new JTabbedPane();
-        preferences.setVisible(true);
-        preferences.addTab("Database", databasePreferences);
-
-        setSize(300, 300);
-        add(preferences);
     }
 
     private void setGridBagConstraints(int row, int column, int columnSpan, int insetValue, int columnWeight, int rowWeight, int fill, int anchor) {
