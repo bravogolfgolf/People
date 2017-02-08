@@ -39,20 +39,21 @@ class EntryPanel extends JPanel {
     EntryPanel(EntryPanelListener entryPanelListener) {
         this.entryPanelListener = entryPanelListener;
         setupComponents();
-        addListeners();
-        addComponentsToFormPanel();
+        addComponentsToEntryPanel();
     }
 
     private void setupComponents() {
-        setupFormPanel();
+        setupEntryPanel();
         setupAgeList();
         setupStatusCombo();
+        setUpUsCitizenCheckBox();
         setupTaxIdLabel();
         setupTaxIdField();
-        setupRadioButtonPanel();
+        setupGenderRadioButtons();
+        setupOkButton();
     }
 
-    private void setupFormPanel() {
+    private void setupEntryPanel() {
         Border insideBorder = BorderFactory.createTitledBorder("Person");
         Border outsideBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         setBorder(BorderFactory.createCompoundBorder(outsideBorder, insideBorder));
@@ -74,6 +75,15 @@ class EntryPanel extends JPanel {
         statusCombo.setSelectedIndex(0);
     }
 
+    private void setUpUsCitizenCheckBox() {
+        uSCitizenCheckBox.addActionListener(e -> {
+            taxIdLabel.setEnabled(uSCitizenCheckBox.isSelected());
+            taxIdLabel.setVisible(uSCitizenCheckBox.isSelected());
+            taxIdField.setEnabled(uSCitizenCheckBox.isSelected());
+            taxIdField.setVisible(uSCitizenCheckBox.isSelected());
+        });
+    }
+
     private void setupTaxIdLabel() {
         taxIdLabel.setEnabled(false);
         taxIdLabel.setVisible(false);
@@ -92,7 +102,7 @@ class EntryPanel extends JPanel {
         taxIdField.setVisible(false);
     }
 
-    private void setupRadioButtonPanel() {
+    private void setupGenderRadioButtons() {
         maleRadioButton.setActionCommand("Male");
         femaleRadioButton.setActionCommand("Female");
         genderButtonGroup.add(maleRadioButton);
@@ -101,21 +111,7 @@ class EntryPanel extends JPanel {
         radioButtonPanel.add(femaleRadioButton);
     }
 
-    private void addListeners() {
-        addUsCitizenCheckBoxListener();
-        addOkButtonListener();
-    }
-
-    private void addUsCitizenCheckBoxListener() {
-        uSCitizenCheckBox.addActionListener(e -> {
-            taxIdLabel.setEnabled(uSCitizenCheckBox.isSelected());
-            taxIdLabel.setVisible(uSCitizenCheckBox.isSelected());
-            taxIdField.setEnabled(uSCitizenCheckBox.isSelected());
-            taxIdField.setVisible(uSCitizenCheckBox.isSelected());
-        });
-    }
-
-    private void addOkButtonListener() {
+    private void setupOkButton() {
         okButton.addActionListener((ActionEvent e) -> {
             String fullName = nameField.getText();
             String occupation = occupationField.getText();
@@ -133,59 +129,59 @@ class EntryPanel extends JPanel {
         });
     }
 
-    private void addComponentsToFormPanel() {
+    private void addComponentsToEntryPanel() {
 
         setGridBagConstraints(0, 0, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(nameLabel, gridBagConstraints);
 
-        setGridBagConstraints(1, 0, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(0, 1, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(nameField, gridBagConstraints);
 
-        setGridBagConstraints(0, 1, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(1, 0, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(occupationLabel, gridBagConstraints);
 
         setGridBagConstraints(1, 1, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(occupationField, gridBagConstraints);
 
-        setGridBagConstraints(0, 2, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.FIRST_LINE_START);
+        setGridBagConstraints(2, 0, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.FIRST_LINE_START);
         gridBagConstraints.insets = new Insets(3, 0, 0, 0);
         add(ageLabel, gridBagConstraints);
 
-        setGridBagConstraints(1, 2, 1, 3, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(2, 1, 1, 3, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(ageList, gridBagConstraints);
 
-        setGridBagConstraints(0, 3, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.FIRST_LINE_START);
+        setGridBagConstraints(3, 0, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.FIRST_LINE_START);
         add(statusLabel, gridBagConstraints);
 
-        setGridBagConstraints(1, 3, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(3, 1, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(statusCombo, gridBagConstraints);
 
-        setGridBagConstraints(0, 4, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.LINE_START);
+        setGridBagConstraints(4, 0, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.LINE_START);
         add(uSCitizenLabel, gridBagConstraints);
 
-        setGridBagConstraints(1, 4, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(4, 1, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(uSCitizenCheckBox, gridBagConstraints);
 
-        setGridBagConstraints(0, 5, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(5, 0, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(taxIdLabel, gridBagConstraints);
 
-        setGridBagConstraints(1, 5, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(5, 1, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(taxIdField, gridBagConstraints);
 
-        setGridBagConstraints(0, 6, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(6, 0, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(genderLabel, gridBagConstraints);
 
-        setGridBagConstraints(1, 6, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(6, 1, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(radioButtonPanel, gridBagConstraints);
 
-        setGridBagConstraints(1, 7, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.FIRST_LINE_END);
+        setGridBagConstraints(7, 1, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.FIRST_LINE_END);
         add(okButton, gridBagConstraints);
 
-        setGridBagConstraints(0, 8, 2, 0, 1, 1, GridBagConstraints.BOTH, GridBagConstraints.PAGE_END);
+        setGridBagConstraints(8, 0, 2, 0, 1, 1, GridBagConstraints.BOTH, GridBagConstraints.PAGE_END);
         add(paddingPanel, gridBagConstraints);
     }
 
-    private void setGridBagConstraints(int column, int row, int columnSpan, int insetValue, int columnWeight, int rowWeight, int fill, int anchor) {
+    private void setGridBagConstraints(int row, int column, int columnSpan, int insetValue, int columnWeight, int rowWeight, int fill, int anchor) {
         gridBagConstraints.gridx = column;
         gridBagConstraints.gridy = row;
         gridBagConstraints.gridwidth = columnSpan;
