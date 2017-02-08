@@ -1,6 +1,9 @@
 package ui;
 
-import com.apple.eawt.*;
+import com.apple.eawt.AppEvent;
+import com.apple.eawt.Application;
+import com.apple.eawt.FullScreenListener;
+import com.apple.eawt.FullScreenUtilities;
 import domain.ControllerMainFrame;
 import domain.MainFramePresenter;
 import domain.PersonMessage;
@@ -74,14 +77,6 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     private void macOSPreferencesMenuHandling() {
         application.setPreferencesHandler(preferencesEvent -> preferenceDialog.setVisible(true));
 
-        //TODO move this to pref creation
-        preferenceDialog = new PreferenceDialog((userName, password, port) -> {
-            System.out.print("Username: " + userName);
-            System.out.print(", ");
-            System.out.print("Password: " + password.toString());
-            System.out.print(", ");
-            System.out.println("Port: " + port);
-        });
     }
 
     private void macOSFullScreenHandling() {
@@ -133,6 +128,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         createAndSetMenuBar();
         createAndAddEntryPane();
         createAndAddPersonTablePanel();
+        createPreferenceDialog();
     }
 
     private void createAndAddTextPanel() {
@@ -286,6 +282,12 @@ public class MainFrame extends JFrame implements MainFramePresenter {
             personTablePanel.refresh();
         });
         add(personTablePanel, BorderLayout.CENTER);
+    }
+
+    private void createPreferenceDialog() {
+        preferenceDialog = new PreferenceDialog((userName, password, port) -> {
+            ;
+        });
     }
 
     private void setMainFrameVisible() {
