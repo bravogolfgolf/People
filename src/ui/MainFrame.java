@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.prefs.Preferences;
 
 import static java.awt.event.KeyEvent.VK_F;
 import static java.awt.event.KeyEvent.VK_M;
@@ -50,6 +51,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
 
     //Application Specific
     private ControllerMainFrame controller;
+    private Preferences preferences;
 
     public MainFrame() {
         super();
@@ -285,9 +287,18 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     }
 
     private void createPreferenceDialog() {
-        preferenceDialog = new PreferenceDialog((userName, password, port) -> {
-            ;
+        preferenceDialog = new PreferenceDialog((username, password, portNumber) -> {
+            preferences.put("username", username);
+            preferences.put("password", password);
+            preferences.putInt("portNumber", portNumber);
         });
+
+        preferences = Preferences.userRoot().node("database");
+        String username = preferences.get("username", "");
+        String password = preferences.get("password", "");
+        int portNumber = preferences.getInt("portNumber", 3306);
+
+        preferenceDialog.setDefaults(username, password, portNumber);
     }
 
     private void setMainFrameVisible() {

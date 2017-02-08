@@ -35,10 +35,16 @@ class PreferenceDialog extends JDialog {
         add(preferences);
     }
 
+    void setDefaults(String username, String password, int portNumber) {
+        usernameField.setText(username);
+        passwordField.setText(password);
+        portField.setText(String.valueOf(portNumber));
+    }
+
     private void createComponentsForDatabasePreferencePanel() {
         createUserNameLabelAndField();
-        createPasswordLableAndField();
-        createPortLableAndField();
+        createPasswordLabelAndField();
+        createPortLabelAndField();
         createOkButton();
         createCancelButton();
     }
@@ -48,18 +54,17 @@ class PreferenceDialog extends JDialog {
         usernameField = new JTextField(10);
     }
 
-    private void createPasswordLableAndField() {
+    private void createPasswordLabelAndField() {
         passwordLabel = new JLabel("Password:");
         passwordField = new JPasswordField(10);
     }
 
-    private void createPortLableAndField() {
+    private void createPortLabelAndField() {
         portLabel = new JLabel("Port:");
         portField = new JTextField();
         LimitDigitsDocument document = new LimitDigitsDocument(4);
         portField.setDocument(document);
         portField.setColumns(4);
-        portField.setText("3306");
     }
 
     private void createOkButton() {
@@ -67,7 +72,7 @@ class PreferenceDialog extends JDialog {
         oKButton.addActionListener(e -> {
             try {
                 int portNumber = Integer.parseInt(portField.getText());
-                this.preferenceDialogListener.preferencesEmitted(usernameField.getText(), passwordField.getPassword(), portNumber);
+                this.preferenceDialogListener.preferencesEmitted(usernameField.getText(), new String(passwordField.getPassword()), portNumber);
                 setVisible(false);
             } catch (NumberFormatException e1) {
                 JOptionPane.showMessageDialog(this, "Port number must be between 0 and 9999.", "Error", JOptionPane.ERROR_MESSAGE);
