@@ -22,8 +22,11 @@ class PreferenceDialog extends JDialog {
     private final GridBagConstraints gridBagConstraints = new GridBagConstraints();
     private final JPanel databasePreferences = new JPanel(new GridBagLayout());
 
-    PreferenceDialog(PreferenceDialogListener preferenceDialogListener) {
+    PreferenceDialog(JFrame parent, PreferenceDialogListener preferenceDialogListener) {
+        super(parent, "Preferences", false);
         this.preferenceDialogListener = preferenceDialogListener;
+        setSize(300, 300);
+        setLocationRelativeTo(parent);
 
         createComponentsForDatabasePreferencePanel();
         addComponentsToDatabasePreferencePanel();
@@ -31,7 +34,6 @@ class PreferenceDialog extends JDialog {
         JTabbedPane preferences = new JTabbedPane();
         preferences.addTab("Database", databasePreferences);
 
-        setSize(300, 300);
         add(preferences);
     }
 
@@ -78,11 +80,13 @@ class PreferenceDialog extends JDialog {
                 JOptionPane.showMessageDialog(this, "Port number must be between 0 and 9999.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+
     }
 
     private void createCancelButton() {
         cancel = new JButton("Cancel");
         cancel.addActionListener(e -> setVisible(false));
+        getRootPane().setDefaultButton(cancel);
     }
 
     private void addComponentsToDatabasePreferencePanel() {

@@ -287,7 +287,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     }
 
     private void createPreferenceDialog() {
-        preferenceDialog = new PreferenceDialog((username, password, portNumber) -> {
+        preferenceDialog = new PreferenceDialog(this, (username, password, portNumber) -> {
             preferences.put("username", username);
             preferences.put("password", password);
             preferences.putInt("portNumber", portNumber);
