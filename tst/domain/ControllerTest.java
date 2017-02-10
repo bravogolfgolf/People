@@ -7,8 +7,8 @@ import ui.EntryEvent;
 import java.io.File;
 import java.io.IOException;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ControllerTest implements InteractorController {
 

@@ -8,8 +8,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.TestCase.assertEquals;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class PersistentTest {
 
