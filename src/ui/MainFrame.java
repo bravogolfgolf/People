@@ -176,7 +176,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
             if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION)
                 try {
                     controller.exportRepository(fileChooser.getSelectedFile());
-                } catch (IOException e1) {
+                } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this, "Could not export file.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
         });
@@ -195,7 +195,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
                 try {
                     controller.loadRepository(fileChooser.getSelectedFile());
                     personTablePanel.refresh();
-                } catch (IOException e1) {
+                } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
         });

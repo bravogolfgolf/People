@@ -36,7 +36,7 @@ public class Interactor implements InteractorController {
 
     @Override
     public void loadRepository(File file) throws IOException {
-        repository.setPeople(persistent.load(file));
+        repository.setPeople(persistent.getImport(file));
         int counter = Collections.max(repository.getPeople().keySet()) + 1;
         Person.setCounter(counter);
         presenter.presentPeople(repository.getPeople());

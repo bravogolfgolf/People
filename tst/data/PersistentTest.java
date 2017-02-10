@@ -27,7 +27,7 @@ public class PersistentTest {
         }};
 
         persistent.export(people, file);
-        Map<Integer, Person> loaded = persistent.load(file);
+        Map<Integer, Person> loaded = persistent.getImport(file);
 
         for (Integer key : people.keySet()) {
             assertEquals(people.get(key).getId(), loaded.get(key).getId());
