@@ -7,5 +7,5 @@ import java.util.Map;
 public interface PersistentInteractor {
     void export(Map<Integer, Person> map, File file) throws IOException;
 
-    Map<Integer, Person> getImport(File file) throws IOException;
+    Map<Integer, Person> getImport(File file) throws IOException, ClassNotFoundException;
 }

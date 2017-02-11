@@ -68,7 +68,7 @@ public class ControllerTest implements InteractorController {
     }
 
     @Test
-    public void verifyLoadRepositoryMethodCalled() throws IOException {
+    public void verifyLoadRepositoryMethodCalled() throws IOException, ClassNotFoundException {
         File file = new File("Load.per");
         controller.loadRepository(file);
         assertEquals(this.file.getName(), file.getName());

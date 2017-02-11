@@ -195,7 +195,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
                 try {
                     controller.loadRepository(fileChooser.getSelectedFile());
                     personTablePanel.refresh();
-                } catch (IOException ex) {
+                } catch (IOException | ClassNotFoundException ex) {
                     JOptionPane.showMessageDialog(this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
         });

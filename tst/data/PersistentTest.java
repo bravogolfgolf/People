@@ -18,7 +18,7 @@ public class PersistentTest {
     private final Persistent persistent = new Persistent();
 
     @Test
-    public void shouldSaveMapToFileAndLoadMapFromFileToRecreateMap() throws IOException {
+    public void shouldSaveMapToFileAndLoadMapFromFileToRecreateMap() throws IOException, ClassNotFoundException {
         assertTrue(!deleteFile());
 
         Person person = new Person("Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");

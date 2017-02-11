@@ -92,7 +92,7 @@ public class InteractorTest implements PresenterInteractor {
     }
 
     @Test
-    public void shouldImportPersonRepositoryFromFileAndResetPersonCounter() throws IOException {
+    public void shouldImportPersonRepositoryFromFileAndResetPersonCounter() throws IOException, ClassNotFoundException {
         final int SAME_KEY_BEFORE_AFTER_IMPORT_RETURN_PROPER_RESULT = 1;
         makeSureTestFileDoesNotAlreadyExist(("ImportTest.per"));
 

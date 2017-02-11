@@ -31,7 +31,7 @@ public class Controller implements ControllerMainFrame {
     }
 
     @Override
-    public void loadRepository(File file) throws IOException {
+    public void loadRepository(File file) throws IOException, ClassNotFoundException {
         interactor.loadRepository(file);
     }
 

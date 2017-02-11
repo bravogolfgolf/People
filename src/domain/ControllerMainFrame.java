@@ -8,7 +8,7 @@ public interface ControllerMainFrame {
 
     void exportRepository(File file) throws IOException;
 
-    void loadRepository(File file) throws IOException;
+    void loadRepository(File file) throws IOException, ClassNotFoundException;
 
     void deletePerson(int id);
 }

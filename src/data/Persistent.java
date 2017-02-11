@@ -18,17 +18,12 @@ public class Persistent implements PersistentInteractor {
     }
 
     @Override
-    public Map<Integer, Person> getImport(File file) throws IOException {
+    public Map<Integer, Person> getImport(File file) throws IOException, ClassNotFoundException {
         Map<Integer, Person> map = new HashMap<>();
         Person[] people;
         List<Person> list;
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-            people = null;
-            try {
-                people = (Person[]) ois.readObject();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            people = (Person[]) ois.readObject();
         }
         list = Arrays.asList(people);
         for (Person person : list)
