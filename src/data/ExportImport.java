@@ -6,7 +6,7 @@ import domain.Person;
 import java.io.*;
 import java.util.*;
 
-public class Persistent implements PersistentInteractor {
+public class ExportImport implements PersistentInteractor {
 
     @Override
     public void export(Map<Integer, Person> map, File file) throws IOException {

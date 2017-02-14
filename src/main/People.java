@@ -1,6 +1,6 @@
 package main;
 
-import data.Persistent;
+import data.ExportImport;
 import domain.PersonRepository;
 import domain.Interactor;
 import domain.Presenter;
@@ -24,11 +24,11 @@ class People {
             presenter.setMainFrame(mainFrame);
 
             PersonRepository repository = new PersonRepository();
-            Persistent persistent = new Persistent();
+            ExportImport exportImport = new ExportImport();
 
             Interactor interactor = new Interactor();
             interactor.setRepository(repository);
-            interactor.setPersistent(persistent);
+            interactor.setPersistent(exportImport);
             interactor.setPresenter(presenter);
 
 

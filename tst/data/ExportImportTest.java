@@ -12,10 +12,10 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class PersistentTest {
+public class ExportImportTest {
 
     private final File file = new File("Test.per");
-    private final Persistent persistent = new Persistent();
+    private final ExportImport exportImport = new ExportImport();
 
     @Test
     public void shouldSaveMapToFileAndLoadMapFromFileToRecreateMap() throws IOException, ClassNotFoundException {
@@ -26,8 +26,8 @@ public class PersistentTest {
             put(person.getId(), person);
         }};
 
-        persistent.export(people, file);
-        Map<Integer, Person> loaded = persistent.getImport(file);
+        exportImport.export(people, file);
+        Map<Integer, Person> loaded = exportImport.getImport(file);
 
         for (Integer key : people.keySet()) {
             assertEquals(people.get(key).getId(), loaded.get(key).getId());

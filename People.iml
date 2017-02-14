@@ -9,5 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="junit:junit:4.12" level="application" />
+    <orderEntry type="library" name="mysql:mysql-connector-java:5.1.40" level="application" />
   </component>
 </module>

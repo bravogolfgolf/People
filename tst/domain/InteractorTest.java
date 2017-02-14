@@ -1,6 +1,6 @@
 package domain;
 
-import data.Persistent;
+import data.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ public class InteractorTest implements PresenterInteractor {
     }
 
     private final PersonRepository repository = new PersonRepository();
-    private final PersistentInteractor persistent = new Persistent();
+    private final PersistentInteractor persistent = new ExportImport();
     private final PresenterInteractor presenter = this;
     private final Interactor interactor = new Interactor();
     private final PersonMessage request = new PersonMessage();
