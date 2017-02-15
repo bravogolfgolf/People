@@ -1,6 +1,5 @@
 package data;
 
-import data.PersonRepositoryInMemory;
 import domain.Person;
 import org.junit.Before;
 import org.junit.Test;
@@ -78,23 +77,5 @@ public class PersonRepositoryInMemoryTest {
         assertTrue(!expected.equals(updated));
         assertTrue(!updated.equals(actual));
         assertTrue(actual.equals(expected));
-    }
-
-    @Test
-    public void getAgeCategoriesShouldReturnProperlySortedMap() {
-        Map<Integer, String> actual = repository.getAgeCategories();
-        assertEquals(3, actual.size());
-        assertTrue("Under 18".equals(actual.get(0)));
-        assertTrue("18 to 65".equals(actual.get(1)));
-        assertTrue("Over 65".equals(actual.get(2)));
-    }
-
-    @Test
-    public void getEmploymentStatusesShouldReturnProperlySortedMap() {
-        Map<Integer, String> actual = repository.getEmploymentStatuses();
-        assertEquals(3, actual.size());
-        assertTrue("Employed".equals(actual.get(0)));
-        assertTrue("Self-employed".equals(actual.get(1)));
-        assertTrue("Unemployed".equals(actual.get(2)));
     }
 }
