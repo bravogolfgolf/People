@@ -1,7 +1,7 @@
 package main;
 
 import data.ExportImport;
-import domain.PersonRepository;
+import data.PersonRepositoryInMemory;
 import domain.Interactor;
 import domain.Presenter;
 import domain.Controller;
@@ -23,7 +23,7 @@ class People {
             Presenter presenter = new Presenter();
             presenter.setMainFrame(mainFrame);
 
-            PersonRepository repository = new PersonRepository();
+            PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
             ExportImport exportImport = new ExportImport();
 
             Interactor interactor = new Interactor();

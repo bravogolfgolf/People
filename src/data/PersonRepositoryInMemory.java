@@ -1,11 +1,14 @@
-package domain;
+package data;
+
+import domain.Person;
+import domain.RepositoryInteractor;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class PersonRepository implements RepositoryInteractor {
+public class PersonRepositoryInMemory implements RepositoryInteractor {
 
     private Map<Integer, Person> people = new HashMap<>();
 

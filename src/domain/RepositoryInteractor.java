@@ -2,7 +2,7 @@ package domain;
 
 import java.util.Map;
 
-interface RepositoryInteractor {
+public interface RepositoryInteractor {
     void addPerson(Person person);
 
     Map<Integer, Person> getPeople();

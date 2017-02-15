@@ -1,5 +1,7 @@
-package domain;
+package data;
 
+import data.PersonRepositoryInMemory;
+import domain.Person;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,16 +11,16 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class PersonRepositoryTest {
+public class PersonRepositoryInMemoryTest {
 
-    private PersonRepository repository;
+    private PersonRepositoryInMemory repository;
     private Person person;
     private Map<Integer, Person> people;
 
     @Before
     public void setUp() throws Exception {
         Person.setCounter(0);
-        repository = new PersonRepository();
+        repository = new PersonRepositoryInMemory();
         person = new Person("Full Name", "Occupation", 0, 2, true, "Tax ID",
                 "Female");
         people = new HashMap<>();

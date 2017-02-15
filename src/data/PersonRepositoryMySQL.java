@@ -1,6 +1,6 @@
 package data;
 
-class MySQL {
+class PersonRepositoryMySQL {
     void connect() throws ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
 

@@ -2,12 +2,12 @@ package data;
 
 import org.junit.Test;
 
-public class MySQLTest {
+public class PersonRepositoryMySQLTest {
 
 
     @Test
     public void databaseShouldAllowConnection() throws ClassNotFoundException {
-        MySQL mySQL = new MySQL();
+        PersonRepositoryMySQL mySQL = new PersonRepositoryMySQL();
         mySQL.connect();
 
     }

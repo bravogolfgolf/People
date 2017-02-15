@@ -26,7 +26,7 @@ public class Person implements Serializable {
         this.gender = gender;
     }
 
-    static void setCounter(int counter) {
+    public static void setCounter(int counter) {
         Person.counter = counter;
     }
 
