@@ -63,8 +63,6 @@ class Encryption {
         String password = Base64.getEncoder().encodeToString(pbeCipher.doFinal(bytes));
 
 
-        String test = String.format("%d:%s:%s", ITERATION_COUNT, Base64.getEncoder().encodeToString(salt), password);
-        System.out.println(test);
-        return test;
+        return String.format("%d:%s:%s", ITERATION_COUNT, Base64.getEncoder().encodeToString(salt), password);
     }
 }
