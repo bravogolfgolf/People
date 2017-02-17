@@ -1,9 +1,12 @@
-package domain;
+package ui;
+
+import domain.InteractorController;
+import domain.PersonMessage;
 
 import java.io.File;
 import java.io.IOException;
 
-public class Controller implements ControllerMainFrame {
+public class Controller {
 
     private InteractorController interactor;
     private final PersonMessage request = new PersonMessage();
@@ -12,8 +15,7 @@ public class Controller implements ControllerMainFrame {
         this.interactor = interactor;
     }
 
-    @Override
-    public void addPerson(FormEventController formEvent) {
+    void addPerson(EntryEvent formEvent) {
         request.fullName = formEvent.getFullName();
         request.occupation = formEvent.getOccupation();
         request.ageCategory = formEvent.getAgeCategory();
@@ -25,18 +27,15 @@ public class Controller implements ControllerMainFrame {
         interactor.addPerson(request);
     }
 
-    @Override
-    public void exportRepository(File file) throws IOException {
+    void exportRepository(File file) throws IOException {
         interactor.exportRepository(file);
     }
 
-    @Override
-    public void loadRepository(File file) throws IOException, ClassNotFoundException {
+    void loadRepository(File file) throws IOException, ClassNotFoundException {
         interactor.loadRepository(file);
     }
 
-    @Override
-    public void deletePerson(int id) {
+    void deletePerson(int id) {
         interactor.deletePerson(id);
     }
 }

@@ -4,8 +4,6 @@ import com.apple.eawt.AppEvent;
 import com.apple.eawt.Application;
 import com.apple.eawt.FullScreenListener;
 import com.apple.eawt.FullScreenUtilities;
-import domain.ControllerMainFrame;
-import domain.MainFramePresenter;
 import domain.PersonMessage;
 
 import javax.swing.*;
@@ -50,7 +48,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     private PreferenceDialog preferenceDialog;
 
     //Application Specific
-    private ControllerMainFrame controller;
+    private Controller controller;
     private Preferences preferences;
 
     public MainFrame() {
@@ -67,7 +65,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         setMainFrameVisible();
     }
 
-    public void setController(ControllerMainFrame controller) {
+    public void setController(Controller controller) {
         this.controller = controller;
     }
 

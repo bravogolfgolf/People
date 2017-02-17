@@ -3,8 +3,8 @@ package main;
 import data.ExportImport;
 import data.PersonRepositoryInMemory;
 import domain.Interactor;
-import domain.Presenter;
-import domain.Controller;
+import ui.Presenter;
+import ui.Controller;
 import ui.MainFrame;
 
 import javax.swing.*;

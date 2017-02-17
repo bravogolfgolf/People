@@ -1,10 +1,10 @@
-package domain;
+package ui;
 
+import domain.Person;
+import domain.PersonMessage;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -30,17 +30,14 @@ public class PresenterTest implements MainFramePresenter {
 
         presenter.presentPeople(result);
 
-        List<PersonMessage> list = Arrays.asList(response);
-
-        for (Integer key : result.keySet()) {
-            assertEquals(person.getId(), response[0].id);
-            assertEquals(person.getFullName(), response[0].fullName);
-            assertEquals(person.getOccupation(), response[0].occupation);
-            assertEquals(person.getAgeCategory(), response[0].ageCategory);
-            assertEquals(person.getEmploymentStatus(), response[0].employmentStatus);
-            assertTrue(response[0].uSCitizen);
-            assertEquals(person.getTaxId(), response[0].taxId);
-            assertEquals(person.getGender(), response[0].gender);
-        }
+        assertEquals(person.getId(), response[0].id);
+        assertEquals(person.getFullName(), response[0].fullName);
+        assertEquals(person.getOccupation(), response[0].occupation);
+        assertEquals(person.getAgeCategory(), response[0].ageCategory);
+        assertEquals(person.getEmploymentStatus(), response[0].employmentStatus);
+        assertTrue(response[0].uSCitizen);
+        assertEquals(person.getTaxId(), response[0].taxId);
+        assertEquals(person.getGender(), response[0].gender);
     }
 }
+

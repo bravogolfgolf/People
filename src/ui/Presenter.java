@@ -1,4 +1,8 @@
-package domain;
+package ui;
+
+import domain.Person;
+import domain.PersonMessage;
+import domain.PresenterInteractor;
 
 import java.util.Map;
 
