@@ -1,4 +1,4 @@
-package ui;
+package domain;
 
 import domain.PersonMessage;
 

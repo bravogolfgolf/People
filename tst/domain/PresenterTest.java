@@ -1,7 +1,5 @@
-package ui;
+package domain;
 
-import domain.Person;
-import domain.PersonMessage;
 import org.junit.Test;
 
 import java.util.HashMap;

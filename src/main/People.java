@@ -3,7 +3,7 @@ package main;
 import data.ExportImport;
 import data.PersonRepositoryInMemory;
 import domain.Interactor;
-import ui.Presenter;
+import domain.Presenter;
 import ui.Controller;
 import ui.MainFrame;
 
