@@ -30,7 +30,6 @@ public class InteractorTest implements PresenterInteractor {
 
     @Before
     public void setUp() throws Exception {
-        Person.setCounter(1);
         interactor.setRepository(repository);
         interactor.setPersistent(persistent);
         interactor.setPresenter(presenter);

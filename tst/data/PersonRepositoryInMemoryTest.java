@@ -18,10 +18,9 @@ public class PersonRepositoryInMemoryTest {
 
     @Before
     public void setUp() throws Exception {
-        Person.setCounter(1);
         repository = new PersonRepositoryInMemory();
-        person = new Person("Full Name", "Occupation", 0, 2, true, "Tax ID",
-                "Female");
+        person = new Person(1, "Full Name", "Occupation", 0, 2, true,
+                "Tax ID", "Female");
         people = new HashMap<>();
     }
 
@@ -48,9 +47,9 @@ public class PersonRepositoryInMemoryTest {
 
     @Test
     public void shouldBeAbleToDeletePerson() {
-        int id = 1;
-        Person person1 = new Person("Full Name", "Occupation", 0, 2, true, "Tax ID",
-                "Female");
+        int id = 2;
+        Person person1 = new Person(id, "Full Name", "Occupation", 0, 2, true,
+                "Tax ID", "Female");
         repository.addPerson(person);
         repository.addPerson(person1);
         assertEquals(2, repository.getPeople().size());
@@ -64,8 +63,8 @@ public class PersonRepositoryInMemoryTest {
         Map<Integer, Person> expected = new HashMap<>(repository.getPeople());
         assertEquals(1, expected.size());
 
-        person = new Person("Full Name", "Occupation", 0, 2, true, "Tax ID",
-                "Female");
+        person = new Person(2, "Full Name", "Occupation", 0, 2, true,
+                "Tax ID", "Female");
         repository.addPerson(person);
         Map<Integer, Person> updated = repository.getPeople();
         assertEquals(2, updated.size());

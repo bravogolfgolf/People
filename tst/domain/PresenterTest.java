@@ -20,10 +20,9 @@ public class PresenterTest implements MainFramePresenter {
 
     @Test
     public void shouldTransformResponseIntoMessage() {
-        Person.setCounter(1);
         final MainFramePresenter mainFrame = this;
         final Presenter presenter = new Presenter();
-        final Person person = new Person("Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
+        final Person person = new Person(1, "Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
         HashMap<Integer, Person> result = new HashMap<Integer, Person>() {{
             put(person.getId(), person);
         }};

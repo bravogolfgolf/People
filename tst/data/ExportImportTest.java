@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -21,7 +20,7 @@ public class ExportImportTest {
     public void shouldSaveMapToFileAndLoadMapFromFileToRecreateMap() throws IOException, ClassNotFoundException {
         assertTrue(!deleteFile());
 
-        Person person = new Person("Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
+        Person person = new Person(1, "Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
         Map<Integer, Person> people = new HashMap<Integer, Person>() {{
             put(person.getId(), person);
         }};
