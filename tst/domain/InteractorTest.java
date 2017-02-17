@@ -30,7 +30,7 @@ public class InteractorTest implements PresenterInteractor {
 
     @Before
     public void setUp() throws Exception {
-        Person.setCounter(0);
+        Person.setCounter(1);
         interactor.setRepository(repository);
         interactor.setPersistent(persistent);
         interactor.setPresenter(presenter);
@@ -42,6 +42,7 @@ public class InteractorTest implements PresenterInteractor {
         addEntryToRepository();
 
         for (Person expected : result.values()) {
+            assertEquals(1,expected.getId());
             assertEquals(request.fullName, expected.getFullName());
             assertEquals(request.occupation, expected.getOccupation());
             assertEquals(request.ageCategory, expected.getAgeCategory());
@@ -97,13 +98,13 @@ public class InteractorTest implements PresenterInteractor {
         final int SAME_KEY_BEFORE_AFTER_IMPORT_RETURN_PROPER_RESULT = 1;
         makeSureTestFileDoesNotAlreadyExist(("ImportTest.per"));
 
-        createRequest("Import0");
+        createRequest("Import1");
         addEntryToRepository();
         assertEquals(1, result.size());
 
         exportRepository();
 
-        createRequest("Import1");
+        createRequest("Import2");
         addEntryToRepository();
         assertEquals(2, result.size());
         assertEquals("Import1", result.get(SAME_KEY_BEFORE_AFTER_IMPORT_RETURN_PROPER_RESULT).getFullName());
@@ -112,7 +113,7 @@ public class InteractorTest implements PresenterInteractor {
         assertEquals(1, result.size());
 
         for (Person expected : result.values()) {
-            assertEquals("Import0", expected.getFullName());
+            assertEquals("Import1", expected.getFullName());
             assertEquals(request.occupation, expected.getOccupation());
             assertEquals(request.ageCategory, expected.getAgeCategory());
             assertEquals(request.employmentStatus, expected.getEmploymentStatus());
@@ -124,7 +125,7 @@ public class InteractorTest implements PresenterInteractor {
         createRequest("Import2");
         addEntryToRepository();
         assertEquals(2, result.size());
-        assertEquals("Import2", result.get(SAME_KEY_BEFORE_AFTER_IMPORT_RETURN_PROPER_RESULT).getFullName());
+        assertEquals("Import1", result.get(SAME_KEY_BEFORE_AFTER_IMPORT_RETURN_PROPER_RESULT).getFullName());
 
         mapKeysMatchPersonIDs();
 
@@ -138,10 +139,10 @@ public class InteractorTest implements PresenterInteractor {
 
     @Test
     public void shouldDeletePersonWithId() {
-        int id = 0;
-        createRequest("Person0");
-        addEntryToRepository();
+        int id = 1;
         createRequest("Person1");
+        addEntryToRepository();
+        createRequest("Person2");
         addEntryToRepository();
         assertEquals(2, this.result.size());
         result = null;

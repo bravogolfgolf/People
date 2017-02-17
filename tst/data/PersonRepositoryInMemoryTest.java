@@ -18,7 +18,7 @@ public class PersonRepositoryInMemoryTest {
 
     @Before
     public void setUp() throws Exception {
-        Person.setCounter(0);
+        Person.setCounter(1);
         repository = new PersonRepositoryInMemory();
         person = new Person("Full Name", "Occupation", 0, 2, true, "Tax ID",
                 "Female");
@@ -48,7 +48,7 @@ public class PersonRepositoryInMemoryTest {
 
     @Test
     public void shouldBeAbleToDeletePerson() {
-        int id = 0;
+        int id = 1;
         Person person1 = new Person("Full Name", "Occupation", 0, 2, true, "Tax ID",
                 "Female");
         repository.addPerson(person);

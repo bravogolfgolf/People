@@ -1,5 +1,6 @@
 package data;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.sql.Connection;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 public class MySQLConnectionTest {
 
 
-    @Test
+    @Ignore
     public void testDatabaseConnection() throws ClassNotFoundException, SQLException {
         System.setProperty("javax.net.debug","all");
         Class.forName("com.mysql.jdbc.Driver");

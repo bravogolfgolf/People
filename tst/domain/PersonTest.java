@@ -13,7 +13,7 @@ public class PersonTest {
 
     @Before
     public void setUp() throws Exception {
-        Person.setCounter(0);
+        Person.setCounter(1);
         person1 = new Person("Full Name", "Occupation",
                 1, 0, true,
                 "123-45-6789", "Male");
@@ -24,7 +24,7 @@ public class PersonTest {
 
     @Test
     public void newPersonShouldHaveAllFieldsDefined() {
-        assertEquals(0, person1.getId());
+        assertEquals(1, person1.getId());
         assertEquals("Full Name", person1.getFullName());
         assertEquals("Occupation", person1.getOccupation());
         assertEquals(1, person1.getAgeCategory());
