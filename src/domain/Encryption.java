@@ -35,14 +35,14 @@ class Encryption {
     }
 
     static String encrypt(char[] property) throws NoSuchPaddingException, InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, InvalidKeySpecException {
-
         byte[] bytes = new byte[property.length];
+
         for (int i = 0; i < property.length; i++)
             bytes[i] = (byte) property[i];
+
         String encrypted = encrypt(bytes);
 
         Arrays.fill(property, '0');
-        property = null;
         System.gc();
 
         return encrypted;
@@ -56,12 +56,10 @@ class Encryption {
         SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
         random.nextBytes(salt);
 
-
         Cipher pbeCipher = Cipher.getInstance(SECRET_KEY_FACTORY_ALGORITHM);
         pbeCipher.init(Cipher.ENCRYPT_MODE, key, new PBEParameterSpec(salt, ITERATION_COUNT));
 
         String password = Base64.getEncoder().encodeToString(pbeCipher.doFinal(bytes));
-
 
         return String.format("%d:%s:%s", ITERATION_COUNT, Base64.getEncoder().encodeToString(salt), password);
     }

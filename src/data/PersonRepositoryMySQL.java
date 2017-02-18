@@ -29,16 +29,16 @@ public class PersonRepositoryMySQL implements RepositoryInteractor {
     }
 
     private void connect() {
-        trySettingDrive();
+        trySettingDriver();
         String url = "jdbc:mysql://localhost:3306/people?useSSL=true";
         tryGetConnection(url);
     }
 
-    private void trySettingDrive() {
+    private void trySettingDriver() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new DriverNotFound(e);
         }
     }
 
@@ -46,7 +46,7 @@ public class PersonRepositoryMySQL implements RepositoryInteractor {
         try {
             connection = DriverManager.getConnection(url, "briangibson", "sKzuP3RMF");
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new UnableToGetConnection(e);
         }
     }
 
@@ -54,7 +54,7 @@ public class PersonRepositoryMySQL implements RepositoryInteractor {
         try {
             preparedStatement = connection.prepareStatement(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new UnableToPrepareStatement(e);
         }
     }
 
@@ -62,7 +62,7 @@ public class PersonRepositoryMySQL implements RepositoryInteractor {
         try {
             preparedStatement.setInt(parameterIndex, anInt);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new UnableToSetInt(e);
         }
     }
 
@@ -70,7 +70,7 @@ public class PersonRepositoryMySQL implements RepositoryInteractor {
         try {
             preparedStatement.setString(parameterIndex, aString);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new UnableToSetString(e);
         }
     }
 
@@ -78,7 +78,7 @@ public class PersonRepositoryMySQL implements RepositoryInteractor {
         try {
             preparedStatement.setBoolean(parameterIndex, aBoolean);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new UnableToSetBoolean(e);
         }
     }
 
@@ -86,7 +86,7 @@ public class PersonRepositoryMySQL implements RepositoryInteractor {
         try {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new UnableToExecuteUpdate(e);
         }
     }
 
@@ -108,46 +108,46 @@ public class PersonRepositoryMySQL implements RepositoryInteractor {
         try {
             resultSet = preparedStatement.executeQuery();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new UnableToExecuteQuery(e);
         }
     }
 
     private boolean tryIsNext() {
-        boolean aBoolean = false;
+        boolean aBoolean;
         try {
             aBoolean = resultSet.next();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new UnableToGetNext(e);
         }
         return aBoolean;
     }
 
     private int tryGetInt(int columnIndex) {
-        int anInt = 0;
+        int anInt;
         try {
             anInt = resultSet.getInt(columnIndex);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new UnableToGetInt(e);
         }
         return anInt;
     }
 
     private boolean tryGetBoolean(int columnIndex) {
-        boolean aBoolean = false;
+        boolean aBoolean;
         try {
             aBoolean = resultSet.getBoolean(columnIndex);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new UnableToGetBoolean(e);
         }
         return aBoolean;
     }
 
     private String tryGetString(int columnIndex) {
-        String string = null;
+        String string;
         try {
             string = resultSet.getString(columnIndex);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new UnableToGetString(e);
         }
         return string;
     }
@@ -170,5 +170,77 @@ public class PersonRepositoryMySQL implements RepositoryInteractor {
         tryPrepareStatement(sql);
         trySetInt(1, id);
         tryExecuteUpdate();
+    }
+
+    private class DriverNotFound extends RuntimeException {
+        DriverNotFound(ClassNotFoundException e) {
+            super(e);
+        }
+    }
+
+    private class UnableToGetConnection extends RuntimeException {
+        UnableToGetConnection(SQLException e) {
+            super(e);
+        }
+    }
+
+    private class UnableToPrepareStatement extends RuntimeException {
+        UnableToPrepareStatement(SQLException e) {
+            super(e);
+        }
+    }
+
+    private class UnableToSetInt extends RuntimeException {
+        UnableToSetInt(SQLException e) {
+            super(e);
+        }
+    }
+
+    private class UnableToSetString extends RuntimeException {
+        UnableToSetString(SQLException e) {
+            super(e);
+        }
+    }
+
+    private class UnableToSetBoolean extends RuntimeException {
+        UnableToSetBoolean(SQLException e) {
+            super(e);
+        }
+    }
+
+    private class UnableToExecuteUpdate extends RuntimeException {
+        UnableToExecuteUpdate(SQLException e) {
+            super(e);
+        }
+    }
+
+    private class UnableToExecuteQuery extends RuntimeException {
+        UnableToExecuteQuery(SQLException e) {
+            super(e);
+        }
+    }
+
+    private class UnableToGetNext extends RuntimeException {
+        UnableToGetNext(SQLException e) {
+            super(e);
+        }
+    }
+
+    private class UnableToGetInt extends RuntimeException {
+        UnableToGetInt(SQLException e) {
+            super(e);
+        }
+    }
+
+    private class UnableToGetBoolean extends RuntimeException {
+        UnableToGetBoolean(SQLException e) {
+            super(e);
+        }
+    }
+
+    private class UnableToGetString extends RuntimeException {
+        UnableToGetString(SQLException e) {
+            super(e);
+        }
     }
 }
