@@ -5,7 +5,6 @@ import domain.PersonMessage;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class Controller {
 
@@ -16,7 +15,7 @@ public class Controller {
         this.interactor = interactor;
     }
 
-    void addPerson(EntryEvent formEvent) throws SQLException, ClassNotFoundException {
+    void addPerson(EntryEvent formEvent) {
         request.fullName = formEvent.getFullName();
         request.occupation = formEvent.getOccupation();
         request.ageCategory = formEvent.getAgeCategory();
@@ -28,15 +27,15 @@ public class Controller {
         interactor.addPerson(request);
     }
 
-    void exportRepository(File file) throws IOException, SQLException, ClassNotFoundException {
+    void exportRepository(File file) throws IOException {
         interactor.exportRepository(file);
     }
 
-    void loadRepository(File file) throws IOException, ClassNotFoundException, SQLException {
+    void loadRepository(File file) throws IOException, ClassNotFoundException {
         interactor.loadRepository(file);
     }
 
-    void deletePerson(int id) throws SQLException, ClassNotFoundException {
+    void deletePerson(int id) {
         interactor.deletePerson(id);
     }
 }

@@ -2,14 +2,13 @@ package domain;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 
 public interface InteractorController {
-    void addPerson(PersonMessage request) throws SQLException, ClassNotFoundException;
+    void addPerson(PersonMessage request);
 
-    void exportRepository(File file) throws IOException, SQLException, ClassNotFoundException;
+    void exportRepository(File file) throws IOException;
 
-    void loadRepository(File file) throws IOException, ClassNotFoundException, SQLException;
+    void loadRepository(File file) throws IOException, ClassNotFoundException;
 
-    void deletePerson(int id) throws SQLException, ClassNotFoundException;
+    void deletePerson(int id);
 }

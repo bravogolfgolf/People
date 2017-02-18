@@ -2,7 +2,6 @@ package domain;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.NoSuchElementException;
 
@@ -26,14 +25,14 @@ public class Interactor implements InteractorController {
     }
 
     @Override
-    public void addPerson(PersonMessage request) throws SQLException, ClassNotFoundException {
+    public void addPerson(PersonMessage request) {
         setNextID();
         Person person = new Person(nextID, request.fullName, request.occupation, request.ageCategory, request.employmentStatus, request.uSCitizen, request.taxId, request.gender);
         repository.addPerson(person);
         presenter.presentPeople(repository.getPeople());
     }
 
-    private void setNextID() throws SQLException, ClassNotFoundException {
+    private void setNextID() {
         try {
             nextID = Collections.max(repository.getPeople().keySet()) + 1;
         } catch (NoSuchElementException e) {
@@ -42,18 +41,18 @@ public class Interactor implements InteractorController {
     }
 
     @Override
-    public void exportRepository(File file) throws IOException, SQLException, ClassNotFoundException {
+    public void exportRepository(File file) throws IOException {
         persistent.export(repository.getPeople(), file);
     }
 
     @Override
-    public void loadRepository(File file) throws IOException, ClassNotFoundException, SQLException {
+    public void loadRepository(File file) throws IOException, ClassNotFoundException {
         repository.setPeople(persistent.getImport(file));
         presenter.presentPeople(repository.getPeople());
     }
 
     @Override
-    public void deletePerson(int id) throws SQLException, ClassNotFoundException {
+    public void deletePerson(int id) {
         repository.deletePerson(id);
         presenter.presentPeople(repository.getPeople());
     }

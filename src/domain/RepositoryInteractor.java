@@ -1,14 +1,13 @@
 package domain;
 
-import java.sql.SQLException;
 import java.util.Map;
 
 public interface RepositoryInteractor {
-    void addPerson(Person person) throws SQLException, ClassNotFoundException;
+    void addPerson(Person person);
 
-    Map<Integer, Person> getPeople() throws ClassNotFoundException, SQLException;
+    Map<Integer, Person> getPeople();
 
-    void setPeople(Map<Integer, Person> people) throws SQLException, ClassNotFoundException;
+    void setPeople(Map<Integer, Person> people);
 
-    void deletePerson(int id) throws SQLException, ClassNotFoundException;
+    void deletePerson(int id);
 }

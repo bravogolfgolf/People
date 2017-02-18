@@ -75,7 +75,7 @@ public class InteractorTest implements PresenterInteractor {
         }
     }
 
-    private void exportRepository() throws IOException, SQLException, ClassNotFoundException {
+    private void exportRepository() throws IOException {
         interactor.exportRepository(file);
         assertTrue(file.exists());
     }
@@ -85,7 +85,7 @@ public class InteractorTest implements PresenterInteractor {
         assertTrue(!file.exists());
     }
 
-    private void addEntryToRepository() throws SQLException, ClassNotFoundException {
+    private void addEntryToRepository() {
         interactor.addPerson(request);
     }
 
