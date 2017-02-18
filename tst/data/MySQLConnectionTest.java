@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 class MySQLConnectionTest {
 
-
     @Ignore
     public void testDatabaseConnection() throws ClassNotFoundException, SQLException {
         System.setProperty("javax.net.debug","all");

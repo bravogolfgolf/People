@@ -9,7 +9,6 @@ import java.util.Map;
 
 public class PersonRepositoryMySQL implements RepositoryInteractor {
     private Connection connection;
-    private HashMap<Integer, Person> people = new HashMap<>();
 
     public void addPerson(Person person) throws SQLException, ClassNotFoundException {
         connect();
@@ -33,11 +32,13 @@ public class PersonRepositoryMySQL implements RepositoryInteractor {
     }
 
     public Map<Integer, Person> getPeople() throws ClassNotFoundException, SQLException {
+        HashMap<Integer, Person> people = new HashMap<>();
+
         connect();
         String sql = "Select id, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender from person";
         Statement statement = connection.prepareStatement(sql);
+
         ResultSet resultSet = statement.executeQuery(sql);
-        people = new HashMap<>();
         while (resultSet.next()) {
             int id = resultSet.getInt(1);
             String fullName = resultSet.getString(2);

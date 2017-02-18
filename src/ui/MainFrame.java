@@ -25,8 +25,6 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     private static final String PERSON_DATABASE_FILE_EXTENSION = "per";
     private static final String PERSON_DATABASE_FILE_EXTENSION_DESC = "Person database files (*.per)";
 
-    static final String NEW_LINE = System.lineSeparator();
-
     private static final String ENTER_FULL_SCREEN = "Enter Full Screen";
     private static final String HIDE_FORM = "Hide Form";
 
