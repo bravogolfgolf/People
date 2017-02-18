@@ -2,6 +2,7 @@ package main;
 
 import data.ExportImport;
 import data.PersonRepositoryInMemory;
+import data.PersonRepositoryMySQL;
 import domain.Interactor;
 import domain.Presenter;
 import ui.Controller;
@@ -23,7 +24,7 @@ class People {
             Presenter presenter = new Presenter();
             presenter.setMainFrame(mainFrame);
 
-            PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
+            PersonRepositoryMySQL repository = new PersonRepositoryMySQL();
             ExportImport exportImport = new ExportImport();
 
             Interactor interactor = new Interactor();

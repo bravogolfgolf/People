@@ -42,9 +42,6 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     private EntryPanel entryPanel;
     private PersonTablePanel personTablePanel;
 
-    // Delete if never used by end of tutorial
-    private TextPanel textPanel;
-
     // MacOS Specific
     private final Application application;
     private PreferenceDialog preferenceDialog;
@@ -122,28 +119,10 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     }
 
     private void createAndAddComponentsToMainFrame() {
-        // Delete if never used by end of tutorial
-        createAndAddTextPanel();
-        createAndAddToolBar();
-
-        //Major Form Components
         createAndSetMenuBar();
         createAndAddEntryPane();
         createAndAddPersonTablePanel();
         createPreferenceDialog();
-    }
-
-    private void createAndAddTextPanel() {
-        textPanel = new TextPanel();
-        textPanel.setVisible(false);
-        add(textPanel, BorderLayout.CENTER);
-
-    }
-
-    private void createAndAddToolBar() {
-        ToolBar toolBar = new ToolBar(textPanel::appendText);
-        toolBar.setVisible(false);
-        add(toolBar, BorderLayout.PAGE_START);
     }
 
     private void createAndSetMenuBar() {
