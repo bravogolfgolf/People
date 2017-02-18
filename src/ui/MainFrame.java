@@ -14,7 +14,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.prefs.Preferences;
 
 import static java.awt.event.KeyEvent.VK_F;
@@ -155,8 +154,6 @@ public class MainFrame extends JFrame implements MainFramePresenter {
                     controller.exportRepository(fileChooser.getSelectedFile());
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this, "Could not export file.", "Error", JOptionPane.ERROR_MESSAGE);
-                } catch (SQLException | ClassNotFoundException e1) {
-                    e1.printStackTrace();
                 }
         });
         fileMenu.add(exportDataMenuItem);
@@ -176,8 +173,6 @@ public class MainFrame extends JFrame implements MainFramePresenter {
                     personTablePanel.refresh();
                 } catch (IOException | ClassNotFoundException ex) {
                     JOptionPane.showMessageDialog(this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
                 }
         });
         fileMenu.add(importDataMenuItem);
@@ -252,11 +247,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
 
     private void createAndAddEntryPane() {
         entryPanel = new EntryPanel(formEvent -> {
-            try {
-                controller.addPerson(formEvent);
-            } catch (SQLException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            controller.addPerson(formEvent);
             personTablePanel.refresh();
         });
         add(entryPanel, BorderLayout.LINE_START);
@@ -265,11 +256,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
 
     private void createAndAddPersonTablePanel() {
         personTablePanel = new PersonTablePanel(id -> {
-            try {
-                controller.deletePerson(id);
-            } catch (SQLException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            controller.deletePerson(id);
             personTablePanel.refresh();
         });
         add(personTablePanel, BorderLayout.CENTER);
