@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -36,7 +37,7 @@ public class InteractorTest implements PresenterInteractor {
     }
 
     @Test
-    public void shouldProcessAddPersonRequestIntoAddPersonResult() {
+    public void shouldProcessAddPersonRequestIntoAddPersonResult() throws SQLException, ClassNotFoundException {
         createRequest("Add Person");
         addEntryToRepository();
 
@@ -63,7 +64,7 @@ public class InteractorTest implements PresenterInteractor {
     }
 
     @Test
-    public void shouldExportPersonRepositoryToFile() throws IOException {
+    public void shouldExportPersonRepositoryToFile() throws IOException, SQLException, ClassNotFoundException {
         makeSureTestFileDoesNotAlreadyExist("ExportTest.per");
         createRequest("Export");
         addEntryToRepository();
@@ -74,7 +75,7 @@ public class InteractorTest implements PresenterInteractor {
         }
     }
 
-    private void exportRepository() throws IOException {
+    private void exportRepository() throws IOException, SQLException, ClassNotFoundException {
         interactor.exportRepository(file);
         assertTrue(file.exists());
     }
@@ -84,7 +85,7 @@ public class InteractorTest implements PresenterInteractor {
         assertTrue(!file.exists());
     }
 
-    private void addEntryToRepository() {
+    private void addEntryToRepository() throws SQLException, ClassNotFoundException {
         interactor.addPerson(request);
     }
 
@@ -93,7 +94,7 @@ public class InteractorTest implements PresenterInteractor {
     }
 
     @Test
-    public void shouldImportPersonRepositoryFromFileAndResetPersonCounter() throws IOException, ClassNotFoundException {
+    public void shouldImportPersonRepositoryFromFileAndResetPersonCounter() throws IOException, ClassNotFoundException, SQLException {
         final int SAME_KEY_BEFORE_AFTER_IMPORT_RETURN_PROPER_RESULT = 1;
         makeSureTestFileDoesNotAlreadyExist(("ImportTest.per"));
 
@@ -137,7 +138,7 @@ public class InteractorTest implements PresenterInteractor {
     }
 
     @Test
-    public void shouldDeletePersonWithId() {
+    public void shouldDeletePersonWithId() throws SQLException, ClassNotFoundException {
         int id = 1;
         createRequest("Person1");
         addEntryToRepository();

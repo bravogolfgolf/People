@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -46,7 +47,7 @@ public class ControllerTest implements InteractorController {
     }
 
     @Test
-    public void shouldTransformFormEventIntoRequest() {
+    public void shouldTransformFormEventIntoRequest() throws SQLException, ClassNotFoundException {
         EntryEvent formEvent = new EntryEvent(new Object(), "Full Name", "Occupation", 0, 0, true, "Tax ID", "Gender");
 
         controller.addPerson(formEvent);
@@ -61,7 +62,7 @@ public class ControllerTest implements InteractorController {
     }
 
     @Test
-    public void verifyExportRepositoryMethodCalled() throws IOException {
+    public void verifyExportRepositoryMethodCalled() throws IOException, SQLException, ClassNotFoundException {
         File file = new File("Export.per");
         controller.exportRepository(file);
         assertEquals(this.file.getName(), file.getName());
@@ -69,7 +70,7 @@ public class ControllerTest implements InteractorController {
     }
 
     @Test
-    public void verifyLoadRepositoryMethodCalled() throws IOException, ClassNotFoundException {
+    public void verifyLoadRepositoryMethodCalled() throws IOException, ClassNotFoundException, SQLException {
         File file = new File("Load.per");
         controller.loadRepository(file);
         assertEquals(this.file.getName(), file.getName());
@@ -77,7 +78,7 @@ public class ControllerTest implements InteractorController {
     }
 
     @Test
-    public void verifyDeletePersonMethodCalled() {
+    public void verifyDeletePersonMethodCalled() throws SQLException, ClassNotFoundException {
         int id = 1;
         controller.deletePerson(id);
         assertEquals(this.id, id);
