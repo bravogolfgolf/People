@@ -1,15 +1,12 @@
-package data;
-
-import domain.PersistentInteractor;
-import domain.Person;
+package domain;
 
 import java.io.*;
 import java.util.*;
 
-public class ExportImport implements PersistentInteractor {
+public class ExportImport implements Export, Import {
 
     @Override
-    public void export(Map<Integer, Person> map, File file) throws IOException {
+    public void toDisk(Map<Integer, Person> map, File file) throws IOException {
         List<Person> list = new ArrayList<>(map.values());
         Person[] array = list.toArray(new Person[list.size()]);
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
@@ -18,7 +15,7 @@ public class ExportImport implements PersistentInteractor {
     }
 
     @Override
-    public Map<Integer, Person> getImport(File file) throws IOException, ClassNotFoundException {
+    public Map<Integer, Person> fromDisk(File file) throws IOException, ClassNotFoundException {
         Map<Integer, Person> map = new HashMap<>();
         Person[] people;
         List<Person> list;

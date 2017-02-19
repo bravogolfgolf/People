@@ -5,11 +5,11 @@ import java.io.IOException;
 
 public class ExportUseCase implements UseCase {
     private final RepositoryInteractor repository;
-    private final PersistentInteractor exportImport;
+    private final Export exporter;
 
-    ExportUseCase(RepositoryInteractor repository, PersistentInteractor exportImport) {
+    ExportUseCase(RepositoryInteractor repository, Export exporter) {
         this.repository = repository;
-        this.exportImport = exportImport;
+        this.exporter = exporter;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class ExportUseCase implements UseCase {
 
     private void tryExport(File file) {
         try {
-            exportImport.export(repository.getPeople(), file);
+            exporter.toDisk(repository.getPeople(), file);
         } catch (IOException e) {
             throw new ExportFailed(e);
         }

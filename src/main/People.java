@@ -1,6 +1,6 @@
 package main;
 
-import data.ExportImport;
+import domain.ExportImport;
 import data.PersonRepositoryMySQL;
 import domain.Interactor;
 import domain.Presenter;

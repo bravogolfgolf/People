@@ -1,5 +1,6 @@
 package data;
 
+import domain.ExportImport;
 import domain.Person;
 import org.junit.Test;
 
@@ -25,8 +26,8 @@ public class ExportImportTest {
             put(person.getId(), person);
         }};
 
-        exportImport.export(people, file);
-        Map<Integer, Person> loaded = exportImport.getImport(file);
+        exportImport.toDisk(people, file);
+        Map<Integer, Person> loaded = exportImport.fromDisk(file);
 
         for (Integer key : people.keySet()) {
             assertEquals(people.get(key).getId(), loaded.get(key).getId());

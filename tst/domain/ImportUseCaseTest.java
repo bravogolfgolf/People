@@ -1,6 +1,5 @@
 package domain;
 
-import data.ExportImport;
 import data.PersonRepositoryInMemory;
 import org.junit.Before;
 import org.junit.Test;

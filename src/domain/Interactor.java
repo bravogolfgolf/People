@@ -9,14 +9,14 @@ public class Interactor implements InteractorController {
 
     private RepositoryInteractor repository;
     private PresenterInteractor presenter;
-    private PersistentInteractor persistent;
+    private ExportImport persistent;
     private int nextID;
 
     public void setRepository(RepositoryInteractor repository) {
         this.repository = repository;
     }
 
-    public void setPersistent(PersistentInteractor persistent) {
+    public void setPersistent(ExportImport persistent) {
         this.persistent = persistent;
     }
 
@@ -42,12 +42,12 @@ public class Interactor implements InteractorController {
 
     @Override
     public void exportRepository(File file) throws IOException {
-        persistent.export(repository.getPeople(), file);
+        persistent.toDisk(repository.getPeople(), file);
     }
 
     @Override
     public void loadRepository(File file) throws IOException, ClassNotFoundException {
-        repository.setPeople(persistent.getImport(file));
+        repository.setPeople(persistent.fromDisk(file));
         presenter.presentPeople(repository.getPeople());
     }
 

@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.util.Map;
 
 public class ImportUseCase implements UseCase {
-    private final PersistentInteractor exportImport;
+    private final Import importer;
     private final RepositoryInteractor repository;
     private final PresenterInteractor presenter;
 
-    ImportUseCase(PersistentInteractor exportImport, RepositoryInteractor repository, PresenterInteractor presenter) {
-        this.exportImport = exportImport;
+    ImportUseCase(Import importer, RepositoryInteractor repository, PresenterInteractor presenter) {
+        this.importer = importer;
         this.repository = repository;
         this.presenter = presenter;
     }
@@ -26,7 +26,7 @@ public class ImportUseCase implements UseCase {
     private Map<Integer, Person> tryImportFile(File file) {
         Map<Integer,Person> result;
         try {
-            result = exportImport.getImport(file);
+            result = importer.fromDisk(file);
         } catch (IOException | ClassNotFoundException e) {
             throw new ImportFailed(e);
         }
