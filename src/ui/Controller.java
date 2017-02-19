@@ -1,7 +1,7 @@
 package ui;
 
 import domain.InteractorController;
-import domain.PersonMessage;
+import domain.AddPersonRequest;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Controller {
 
     private InteractorController interactor;
-    private final PersonMessage request = new PersonMessage();
+    private final AddPersonRequest request = new AddPersonRequest();
 
     public void setInteractor(InteractorController interactor) {
         this.interactor = interactor;

@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 public interface InteractorController {
-    void addPerson(PersonMessage request);
+    void addPerson(AddPersonRequest request);
 
     void exportRepository(File file) throws IOException;
 

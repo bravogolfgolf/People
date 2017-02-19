@@ -1,6 +1,6 @@
 package ui;
 
-import domain.PersonMessage;
+import domain.AddPersonRequest;
 
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
@@ -25,7 +25,7 @@ class PersonTablePanel extends JPanel {
         createAndAddTablePanel();
     }
 
-    void addDataForPersonTableModel(PersonMessage[] people) {
+    void addDataForPersonTableModel(AddPersonRequest[] people) {
         personTableModel.addDataForPersonTableModel(people);
     }
 

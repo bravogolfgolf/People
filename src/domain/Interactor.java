@@ -25,7 +25,7 @@ public class Interactor implements InteractorController {
     }
 
     @Override
-    public void addPerson(PersonMessage request) {
+    public void addPerson(AddPersonRequest request) {
         setNextID();
         Person person = new Person(nextID, request.fullName, request.occupation, request.ageCategory, request.employmentStatus, request.uSCitizen, request.taxId, request.gender);
         repository.addPerson(person);

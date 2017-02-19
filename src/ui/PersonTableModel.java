@@ -1,17 +1,17 @@
 package ui;
 
-import domain.PersonMessage;
+import domain.AddPersonRequest;
 
 import javax.swing.table.AbstractTableModel;
 
 class PersonTableModel extends AbstractTableModel {
 
-    private PersonMessage[] personTableModelData;
+    private AddPersonRequest[] personTableModelData;
     private final String[] columnNames = {"ID", "Full Name", "Occupation", "Age Category",
             "Employment Status", "US Citizen", "Tax ID", "Gender"};
 
-    void addDataForPersonTableModel(PersonMessage[] people) {
-        personTableModelData = new PersonMessage[people.length];
+    void addDataForPersonTableModel(AddPersonRequest[] people) {
+        personTableModelData = new AddPersonRequest[people.length];
         personTableModelData = people;
     }
 
@@ -60,7 +60,7 @@ class PersonTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        PersonMessage person = personTableModelData[rowIndex];
+        AddPersonRequest person = personTableModelData[rowIndex];
 
         switch (columnIndex) {
             case 0:

@@ -1,6 +1,6 @@
 package domain;
 
-public class PersonMessage {
+public class AddPersonRequest implements Request {
     public int id;
     public String fullName;
     public String occupation;

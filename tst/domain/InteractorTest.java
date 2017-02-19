@@ -26,7 +26,7 @@ public class InteractorTest implements PresenterInteractor {
     private final PersistentInteractor persistent = new ExportImport();
     private final PresenterInteractor presenter = this;
     private final Interactor interactor = new Interactor();
-    private final PersonMessage request = new PersonMessage();
+    private final AddPersonRequest request = new AddPersonRequest();
     private File file;
 
     @Before
@@ -34,23 +34,6 @@ public class InteractorTest implements PresenterInteractor {
         interactor.setRepository(repository);
         interactor.setPersistent(persistent);
         interactor.setPresenter(presenter);
-    }
-
-    @Test
-    public void shouldProcessAddPersonRequestIntoAddPersonResult() throws SQLException, ClassNotFoundException {
-        createRequest("Add Person");
-        addEntryToRepository();
-
-        for (Person expected : result.values()) {
-            assertEquals(1,expected.getId());
-            assertEquals(request.fullName, expected.getFullName());
-            assertEquals(request.occupation, expected.getOccupation());
-            assertEquals(request.ageCategory, expected.getAgeCategory());
-            assertEquals(request.employmentStatus, expected.getEmploymentStatus());
-            assertTrue(expected.isUsCitizen());
-            assertEquals(request.taxId, expected.getTaxId());
-            assertEquals(request.gender, expected.getGender());
-        }
     }
 
     private void createRequest(String fullName) {
@@ -63,17 +46,6 @@ public class InteractorTest implements PresenterInteractor {
         request.gender = "Male";
     }
 
-    @Test
-    public void shouldExportPersonRepositoryToFile() throws IOException, SQLException, ClassNotFoundException {
-        makeSureTestFileDoesNotAlreadyExist("ExportTest.per");
-        createRequest("Export");
-        addEntryToRepository();
-        try {
-            exportRepository();
-        } finally {
-            deleteFile();
-        }
-    }
 
     private void exportRepository() throws IOException {
         interactor.exportRepository(file);
@@ -96,7 +68,7 @@ public class InteractorTest implements PresenterInteractor {
     @Test
     public void shouldImportPersonRepositoryFromFileAndResetPersonCounter() throws IOException, ClassNotFoundException, SQLException {
         final int SAME_KEY_BEFORE_AFTER_IMPORT_RETURN_PROPER_RESULT = 1;
-        makeSureTestFileDoesNotAlreadyExist(("ImportTest.per"));
+        makeSureTestFileDoesNotAlreadyExist(("../ImportTest.per"));
 
         createRequest("Import1");
         addEntryToRepository();

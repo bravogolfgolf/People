@@ -12,7 +12,7 @@ public class PersonTest {
     private Person person2;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         person1 = new Person(1, "Full Name", "Occupation",
                 1, 0, true,
                 "123-45-6789", "Male");

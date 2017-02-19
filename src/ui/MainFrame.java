@@ -5,7 +5,7 @@ import com.apple.eawt.Application;
 import com.apple.eawt.FullScreenListener;
 import com.apple.eawt.FullScreenUtilities;
 import domain.MainFramePresenter;
-import domain.PersonMessage;
+import domain.AddPersonRequest;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -66,7 +66,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     }
 
     @Override
-    public void updatePersonTableModel(PersonMessage[] response) {
+    public void updatePersonTableModel(AddPersonRequest[] response) {
         personTablePanel.addDataForPersonTableModel(response);
     }
 

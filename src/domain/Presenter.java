@@ -12,10 +12,10 @@ public class Presenter implements PresenterInteractor {
 
     @Override
     public void presentPeople(Map<Integer, Person> result) {
-        PersonMessage[] response = new PersonMessage[result.size()];
+        AddPersonRequest[] response = new AddPersonRequest[result.size()];
         int i = 0;
         for (Person person : result.values()) {
-            PersonMessage message = new PersonMessage();
+            AddPersonRequest message = new AddPersonRequest();
             message.id = person.getId();
             message.fullName = person.getFullName();
             message.occupation = person.getOccupation();

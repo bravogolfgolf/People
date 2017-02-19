@@ -9,10 +9,10 @@ import static org.junit.Assert.assertTrue;
 
 public class PresenterTest implements MainFramePresenter {
 
-    private PersonMessage[] response;
+    private AddPersonRequest[] response;
 
     @Override
-    public void updatePersonTableModel(PersonMessage[] response) {
+    public void updatePersonTableModel(AddPersonRequest[] response) {
         this.response = response;
     }
 

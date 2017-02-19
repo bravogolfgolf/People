@@ -1,7 +1,7 @@
 package ui;
 
 import domain.InteractorController;
-import domain.PersonMessage;
+import domain.AddPersonRequest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,12 +14,12 @@ import static org.junit.Assert.assertTrue;
 
 public class ControllerTest implements InteractorController {
 
-    private PersonMessage request;
+    private AddPersonRequest request;
     private File file;
     private int id;
 
     @Override
-    public void addPerson(PersonMessage request) {
+    public void addPerson(AddPersonRequest request) {
         this.request = request;
     }
 
