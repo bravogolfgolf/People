@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ControllerTest implements InteractorController {
+public class ControllerImplTest implements InteractorController {
 
     private AddPersonRequest request;
     private File file;
@@ -38,7 +38,7 @@ public class ControllerTest implements InteractorController {
         this.id = id;
     }
 
-    private final Controller controller = new Controller();
+    private final ControllerImpl controller = new ControllerImpl();
     private final InteractorController interactor = this;
 
     @Before

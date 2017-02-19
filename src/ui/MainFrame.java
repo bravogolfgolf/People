@@ -44,7 +44,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     private PreferenceDialog preferenceDialog;
 
     //Application Specific
-    private Controller controller;
+    private ControllerImpl controller;
     private Preferences preferences;
 
     public MainFrame() {
@@ -61,7 +61,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         setMainFrameVisible();
     }
 
-    public void setController(Controller controller) {
+    public void setController(ControllerImpl controller) {
         this.controller = controller;
     }
 

@@ -4,7 +4,7 @@ import domain.ExportImport;
 import data.PersonRepositoryMySQL;
 import domain.Interactor;
 import domain.Presenter;
-import ui.Controller;
+import ui.ControllerImpl;
 import ui.MainFrame;
 
 import javax.swing.*;
@@ -15,7 +15,7 @@ class People {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
         SwingUtilities.invokeLater(() -> {
 
-            Controller controller = new Controller();
+            ControllerImpl controller = new ControllerImpl();
 
             MainFrame mainFrame = new MainFrame();
             mainFrame.setController(controller);
