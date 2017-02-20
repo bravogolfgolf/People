@@ -4,22 +4,13 @@ import data.PersonRepositoryInMemory;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Map;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class DeletePersonUseCaseTest implements Presenter {
-
-    private Map<Integer, Person> result;
-
-    @Override
-    public void present(Map<Integer, Person> result) {
-        this.result = result;
-    }
+public class DeletePersonUseCaseTest {
 
     private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
-    private final UseCase useCase = new DeletePersonUseCase(repository, this);
+    private final UseCase useCase = new DeletePersonUseCase(repository);
     private final DeletePersonRequest request = new DeletePersonRequest();
     private Person person1;
 
@@ -40,8 +31,8 @@ public class DeletePersonUseCaseTest implements Presenter {
     public void shouldDeletePersonFromRepository() {
         useCase.execute(request);
 
-        assertEquals(1, result.size());
-        for (Person expected : result.values()) {
+        assertEquals(1, repository.getPeople().size());
+        for (Person expected : repository.getPeople().values()) {
             assertEquals(person1.getId(), expected.getId());
             assertEquals(person1.getFullName(), expected.getFullName());
             assertEquals(person1.getOccupation(), expected.getOccupation());

@@ -33,6 +33,12 @@ public class ControllerFactoryImplTest {
     }
 
     @Test
+    public void makeMethodReturnsRefreshController() {
+        Controller controller = factory.make("RefreshController", args);
+        assertTrue(controller instanceof RefreshController);
+    }
+
+    @Test
     public void makeMethodReturnsAddPersonController() {
         EntryEvent formEvent = new EntryEvent(new Object(), "Full Name", "Occupation", 0, 0, true, "Tax ID", "Gender");
         args.put(1, formEvent);

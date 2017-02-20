@@ -6,23 +6,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ImportUseCaseTest implements Presenter {
-
-    private Map<Integer, Person> result;
-
-    @Override
-    public void present(Map<Integer, Person> result) {
-        this.result = result;
-    }
+public class ImportUseCaseTest {
 
     private final ExportImport exportImport = new ExportImport();
     private final RepositoryInteractor repository = new PersonRepositoryInMemory();
-    private final UseCase useCase = new ImportUseCase(exportImport, repository, this);
+    private final UseCase useCase = new ImportUseCase(exportImport, repository);
     private final ImportRequest request = new ImportRequest();
     private final File file = new File(("ImportTest.per"));
 
@@ -35,9 +27,9 @@ public class ImportUseCaseTest implements Presenter {
     public void shouldImportPersonRepositoryFromFile() {
         assertTrue(file.exists());
         useCase.execute(request);
-        assertEquals(1, result.size());
+        assertEquals(1, repository.getPeople().size());
 
-        for (Person expected : result.values()) {
+        for (Person expected : repository.getPeople().values()) {
             assertEquals("Import Test", expected.getFullName());
             assertEquals("Occupation", expected.getOccupation());
             assertEquals(1, expected.getAgeCategory());

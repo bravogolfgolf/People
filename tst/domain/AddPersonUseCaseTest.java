@@ -1,26 +1,16 @@
 package domain;
 
 import data.PersonRepositoryInMemory;
-import data.RepositoryInteractor;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class AddPersonUseCaseTest implements Presenter {
+public class AddPersonUseCaseTest {
 
-    private Map<Integer, Person> result;
-
-    @Override
-    public void present(Map<Integer, Person> result) {
-        this.result = result;
-    }
-
-    private final RepositoryInteractor repository = new PersonRepositoryInMemory();
-    private final UseCase useCase = new AddPersonUseCase(repository, this);
+    private final AddPersonGateway repository = new PersonRepositoryInMemory();
+    private final UseCase useCase = new AddPersonUseCase(repository);
     private final AddPersonRequest request = new AddPersonRequest();
 
     @Before
@@ -38,7 +28,7 @@ public class AddPersonUseCaseTest implements Presenter {
     public void shouldProcessAddPersonRequestIntoAddPersonResult() {
         useCase.execute(request);
 
-        for (Person expected : result.values()) {
+        for (Person expected : repository.getPeople().values()) {
             assertEquals(1, expected.getId());
             assertEquals(request.fullName, expected.getFullName());
             assertEquals(request.occupation, expected.getOccupation());

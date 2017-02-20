@@ -17,6 +17,8 @@ public class ControllerFactoryImpl implements ControllerFactory {
 
     @Override
     public Controller make(String controller, Map<Integer, Object> args) {
+        if (controller.equals("RefreshController"))
+            return new RefreshController(builder, args, factory);
         if (controller.equals("AddPersonController"))
             return new AddPersonController(builder, args, factory);
         if (controller.equals("DeletePersonController"))

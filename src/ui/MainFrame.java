@@ -1,6 +1,9 @@
 package ui;
 
-import com.apple.eawt.*;
+import com.apple.eawt.AppEvent;
+import com.apple.eawt.Application;
+import com.apple.eawt.FullScreenListener;
+import com.apple.eawt.FullScreenUtilities;
 import domain.AddPersonRequest;
 import domain.MainFramePresenter;
 
@@ -59,6 +62,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         //Application Specific
         setupMainFrame();
         createAndAddComponentsToMainFrame();
+        populateViewWithData();
         setMainFrameVisible();
     }
 
@@ -181,7 +185,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
                 Map<Integer, Object> args = new HashMap<>();
                 args.put(1, fileChooser.getSelectedFile());
                 tryImport(args);
-                personTablePanel.refresh();
+                populateViewWithData();
             }
         });
         fileMenu.add(importDataMenuItem);
@@ -267,7 +271,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
             Map<Integer, Object> args = new HashMap<>();
             args.put(1, formEvent);
             controllerFactory.make("AddPersonController", args).execute();
-            personTablePanel.refresh();
+            populateViewWithData();
         });
         add(entryPanel, BorderLayout.LINE_START);
         SwingUtilities.getRootPane(entryPanel.okButton).setDefaultButton(entryPanel.okButton);
@@ -278,7 +282,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
             Map<Integer, Object> args = new HashMap<>();
             args.put(1, id);
             controllerFactory.make("DeletePersonController", args).execute();
-            personTablePanel.refresh();
+            populateViewWithData();
         });
         add(personTablePanel, BorderLayout.CENTER);
     }
@@ -290,6 +294,11 @@ public class MainFrame extends JFrame implements MainFramePresenter {
             preferences.putInt("portNumber", portNumber);
             preferenceDialog.setVisible(false);
         });
+    }
+
+    private void populateViewWithData() {
+        controllerFactory.make("RefreshController",new HashMap<>()).execute();
+        personTablePanel.refresh();
     }
 
     private void setMainFrameVisible() {

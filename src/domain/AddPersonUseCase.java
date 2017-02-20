@@ -5,11 +5,9 @@ import java.util.NoSuchElementException;
 
 public class AddPersonUseCase implements UseCase {
     private final AddPersonGateway repository;
-    private final Presenter presenter;
 
-    public AddPersonUseCase(AddPersonGateway repository, Presenter presenter) {
+    public AddPersonUseCase(AddPersonGateway repository) {
         this.repository = repository;
-        this.presenter = presenter;
     }
 
     @Override
@@ -18,7 +16,6 @@ public class AddPersonUseCase implements UseCase {
         int id = determineId();
         Person person = new Person(id, r.fullName, r.occupation, r.ageCategory, r.employmentStatus, r.uSCitizen, r.taxId, r.gender);
         repository.addPerson(person);
-        presenter.present(repository.getPeople());
     }
 
     private int determineId() {

@@ -22,13 +22,13 @@ public class UseCaseFactoryImpl implements ui.UseCaseFactory {
         if (useCase.equals("RefreshUseCase"))
             return new RefreshUseCase(repository, presenter);
         if (useCase.equals("AddPersonUseCase"))
-            return new AddPersonUseCase(repository, presenter);
+            return new AddPersonUseCase(repository);
         if (useCase.equals("DeletePersonUseCase"))
-            return new DeletePersonUseCase(repository, presenter);
+            return new DeletePersonUseCase(repository);
         if (useCase.equals("ExportUseCase"))
             return new ExportUseCase(repository, exportImport);
         if (useCase.equals("ImportUseCase"))
-            return new ImportUseCase(exportImport, repository, presenter);
+            return new ImportUseCase(exportImport, repository);
         return null;
     }
 }
