@@ -1,8 +1,5 @@
 package domain;
 
-import ui.Request;
-import ui.UseCase;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -21,8 +18,7 @@ public class ImportUseCase implements UseCase {
     @Override
     public void execute(Request request) {
         ImportRequest r = (ImportRequest) request;
-        File file = new File(r.file);
-        repository.setPeople(tryImportFile(file));
+        repository.setPeople(tryImportFile(r.file));
         presenter.presentPeople(repository.getPeople());
     }
 

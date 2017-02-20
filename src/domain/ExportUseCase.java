@@ -1,8 +1,5 @@
 package domain;
 
-import ui.Request;
-import ui.UseCase;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -18,8 +15,7 @@ public class ExportUseCase implements UseCase {
     @Override
     public void execute(Request request) {
         ExportRequest r = (ExportRequest) request;
-        File file = new File(r.file);
-        tryExport(file);
+        tryExport(r.file);
     }
 
     private void tryExport(File file) {

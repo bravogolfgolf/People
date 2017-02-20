@@ -1,15 +1,20 @@
 package main;
 
-import data.PersonRepositoryInMemory;
 import domain.*;
-import ui.UseCase;
+import domain.UseCase;
 
 public class UseCaseFactoryImpl implements ui.UseCaseFactory {
 
-    private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
-    private final Presenter presenter = new Presenter();
-    private final ExportImport exportImport = new ExportImport();
+    private final RepositoryInteractor repository;
+    private final ExportImport exportImport;
+    private final Presenter presenter;
 
+    UseCaseFactoryImpl(RepositoryInteractor repository, ExportImport exportImport, Presenter presenter) {
+
+        this.repository = repository;
+        this.exportImport = exportImport;
+        this.presenter = presenter;
+    }
 
     @Override
     public UseCase make(String useCase) {

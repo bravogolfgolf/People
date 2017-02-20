@@ -1,5 +1,8 @@
 package ui;
 
+import domain.Request;
+import domain.UseCase;
+
 import java.util.Map;
 
 public class DeletePersonController implements Controller {

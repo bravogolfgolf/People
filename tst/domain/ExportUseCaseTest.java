@@ -4,7 +4,6 @@ import data.PersonRepositoryInMemory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ui.UseCase;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +25,7 @@ public class ExportUseCaseTest {
     public void setUp() {
         file.delete();
         repository.addPerson(person);
-        request.file = "ExportTest.per";
+        request.file = file;
     }
 
     @After
@@ -43,7 +42,7 @@ public class ExportUseCaseTest {
 
     @Test(expected = ExportUseCase.ExportFailed.class)
     public void shouldThrowException() throws IOException {
-        request.file = "/bad_path/ExportTest.per";
+        request.file = new File("/bad_path/ExportTest.per");
         useCase.execute(request);
     }
 }

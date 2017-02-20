@@ -1,9 +1,15 @@
 package main;
 
+import data.PersonRepositoryInMemory;
+import domain.AddPersonRequest;
+import domain.ExportImport;
+import domain.MainFramePresenter;
+import domain.Presenter;
 import org.junit.Before;
 import org.junit.Test;
 import ui.*;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,8 +17,16 @@ import static org.junit.Assert.assertTrue;
 
 public class ControllerFactoryImplTest {
 
-    private final ControllerFactory factory = new ControllerFactoryImpl();
-    private  Map<Integer, Object> args;
+    private final RequestBuilder builder = new RequestBuilderImpl();
+
+    private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
+    private final ExportImport exportImport = new ExportImport();
+    private final MainFramePresenter mainFrame = new MainFrameDummy();
+    private final Presenter presenter = new Presenter(mainFrame);
+
+    private final UseCaseFactory useCaseFactory = new UseCaseFactoryImpl(repository, exportImport, presenter);
+    private final ControllerFactory factory = new ControllerFactoryImpl(builder, useCaseFactory);
+    private Map<Integer, Object> args;
 
     @Before
     public void setUp() throws Exception {
@@ -37,7 +51,7 @@ public class ControllerFactoryImplTest {
 
     @Test
     public void makeMethodReturnsExportController() {
-        String file = "Export.per";
+        File file = new File("Export.per");
         args.put(1, file);
         Controller controller = factory.make("ExportController", args);
         assertTrue(controller instanceof ExportController);
@@ -45,9 +59,16 @@ public class ControllerFactoryImplTest {
 
     @Test
     public void makeMethodReturnsImportController() {
-        String file = "Import.per";
+        File file = new File("Import.per");
         args.put(1, file);
         Controller controller = factory.make("ImportController", args);
         assertTrue(controller instanceof ImportController);
+    }
+
+    private class MainFrameDummy implements MainFramePresenter {
+        @Override
+        public void updatePersonTableModel(AddPersonRequest[] response) {
+
+        }
     }
 }

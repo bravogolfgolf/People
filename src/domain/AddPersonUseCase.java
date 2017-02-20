@@ -1,8 +1,5 @@
 package domain;
 
-import ui.Request;
-import ui.UseCase;
-
 import java.util.Collections;
 import java.util.NoSuchElementException;
 

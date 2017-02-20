@@ -1,5 +1,8 @@
 package ui;
 
+import domain.Request;
+import domain.UseCase;
+
 import java.util.Map;
 
 public class AddPersonController implements Controller {

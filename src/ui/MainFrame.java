@@ -4,8 +4,8 @@ import com.apple.eawt.AppEvent;
 import com.apple.eawt.Application;
 import com.apple.eawt.FullScreenListener;
 import com.apple.eawt.FullScreenUtilities;
-import domain.MainFramePresenter;
 import domain.AddPersonRequest;
+import domain.MainFramePresenter;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -13,7 +13,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.prefs.Preferences;
 
 import static java.awt.event.KeyEvent.VK_F;
@@ -40,15 +41,18 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     private PersonTablePanel personTablePanel;
 
     // MacOS Specific
-    private final Application application;
+    private Application application;
     private PreferenceDialog preferenceDialog;
 
-    //Application Specific
-    private ControllerImpl controller;
     private Preferences preferences;
+    private ControllerFactory controllerFactory;
 
     public MainFrame() {
         super();
+    }
+
+    public void initialize(ControllerFactory controllerFactory) {
+        this.controllerFactory = controllerFactory;
 
         // MacOS Specific
         application = Application.getApplication();
@@ -59,10 +63,6 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         setupMainFrame();
         createAndAddComponentsToMainFrame();
         setMainFrameVisible();
-    }
-
-    public void setController(ControllerImpl controller) {
-        this.controller = controller;
     }
 
     @Override
@@ -149,12 +149,15 @@ public class MainFrame extends JFrame implements MainFramePresenter {
 
     private void addExportMenuItem() {
         final JMenuItem exportDataMenuItem = newJMenuItemWithListener("Export Data...", e -> {
-            if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION)
-                try {
-                    controller.exportRepository(fileChooser.getSelectedFile());
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(this, "Could not export file.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+            if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
+//                    try {
+                Map<Integer, Object> args = new HashMap<>();
+                args.put(1, fileChooser.getSelectedFile());
+                controllerFactory.make("ExportController", args).execute();
+//                    } catch (IOException ex) {
+//                        JOptionPane.showMessageDialog(MainFrame.this, "Could not export file.", "Error", JOptionPane.ERROR_MESSAGE);
+//                    }
+            }
         });
         fileMenu.add(exportDataMenuItem);
     }
@@ -167,13 +170,16 @@ public class MainFrame extends JFrame implements MainFramePresenter {
 
     private void addImportMenuItem() {
         final JMenuItem importDataMenuItem = newJMenuItemWithListener("Import Data...", e -> {
-            if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION)
-                try {
-                    controller.loadRepository(fileChooser.getSelectedFile());
-                    personTablePanel.refresh();
-                } catch (IOException | ClassNotFoundException ex) {
-                    JOptionPane.showMessageDialog(this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+            if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
+//                    try {
+                Map<Integer, Object> args = new HashMap<>();
+                args.put(1, fileChooser.getSelectedFile());
+                controllerFactory.make("ImportController", args).execute();
+                personTablePanel.refresh();
+//                    } catch (IOException | ClassNotFoundException ex) {
+//                        JOptionPane.showMessageDialog(MainFrame.this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
+//                    }
+            }
         });
         fileMenu.add(importDataMenuItem);
     }
@@ -247,7 +253,9 @@ public class MainFrame extends JFrame implements MainFramePresenter {
 
     private void createAndAddEntryPane() {
         entryPanel = new EntryPanel(formEvent -> {
-            controller.addPerson(formEvent);
+            Map<Integer, Object> args = new HashMap<>();
+            args.put(1, formEvent);
+            controllerFactory.make("AddPersonController", args).execute();
             personTablePanel.refresh();
         });
         add(entryPanel, BorderLayout.LINE_START);
@@ -256,7 +264,9 @@ public class MainFrame extends JFrame implements MainFramePresenter {
 
     private void createAndAddPersonTablePanel() {
         personTablePanel = new PersonTablePanel(id -> {
-            controller.deletePerson(id);
+            Map<Integer, Object> args = new HashMap<>();
+            args.put(1, id);
+            controllerFactory.make("DeletePersonController", args).execute();
             personTablePanel.refresh();
         });
         add(personTablePanel, BorderLayout.CENTER);

@@ -1,8 +1,5 @@
 package domain;
 
-import ui.Request;
-import ui.UseCase;
-
 public class DeletePersonUseCase implements UseCase {
     private final RepositoryInteractor repository;
     private final PresenterInteractor presenter;

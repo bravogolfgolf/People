@@ -6,7 +6,11 @@ public class Presenter implements PresenterInteractor {
 
     private MainFramePresenter mainFrame;
 
-    public void setMainFrame(MainFramePresenter mainFrame) {
+    public Presenter(MainFramePresenter mainFrame) {
+        this.mainFrame = mainFrame;
+    }
+
+    void setMainFrame(MainFramePresenter mainFrame) {
         this.mainFrame = mainFrame;
     }
 

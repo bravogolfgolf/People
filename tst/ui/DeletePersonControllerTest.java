@@ -1,6 +1,8 @@
 package ui;
 
 import domain.DeletePersonRequest;
+import domain.Request;
+import domain.UseCase;
 import main.RequestBuilderImpl;
 import org.junit.Before;
 import org.junit.Test;

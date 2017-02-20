@@ -1,7 +1,5 @@
 package domain;
 
-import ui.Request;
-
 public class AddPersonRequest implements Request {
     public int id;
     public String fullName;

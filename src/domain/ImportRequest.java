@@ -1,7 +1,7 @@
 package domain;
 
-import ui.Request;
+import java.io.File;
 
 public class ImportRequest implements Request {
-    public String file;
+    public File file;
 }

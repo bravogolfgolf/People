@@ -2,9 +2,10 @@ package main;
 
 import domain.*;
 import ui.EntryEvent;
-import ui.Request;
+import domain.Request;
 import ui.RequestBuilder;
 
+import java.io.File;
 import java.util.Map;
 
 public class RequestBuilderImpl implements RequestBuilder {
@@ -32,13 +33,13 @@ public class RequestBuilderImpl implements RequestBuilder {
 
         if(request.equals("ExportRequest")){
             ExportRequest r = new ExportRequest();
-            r.file = (String) args.get(1);
+            r.file = (File) args.get(1);
             return r;
         }
 
         if(request.equals("ImportRequest")){
             ImportRequest r = new ImportRequest();
-            r.file = (String) args.get(1);
+            r.file = (File) args.get(1);
             return r;
         }
 

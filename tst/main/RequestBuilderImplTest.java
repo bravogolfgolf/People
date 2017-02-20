@@ -9,6 +9,7 @@ import org.junit.Test;
 import ui.EntryEvent;
 import ui.RequestBuilder;
 
+import java.io.File;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
@@ -48,7 +49,7 @@ public class RequestBuilderImplTest {
 
     @Test
     public void makeMethodShouldReturnExportRequest() {
-        String file = "Export.per";
+        File file = new File("Export.per");
         args.put(1, file);
         ExportRequest request = (ExportRequest) builder.make("ExportRequest", args);
         assertEquals(file, request.file);
@@ -56,7 +57,7 @@ public class RequestBuilderImplTest {
 
     @Test
     public void makeMethodShouldReturnImportRequest() {
-        String file = "Import.per";
+        File file = new File("Import.per");
         args.put(1, file);
         ImportRequest request = (ImportRequest) builder.make("ImportRequest", args);
         assertEquals(file, request.file);

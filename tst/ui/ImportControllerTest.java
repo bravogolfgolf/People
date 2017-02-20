@@ -1,10 +1,13 @@
 package ui;
 
 import domain.ImportRequest;
+import domain.Request;
+import domain.UseCase;
 import main.RequestBuilderImpl;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +25,7 @@ public class ImportControllerTest implements UseCase {
     private final RequestBuilder builder = new RequestBuilderImpl();
     private final UseCaseFactory factory = new UseCaseFactoryImplStub();
     private final Map<Integer, Object> args = new HashMap<>();
-    private final String file = "Import.per";
+    private final File file = new File("Import.per");
 
     @Before
     public void setUp() throws Exception {

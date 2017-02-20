@@ -3,7 +3,6 @@ package domain;
 import data.PersonRepositoryInMemory;
 import org.junit.Before;
 import org.junit.Test;
-import ui.UseCase;
 
 import java.io.File;
 import java.util.Map;
@@ -28,7 +27,7 @@ public class ImportUseCaseTest implements PresenterInteractor {
 
     @Before
     public void setUp() {
-        request.file = "ImportTest.per";
+        request.file = file;
     }
 
     @Test
@@ -50,7 +49,7 @@ public class ImportUseCaseTest implements PresenterInteractor {
 
     @Test(expected = ImportUseCase.ImportFailed.class)
     public void shouldThrowException() {
-        request.file = "/bad_path/ImportTest.per";
+        request.file = new File("/bad_path/ImportTest.per");
         useCase.execute(request);
     }
 }
