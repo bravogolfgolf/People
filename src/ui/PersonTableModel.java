@@ -1,18 +1,17 @@
 package ui;
 
-import domain.AddPersonRequest;
+import domain.RefreshResponse;
 
 import javax.swing.table.AbstractTableModel;
 
 class PersonTableModel extends AbstractTableModel {
 
-    private AddPersonRequest[] personTableModelData;
+    private RefreshResponse[] personTableModelData;
     private final String[] columnNames = {"ID", "Full Name", "Occupation", "Age Category",
             "Employment Status", "US Citizen", "Tax ID", "Gender"};
 
-    void addDataForPersonTableModel(AddPersonRequest[] people) {
-        personTableModelData = new AddPersonRequest[people.length];
-        personTableModelData = people;
+    void addDataForPersonTableModel(RefreshResponse[] responses) {
+        personTableModelData = responses;
     }
 
     int getIdOfPersonOn(int rowNumber) {
@@ -60,25 +59,25 @@ class PersonTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        AddPersonRequest person = personTableModelData[rowIndex];
+        RefreshResponse response = personTableModelData[rowIndex];
 
         switch (columnIndex) {
             case 0:
-                return person.id;
+                return response.id;
             case 1:
-                return person.fullName;
+                return response.fullName;
             case 2:
-                return person.occupation;
+                return response.occupation;
             case 3:
-                return person.ageCategory;
+                return response.ageCategory;
             case 4:
-                return person.employmentStatus;
+                return response.employmentStatus;
             case 5:
-                return person.uSCitizen;
+                return response.uSCitizen;
             case 6:
-                return person.taxId;
+                return response.taxId;
             case 7:
-                return person.gender;
+                return response.gender;
             default:
                 return null;
         }

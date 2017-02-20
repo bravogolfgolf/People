@@ -27,7 +27,7 @@ public class UseCaseFactoryImplTest {
 
     private class MainFramePresenterDummy implements MainFramePresenter {
         @Override
-        public void update(AddPersonRequest[] response) {
+        public void update(RefreshResponse[] responses) {
 
         }
     }

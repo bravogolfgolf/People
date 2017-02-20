@@ -1,6 +1,7 @@
 package domain;
 
-public class AddPersonRequest implements Request {
+public class RefreshResponse {
+    public int id;
     public String fullName;
     public String occupation;
     public int ageCategory;

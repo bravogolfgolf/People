@@ -5,18 +5,16 @@ import data.RepositoryInteractor;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Map;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class RefreshUseCaseTest implements Presenter {
 
-    private Map<Integer, Person> result;
+    private RefreshResponse[] responses;
 
     @Override
-    public void present(Map<Integer, Person> result) {
-        this.result = result;
+    public void present(RefreshResponse[] responses) {
+        this.responses = responses;
     }
 
     private final RepositoryInteractor repository = new PersonRepositoryInMemory();
@@ -35,17 +33,15 @@ public class RefreshUseCaseTest implements Presenter {
     public void shouldProcessUpdateRequestIntoUpdateResponse() {
         useCase.execute(request);
 
-        for (Person expected : result.values()) {
-            assertEquals(person.getId(), expected.getId());
-            assertEquals(person.getFullName(), expected.getFullName());
-            assertEquals(person.getOccupation(), expected.getOccupation());
-            assertEquals(person.getAgeCategory(), expected.getAgeCategory());
-            assertEquals(person.getEmploymentStatus(), expected.getEmploymentStatus());
-            assertTrue(expected.isUsCitizen());
-            assertEquals(person.getTaxId(), expected.getTaxId());
-            assertEquals(person.getGender(), expected.getGender());
+        for (RefreshResponse response : responses) {
+            assertEquals(person.getId(), response.id);
+            assertEquals(person.getFullName(), response.fullName);
+            assertEquals(person.getOccupation(), response.occupation);
+            assertEquals(person.getAgeCategory(), response.ageCategory);
+            assertEquals(person.getEmploymentStatus(), response.employmentStatus);
+            assertTrue(response.uSCitizen);
+            assertEquals(person.getTaxId(), response.taxId);
+            assertEquals(person.getGender(), response.gender);
         }
     }
-
-
 }

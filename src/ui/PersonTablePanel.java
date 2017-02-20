@@ -1,6 +1,6 @@
 package ui;
 
-import domain.AddPersonRequest;
+import domain.RefreshResponse;
 
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
@@ -25,8 +25,8 @@ class PersonTablePanel extends JPanel {
         createAndAddTablePanel();
     }
 
-    void addDataForPersonTableModel(AddPersonRequest[] people) {
-        personTableModel.addDataForPersonTableModel(people);
+    void addDataForPersonTableModel(RefreshResponse[] responses) {
+        personTableModel.addDataForPersonTableModel(responses);
     }
 
     void refresh() {

@@ -1,44 +1,50 @@
 package ui;
 
-import domain.AddPersonRequest;
 import domain.MainFramePresenter;
-import domain.Person;
+import domain.RefreshResponse;
+import org.junit.Before;
 import org.junit.Test;
-import ui.PresenterImpl;
-
-import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class PresenterImplTest implements MainFramePresenter {
 
-    private AddPersonRequest[] response;
+    private RefreshResponse[] responses;
 
     @Override
-    public void update(AddPersonRequest[] response) {
-        this.response = response;
+    public void update(RefreshResponse[] responses) {
+        this.responses = responses;
+    }
+
+    private final MainFramePresenter mainFrame = this;
+    private final PresenterImpl presenter = new PresenterImpl(mainFrame);
+    private final RefreshResponse response = new RefreshResponse();
+
+    @Before
+    public void setUp() throws Exception {
+        response.id = 1;
+        response.fullName = "Full Name";
+        response.occupation = "Occupation";
+        response.ageCategory = 1;
+        response.employmentStatus = 0;
+        response.uSCitizen = true;
+        response.taxId = "123-45-6789";
+        response.gender = "Male";
     }
 
     @Test
     public void shouldTransformResponseIntoMessage() {
-        final MainFramePresenter mainFrame = this;
-        final PresenterImpl presenter = new PresenterImpl(mainFrame);
-        final Person person = new Person(1, "Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
-        HashMap<Integer, Person> result = new HashMap<Integer, Person>() {{
-            put(person.getId(), person);
-        }};
+        presenter.present(new RefreshResponse[]{response});
 
-        presenter.present(result);
-
-        assertEquals(person.getId(), response[0].id);
-        assertEquals(person.getFullName(), response[0].fullName);
-        assertEquals(person.getOccupation(), response[0].occupation);
-        assertEquals(person.getAgeCategory(), response[0].ageCategory);
-        assertEquals(person.getEmploymentStatus(), response[0].employmentStatus);
-        assertTrue(response[0].uSCitizen);
-        assertEquals(person.getTaxId(), response[0].taxId);
-        assertEquals(person.getGender(), response[0].gender);
+        assertEquals(response.id, responses[0].id);
+        assertEquals(response.fullName, responses[0].fullName);
+        assertEquals(response.occupation, responses[0].occupation);
+        assertEquals(response.ageCategory, responses[0].ageCategory);
+        assertEquals(response.employmentStatus, responses[0].employmentStatus);
+        assertTrue(responses[0].uSCitizen);
+        assertEquals(response.taxId, responses[0].taxId);
+        assertEquals(response.gender, responses[0].gender);
     }
 }
 
