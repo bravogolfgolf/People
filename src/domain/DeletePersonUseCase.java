@@ -1,10 +1,10 @@
 package domain;
 
 public class DeletePersonUseCase implements UseCase {
-    private final RepositoryInteractor repository;
+    private final DeletePersonGateway repository;
     private final Presenter presenter;
 
-    public DeletePersonUseCase(RepositoryInteractor repository, Presenter presenter) {
+    public DeletePersonUseCase(DeletePersonGateway repository, Presenter presenter) {
         this.repository = repository;
         this.presenter = presenter;
     }

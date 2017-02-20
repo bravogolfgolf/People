@@ -4,10 +4,10 @@ import java.util.Collections;
 import java.util.NoSuchElementException;
 
 public class AddPersonUseCase implements UseCase {
-    private final RepositoryInteractor repository;
+    private final AddPersonGateway repository;
     private final Presenter presenter;
 
-    public AddPersonUseCase(RepositoryInteractor repository, Presenter presenter) {
+    public AddPersonUseCase(AddPersonGateway repository, Presenter presenter) {
         this.repository = repository;
         this.presenter = presenter;
     }

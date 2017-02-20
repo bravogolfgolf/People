@@ -1,12 +1,11 @@
 package data;
 
 import domain.Person;
-import domain.RepositoryInteractor;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class PersonRepositoryInMemory implements RepositoryInteractor {
+public class PersonRepositoryInMemory extends RepositoryInteractor {
 
     private Map<Integer, Person> people = new HashMap<>();
 

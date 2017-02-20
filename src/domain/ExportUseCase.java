@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class ExportUseCase implements UseCase {
-    private final RepositoryInteractor repository;
+    private final ExportGateway repository;
     private final Export exporter;
 
-    public ExportUseCase(RepositoryInteractor repository, Export exporter) {
+    public ExportUseCase(ExportGateway repository, Export exporter) {
         this.repository = repository;
         this.exporter = exporter;
     }

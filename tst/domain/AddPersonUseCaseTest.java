@@ -1,6 +1,7 @@
 package domain;
 
 import data.PersonRepositoryInMemory;
+import data.RepositoryInteractor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ public class AddPersonUseCaseTest implements Presenter {
         this.result = result;
     }
 
-    private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
+    private final RepositoryInteractor repository = new PersonRepositoryInMemory();
     private final UseCase useCase = new AddPersonUseCase(repository, this);
     private final AddPersonRequest request = new AddPersonRequest();
 

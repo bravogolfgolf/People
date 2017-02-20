@@ -1,6 +1,7 @@
 package domain;
 
 import data.PersonRepositoryInMemory;
+import data.RepositoryInteractor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +21,7 @@ public class ImportUseCaseTest implements Presenter {
     }
 
     private final ExportImport exportImport = new ExportImport();
-    private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
+    private final RepositoryInteractor repository = new PersonRepositoryInMemory();
     private final UseCase useCase = new ImportUseCase(exportImport, repository, this);
     private final ImportRequest request = new ImportRequest();
     private final File file = new File(("ImportTest.per"));

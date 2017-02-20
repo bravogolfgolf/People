@@ -1,6 +1,7 @@
 package main;
 
 import data.PersonRepositoryMySQL;
+import data.RepositoryInteractor;
 import domain.ExportImport;
 import ui.PresenterImpl;
 import ui.MainFrame;
@@ -15,7 +16,7 @@ class People {
 
             MainFrame mainFrame = new MainFrame();
             PresenterImpl presenter = new PresenterImpl(mainFrame);
-            PersonRepositoryMySQL repository = new PersonRepositoryMySQL();
+            RepositoryInteractor repository = new PersonRepositoryMySQL();
             ExportImport exportImport = new ExportImport();
             RequestBuilderImpl builder = new RequestBuilderImpl();
             UseCaseFactoryImpl useCaseFactory = new UseCaseFactoryImpl(repository, exportImport, presenter);

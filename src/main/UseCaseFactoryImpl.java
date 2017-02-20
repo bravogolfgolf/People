@@ -1,5 +1,6 @@
 package main;
 
+import data.RepositoryInteractor;
 import domain.*;
 import domain.UseCase;
 import ui.PresenterImpl;

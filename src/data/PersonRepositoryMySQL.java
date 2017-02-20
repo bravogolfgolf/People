@@ -1,13 +1,12 @@
 package data;
 
 import domain.Person;
-import domain.RepositoryInteractor;
 
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PersonRepositoryMySQL implements RepositoryInteractor {
+public class PersonRepositoryMySQL extends RepositoryInteractor {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
