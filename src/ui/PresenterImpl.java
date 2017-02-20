@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class PresenterImpl implements Presenter {
 
-    private MainFramePresenter mainFrame;
+    private final MainFramePresenter mainFrame;
 
     public PresenterImpl(MainFramePresenter mainFrame) {
         this.mainFrame = mainFrame;

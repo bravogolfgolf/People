@@ -1,5 +1,8 @@
-package domain;
+package ui;
 
+import domain.AddPersonRequest;
+import domain.MainFramePresenter;
+import domain.Person;
 import org.junit.Test;
 import ui.PresenterImpl;
 

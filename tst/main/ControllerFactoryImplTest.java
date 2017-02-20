@@ -4,7 +4,6 @@ import data.PersonRepositoryInMemory;
 import domain.AddPersonRequest;
 import domain.ExportImport;
 import domain.MainFramePresenter;
-import ui.PresenterImpl;
 import org.junit.Before;
 import org.junit.Test;
 import ui.*;
