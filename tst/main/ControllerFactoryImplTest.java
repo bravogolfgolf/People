@@ -2,7 +2,7 @@ package main;
 
 import data.PersonRepositoryInMemory;
 import domain.ExportImport;
-import domain.MainFramePresenter;
+import ui.MainFramePresenter;
 import domain.RefreshResponse;
 import org.junit.Before;
 import org.junit.Test;

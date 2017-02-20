@@ -1,6 +1,5 @@
 package ui;
 
-import domain.MainFramePresenter;
 import domain.Presenter;
 import domain.RefreshResponse;
 

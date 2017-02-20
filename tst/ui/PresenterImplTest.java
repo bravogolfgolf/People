@@ -1,6 +1,5 @@
 package ui;
 
-import domain.MainFramePresenter;
 import domain.RefreshResponse;
 import org.junit.Before;
 import org.junit.Test;

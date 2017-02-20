@@ -3,6 +3,7 @@ package main;
 import data.PersonRepositoryInMemory;
 import domain.*;
 import org.junit.Test;
+import ui.MainFramePresenter;
 import ui.PresenterImpl;
 import ui.UseCaseFactory;
 
