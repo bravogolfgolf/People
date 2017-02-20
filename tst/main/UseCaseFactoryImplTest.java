@@ -18,6 +18,7 @@ public class UseCaseFactoryImplTest {
     @Test
     public void makeMethodReturnsProperUseCase() {
         UseCaseFactory factory = new UseCaseFactoryImpl(repository, exportImport, presenter);
+        assertTrue(factory.make("RefreshUseCase") instanceof RefreshUseCase);
         assertTrue(factory.make("AddPersonUseCase") instanceof AddPersonUseCase);
         assertTrue(factory.make("DeletePersonUseCase") instanceof DeletePersonUseCase);
         assertTrue(factory.make("ExportUseCase") instanceof ExportUseCase);

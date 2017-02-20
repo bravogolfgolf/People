@@ -20,6 +20,8 @@ public class UseCaseFactoryImpl implements ui.UseCaseFactory {
 
     @Override
     public UseCase make(String useCase) {
+        if (useCase.equals("RefreshUseCase"))
+            return new RefreshUseCase(repository, presenter);
         if (useCase.equals("AddPersonUseCase"))
             return new AddPersonUseCase(repository, presenter);
         if (useCase.equals("DeletePersonUseCase"))

@@ -1,4 +1,4 @@
 package domain;
 
-class RefreshRequest implements Request {
+public class RefreshRequest implements Request {
 }

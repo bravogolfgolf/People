@@ -2,7 +2,6 @@ package main;
 
 import domain.*;
 import ui.EntryEvent;
-import domain.Request;
 import ui.RequestBuilder;
 
 import java.io.File;
@@ -12,6 +11,9 @@ public class RequestBuilderImpl implements RequestBuilder {
 
     @Override
     public Request make(String request, Map<Integer, Object> args) {
+        if (request.equals("RefreshRequest"))
+            return new RefreshRequest();
+
         if (request.equals("AddPersonRequest")) {
             AddPersonRequest r = new AddPersonRequest();
             EntryEvent entryEvent = (EntryEvent) args.get(1);
@@ -31,13 +33,13 @@ public class RequestBuilderImpl implements RequestBuilder {
             return r;
         }
 
-        if(request.equals("ExportRequest")){
+        if (request.equals("ExportRequest")) {
             ExportRequest r = new ExportRequest();
             r.file = (File) args.get(1);
             return r;
         }
 
-        if(request.equals("ImportRequest")){
+        if (request.equals("ImportRequest")) {
             ImportRequest r = new ImportRequest();
             r.file = (File) args.get(1);
             return r;

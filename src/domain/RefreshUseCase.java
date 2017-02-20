@@ -4,7 +4,7 @@ public class RefreshUseCase implements UseCase {
     private final RefreshGateway repository;
     private final Presenter presenter;
 
-    RefreshUseCase(RefreshGateway repository, Presenter presenter) {
+    public RefreshUseCase(RefreshGateway repository, Presenter presenter) {
         this.repository = repository;
         this.presenter = presenter;
     }

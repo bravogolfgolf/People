@@ -1,9 +1,6 @@
 package main;
 
-import domain.AddPersonRequest;
-import domain.DeletePersonRequest;
-import domain.ExportRequest;
-import domain.ImportRequest;
+import domain.*;
 import org.junit.Before;
 import org.junit.Test;
 import ui.EntryEvent;
@@ -23,6 +20,12 @@ public class RequestBuilderImplTest {
     @Before
     public void setUp() {
         args = new HashMap<>();
+    }
+
+    @Test
+    public void makeMethodShouldReturnRefreshRequest() {
+        RefreshRequest request = (RefreshRequest) builder.make("RefreshRequest", args);
+        assertTrue(request != null);
     }
 
     @Test
