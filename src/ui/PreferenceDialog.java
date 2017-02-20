@@ -5,6 +5,8 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,6 +23,9 @@ class PreferenceDialog extends JDialog {
     private JButton cancel;
     private final GridBagConstraints gridBagConstraints = new GridBagConstraints();
     private final JPanel databasePreferences = new JPanel(new GridBagLayout());
+    private String username;
+    private String password;
+    private int portNumber;
 
     PreferenceDialog(JFrame parent, PreferenceDialogListener preferenceDialogListener) {
         super(parent, "Preferences", false);
@@ -38,9 +43,16 @@ class PreferenceDialog extends JDialog {
     }
 
     void setDefaults(String username, String password, int portNumber) {
+        preserveOriginalValues(username, password, portNumber);
         usernameField.setText(username);
         passwordField.setText(password);
         portField.setText(String.valueOf(portNumber));
+    }
+
+    private void preserveOriginalValues(String username, String password, int portNumber) {
+        this.username = username;
+        this.password = password;
+        this.portNumber = portNumber;
     }
 
     private void createComponentsForDatabasePreferencePanel() {
@@ -71,21 +83,33 @@ class PreferenceDialog extends JDialog {
 
     private void createOkButton() {
         oKButton = new JButton("OK");
-        oKButton.addActionListener(e -> {
-            try {
-                int portNumber = Integer.parseInt(portField.getText());
-                this.preferenceDialogListener.preferencesEmitted(usernameField.getText(), new String(passwordField.getPassword()), portNumber);
-                setVisible(false);
-            } catch (NumberFormatException e1) {
-                JOptionPane.showMessageDialog(this, "Port number must be between 0 and 9999.", "Error", JOptionPane.ERROR_MESSAGE);
+        oKButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (portNumberIsValid())
+                    PreferenceDialog.this.preferenceDialogListener.preferencesEmitted(usernameField.getText(), new String(passwordField.getPassword()), portNumber);
+            }
+
+            private boolean portNumberIsValid() {
+                return tryParseInt(portField.getText());
+            }
+
+            private boolean tryParseInt(String value) {
+                boolean success = true;
+                try {
+                    portNumber = Integer.parseInt(value);
+                } catch (NumberFormatException ex) {
+                    success = false;
+                    JOptionPane.showMessageDialog(PreferenceDialog.this, "Port number must be between 0 and 9999.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                return success;
             }
         });
-
     }
 
     private void createCancelButton() {
         cancel = new JButton("Cancel");
-        cancel.addActionListener(e -> setVisible(false));
+        cancel.addActionListener(e -> PreferenceDialog.this.preferenceDialogListener.preferencesEmitted(username, password, portNumber));
         getRootPane().setDefaultButton(cancel);
     }
 

@@ -1,9 +1,6 @@
 package ui;
 
-import com.apple.eawt.AppEvent;
-import com.apple.eawt.Application;
-import com.apple.eawt.FullScreenListener;
-import com.apple.eawt.FullScreenUtilities;
+import com.apple.eawt.*;
 import domain.AddPersonRequest;
 import domain.MainFramePresenter;
 
@@ -71,8 +68,14 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     }
 
     private void macOSPreferencesMenuHandling() {
-        application.setPreferencesHandler(preferencesEvent -> preferenceDialog.setVisible(true));
-
+        application.setPreferencesHandler(preferencesEvent -> {
+            preferences = Preferences.userRoot().node("database");
+            String username = preferences.get("username", "");
+            String password = preferences.get("password", "");
+            int portNumber = preferences.getInt("portNumber", 3306);
+            preferenceDialog.setDefaults(username, password, portNumber);
+            preferenceDialog.setVisible(true);
+        });
     }
 
     private void macOSFullScreenHandling() {
@@ -285,14 +288,8 @@ public class MainFrame extends JFrame implements MainFramePresenter {
             preferences.put("username", username);
             preferences.put("password", password);
             preferences.putInt("portNumber", portNumber);
+            preferenceDialog.setVisible(false);
         });
-
-        preferences = Preferences.userRoot().node("database");
-        String username = preferences.get("username", "");
-        String password = preferences.get("password", "");
-        int portNumber = preferences.getInt("portNumber", 3306);
-
-        preferenceDialog.setDefaults(username, password, portNumber);
     }
 
     private void setMainFrameVisible() {
