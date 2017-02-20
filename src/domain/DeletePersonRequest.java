@@ -1,5 +1,7 @@
 package domain;
 
-class DeletePersonRequest implements Request {
+import ui.Request;
+
+public class DeletePersonRequest implements Request {
     public int id;
 }

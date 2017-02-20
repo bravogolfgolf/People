@@ -38,4 +38,9 @@ public class ControllerImpl implements Controller {
     void deletePerson(int id) {
         interactor.deletePerson(id);
     }
+
+    @Override
+    public void execute() {
+
+    }
 }

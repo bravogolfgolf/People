@@ -2,7 +2,7 @@ package ui;
 
 import java.util.EventObject;
 
-class EntryEvent extends EventObject {
+public class EntryEvent extends EventObject {
     private final String fullName;
     private final String occupation;
     private final int ageCategory;
@@ -11,7 +11,7 @@ class EntryEvent extends EventObject {
     private final String taxId;
     private final String gender;
 
-    EntryEvent(Object source, String fullName, String occupation, int ageCategory, int employmentStatus, Boolean uSCitizen, String taxId, String gender) {
+    public EntryEvent(Object source, String fullName, String occupation, int ageCategory, int employmentStatus, Boolean uSCitizen, String taxId, String gender) {
         super(source);
         this.fullName = fullName;
         this.occupation = occupation;
@@ -22,31 +22,31 @@ class EntryEvent extends EventObject {
         this.gender = gender;
     }
 
-    String getFullName() {
+    public String getFullName() {
         return fullName;
     }
 
-    String getOccupation() {
+    public String getOccupation() {
         return occupation;
     }
 
-    int getAgeCategory() {
+    public int getAgeCategory() {
         return ageCategory;
     }
 
-    int getEmploymentStatus() {
+    public int getEmploymentStatus() {
         return employmentStatus;
     }
 
-    Boolean isUsCitizen() {
+    public Boolean isUsCitizen() {
         return uSCitizen;
     }
 
-    String getTaxId() {
+    public String getTaxId() {
         return taxId;
     }
 
-    String getGender() {
+    public String getGender() {
         return gender;
     }
 }

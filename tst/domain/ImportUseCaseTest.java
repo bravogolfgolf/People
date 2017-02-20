@@ -3,6 +3,7 @@ package domain;
 import data.PersonRepositoryInMemory;
 import org.junit.Before;
 import org.junit.Test;
+import ui.UseCase;
 
 import java.io.File;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class ImportUseCaseTest implements PresenterInteractor {
 
     private final ExportImport exportImport = new ExportImport();
     private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
-    private final ImportUseCase useCase = new ImportUseCase(exportImport, repository, this);
+    private final UseCase useCase = new ImportUseCase(exportImport, repository, this);
     private final ImportRequest request = new ImportRequest();
     private final File file = new File(("ImportTest.per"));
 

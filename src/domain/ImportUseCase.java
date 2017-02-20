@@ -1,5 +1,8 @@
 package domain;
 
+import ui.Request;
+import ui.UseCase;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -9,7 +12,7 @@ public class ImportUseCase implements UseCase {
     private final RepositoryInteractor repository;
     private final PresenterInteractor presenter;
 
-    ImportUseCase(Import importer, RepositoryInteractor repository, PresenterInteractor presenter) {
+    public ImportUseCase(Import importer, RepositoryInteractor repository, PresenterInteractor presenter) {
         this.importer = importer;
         this.repository = repository;
         this.presenter = presenter;

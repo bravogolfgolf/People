@@ -3,6 +3,7 @@ package domain;
 import data.PersonRepositoryInMemory;
 import org.junit.Before;
 import org.junit.Test;
+import ui.UseCase;
 
 import java.util.Map;
 

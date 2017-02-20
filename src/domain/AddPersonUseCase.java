@@ -1,5 +1,8 @@
 package domain;
 
+import ui.Request;
+import ui.UseCase;
+
 import java.util.Collections;
 import java.util.NoSuchElementException;
 
@@ -7,7 +10,7 @@ public class AddPersonUseCase implements UseCase {
     private final RepositoryInteractor repository;
     private final PresenterInteractor presenter;
 
-    AddPersonUseCase(RepositoryInteractor repository, PresenterInteractor presenter) {
+    public AddPersonUseCase(RepositoryInteractor repository, PresenterInteractor presenter) {
         this.repository = repository;
         this.presenter = presenter;
     }

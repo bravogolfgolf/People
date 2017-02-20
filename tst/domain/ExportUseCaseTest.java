@@ -4,6 +4,7 @@ import data.PersonRepositoryInMemory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ui.UseCase;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,12 +15,12 @@ public class ExportUseCaseTest {
 
     private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
     private final ExportImport exportImport = new ExportImport();
-    private final ExportUseCase useCase = new ExportUseCase(repository, exportImport);
+    private final UseCase useCase = new ExportUseCase(repository, exportImport);
+    private final ExportRequest request = new ExportRequest();
+    private final File file = new File("ExportTest.per");
     private final Person person = new Person(1, "Full Name", "Occupation",
             1, 0, true,
             "123-45-6789", "Male");
-    private final File file = new File("ExportTest.per");
-    private final ExportRequest request = new ExportRequest();
 
     @Before
     public void setUp() {

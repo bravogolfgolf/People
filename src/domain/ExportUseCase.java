@@ -1,5 +1,8 @@
 package domain;
 
+import ui.Request;
+import ui.UseCase;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -7,7 +10,7 @@ public class ExportUseCase implements UseCase {
     private final RepositoryInteractor repository;
     private final Export exporter;
 
-    ExportUseCase(RepositoryInteractor repository, Export exporter) {
+    public ExportUseCase(RepositoryInteractor repository, Export exporter) {
         this.repository = repository;
         this.exporter = exporter;
     }

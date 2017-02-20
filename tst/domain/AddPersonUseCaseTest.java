@@ -3,6 +3,7 @@ package domain;
 import data.PersonRepositoryInMemory;
 import org.junit.Before;
 import org.junit.Test;
+import ui.UseCase;
 
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public class AddPersonUseCaseTest implements PresenterInteractor {
     }
 
     private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
-    private final AddPersonUseCase useCase = new AddPersonUseCase(repository, this);
+    private final UseCase useCase = new AddPersonUseCase(repository, this);
     private final AddPersonRequest request = new AddPersonRequest();
 
     @Before

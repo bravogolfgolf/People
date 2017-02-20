@@ -1,5 +1,7 @@
 package domain;
 
-class ImportRequest implements Request {
+import ui.Request;
+
+public class ImportRequest implements Request {
     public String file;
 }

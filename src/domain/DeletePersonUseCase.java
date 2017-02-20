@@ -1,10 +1,13 @@
 package domain;
 
+import ui.Request;
+import ui.UseCase;
+
 public class DeletePersonUseCase implements UseCase {
     private final RepositoryInteractor repository;
     private final PresenterInteractor presenter;
 
-    DeletePersonUseCase(RepositoryInteractor repository, PresenterInteractor presenter) {
+    public DeletePersonUseCase(RepositoryInteractor repository, PresenterInteractor presenter) {
         this.repository = repository;
         this.presenter = presenter;
     }

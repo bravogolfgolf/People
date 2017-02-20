@@ -1,4 +1,5 @@
 package ui;
 
-interface Controller {
+public interface Controller {
+    void execute();
 }
