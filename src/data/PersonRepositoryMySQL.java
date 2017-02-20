@@ -12,7 +12,7 @@ public class PersonRepositoryMySQL implements RepositoryInteractor {
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
-
+    @Override
     public void addPerson(Person person) {
         connect();
         String sql = "insert into person set id=?,  fullName=?,  occupation=?,  ageCategory=?,  employmentStatus=?, uSCitizen=?, taxId=?, gender=?";
@@ -90,6 +90,7 @@ public class PersonRepositoryMySQL implements RepositoryInteractor {
         }
     }
 
+    @Override
     public Map<Integer, Person> getPeople() {
         HashMap<Integer, Person> people = new HashMap<>();
 

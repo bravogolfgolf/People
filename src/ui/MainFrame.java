@@ -150,13 +150,9 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     private void addExportMenuItem() {
         final JMenuItem exportDataMenuItem = newJMenuItemWithListener("Export Data...", e -> {
             if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
-//                    try {
                 Map<Integer, Object> args = new HashMap<>();
                 args.put(1, fileChooser.getSelectedFile());
-                controllerFactory.make("ExportController", args).execute();
-//                    } catch (IOException ex) {
-//                        JOptionPane.showMessageDialog(MainFrame.this, "Could not export file.", "Error", JOptionPane.ERROR_MESSAGE);
-//                    }
+                tryExport(args);
             }
         });
         fileMenu.add(exportDataMenuItem);
@@ -168,20 +164,32 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         return menuItem;
     }
 
+    private void tryExport(Map<Integer, Object> args) {
+        try {
+            controllerFactory.make("ExportController", args).execute();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(MainFrame.this, "Could not export file.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     private void addImportMenuItem() {
         final JMenuItem importDataMenuItem = newJMenuItemWithListener("Import Data...", e -> {
             if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
-//                    try {
                 Map<Integer, Object> args = new HashMap<>();
                 args.put(1, fileChooser.getSelectedFile());
-                controllerFactory.make("ImportController", args).execute();
+                tryImport(args);
                 personTablePanel.refresh();
-//                    } catch (IOException | ClassNotFoundException ex) {
-//                        JOptionPane.showMessageDialog(MainFrame.this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
-//                    }
             }
         });
         fileMenu.add(importDataMenuItem);
+    }
+
+    private void tryImport(Map<Integer, Object> args) {
+        try {
+            controllerFactory.make("ImportController", args).execute();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(MainFrame.this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private JMenu createViewMenu() {

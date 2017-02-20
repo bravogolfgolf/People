@@ -7,7 +7,7 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 class PersonTablePanel extends JPanel {
@@ -35,8 +35,9 @@ class PersonTablePanel extends JPanel {
 
     private void createAndAddPopUp() {
         deleteRowMenuItem.addActionListener(e -> {
-            int rowSelected = tablePanel.getSelectedRow();
-            int id = personTableModel.getIdOfPersonOn(rowSelected);
+            int viewRowSelected = tablePanel.getSelectedRow();
+            int modelRowIndex = tablePanel.convertRowIndexToModel(viewRowSelected);
+            int id = personTableModel.getIdOfPersonOn(modelRowIndex);
             personTablePanelListener.personDeleted(id);
         });
         popupMenu.add(deleteRowMenuItem);
