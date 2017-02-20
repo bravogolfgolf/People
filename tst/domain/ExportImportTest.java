@@ -1,4 +1,4 @@
-package data;
+package domain;
 
 import domain.ExportImport;
 import domain.Person;
