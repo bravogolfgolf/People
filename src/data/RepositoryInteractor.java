@@ -1,10 +1,7 @@
 package data;
 
-import domain.AddPersonGateway;
-import domain.DeletePersonGateway;
-import domain.ExportGateway;
-import domain.ImportGateway;
+import domain.*;
 
 public abstract class RepositoryInteractor
-        implements AddPersonGateway, DeletePersonGateway, ExportGateway, ImportGateway {
+        implements RefreshGateway, AddPersonGateway, DeletePersonGateway, ExportGateway, ImportGateway {
 }
