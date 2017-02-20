@@ -2,7 +2,7 @@ package main;
 
 import data.PersonRepositoryMySQL;
 import domain.ExportImport;
-import domain.Presenter;
+import ui.PresenterImpl;
 import ui.MainFrame;
 
 import javax.swing.*;
@@ -14,7 +14,7 @@ class People {
         SwingUtilities.invokeLater(() -> {
 
             MainFrame mainFrame = new MainFrame();
-            Presenter presenter = new Presenter(mainFrame);
+            PresenterImpl presenter = new PresenterImpl(mainFrame);
             PersonRepositoryMySQL repository = new PersonRepositoryMySQL();
             ExportImport exportImport = new ExportImport();
             RequestBuilderImpl builder = new RequestBuilderImpl();

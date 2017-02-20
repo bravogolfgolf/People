@@ -63,7 +63,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     }
 
     @Override
-    public void updatePersonTableModel(AddPersonRequest[] response) {
+    public void update(AddPersonRequest[] response) {
         personTablePanel.addDataForPersonTableModel(response);
     }
 

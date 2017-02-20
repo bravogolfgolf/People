@@ -7,9 +7,9 @@ import java.util.Map;
 public class ImportUseCase implements UseCase {
     private final Import importer;
     private final RepositoryInteractor repository;
-    private final PresenterInteractor presenter;
+    private final Presenter presenter;
 
-    public ImportUseCase(Import importer, RepositoryInteractor repository, PresenterInteractor presenter) {
+    public ImportUseCase(Import importer, RepositoryInteractor repository, Presenter presenter) {
         this.importer = importer;
         this.repository = repository;
         this.presenter = presenter;
@@ -19,7 +19,7 @@ public class ImportUseCase implements UseCase {
     public void execute(Request request) {
         ImportRequest r = (ImportRequest) request;
         repository.setPeople(tryImportFile(r.file));
-        presenter.presentPeople(repository.getPeople());
+        presenter.present(repository.getPeople());
     }
 
     private Map<Integer, Person> tryImportFile(File file) {

@@ -4,7 +4,7 @@ import data.PersonRepositoryInMemory;
 import domain.AddPersonRequest;
 import domain.ExportImport;
 import domain.MainFramePresenter;
-import domain.Presenter;
+import ui.PresenterImpl;
 import org.junit.Before;
 import org.junit.Test;
 import ui.*;
@@ -22,7 +22,7 @@ public class ControllerFactoryImplTest {
     private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
     private final ExportImport exportImport = new ExportImport();
     private final MainFramePresenter mainFrame = new MainFrameDummy();
-    private final Presenter presenter = new Presenter(mainFrame);
+    private final PresenterImpl presenter = new PresenterImpl(mainFrame);
 
     private final UseCaseFactory useCaseFactory = new UseCaseFactoryImpl(repository, exportImport, presenter);
     private final ControllerFactory factory = new ControllerFactoryImpl(builder, useCaseFactory);
@@ -67,7 +67,7 @@ public class ControllerFactoryImplTest {
 
     private class MainFrameDummy implements MainFramePresenter {
         @Override
-        public void updatePersonTableModel(AddPersonRequest[] response) {
+        public void update(AddPersonRequest[] response) {
 
         }
     }

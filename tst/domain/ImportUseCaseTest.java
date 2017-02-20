@@ -10,12 +10,12 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ImportUseCaseTest implements PresenterInteractor {
+public class ImportUseCaseTest implements Presenter {
 
     private Map<Integer, Person> result;
 
     @Override
-    public void presentPeople(Map<Integer, Person> result) {
+    public void present(Map<Integer, Person> result) {
         this.result = result;
     }
 

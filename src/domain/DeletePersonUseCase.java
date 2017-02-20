@@ -2,9 +2,9 @@ package domain;
 
 public class DeletePersonUseCase implements UseCase {
     private final RepositoryInteractor repository;
-    private final PresenterInteractor presenter;
+    private final Presenter presenter;
 
-    public DeletePersonUseCase(RepositoryInteractor repository, PresenterInteractor presenter) {
+    public DeletePersonUseCase(RepositoryInteractor repository, Presenter presenter) {
         this.repository = repository;
         this.presenter = presenter;
     }
@@ -13,6 +13,6 @@ public class DeletePersonUseCase implements UseCase {
     public void execute(Request request) {
         DeletePersonRequest r = (DeletePersonRequest) request;
         repository.deletePerson(r.id);
-        presenter.presentPeople(repository.getPeople());
+        presenter.present(repository.getPeople());
     }
 }

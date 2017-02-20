@@ -1,5 +1,5 @@
 package domain;
 
 public interface MainFramePresenter {
-    void updatePersonTableModel(AddPersonRequest[] response);
+    void update(AddPersonRequest[] response);
 }

@@ -5,9 +5,9 @@ import java.util.NoSuchElementException;
 
 public class AddPersonUseCase implements UseCase {
     private final RepositoryInteractor repository;
-    private final PresenterInteractor presenter;
+    private final Presenter presenter;
 
-    public AddPersonUseCase(RepositoryInteractor repository, PresenterInteractor presenter) {
+    public AddPersonUseCase(RepositoryInteractor repository, Presenter presenter) {
         this.repository = repository;
         this.presenter = presenter;
     }
@@ -18,7 +18,7 @@ public class AddPersonUseCase implements UseCase {
         int id = determineId();
         Person person = new Person(id, r.fullName, r.occupation, r.ageCategory, r.employmentStatus, r.uSCitizen, r.taxId, r.gender);
         repository.addPerson(person);
-        presenter.presentPeople(repository.getPeople());
+        presenter.present(repository.getPeople());
     }
 
     private int determineId() {

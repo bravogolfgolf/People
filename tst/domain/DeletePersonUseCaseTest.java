@@ -9,12 +9,12 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class DeletePersonUseCaseTest implements PresenterInteractor {
+public class DeletePersonUseCaseTest implements Presenter {
 
     private Map<Integer, Person> result;
 
     @Override
-    public void presentPeople(Map<Integer, Person> result) {
+    public void present(Map<Integer, Person> result) {
         this.result = result;
     }
 
