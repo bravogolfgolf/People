@@ -2,8 +2,10 @@ package domain;
 
 import data.PersonRepositoryInMemory;
 import data.RepositoryInteractor;
+import main.ResponseBuilderImpl;
 import org.junit.Before;
 import org.junit.Test;
+import ui.RefreshResponse;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -17,8 +19,9 @@ public class RefreshUseCaseTest implements Presenter {
         this.response = response;
     }
 
+    private final ResponseBuilder builder = new ResponseBuilderImpl();
     private final RepositoryInteractor repository = new PersonRepositoryInMemory();
-    private final UseCase useCase = new RefreshUseCase(repository, this);
+    private final UseCase useCase = new RefreshUseCase(repository, builder, this);
     private final Request request = new RefreshRequest();
     private final Person person = new Person(2, "New Full Name",
             "New Occupation", 0, 1,

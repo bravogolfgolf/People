@@ -14,15 +14,14 @@ import static org.junit.Assert.assertTrue;
 
 public class ControllerFactoryImplTest {
 
-    private final RequestBuilder builder = new RequestBuilderImpl();
-
+    private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
     private final ExportImport exportImport = new ExportImport();
     private final MainFramePresenter mainFrame = new MainFrameDummy();
+    private final ResponseBuilderImpl responseBuilder = new ResponseBuilderImpl();
     private final PresenterImpl presenter = new PresenterImpl(mainFrame);
-
-    private final UseCaseFactory useCaseFactory = new UseCaseFactoryImpl(repository, exportImport, presenter);
-    private final ControllerFactory factory = new ControllerFactoryImpl(builder, useCaseFactory);
+    private final UseCaseFactory useCaseFactory = new UseCaseFactoryImpl(repository, exportImport, responseBuilder, presenter);
+    private final ControllerFactory factory = new ControllerFactoryImpl(requestBuilder, useCaseFactory);
     private Map<Integer, Object> args;
 
     @Before

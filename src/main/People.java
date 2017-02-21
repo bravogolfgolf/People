@@ -3,8 +3,8 @@ package main;
 import data.PersonRepositoryMySQL;
 import data.RepositoryInteractor;
 import domain.ExportImport;
-import ui.PresenterImpl;
 import ui.MainFrame;
+import ui.PresenterImpl;
 
 import javax.swing.*;
 
@@ -18,9 +18,10 @@ class People {
             PresenterImpl presenter = new PresenterImpl(mainFrame);
             RepositoryInteractor repository = new PersonRepositoryMySQL();
             ExportImport exportImport = new ExportImport();
-            RequestBuilderImpl builder = new RequestBuilderImpl();
-            UseCaseFactoryImpl useCaseFactory = new UseCaseFactoryImpl(repository, exportImport, presenter);
-            ControllerFactoryImpl controllerFactory = new ControllerFactoryImpl(builder, useCaseFactory);
+            RequestBuilderImpl requestBuilder = new RequestBuilderImpl();
+            ResponseBuilderImpl responseBuilder = new ResponseBuilderImpl();
+            UseCaseFactoryImpl useCaseFactory = new UseCaseFactoryImpl(repository, exportImport, responseBuilder, presenter);
+            ControllerFactoryImpl controllerFactory = new ControllerFactoryImpl(requestBuilder, useCaseFactory);
             mainFrame.initialize(controllerFactory);
         });
     }

@@ -1,7 +1,6 @@
 package ui;
 
 import domain.Presenter;
-import domain.RefreshResponse;
 import domain.Response;
 
 public class PresenterImpl implements Presenter {
