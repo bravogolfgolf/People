@@ -2,8 +2,6 @@ package main;
 
 import data.PersonRepositoryInMemory;
 import domain.ExportImport;
-import ui.MainFramePresenter;
-import domain.RefreshResponse;
 import org.junit.Before;
 import org.junit.Test;
 import ui.*;
@@ -72,7 +70,7 @@ public class ControllerFactoryImplTest {
 
     private class MainFrameDummy implements MainFramePresenter {
         @Override
-        public void update(RefreshResponse[] responses) {
+        public void update(PersonTableModelRecord[] responses) {
 
         }
     }

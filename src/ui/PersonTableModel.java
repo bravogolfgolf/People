@@ -1,17 +1,15 @@
 package ui;
 
-import domain.RefreshResponse;
-
 import javax.swing.table.AbstractTableModel;
 
 class PersonTableModel extends AbstractTableModel {
 
-    private RefreshResponse[] personTableModelData;
+    private PersonTableModelRecord[] personTableModelData;
     private final String[] columnNames = {"ID", "Full Name", "Occupation", "Age Category",
             "Employment Status", "US Citizen", "Tax ID", "Gender"};
 
-    void addDataForPersonTableModel(RefreshResponse[] responses) {
-        personTableModelData = responses;
+    void addDataForPersonTableModel(PersonTableModelRecord[] records) {
+        personTableModelData = records;
     }
 
     int getIdOfPersonOn(int rowNumber) {
@@ -59,7 +57,7 @@ class PersonTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        RefreshResponse response = personTableModelData[rowIndex];
+        PersonTableModelRecord response = personTableModelData[rowIndex];
 
         switch (columnIndex) {
             case 0:

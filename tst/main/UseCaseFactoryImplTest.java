@@ -4,6 +4,7 @@ import data.PersonRepositoryInMemory;
 import domain.*;
 import org.junit.Test;
 import ui.MainFramePresenter;
+import ui.PersonTableModelRecord;
 import ui.PresenterImpl;
 import ui.UseCaseFactory;
 
@@ -28,7 +29,7 @@ public class UseCaseFactoryImplTest {
 
     private class MainFramePresenterDummy implements MainFramePresenter {
         @Override
-        public void update(RefreshResponse[] responses) {
+        public void update(PersonTableModelRecord[] responses) {
 
         }
     }

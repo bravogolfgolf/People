@@ -10,11 +10,11 @@ import static org.junit.Assert.assertTrue;
 
 public class RefreshUseCaseTest implements Presenter {
 
-    private RefreshResponse[] responses;
+    private Response response;
 
     @Override
-    public void present(RefreshResponse[] responses) {
-        this.responses = responses;
+    public void present(Response response) {
+        this.response = response;
     }
 
     private final RepositoryInteractor repository = new PersonRepositoryInMemory();
@@ -33,15 +33,19 @@ public class RefreshUseCaseTest implements Presenter {
     public void shouldProcessUpdateRequestIntoUpdateResponse() {
         useCase.execute(request);
 
-        for (RefreshResponse response : responses) {
-            assertEquals(person.getId(), response.id);
-            assertEquals(person.getFullName(), response.fullName);
-            assertEquals(person.getOccupation(), response.occupation);
-            assertEquals(person.getAgeCategory(), response.ageCategory);
-            assertEquals(person.getEmploymentStatus(), response.employmentStatus);
-            assertTrue(response.uSCitizen);
-            assertEquals(person.getTaxId(), response.taxId);
-            assertEquals(person.getGender(), response.gender);
+        RefreshResponse r = (RefreshResponse) response;
+        assertEquals(1, r.people.length);
+
+        for (String response : r.people) {
+            String[] splits = response.split("\\|");
+            assertEquals(person.getId(), Integer.parseInt(splits[0]));
+            assertEquals(person.getFullName(), splits[1]);
+            assertEquals(person.getOccupation(), splits[2]);
+            assertEquals(person.getAgeCategory(), Integer.parseInt(splits[3]));
+            assertEquals(person.getEmploymentStatus(), Integer.parseInt(splits[4]));
+            assertTrue(Boolean.parseBoolean(splits[5]));
+            assertEquals(person.getTaxId(), splits[6]);
+            assertEquals(person.getGender(), splits[7]);
         }
     }
 }

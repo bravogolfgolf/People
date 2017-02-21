@@ -4,7 +4,6 @@ import com.apple.eawt.AppEvent;
 import com.apple.eawt.Application;
 import com.apple.eawt.FullScreenListener;
 import com.apple.eawt.FullScreenUtilities;
-import domain.RefreshResponse;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -66,8 +65,8 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     }
 
     @Override
-    public void update(RefreshResponse[] responses) {
-        personTablePanel.addDataForPersonTableModel(responses);
+    public void update(PersonTableModelRecord[] records) {
+        personTablePanel.addDataForPersonTableModel(records);
     }
 
     private void macOSPreferencesMenuHandling() {

@@ -1,7 +1,5 @@
 package ui;
 
-import domain.RefreshResponse;
-
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
@@ -25,8 +23,8 @@ class PersonTablePanel extends JPanel {
         createAndAddTablePanel();
     }
 
-    void addDataForPersonTableModel(RefreshResponse[] responses) {
-        personTableModel.addDataForPersonTableModel(responses);
+    void addDataForPersonTableModel(PersonTableModelRecord[] records) {
+        personTableModel.addDataForPersonTableModel(records);
     }
 
     void refresh() {
