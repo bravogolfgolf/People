@@ -1,5 +1,6 @@
 package domain;
 
+import data.PersonRepository;
 import data.PersonRepositoryInMemory;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 public class AddPersonUseCaseTest {
 
-    private final AddPersonGateway repository = new PersonRepositoryInMemory();
+    private final PersonRepository repository = new PersonRepositoryInMemory();
     private final UseCase useCase = new AddPersonUseCase(repository);
     private final AddPersonRequest request = new AddPersonRequest();
 

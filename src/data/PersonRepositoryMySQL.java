@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PersonRepositoryMySQL extends RepositoryInteractor {
+public class PersonRepositoryMySQL extends PersonRepository {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;

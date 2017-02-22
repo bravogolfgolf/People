@@ -1,7 +1,7 @@
 package domain;
 
 import data.PersonRepositoryInMemory;
-import data.RepositoryInteractor;
+import data.PersonRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ExportUseCaseTest {
 
-    private final RepositoryInteractor repository = new PersonRepositoryInMemory();
+    private final PersonRepository repository = new PersonRepositoryInMemory();
     private final ExportImport exportImport = new ExportImport();
     private final UseCase useCase = new ExportUseCase(repository, exportImport);
     private final ExportRequest request = new ExportRequest();

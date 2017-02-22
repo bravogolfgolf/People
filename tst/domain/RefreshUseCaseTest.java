@@ -1,7 +1,7 @@
 package domain;
 
 import data.PersonRepositoryInMemory;
-import data.RepositoryInteractor;
+import data.PersonRepository;
 import main.ResponseBuilderImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class RefreshUseCaseTest implements Presenter {
     }
 
     private final ResponseBuilder builder = new ResponseBuilderImpl();
-    private final RepositoryInteractor repository = new PersonRepositoryInMemory();
+    private final PersonRepository repository = new PersonRepositoryInMemory();
     private final UseCase useCase = new RefreshUseCase(repository, builder, this);
     private final Request request = new RefreshRequest();
     private final Person person = new Person(2, "New Full Name",

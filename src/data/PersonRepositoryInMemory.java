@@ -5,7 +5,7 @@ import domain.Person;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PersonRepositoryInMemory extends RepositoryInteractor {
+public class PersonRepositoryInMemory extends PersonRepository {
 
     private Map<Integer, Person> people = new HashMap<>();
 

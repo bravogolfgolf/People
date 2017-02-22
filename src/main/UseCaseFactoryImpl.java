@@ -1,17 +1,17 @@
 package main;
 
-import data.RepositoryInteractor;
+import data.PersonRepository;
 import domain.*;
 import ui.PresenterImpl;
 
 public class UseCaseFactoryImpl implements ui.UseCaseFactory {
 
-    private final RepositoryInteractor repository;
+    private final PersonRepository repository;
     private final ExportImport exportImport;
     private final PresenterImpl presenter;
     private final ResponseBuilder builder;
 
-    UseCaseFactoryImpl(RepositoryInteractor repository, ExportImport exportImport, ResponseBuilder builder, PresenterImpl presenter) {
+    UseCaseFactoryImpl(PersonRepository repository, ExportImport exportImport, ResponseBuilder builder, PresenterImpl presenter) {
 
         this.repository = repository;
         this.exportImport = exportImport;
