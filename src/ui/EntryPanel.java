@@ -34,9 +34,6 @@ class EntryPanel extends JPanel {
     private final JPanel paddingPanel = new JPanel();
     private final GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-    private Boolean uSCitizen;
-    private String taxId;
-
     EntryPanel(EntryPanelListener entryPanelListener) {
         this.entryPanelListener = entryPanelListener;
         setupComponents();
@@ -91,17 +88,22 @@ class EntryPanel extends JPanel {
     }
 
     private void setupTaxIdField() {
-        MaskFormatter ssnFormatter = tryGetMaskFormatter("###-##-####");
+        MaskFormatter ssnFormatter = tryGetMaskFormatter();
         ssnFormatter.setPlaceholderCharacter('0');
         taxIdField = new JFormattedTextField(ssnFormatter);
+        setTaxIDValue();
         taxIdField.setEnabled(false);
         taxIdField.setVisible(false);
     }
 
-    private MaskFormatter tryGetMaskFormatter(String format) {
+    private void setTaxIDValue() {
+        taxIdField.setValue("000-00-0000");
+    }
+
+    private MaskFormatter tryGetMaskFormatter() {
         MaskFormatter ssnFormatter = null;
         try {
-            ssnFormatter = new MaskFormatter(format);
+            ssnFormatter = new MaskFormatter("###-##-####");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -129,13 +131,8 @@ class EntryPanel extends JPanel {
         String occupation = occupationField.getText();
         int ageCategory = ageList.getSelectedIndex();
         int employmentStatus = statusCombo.getSelectedIndex();
-        if (uSCitizenCheckBox.isSelected()) {
-            uSCitizen = true;
-            taxId = taxIdField.getValue() != null ? (String) taxIdField.getValue() : "000-00-0000";
-        } else {
-            uSCitizen = false;
-            taxId = "000-00-0000";
-        }
+        boolean uSCitizen = uSCitizenCheckBox.isSelected();
+        String taxId = uSCitizenCheckBox.isSelected() ? (String) taxIdField.getValue() : "000-00-0000";
         String gender = genderButtonGroup.getSelection().getActionCommand();
         entryPanelListener.eventEmitted(new EntryEvent(e, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender));
     }
@@ -146,7 +143,7 @@ class EntryPanel extends JPanel {
         ageList.setSelectedIndex(1);
         statusCombo.setSelectedIndex(0);
         uSCitizenCheckBox.setSelected(false);
-        taxIdField.setText("000-00-0000");
+        setTaxIDValue();
         ActionListener[] actionListeners = uSCitizenCheckBox.getActionListeners();
         for (ActionListener listener : actionListeners) {
             listener.actionPerformed(new ActionEvent(uSCitizenCheckBox, 1002, ""));

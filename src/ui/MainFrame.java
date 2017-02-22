@@ -173,7 +173,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         try {
             controllerFactory.make("ExportController", args).execute();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(MainFrame.this, "Could not domain.exportfile file.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(MainFrame.this, "Could not Export file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
