@@ -13,7 +13,7 @@ import ui.RefreshResponseRecord;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class RefreshUseCaseTest implements Presenter {
+public class RefreshUseCaseTest implements OutputBoundary {
 
     private Response response;
 
@@ -24,7 +24,7 @@ public class RefreshUseCaseTest implements Presenter {
 
     private final ResponseBuilder builder = new ResponseBuilderImpl();
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final UseCase useCase = new RefreshUseCase(repository, builder, this);
+    private final InputBoundary useCase = new RefreshUseCase(repository, builder, this);
     private final Request request = new RefreshRequest();
     private final Person person = new Person(2, "New Full Name",
             "New Occupation", 0, 1,

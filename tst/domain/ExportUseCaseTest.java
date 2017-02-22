@@ -17,7 +17,7 @@ public class ExportUseCaseTest {
 
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final ExportImport exportImport = new ExportImport();
-    private final UseCase useCase = new ExportUseCase(repository, exportImport);
+    private final InputBoundary useCase = new ExportUseCase(repository, exportImport);
     private final ExportRequest request = new ExportRequest();
     private final File file = new File("ExportTest.per");
     private final Person person = new Person(1, "Full Name", "Occupation",

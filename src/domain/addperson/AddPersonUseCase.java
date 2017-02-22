@@ -2,12 +2,12 @@ package domain.addperson;
 
 import domain.Person;
 import domain.Request;
-import domain.UseCase;
+import domain.InputBoundary;
 
 import java.util.Collections;
 import java.util.NoSuchElementException;
 
-public class AddPersonUseCase implements UseCase {
+public class AddPersonUseCase implements InputBoundary {
     private final AddPersonGateway repository;
 
     public AddPersonUseCase(AddPersonGateway repository) {

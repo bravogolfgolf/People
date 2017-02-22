@@ -1,24 +1,21 @@
 package ui;
 
+import domain.OutputBoundary;
+import domain.PersonTableModelRecord;
 import domain.Presenter;
 import domain.Response;
 
-public class PresenterImpl implements Presenter {
+public class PersonTablePanelPresenter implements OutputBoundary, Presenter {
 
-    private final MainFramePresenter mainFrame;
-
-    public PresenterImpl(MainFramePresenter mainFrame) {
-        this.mainFrame = mainFrame;
-    }
+    private PersonTableModelRecord[] viewModel;
 
     @Override
     public void present(Response response) {
         RefreshResponse r = (RefreshResponse) response;
-        PersonTableModelRecord[] modelRecords = new PersonTableModelRecord[r.responseRecords.length];
+        viewModel = new PersonTableModelRecord[r.responseRecords.length];
         int i = 0;
         for (RefreshResponseRecord responseRecord : r.responseRecords)
-            modelRecords[i++] = makeModelRecord(responseRecord);
-        mainFrame.update(modelRecords);
+            viewModel[i++] = makeModelRecord(responseRecord);
     }
 
     private PersonTableModelRecord makeModelRecord(RefreshResponseRecord responseRecord) {
@@ -34,6 +31,10 @@ public class PresenterImpl implements Presenter {
         return modelRecord;
     }
 
+    @Override
+    public PersonTableModelRecord[] getViewModel() {
+        return viewModel;
+    }
 }
 
 

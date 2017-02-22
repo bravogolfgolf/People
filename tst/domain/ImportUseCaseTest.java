@@ -1,7 +1,7 @@
 package domain;
 
-import data.PersonRepositoryInMemory;
 import data.PersonRepository;
+import data.PersonRepositoryInMemory;
 import domain.importfile.ImportRequest;
 import domain.importfile.ImportUseCase;
 import org.junit.Before;
@@ -12,12 +12,14 @@ import java.io.File;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ImportUseCaseTest {
+public class ImportUseCaseTest  {
+
 
     private final ExportImport exportImport = new ExportImport();
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final UseCase useCase = new ImportUseCase(exportImport, repository);
+    private final InputBoundary useCase = new ImportUseCase(exportImport, repository);
     private final ImportRequest request = new ImportRequest();
+
     private final File file = new File(("ImportTest.per"));
 
     @Before
@@ -32,6 +34,7 @@ public class ImportUseCaseTest {
         assertEquals(1, repository.getPeople().size());
 
         for (Person expected : repository.getPeople().values()) {
+            assertEquals(1, expected.getId());
             assertEquals("Import Test", expected.getFullName());
             assertEquals("Occupation", expected.getOccupation());
             assertEquals(1, expected.getAgeCategory());

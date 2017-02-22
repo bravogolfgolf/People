@@ -2,7 +2,7 @@ package ui;
 
 import domain.exportfile.ExportRequest;
 import domain.Request;
-import domain.UseCase;
+import domain.InputBoundary;
 import main.RequestBuilderImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class ExportControllerTest implements UseCase {
+public class ExportControllerTest implements InputBoundary {
 
     private ExportRequest r;
 
@@ -44,7 +44,7 @@ public class ExportControllerTest implements UseCase {
 
     class UseCaseFactoryImplStub implements UseCaseFactory {
         @Override
-        public UseCase make(String useCase) {
+        public InputBoundary make(String useCase) {
             return ExportControllerTest.this;
         }
     }

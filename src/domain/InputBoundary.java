@@ -1,5 +1,5 @@
 package domain;
 
-public interface UseCase {
+public interface InputBoundary {
     void execute(Request request);
 }

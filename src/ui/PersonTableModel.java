@@ -1,5 +1,7 @@
 package ui;
 
+import domain.PersonTableModelRecord;
+
 import javax.swing.table.AbstractTableModel;
 
 class PersonTableModel extends AbstractTableModel {

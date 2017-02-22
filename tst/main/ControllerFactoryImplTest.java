@@ -2,6 +2,7 @@ package main;
 
 import data.PersonRepositoryInMemory;
 import domain.ExportImport;
+import domain.PersonTableModelRecord;
 import org.junit.Before;
 import org.junit.Test;
 import ui.*;
@@ -17,11 +18,11 @@ public class ControllerFactoryImplTest {
     private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
     private final ExportImport exportImport = new ExportImport();
-    private final MainFramePresenter mainFrame = new MainFrameDummy();
+    private final View view = new ViewDummy();
     private final ResponseBuilderImpl responseBuilder = new ResponseBuilderImpl();
-    private final PresenterImpl presenter = new PresenterImpl(mainFrame);
+    private final PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
     private final UseCaseFactory useCaseFactory = new UseCaseFactoryImpl(repository, exportImport, responseBuilder, presenter);
-    private final ControllerFactory factory = new ControllerFactoryImpl(requestBuilder, useCaseFactory);
+    private final ControllerFactory factory = new ControllerFactoryImpl(requestBuilder, useCaseFactory, presenter);
     private Map<Integer, Object> args;
 
     @Before
@@ -31,7 +32,7 @@ public class ControllerFactoryImplTest {
 
     @Test
     public void makeMethodReturnsRefreshController() {
-        Controller controller = factory.make("RefreshController", args);
+        Controller controller = factory.make("RefreshController", args, view);
         assertTrue(controller instanceof RefreshController);
     }
 
@@ -39,7 +40,7 @@ public class ControllerFactoryImplTest {
     public void makeMethodReturnsAddPersonController() {
         EntryEvent formEvent = new EntryEvent(new Object(), "Full Name", "Occupation", 0, 0, true, "Tax ID", "Gender");
         args.put(1, formEvent);
-        Controller controller = factory.make("AddPersonController", args);
+        Controller controller = factory.make("AddPersonController", args, view);
         assertTrue(controller instanceof AddPersonController);
     }
 
@@ -47,7 +48,7 @@ public class ControllerFactoryImplTest {
     public void makeMethodReturnsDeletePersonController() {
         int idToDelete = 1;
         args.put(1, idToDelete);
-        Controller controller = factory.make("DeletePersonController", args);
+        Controller controller = factory.make("DeletePersonController", args, view);
         assertTrue(controller instanceof DeletePersonController);
     }
 
@@ -55,7 +56,7 @@ public class ControllerFactoryImplTest {
     public void makeMethodReturnsExportController() {
         File file = new File("Export.per");
         args.put(1, file);
-        Controller controller = factory.make("ExportController", args);
+        Controller controller = factory.make("ExportController", args, view);
         assertTrue(controller instanceof ExportController);
     }
 
@@ -63,11 +64,11 @@ public class ControllerFactoryImplTest {
     public void makeMethodReturnsImportController() {
         File file = new File("Import.per");
         args.put(1, file);
-        Controller controller = factory.make("ImportController", args);
+        Controller controller = factory.make("ImportController", args, view);
         assertTrue(controller instanceof ImportController);
     }
 
-    private class MainFrameDummy implements MainFramePresenter {
+    private class ViewDummy implements View {
         @Override
         public void update(PersonTableModelRecord[] responses) {
 

@@ -1,14 +1,14 @@
 package domain.importfile;
 
+import domain.InputBoundary;
 import domain.Person;
 import domain.Request;
-import domain.UseCase;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
-public class ImportUseCase implements UseCase {
+public class ImportUseCase implements InputBoundary {
     private final Import importer;
     private final ImportGateway repository;
 

@@ -18,7 +18,7 @@ import java.util.prefs.Preferences;
 import static java.awt.event.KeyEvent.VK_F;
 import static java.awt.event.KeyEvent.VK_M;
 
-public class MainFrame extends JFrame implements MainFramePresenter {
+public class MainFrame extends JFrame  {
 
     private static final String PERSON_DATABASE_FILE_EXTENSION = "per";
     private static final String PERSON_DATABASE_FILE_EXTENSION_DESC = "Person database files (*.per)";
@@ -43,14 +43,14 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     private PreferenceDialog preferenceDialog;
 
     private Preferences preferences;
-    private ControllerFactory controllerFactory;
+    private final ControllerFactory controllerFactory;
 
-    public MainFrame() {
+    public MainFrame(ControllerFactory controllerFactory) {
         super();
+        this.controllerFactory = controllerFactory;
     }
 
-    public void initialize(ControllerFactory controllerFactory) {
-        this.controllerFactory = controllerFactory;
+    public void initialize() {
 
         // MacOS Specific
         application = Application.getApplication();
@@ -62,11 +62,6 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         createAndAddComponentsToMainFrame();
         populateViewWithData();
         setMainFrameVisible();
-    }
-
-    @Override
-    public void update(PersonTableModelRecord[] records) {
-        personTablePanel.addDataForPersonTableModel(records);
     }
 
     private void macOSPreferencesMenuHandling() {
@@ -171,7 +166,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
 
     private void tryExport(Map<Integer, Object> args) {
         try {
-            controllerFactory.make("ExportController", args).execute();
+            controllerFactory.make("ExportController", args, personTablePanel).execute();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(MainFrame.this, "Could not Export file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -191,7 +186,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
 
     private void tryImport(Map<Integer, Object> args) {
         try {
-            controllerFactory.make("ImportController", args).execute();
+            controllerFactory.make("ImportController", args, personTablePanel).execute();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(MainFrame.this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -268,7 +263,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         entryPanel = new EntryPanel(formEvent -> {
             Map<Integer, Object> args = new HashMap<>();
             args.put(1, formEvent);
-            controllerFactory.make("AddPersonController", args).execute();
+            controllerFactory.make("AddPersonController", args, personTablePanel).execute();
             populateViewWithData();
         });
         add(entryPanel, BorderLayout.LINE_START);
@@ -279,7 +274,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
         personTablePanel = new PersonTablePanel(id -> {
             Map<Integer, Object> args = new HashMap<>();
             args.put(1, id);
-            controllerFactory.make("DeletePersonController", args).execute();
+            controllerFactory.make("DeletePersonController", args, personTablePanel).execute();
             populateViewWithData();
         });
         add(personTablePanel, BorderLayout.CENTER);
@@ -295,8 +290,7 @@ public class MainFrame extends JFrame implements MainFramePresenter {
     }
 
     private void populateViewWithData() {
-        controllerFactory.make("RefreshController",new HashMap<>()).execute();
-        personTablePanel.refresh();
+        controllerFactory.make("RefreshController", new HashMap<>(), personTablePanel).execute();
     }
 
     private void setMainFrameVisible() {

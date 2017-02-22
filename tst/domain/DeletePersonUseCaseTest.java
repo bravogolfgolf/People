@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class DeletePersonUseCaseTest {
 
     private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
-    private final UseCase useCase = new DeletePersonUseCase(repository);
+    private final InputBoundary useCase = new DeletePersonUseCase(repository);
     private final DeletePersonRequest request = new DeletePersonRequest();
     private Person person1;
 

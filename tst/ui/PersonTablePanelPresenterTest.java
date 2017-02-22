@@ -1,22 +1,15 @@
 package ui;
 
+import domain.PersonTableModelRecord;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class PresenterImplTest implements MainFramePresenter {
+public class PersonTablePanelPresenterTest {
 
-    private PersonTableModelRecord[] records;
-
-    @Override
-    public void update(PersonTableModelRecord[] records) {
-        this.records = records;
-    }
-
-    private final MainFramePresenter mainFrame = this;
-    private final PresenterImpl presenter = new PresenterImpl(mainFrame);
+    private final PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
     private final RefreshResponse response = new RefreshResponse();
     private final int id = 1, ageCategory = 1, employmentStatus = 0;
     private final String fullName = "Full Name", occupation = "Occupation", taxId = "123-45-6789", gender = "Male";
@@ -27,17 +20,18 @@ public class PresenterImplTest implements MainFramePresenter {
         responseRecord.id = id;
         responseRecord.fullName = fullName;
         responseRecord.occupation = occupation;
-        responseRecord.ageCategory=ageCategory;
-        responseRecord.employmentStatus=employmentStatus;
-        responseRecord.uSCitizen=true;
-        responseRecord.taxId=taxId;
-        responseRecord.gender=gender;
+        responseRecord.ageCategory = ageCategory;
+        responseRecord.employmentStatus = employmentStatus;
+        responseRecord.uSCitizen = true;
+        responseRecord.taxId = taxId;
+        responseRecord.gender = gender;
         response.responseRecords = new RefreshResponseRecord[]{responseRecord};
     }
 
     @Test
     public void shouldTransformResponseIntoPersonTableModelRecords() {
         presenter.present(response);
+        PersonTableModelRecord[] records = presenter.getViewModel();
 
         assertEquals(1, records.length);
 

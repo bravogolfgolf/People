@@ -1,5 +1,7 @@
 package ui;
 
+import domain.PersonTableModelRecord;
+
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
@@ -8,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-class PersonTablePanel extends JPanel {
+class PersonTablePanel extends JPanel implements View {
 
     private final PersonTableModel personTableModel = new PersonTableModel();
     private final JTable tablePanel = new JTable(personTableModel);
@@ -21,14 +23,6 @@ class PersonTablePanel extends JPanel {
         setLayout(new BorderLayout());
         createAndAddPopUp();
         createAndAddTablePanel();
-    }
-
-    void addDataForPersonTableModel(PersonTableModelRecord[] records) {
-        personTableModel.addDataForPersonTableModel(records);
-    }
-
-    void refresh() {
-        personTableModel.fireTableDataChanged();
     }
 
     private void createAndAddPopUp() {
@@ -58,5 +52,11 @@ class PersonTablePanel extends JPanel {
         sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
         sorter.setSortKeys(sortKeys);
         add(new JScrollPane(tablePanel), BorderLayout.CENTER);
+    }
+
+    @Override
+    public void update(PersonTableModelRecord[] records) {
+        personTableModel.addDataForPersonTableModel(records);
+        personTableModel.fireTableDataChanged();
     }
 }

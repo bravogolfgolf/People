@@ -1,12 +1,12 @@
 package domain.exportfile;
 
 import domain.Request;
-import domain.UseCase;
+import domain.InputBoundary;
 
 import java.io.File;
 import java.io.IOException;
 
-public class ExportUseCase implements UseCase {
+public class ExportUseCase implements InputBoundary {
     private final ExportGateway repository;
     private final Export exporter;
 

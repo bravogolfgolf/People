@@ -2,7 +2,7 @@ package ui;
 
 import domain.deleteperson.DeletePersonRequest;
 import domain.Request;
-import domain.UseCase;
+import domain.InputBoundary;
 import main.RequestBuilderImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class DeletePersonControllerTest implements UseCase {
+public class DeletePersonControllerTest implements InputBoundary {
 
     private DeletePersonRequest r;
 
@@ -43,7 +43,7 @@ public class DeletePersonControllerTest implements UseCase {
 
     class UseCaseFactoryImplStub implements UseCaseFactory {
         @Override
-        public UseCase make(String useCase) {
+        public InputBoundary make(String useCase) {
             return DeletePersonControllerTest.this;
         }
     }

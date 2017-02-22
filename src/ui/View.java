@@ -1,5 +1,7 @@
 package ui;
 
-public interface MainFramePresenter {
+import domain.PersonTableModelRecord;
+
+public interface View {
     void update(PersonTableModelRecord[] records);
 }

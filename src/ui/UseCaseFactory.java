@@ -1,7 +1,7 @@
 package ui;
 
-import domain.UseCase;
+import domain.InputBoundary;
 
 public interface UseCaseFactory {
-    UseCase make(String useCase);
+    InputBoundary make(String useCase);
 }

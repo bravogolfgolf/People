@@ -1,8 +1,8 @@
 package ui;
 
-import domain.importfile.ImportRequest;
+import domain.InputBoundary;
 import domain.Request;
-import domain.UseCase;
+import domain.importfile.ImportRequest;
 import main.RequestBuilderImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class ImportControllerTest implements UseCase {
+public class ImportControllerTest implements InputBoundary {
 
     private ImportRequest r;
 
@@ -22,10 +22,10 @@ public class ImportControllerTest implements UseCase {
         this.r = (ImportRequest) request;
     }
 
-    private final RequestBuilder builder = new RequestBuilderImpl();
+    private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final UseCaseFactory factory = new UseCaseFactoryImplStub();
     private final Map<Integer, Object> args = new HashMap<>();
-    private final File file = new File("Import.per");
+    private final File file = new File("ImportTest.per");
 
     @Before
     public void setUp() throws Exception {
@@ -33,18 +33,17 @@ public class ImportControllerTest implements UseCase {
     }
 
     @Test
-    public void shouldSendRequestToUseCase()  {
-        Controller controller = new ImportController(builder, args, factory);
+    public void shouldSendRequestToUseCase() {
+        Controller controller = new ImportController(requestBuilder, args, factory);
 
         controller.execute();
 
         assertEquals(file, r.file);
-
     }
 
     class UseCaseFactoryImplStub implements UseCaseFactory {
         @Override
-        public UseCase make(String useCase) {
+        public InputBoundary make(String useCase) {
             return ImportControllerTest.this;
         }
     }

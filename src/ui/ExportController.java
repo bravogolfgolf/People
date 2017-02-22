@@ -1,14 +1,14 @@
 package ui;
 
 import domain.Request;
-import domain.UseCase;
+import domain.InputBoundary;
 
 import java.util.Map;
 
 public class ExportController implements Controller {
 
     private final Request request;
-    private final UseCase useCase;
+    private final InputBoundary useCase;
 
     public ExportController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase) {
         this.request = request.make("ExportRequest", args);

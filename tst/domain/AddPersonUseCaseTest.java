@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 public class AddPersonUseCaseTest {
 
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final UseCase useCase = new AddPersonUseCase(repository);
+    private final InputBoundary useCase = new AddPersonUseCase(repository);
     private final AddPersonRequest request = new AddPersonRequest();
 
     @Before
