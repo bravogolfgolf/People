@@ -1,10 +1,11 @@
 package main;
 
 import domain.Person;
-import ui.RefreshResponse;
 import domain.ResponseBuilder;
 import org.junit.Before;
 import org.junit.Test;
+import ui.RefreshResponse;
+import ui.RefreshResponseRecord;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,18 +33,19 @@ public class ResponseBuilderImplTest {
     public void makeMethodShouldReturnRefreshResponse() {
         RefreshResponse response = (RefreshResponse) builder.make("RefreshResponse", args);
         assertTrue(response != null);
-        assertEquals(1, response.people.length);
 
-        for (String string : response.people) {
-            String[] splits = string.split("\\|");
-            assertEquals(2, Integer.parseInt(splits[0]));
-            assertEquals("New Full Name", splits[1]);
-            assertEquals("New Occupation", splits[2]);
-            assertEquals(0, Integer.parseInt(splits[3]));
-            assertEquals(1, Integer.parseInt(splits[4]));
-            assertTrue(Boolean.parseBoolean(splits[5]));
-            assertEquals("New Tax ID", splits[6]);
-            assertEquals("Female", splits[7]);
+        assertEquals(1, response.responseRecords.length);
+
+        for (RefreshResponseRecord record : response.responseRecords) {
+            assertEquals(2, record.id);
+            assertEquals("New Full Name", record.fullName);
+            assertEquals("New Occupation", record.occupation);
+            assertEquals(0, record.ageCategory);
+            assertEquals(1, record.employmentStatus);
+            assertTrue(record.uSCitizen);
+            assertEquals("New Tax ID", record.taxId);
+            assertEquals("Female", record.gender);
         }
+
     }
 }

@@ -3,8 +3,6 @@ package ui;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.StringJoiner;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -25,16 +23,16 @@ public class PresenterImplTest implements MainFramePresenter {
 
     @Before
     public void setUp() throws Exception {
-        StringJoiner message = new StringJoiner("|");
-        message.add(String.valueOf(id));
-        message.add(fullName);
-        message.add(occupation);
-        message.add(String.valueOf(ageCategory));
-        message.add(String.valueOf(employmentStatus));
-        message.add(String.valueOf(true));
-        message.add(taxId);
-        message.add(gender);
-        response.people = new String[]{message.toString()};
+        RefreshResponseRecord responseRecord = new RefreshResponseRecord();
+        responseRecord.id = id;
+        responseRecord.fullName = fullName;
+        responseRecord.occupation = occupation;
+        responseRecord.ageCategory=ageCategory;
+        responseRecord.employmentStatus=employmentStatus;
+        responseRecord.uSCitizen=true;
+        responseRecord.taxId=taxId;
+        responseRecord.gender=gender;
+        response.responseRecords = new RefreshResponseRecord[]{responseRecord};
     }
 
     @Test
