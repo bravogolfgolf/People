@@ -1,6 +1,10 @@
 package main;
 
-import domain.*;
+import domain.addperson.AddPersonRequest;
+import domain.deleteperson.DeletePersonRequest;
+import domain.exportfile.ExportRequest;
+import domain.importfile.ImportRequest;
+import domain.refresh.RefreshRequest;
 import org.junit.Before;
 import org.junit.Test;
 import ui.EntryEvent;

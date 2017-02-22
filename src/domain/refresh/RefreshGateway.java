@@ -1,4 +1,6 @@
-package domain;
+package domain.refresh;
+
+import domain.Person;
 
 import java.util.Map;
 

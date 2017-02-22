@@ -2,6 +2,8 @@ package domain;
 
 import data.PersonRepositoryInMemory;
 import data.PersonRepository;
+import domain.refresh.RefreshRequest;
+import domain.refresh.RefreshUseCase;
 import main.ResponseBuilderImpl;
 import org.junit.Before;
 import org.junit.Test;

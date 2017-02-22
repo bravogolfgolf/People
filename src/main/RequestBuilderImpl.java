@@ -1,6 +1,11 @@
 package main;
 
 import domain.*;
+import domain.addperson.AddPersonRequest;
+import domain.deleteperson.DeletePersonRequest;
+import domain.exportfile.ExportRequest;
+import domain.importfile.ImportRequest;
+import domain.refresh.RefreshRequest;
 import ui.EntryEvent;
 import ui.RequestBuilder;
 

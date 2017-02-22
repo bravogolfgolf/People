@@ -1,6 +1,6 @@
 package ui;
 
-import domain.ImportRequest;
+import domain.importfile.ImportRequest;
 import domain.Request;
 import domain.UseCase;
 import main.RequestBuilderImpl;

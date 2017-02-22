@@ -1,6 +1,6 @@
 package ui;
 
-import domain.ExportRequest;
+import domain.exportfile.ExportRequest;
 import domain.Request;
 import domain.UseCase;
 import main.RequestBuilderImpl;

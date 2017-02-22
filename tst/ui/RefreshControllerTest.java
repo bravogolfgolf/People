@@ -1,6 +1,6 @@
 package ui;
 
-import domain.RefreshRequest;
+import domain.refresh.RefreshRequest;
 import domain.Request;
 import domain.UseCase;
 import main.RequestBuilderImpl;

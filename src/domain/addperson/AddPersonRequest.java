@@ -1,4 +1,6 @@
-package domain;
+package domain.addperson;
+
+import domain.Request;
 
 public class AddPersonRequest implements Request {
     public String fullName;

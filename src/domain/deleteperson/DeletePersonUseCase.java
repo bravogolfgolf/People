@@ -1,4 +1,7 @@
-package domain;
+package domain.deleteperson;
+
+import domain.Request;
+import domain.UseCase;
 
 public class DeletePersonUseCase implements UseCase {
     private final DeletePersonGateway repository;

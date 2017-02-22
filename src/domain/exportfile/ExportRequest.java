@@ -1,4 +1,6 @@
-package domain;
+package domain.exportfile;
+
+import domain.Request;
 
 import java.io.File;
 

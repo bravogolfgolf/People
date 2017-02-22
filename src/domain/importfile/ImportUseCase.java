@@ -1,4 +1,8 @@
-package domain;
+package domain.importfile;
+
+import domain.Person;
+import domain.Request;
+import domain.UseCase;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +33,7 @@ public class ImportUseCase implements UseCase {
         return result;
     }
 
-    class ImportFailed extends RuntimeException{
+    public class ImportFailed extends RuntimeException{
         ImportFailed(Exception e) {
             super(e);
         }

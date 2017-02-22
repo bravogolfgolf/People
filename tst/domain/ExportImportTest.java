@@ -1,7 +1,5 @@
 package domain;
 
-import domain.ExportImport;
-import domain.Person;
 import org.junit.Test;
 
 import java.io.File;

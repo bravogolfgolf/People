@@ -1,4 +1,6 @@
-package domain;
+package domain.refresh;
+
+import domain.*;
 
 import java.util.HashMap;
 import java.util.Map;

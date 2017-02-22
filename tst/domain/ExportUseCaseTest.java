@@ -2,6 +2,8 @@ package domain;
 
 import data.PersonRepositoryInMemory;
 import data.PersonRepository;
+import domain.exportfile.ExportRequest;
+import domain.exportfile.ExportUseCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

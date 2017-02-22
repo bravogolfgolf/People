@@ -2,6 +2,8 @@ package domain;
 
 import data.PersonRepository;
 import data.PersonRepositoryInMemory;
+import domain.addperson.AddPersonRequest;
+import domain.addperson.AddPersonUseCase;
 import org.junit.Before;
 import org.junit.Test;
 

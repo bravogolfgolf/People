@@ -1,6 +1,6 @@
 package ui;
 
-import domain.AddPersonRequest;
+import domain.addperson.AddPersonRequest;
 import domain.Request;
 import domain.UseCase;
 import main.RequestBuilderImpl;

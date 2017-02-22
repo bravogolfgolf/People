@@ -1,4 +1,7 @@
-package domain;
+package domain.exportfile;
+
+import domain.Request;
+import domain.UseCase;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +29,7 @@ public class ExportUseCase implements UseCase {
         }
     }
 
-    class ExportFailed extends RuntimeException {
+    public class ExportFailed extends RuntimeException {
         ExportFailed(IOException e) {
             super(e);
         }

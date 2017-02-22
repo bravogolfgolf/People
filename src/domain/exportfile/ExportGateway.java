@@ -1,4 +1,6 @@
-package domain;
+package domain.exportfile;
+
+import domain.Person;
 
 import java.util.Map;
 

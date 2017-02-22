@@ -1,6 +1,8 @@
 package domain;
 
 import data.PersonRepositoryInMemory;
+import domain.deleteperson.DeletePersonRequest;
+import domain.deleteperson.DeletePersonUseCase;
 import org.junit.Before;
 import org.junit.Test;
 

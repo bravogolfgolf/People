@@ -1,4 +1,8 @@
-package domain;
+package domain.addperson;
+
+import domain.Person;
+import domain.Request;
+import domain.UseCase;
 
 import java.util.Collections;
 import java.util.NoSuchElementException;

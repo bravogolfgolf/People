@@ -1,7 +1,12 @@
 package main;
 
 import data.PersonRepositoryInMemory;
-import domain.*;
+import domain.addperson.AddPersonUseCase;
+import domain.deleteperson.DeletePersonUseCase;
+import domain.ExportImport;
+import domain.exportfile.ExportUseCase;
+import domain.importfile.ImportUseCase;
+import domain.refresh.RefreshUseCase;
 import org.junit.Test;
 import ui.MainFramePresenter;
 import ui.PersonTableModelRecord;
