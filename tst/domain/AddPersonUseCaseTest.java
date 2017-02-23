@@ -11,9 +11,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class AddPersonUseCaseTest {
-
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final InputBoundary useCase = new AddPersonUseCase(repository);
+    private final InputBoundary refreshUseCase = new RefreshUseCaseDummy();
+    private final InputBoundary useCase = new AddPersonUseCase(repository, refreshUseCase);
     private final AddPersonRequest request = new AddPersonRequest();
 
     @Before
@@ -43,5 +43,9 @@ public class AddPersonUseCaseTest {
         }
     }
 
-
+    private class RefreshUseCaseDummy implements InputBoundary {
+        @Override
+        public void execute(Request request) {
+        }
+    }
 }

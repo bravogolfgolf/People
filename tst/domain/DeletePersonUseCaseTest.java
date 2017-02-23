@@ -12,7 +12,8 @@ import static org.junit.Assert.assertTrue;
 public class DeletePersonUseCaseTest {
 
     private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
-    private final InputBoundary useCase = new DeletePersonUseCase(repository);
+    private final InputBoundary refreshUseCase = new RefreshUseCaseDummy();
+    private final InputBoundary useCase = new DeletePersonUseCase(repository, refreshUseCase);
     private final DeletePersonRequest request = new DeletePersonRequest();
     private Person person1;
 
@@ -43,6 +44,13 @@ public class DeletePersonUseCaseTest {
             assertTrue(expected.isUsCitizen());
             assertEquals(person1.getTaxId(), expected.getTaxId());
             assertEquals(person1.getGender(), expected.getGender());
+        }
+    }
+
+    private class RefreshUseCaseDummy implements InputBoundary {
+        @Override
+        public void execute(Request request) {
+
         }
     }
 }

@@ -32,11 +32,10 @@ public class RefreshControllerTest implements InputBoundary, View {
         this.records = records;
     }
 
-    private final View view = this;
-    private final PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
     private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final Map<Integer, Object> args = new HashMap<>();
-
+    private final PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
+    private final View view = this;
     private final PersonRepository repository = new PersonRepositoryInMemory();
 
     @Before

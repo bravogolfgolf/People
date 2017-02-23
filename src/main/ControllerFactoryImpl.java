@@ -5,7 +5,6 @@ import ui.*;
 import java.util.Map;
 
 public class ControllerFactoryImpl implements ControllerFactory {
-
     private final RequestBuilder builder;
     private final UseCaseFactory factory;
     private final PersonTablePanelPresenter presenter;
@@ -21,13 +20,13 @@ public class ControllerFactoryImpl implements ControllerFactory {
         if (controller.equals("RefreshController"))
             return new RefreshController(builder, args, factory, presenter, view);
         if (controller.equals("AddPersonController"))
-            return new AddPersonController(builder, args, factory);
+            return new AddPersonController(builder, args, factory, presenter, view);
         if (controller.equals("DeletePersonController"))
-            return new DeletePersonController(builder, args, factory);
+            return new DeletePersonController(builder, args, factory, presenter, view);
         if (controller.equals("ExportController"))
             return new ExportController(builder, args, factory);
         if (controller.equals("ImportController"))
-            return new ImportController(builder, args, factory);
+            return new ImportController(builder, args, factory, presenter, view);
         return null;
     }
 }

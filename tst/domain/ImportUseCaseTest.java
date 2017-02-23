@@ -12,12 +12,11 @@ import java.io.File;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ImportUseCaseTest  {
-
-
+public class ImportUseCaseTest {
     private final ExportImport exportImport = new ExportImport();
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final InputBoundary useCase = new ImportUseCase(exportImport, repository);
+    private final InputBoundary refreshUseCase = new RefreshUseCaseDummy();
+    private final InputBoundary useCase = new ImportUseCase(exportImport, repository, refreshUseCase);
     private final ImportRequest request = new ImportRequest();
 
     private final File file = new File(("ImportTest.per"));
@@ -49,5 +48,12 @@ public class ImportUseCaseTest  {
     public void shouldThrowException() {
         request.file = new File("/bad_path/ImportTest.per");
         useCase.execute(request);
+    }
+
+    private class RefreshUseCaseDummy implements InputBoundary {
+        @Override
+        public void execute(Request request) {
+
+        }
     }
 }

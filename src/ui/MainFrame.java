@@ -18,13 +18,14 @@ import java.util.prefs.Preferences;
 import static java.awt.event.KeyEvent.VK_F;
 import static java.awt.event.KeyEvent.VK_M;
 
-public class MainFrame extends JFrame  {
-
+public class MainFrame extends JFrame {
     private static final String PERSON_DATABASE_FILE_EXTENSION = "per";
     private static final String PERSON_DATABASE_FILE_EXTENSION_DESC = "Person database files (*.per)";
 
     private static final String ENTER_FULL_SCREEN = "Enter Full Screen";
     private static final String HIDE_FORM = "Hide Form";
+
+    private final ControllerFactory controllerFactory;
 
     //Menu Bar Components
     private JMenu fileMenu;
@@ -37,13 +38,12 @@ public class MainFrame extends JFrame  {
 
     private EntryPanel entryPanel;
     private PersonTablePanel personTablePanel;
+    private Preferences preferences;
 
     // MacOS Specific
     private Application application;
     private PreferenceDialog preferenceDialog;
 
-    private Preferences preferences;
-    private final ControllerFactory controllerFactory;
 
     public MainFrame(ControllerFactory controllerFactory) {
         super();
@@ -60,7 +60,7 @@ public class MainFrame extends JFrame  {
         //Application Specific
         setupMainFrame();
         createAndAddComponentsToMainFrame();
-        populateViewWithData();
+        controllerFactory.make("RefreshController", new HashMap<>(), personTablePanel).execute();
         setMainFrameVisible();
     }
 
@@ -178,7 +178,6 @@ public class MainFrame extends JFrame  {
                 Map<Integer, Object> args = new HashMap<>();
                 args.put(1, fileChooser.getSelectedFile());
                 tryImport(args);
-                populateViewWithData();
             }
         });
         fileMenu.add(importDataMenuItem);
@@ -264,7 +263,6 @@ public class MainFrame extends JFrame  {
             Map<Integer, Object> args = new HashMap<>();
             args.put(1, formEvent);
             controllerFactory.make("AddPersonController", args, personTablePanel).execute();
-            populateViewWithData();
         });
         add(entryPanel, BorderLayout.LINE_START);
         SwingUtilities.getRootPane(entryPanel.okButton).setDefaultButton(entryPanel.okButton);
@@ -275,7 +273,6 @@ public class MainFrame extends JFrame  {
             Map<Integer, Object> args = new HashMap<>();
             args.put(1, id);
             controllerFactory.make("DeletePersonController", args, personTablePanel).execute();
-            populateViewWithData();
         });
         add(personTablePanel, BorderLayout.CENTER);
     }
@@ -287,10 +284,6 @@ public class MainFrame extends JFrame  {
             preferences.putInt("portNumber", portNumber);
             preferenceDialog.setVisible(false);
         });
-    }
-
-    private void populateViewWithData() {
-        controllerFactory.make("RefreshController", new HashMap<>(), personTablePanel).execute();
     }
 
     private void setMainFrameVisible() {

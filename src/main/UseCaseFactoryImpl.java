@@ -12,7 +12,6 @@ import domain.refresh.RefreshUseCase;
 import ui.PersonTablePanelPresenter;
 
 public class UseCaseFactoryImpl implements ui.UseCaseFactory {
-
     private final PersonRepository repository;
     private final ExportImport exportImport;
     private final PersonTablePanelPresenter presenter;
@@ -27,16 +26,18 @@ public class UseCaseFactoryImpl implements ui.UseCaseFactory {
 
     @Override
     public InputBoundary make(String useCase) {
+        InputBoundary refreshUseCase = new RefreshUseCase(repository, builder, presenter);
+
         if (useCase.equals("RefreshUseCase"))
-            return new RefreshUseCase(repository, builder, presenter);
+            return refreshUseCase;
         if (useCase.equals("AddPersonUseCase"))
-            return new AddPersonUseCase(repository);
+            return new AddPersonUseCase(repository, refreshUseCase);
         if (useCase.equals("DeletePersonUseCase"))
-            return new DeletePersonUseCase(repository);
+            return new DeletePersonUseCase(repository, refreshUseCase);
         if (useCase.equals("ExportUseCase"))
             return new ExportUseCase(repository, exportImport);
         if (useCase.equals("ImportUseCase"))
-            return new ImportUseCase(exportImport, repository);
+            return new ImportUseCase(exportImport, repository, refreshUseCase);
         return null;
     }
 }

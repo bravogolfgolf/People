@@ -1,9 +1,12 @@
 package ui;
 
-import domain.InputBoundary;
-import domain.Request;
+import data.PersonRepository;
+import data.PersonRepositoryInMemory;
+import domain.*;
 import domain.importfile.ImportRequest;
 import main.RequestBuilderImpl;
+import main.ResponseBuilderImpl;
+import main.UseCaseFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +16,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class ImportControllerTest implements InputBoundary {
+public class ImportControllerTest implements InputBoundary, View {
 
     private ImportRequest r;
 
@@ -22,9 +25,18 @@ public class ImportControllerTest implements InputBoundary {
         this.r = (ImportRequest) request;
     }
 
+    private PersonTableModelRecord[] records;
+
+    @Override
+    public void update(PersonTableModelRecord[] records) {
+        this.records = records;
+    }
+
     private final RequestBuilder requestBuilder = new RequestBuilderImpl();
-    private final UseCaseFactory factory = new UseCaseFactoryImplStub();
     private final Map<Integer, Object> args = new HashMap<>();
+    private final PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
+    private final View view = this;
+
     private final File file = new File("ImportTest.per");
 
     @Before
@@ -34,11 +46,25 @@ public class ImportControllerTest implements InputBoundary {
 
     @Test
     public void shouldSendRequestToUseCase() {
-        Controller controller = new ImportController(requestBuilder, args, factory);
+        UseCaseFactory factory = new UseCaseFactoryImplStub();
+        Controller controller = new ImportController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
 
         assertEquals(file, r.file);
+    }
+
+    @Test
+    public void shouldReturnRecords() {
+        PersonRepository repository = new PersonRepositoryInMemory();
+        ExportImport exportImport = new ExportImport();
+        ResponseBuilder responseBuilder = new ResponseBuilderImpl();
+        UseCaseFactory factory = new UseCaseFactoryImpl(repository, exportImport, responseBuilder, presenter);
+        Controller controller = new ImportController(requestBuilder, args, factory, presenter, view);
+
+        controller.execute();
+
+        assertEquals(1, records.length);
     }
 
     class UseCaseFactoryImplStub implements UseCaseFactory {
