@@ -28,4 +28,9 @@ public class PersonRepositoryInMemory extends PersonRepository {
     public void deletePerson(int id) {
         people.remove(id);
     }
+
+    @Override
+    public void updatePerson(Person person) {
+        people.put(person.getId(), person);
+    }
 }

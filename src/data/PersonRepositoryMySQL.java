@@ -172,6 +172,22 @@ public class PersonRepositoryMySQL extends PersonRepository {
         tryExecuteUpdate();
     }
 
+    @Override
+    public void updatePerson(Person person) {
+        connect();
+        String sql = "update person set fullName=?, occupation=?, ageCategory=?, employmentStatus=?, uSCitizen=?, taxId=?, gender=? where id=?";
+        tryPrepareStatement(sql);
+        trySetString(1, person.getFullName());
+        trySetString(2, person.getOccupation());
+        trySetInt(3, person.getAgeCategory());
+        trySetInt(4, person.getEmploymentStatus());
+        trySetBoolean(5, person.isUsCitizen());
+        trySetString(6, person.getTaxId());
+        trySetString(7, person.getGender());
+        trySetInt(8, person.getId());
+        tryExecuteUpdate();
+    }
+
     private class DriverNotFound extends RuntimeException {
         DriverNotFound(ClassNotFoundException e) {
             super(e);

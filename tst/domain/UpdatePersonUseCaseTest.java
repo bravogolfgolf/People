@@ -2,39 +2,44 @@ package domain;
 
 import data.PersonRepository;
 import data.PersonRepositoryInMemory;
-import domain.addperson.AddPersonRequest;
-import domain.addperson.AddPersonUseCase;
+import domain.updateperson.UpdatePersonRequest;
+import domain.updateperson.UpdatePersonUseCase;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class AddPersonUseCaseTest {
+public class UpdatePersonUseCaseTest {
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final InputBoundary refreshUseCase = new RefreshUseCaseDummy();
-    private final InputBoundary useCase = new AddPersonUseCase(repository, refreshUseCase);
-    private final AddPersonRequest request = new AddPersonRequest();
+    private final InputBoundary useCase = new UpdatePersonUseCase(repository, refreshUseCase);
+    private final UpdatePersonRequest request = new UpdatePersonRequest();
+    private final Person person = new Person(1, "Full Name", "Occupation",
+            0, 0, false,
+            "000-00-0000", "Male");
 
     @Before
     public void setUp() {
-        request.fullName = "Add Person";
-        request.occupation = "Occupation";
-        request.ageCategory = 0;
-        request.employmentStatus = 0;
+        repository.addPerson(person);
+        request.id = 1;
+        request.fullName = "Update Person";
+        request.occupation = "Update";
+        request.ageCategory = 1;
+        request.employmentStatus = 1;
         request.uSCitizen = true;
-        request.taxId = "000-00-0000";
-        request.gender = "Male";
+        request.taxId = "111-11-1111";
+        request.gender = "Female";
     }
 
     @Test
-    public void shouldProcessAddPersonRequestIntoAddPersonResult() {
+    public void shouldProcessUpdatePersonRequestIntoAddPersonResult() {
         useCase.execute(request);
 
         assertEquals(1, repository.getPeople().size());
 
         for (Person expected : repository.getPeople().values()) {
-            assertEquals(1, expected.getId());
+            assertEquals(request.id, expected.getId());
             assertEquals(request.fullName, expected.getFullName());
             assertEquals(request.occupation, expected.getOccupation());
             assertEquals(request.ageCategory, expected.getAgeCategory());

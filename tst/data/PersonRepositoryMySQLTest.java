@@ -13,45 +13,74 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class PersonRepositoryMySQLTest {
 
-    private PersonRepositoryMySQL repository;
-    private Person person;
-    private Map<Integer, Person> people;
+    private final PersonRepositoryMySQL repository = new PersonRepositoryMySQL();
+    private final Person person = new Person(1, "Full Name", "Occupation", 0, 0, false,
+            "Tax ID", "Male");
+    private final Person person1 = new Person(1, "Update Name", "Update", 1, 1, true,
+            "Update ID", "Female");
+    private final Person person2 = new Person(2, "Full Name", "Occupation", 0, 2, true,
+            "Tax ID", "Female");
+
+    private Map<Integer, Person> people = new HashMap<>();
 
     @Before
-    public void setUp() throws Exception {
-        repository = new PersonRepositoryMySQL();
-        person = new Person(1, "Full Name", "Occupation", 0, 2, true,
-                "Tax ID", "Female");
-        people = new HashMap<>();
+    public void setUp() {
+        clearRepository();
     }
 
     @After
-    public void tearDown() throws SQLException, ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
+    public void tearDown() {
+        clearRepository();
+    }
+
+    private void clearRepository() {
         String url = "jdbc:mysql://localhost:3306/people?useSSL=true";
-        Connection connection = DriverManager.getConnection(url, "briangibson", "sKzuP3RMF");
-        PreparedStatement statement = connection.prepareStatement("delete from person");
-        statement.executeUpdate();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(url, "briangibson", "sKzuP3RMF");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        PreparedStatement statement = null;
+        try {
+            statement = connection != null ? connection.prepareStatement("delete from person") : null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (statement != null) statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void newDatabaseShouldBeEmpty() throws SQLException, ClassNotFoundException {
+    public void newDatabaseShouldBeEmpty() {
         people = repository.getPeople();
         assertEquals(0, people.size());
     }
 
     @Test
-    public void newDatabaseShouldExceptPerson() throws SQLException, ClassNotFoundException {
+    public void newDatabaseShouldExceptPerson() {
         repository.addPerson(person);
         people = repository.getPeople();
         assertEquals(1, people.size());
     }
 
     @Test
-    public void shouldNotBeAbleToAddPeopleWithSameID() throws SQLException, ClassNotFoundException {
+    public void shouldNotBeAbleToAddPeopleWithSameID() {
         repository.addPerson(person);
         repository.addPerson(person);
         people = repository.getPeople();
@@ -59,26 +88,40 @@ public class PersonRepositoryMySQLTest {
     }
 
     @Test
-    public void shouldBeAbleToDeletePerson() throws SQLException, ClassNotFoundException {
+    public void shouldBeAbleToUpdatePeopleWithSameID() {
+        repository.addPerson(person);
+        repository.updatePerson(person1);
+        people = repository.getPeople();
+        assertEquals(1, people.size());
+        for (Person person : people.values()) {
+            assertEquals(person.getId(), person1.getId());
+            assertEquals(person.getFullName(), person1.getFullName());
+            assertEquals(person.getOccupation(), person1.getOccupation());
+            assertEquals(person.getAgeCategory(), person1.getAgeCategory());
+            assertEquals(person.getEmploymentStatus(), person1.getEmploymentStatus());
+            assertTrue(person.isUsCitizen());
+            assertEquals(person.getTaxId(), person1.getTaxId());
+            assertEquals(person.getGender(), person1.getGender());
+        }
+    }
+
+    @Test
+    public void shouldBeAbleToDeletePerson() {
         int id = 2;
-        Person person1 = new Person(id, "Full Name", "Occupation", 0, 2, true,
-                "Tax ID", "Female");
         repository.addPerson(person);
-        repository.addPerson(person1);
+        repository.addPerson(person2);
         assertEquals(2, repository.getPeople().size());
         repository.deletePerson(id);
         assertEquals(1, repository.getPeople().size());
     }
 
     @Test
-    public void shouldBeAbleToReplaceRepository() throws SQLException, ClassNotFoundException {
+    public void shouldBeAbleToReplaceRepository() {
         repository.addPerson(person);
         Map<Integer, Person> expected = new HashMap<>(repository.getPeople());
         assertEquals(1, expected.size());
 
-        person = new Person(2, "Full Name", "Occupation", 0, 2, true,
-                "Tax ID", "Female");
-        repository.addPerson(person);
+        repository.addPerson(person2);
         Map<Integer, Person> updated = repository.getPeople();
         assertEquals(2, updated.size());
 
