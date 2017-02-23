@@ -1,7 +1,7 @@
 package ui;
 
-import domain.PersonTableModelRecord;
+import domain.PersonRecord;
 
 public interface View {
-    Object generateView(PersonTableModelRecord[] records);
+    Object generateView(PersonRecord[] records);
 }

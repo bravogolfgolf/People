@@ -1,6 +1,6 @@
 package domain;
 
-public class PersonTableModelRecord {
+public class PersonRecord {
     public int id;
     public String fullName;
     public String occupation;

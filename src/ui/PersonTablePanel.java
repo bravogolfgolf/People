@@ -1,6 +1,6 @@
 package ui;
 
-import domain.PersonTableModelRecord;
+import domain.PersonRecord;
 
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
@@ -55,9 +55,29 @@ class PersonTablePanel extends JPanel implements View {
     }
 
     @Override
-    public String generateView(PersonTableModelRecord[] records) {
+    public PersonTableModelRecord[] generateView(PersonRecord[] records) {
+        PersonTableModelRecord[] model = new PersonTableModelRecord[records.length];
+        int i = 0;
+        for (PersonRecord record : records)
+            model[i++] = addRecord(record);
+        return model;
+    }
+
+    private PersonTableModelRecord addRecord(PersonRecord pr) {
+        PersonTableModelRecord modelRecord = new PersonTableModelRecord();
+        modelRecord.id = pr.id;
+        modelRecord.fullName = pr.fullName;
+        modelRecord.occupation = pr.occupation;
+        modelRecord.ageCategory = pr.ageCategory;
+        modelRecord.employmentStatus = pr.employmentStatus;
+        modelRecord.uSCitizen = pr.uSCitizen;
+        modelRecord.taxId = pr.taxId;
+        modelRecord.gender = pr.gender;
+        return modelRecord;
+    }
+
+    void updateModel(PersonTableModelRecord[] records) {
         personTableModel.addDataForPersonTableModel(records);
         personTableModel.fireTableDataChanged();
-        return null;
     }
 }

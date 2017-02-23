@@ -1,6 +1,6 @@
 package ui;
 
-import domain.PersonTableModelRecord;
+import domain.PersonRecord;
 import domain.Presenter;
 import domain.Response;
 import domain.refresh.RefreshResponse;
@@ -8,19 +8,19 @@ import domain.refresh.RefreshResponseRecord;
 
 public class PersonTablePanelPresenter implements Presenter {
 
-    private PersonTableModelRecord[] viewModel;
+    private PersonRecord[] viewModel;
 
     @Override
     public void present(Response response) {
         RefreshResponse r = (RefreshResponse) response;
-        viewModel = new PersonTableModelRecord[r.records.size()];
+        viewModel = new PersonRecord[r.records.size()];
         int i = 0;
         for (RefreshResponseRecord responseRecord : r.records)
             viewModel[i++] = makeModelRecord(responseRecord);
     }
 
-    private PersonTableModelRecord makeModelRecord(RefreshResponseRecord responseRecord) {
-        PersonTableModelRecord modelRecord = new PersonTableModelRecord();
+    private PersonRecord makeModelRecord(RefreshResponseRecord responseRecord) {
+        PersonRecord modelRecord = new PersonRecord();
         modelRecord.id = responseRecord.id;
         modelRecord.fullName = responseRecord.fullName;
         modelRecord.occupation = responseRecord.occupation;
@@ -33,7 +33,7 @@ public class PersonTablePanelPresenter implements Presenter {
     }
 
     @Override
-    public PersonTableModelRecord[] getViewModel() {
+    public PersonRecord[] getViewModel() {
         return viewModel;
     }
 }

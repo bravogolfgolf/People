@@ -26,10 +26,10 @@ public class DeletePersonControllerTest implements InputBoundary, View {
         this.r = (DeletePersonRequest) request;
     }
 
-    private PersonTableModelRecord[] records;
+    private PersonRecord[] records;
 
     @Override
-    public String generateView(PersonTableModelRecord[] records) {
+    public String generateView(PersonRecord[] records) {
         this.records = records;
         return null;
     }

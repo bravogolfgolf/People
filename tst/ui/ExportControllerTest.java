@@ -34,7 +34,7 @@ public class ExportControllerTest implements InputBoundary {
         }
 
         @Override
-        public PersonTableModelRecord[] getViewModel() {
+        public PersonRecord[] getViewModel() {
             return null;
         }
     };

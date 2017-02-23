@@ -22,7 +22,7 @@ public class RefreshUseCaseTest implements Presenter {
     }
 
     @Override
-    public PersonTableModelRecord[] getViewModel() {
+    public PersonRecord[] getViewModel() {
         return null;
     }
 

@@ -2,7 +2,7 @@ package main;
 
 import data.PersonRepository;
 import data.PersonRepositoryInMemory;
-import domain.PersonTableModelRecord;
+import domain.PersonRecord;
 import domain.Presenter;
 import domain.Response;
 import domain.addperson.AddPersonUseCase;
@@ -24,7 +24,7 @@ public class UseCaseFactoryImplTest {
         }
 
         @Override
-        public PersonTableModelRecord[] getViewModel() {
+        public PersonRecord[] getViewModel() {
             return null;
         }
     };

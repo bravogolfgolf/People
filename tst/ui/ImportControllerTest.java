@@ -2,10 +2,7 @@ package ui;
 
 import data.PersonRepository;
 import data.PersonRepositoryInMemory;
-import domain.InputBoundary;
-import domain.PersonTableModelRecord;
-import domain.Presenter;
-import domain.Request;
+import domain.*;
 import domain.importfile.ImportRequest;
 import main.RequestBuilderImpl;
 import main.UseCaseFactoryImpl;
@@ -30,10 +27,10 @@ public class ImportControllerTest implements InputBoundary, View {
         this.r = (ImportRequest) request;
     }
 
-    private PersonTableModelRecord[] records;
+    private PersonRecord[] records;
 
     @Override
-    public String generateView(PersonTableModelRecord[] records) {
+    public String generateView(PersonRecord[] records) {
         this.records = records;
         return null;
     }

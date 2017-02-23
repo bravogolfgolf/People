@@ -27,10 +27,10 @@ public class RefreshControllerTest implements InputBoundary, View {
         this.r = (RefreshRequest) request;
     }
 
-    private PersonTableModelRecord[] records;
+    private PersonRecord[] records;
 
     @Override
-    public String generateView(PersonTableModelRecord[] records) {
+    public PersonTableModelRecord[] generateView(PersonRecord[] records) {
         this.records = records;
         return null;
     }

@@ -1,6 +1,6 @@
 package ui;
 
-import domain.PersonTableModelRecord;
+import domain.PersonRecord;
 import domain.refresh.RefreshResponse;
 import domain.refresh.RefreshResponseRecord;
 import org.junit.Before;
@@ -33,7 +33,7 @@ public class PersonTablePanelPresenterTest {
     @Test
     public void shouldTransformResponseIntoPersonTableModelRecords() {
         presenter.present(response);
-        PersonTableModelRecord[] records = presenter.getViewModel();
+        PersonRecord[] records = presenter.getViewModel();
 
         assertEquals(1, records.length);
 
