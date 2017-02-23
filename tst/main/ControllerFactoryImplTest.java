@@ -1,14 +1,9 @@
 package main;
 
 import data.PersonRepositoryInMemory;
-import domain.PersonTableModelRecord;
-import ui.RequestBuilder;
-import org.junit.Before;
+import domain.ResponseBuilder;
 import org.junit.Test;
-import ui.ControllerFactory;
-import ui.EntryEvent;
-import ui.PersonTablePanelPresenter;
-import ui.View;
+import ui.*;
 import ui.contoller.*;
 
 import java.io.File;
@@ -19,19 +14,14 @@ import static org.junit.Assert.assertTrue;
 
 public class ControllerFactoryImplTest {
 
-    private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
-    private final View view = new ViewDummy();
-    private final ResponseBuilderImpl responseBuilder = new ResponseBuilderImpl();
-    private final PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
+    private final ResponseBuilder responseBuilder = new ResponseBuilderImpl();
     private final UseCaseFactory useCaseFactory = new UseCaseFactoryImpl(repository, responseBuilder);
+    private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final ControllerFactory factory = new ControllerFactoryImpl(requestBuilder, useCaseFactory);
-    private Map<Integer, Object> args;
-
-    @Before
-    public void setUp() throws Exception {
-        args = new HashMap<>();
-    }
+    private final Map<Integer, Object> args = new HashMap<>();
+    private final PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
+    private final View view = records -> null;
 
     @Test
     public void makeMethodReturnsRefreshController() {
@@ -69,12 +59,5 @@ public class ControllerFactoryImplTest {
         args.put(1, file);
         Controller controller = factory.make("ImportController", args, presenter, view);
         assertTrue(controller instanceof ImportController);
-    }
-
-    private class ViewDummy implements View {
-        @Override
-        public String generateView(PersonTableModelRecord[] responses) {
-            return null;
-        }
     }
 }

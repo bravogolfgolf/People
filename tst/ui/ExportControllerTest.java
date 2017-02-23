@@ -47,13 +47,12 @@ public class ExportControllerTest implements InputBoundary {
     }
 
     @Test
-    public void shouldSendRequestToUseCase()  {
+    public void shouldSendRequestToUseCase() {
         Controller controller = new ExportController(builder, args, factory, presenter, view);
 
         controller.execute();
 
         assertEquals(file, r.file);
-
     }
 }
 

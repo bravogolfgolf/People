@@ -37,7 +37,7 @@ public class DeletePersonControllerTest implements InputBoundary, View {
 
     private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final Map<Integer, Object> args = new HashMap<>();
-    private final PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
+    private final Presenter presenter = new PersonTablePanelPresenter();
     private final View view = this;
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final int idToDelete = 1;
@@ -53,24 +53,21 @@ public class DeletePersonControllerTest implements InputBoundary, View {
                 true, "New Tax ID2", "Female");
         repository.addPerson(person1);
         repository.addPerson(person2);
-
         args.put(1, idToDelete);
     }
 
     @Test
     public void shouldSendRequestToUseCase() {
-        UseCaseFactory factory = new UseCaseFactoryImplStub();
+        UseCaseFactory factory = (useCase, presenter) -> DeletePersonControllerTest.this;
         Controller controller = new DeletePersonController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
 
         assertEquals(idToDelete, r.id);
-
     }
 
     @Test
     public void shouldReturnRecords() {
-        ExportImport exportImport = new ExportImport();
         ResponseBuilder responseBuilder = new ResponseBuilderImpl();
         UseCaseFactory factory = new UseCaseFactoryImpl(repository, responseBuilder);
         Controller controller = new DeletePersonController(requestBuilder, args, factory, presenter, view);
@@ -79,13 +76,6 @@ public class DeletePersonControllerTest implements InputBoundary, View {
         controller.execute();
 
         assertEquals(1, records.length);
-    }
-
-    class UseCaseFactoryImplStub implements UseCaseFactory {
-        @Override
-        public InputBoundary make(String useCase, Presenter presenter) {
-            return DeletePersonControllerTest.this;
-        }
     }
 }
 

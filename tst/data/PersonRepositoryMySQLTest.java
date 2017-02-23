@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 
 public class PersonRepositoryMySQLTest {
 
-    private final PersonRepositoryMySQL repository = new PersonRepositoryMySQL();
+    private final PersonRepository repository = new PersonRepositoryMySQL();
     private final Person person = new Person(1, "Full Name", "Occupation", 0, 0, false,
             "Tax ID", "Male");
     private final Person person1 = new Person(1, "Update Name", "Update", 1, 1, true,

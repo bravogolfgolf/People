@@ -38,7 +38,7 @@ public class RefreshControllerTest implements InputBoundary, View {
 
     private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final Map<Integer, Object> args = new HashMap<>();
-    private final PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
+    private final Presenter presenter = new PersonTablePanelPresenter();
     private final View view = this;
     private final PersonRepository repository = new PersonRepositoryInMemory();
 
@@ -52,7 +52,7 @@ public class RefreshControllerTest implements InputBoundary, View {
 
     @Test
     public void shouldSendRequestToUseCase() {
-        UseCaseFactory factory = new RefreshControllerTest.UseCaseFactoryImplStub();
+        UseCaseFactory factory = (useCase, presenter) -> RefreshControllerTest.this;
         Controller controller = new RefreshController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
@@ -62,7 +62,6 @@ public class RefreshControllerTest implements InputBoundary, View {
 
     @Test
     public void shouldReturnRecords() {
-        ExportImport exportImport = new ExportImport();
         ResponseBuilder responseBuilder = new ResponseBuilderImpl();
         UseCaseFactory factory = new UseCaseFactoryImpl(repository, responseBuilder);
         Controller controller = new RefreshController(requestBuilder, args, factory, presenter, view);
@@ -70,13 +69,6 @@ public class RefreshControllerTest implements InputBoundary, View {
         controller.execute();
 
         assertEquals(1, records.length);
-    }
-
-    private class UseCaseFactoryImplStub implements UseCaseFactory {
-        @Override
-        public InputBoundary make(String useCase, Presenter presenter) {
-            return RefreshControllerTest.this;
-        }
     }
 }
 

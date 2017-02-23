@@ -46,6 +46,5 @@ public class ResponseBuilderImplTest {
             assertEquals("New Tax ID", record.taxId);
             assertEquals("Female", record.gender);
         }
-
     }
 }

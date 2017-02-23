@@ -24,5 +24,4 @@ public class EncryptionTest {
 
         assertEquals(expected, password);
     }
-
 }

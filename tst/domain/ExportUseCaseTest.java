@@ -2,6 +2,7 @@ package domain;
 
 import data.PersonRepository;
 import data.PersonRepositoryInMemory;
+import domain.exportfile.Export;
 import domain.exportfile.ExportRequest;
 import domain.exportfile.ExportUseCase;
 import org.junit.After;
@@ -16,8 +17,9 @@ import static org.junit.Assert.assertTrue;
 public class ExportUseCaseTest {
 
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final InputBoundary refreshUseCase = (Request request) -> {};
-    private final ExportImport exportImport = new ExportImport();
+    private final InputBoundary refreshUseCase = (Request request) -> {
+    };
+    private final Export exportImport = new ExportImport();
     private final InputBoundary useCase = new ExportUseCase(repository, exportImport, refreshUseCase);
     private final ExportRequest request = new ExportRequest();
     private final File file = new File("ExportTest.per");

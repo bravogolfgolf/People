@@ -1,22 +1,35 @@
 package main;
 
+import data.PersonRepository;
 import data.PersonRepositoryInMemory;
+import domain.PersonTableModelRecord;
+import domain.Presenter;
+import domain.Response;
+import domain.ResponseBuilder;
 import domain.addperson.AddPersonUseCase;
 import domain.deleteperson.DeletePersonUseCase;
 import domain.exportfile.ExportUseCase;
 import domain.importfile.ImportUseCase;
 import domain.refresh.RefreshUseCase;
 import org.junit.Test;
-import ui.PersonTablePanelPresenter;
 import ui.contoller.UseCaseFactory;
 
 import static org.junit.Assert.assertTrue;
 
 public class UseCaseFactoryImplTest {
 
-    private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
-    private final ResponseBuilderImpl builder = new ResponseBuilderImpl();
-    private final PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
+    private final PersonRepository repository = new PersonRepositoryInMemory();
+    private final ResponseBuilder builder = new ResponseBuilderImpl();
+    private final Presenter presenter = new Presenter() {
+        @Override
+        public void present(Response response) {
+        }
+
+        @Override
+        public PersonTableModelRecord[] getViewModel() {
+            return null;
+        }
+    };
 
     @Test
     public void makeMethodReturnsProperUseCase() {

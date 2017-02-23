@@ -38,10 +38,9 @@ public class AddPersonControllerTest implements InputBoundary, View {
 
     private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final Map<Integer, Object> args = new HashMap<>();
-    private final PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
+    private final Presenter presenter = new PersonTablePanelPresenter();
     private final View view = this;
     private final EntryEvent entryEvent = new EntryEvent(new Object(), "Full Name", "Occupation", 0, 0, true, "Tax ID", "Gender");
-
 
     @Before
     public void setUp() throws Exception {
@@ -50,7 +49,7 @@ public class AddPersonControllerTest implements InputBoundary, View {
 
     @Test
     public void shouldSendRequestToUseCase() {
-        UseCaseFactory factory = new UseCaseFactoryImplStub();
+        UseCaseFactory factory = (useCase, presenter) -> AddPersonControllerTest.this;
         Controller controller = new AddPersonController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
@@ -67,7 +66,6 @@ public class AddPersonControllerTest implements InputBoundary, View {
     @Test
     public void shouldReturnRecords() {
         PersonRepository repository = new PersonRepositoryInMemory();
-        ExportImport exportImport = new ExportImport();
         ResponseBuilder responseBuilder = new ResponseBuilderImpl();
         UseCaseFactory factory = new UseCaseFactoryImpl(repository, responseBuilder);
         Controller controller = new AddPersonController(requestBuilder, args, factory, presenter, view);
@@ -75,13 +73,6 @@ public class AddPersonControllerTest implements InputBoundary, View {
         controller.execute();
 
         assertEquals(1, records.length);
-    }
-
-    class UseCaseFactoryImplStub implements UseCaseFactory {
-        @Override
-        public InputBoundary make(String useCase, Presenter presenter) {
-            return AddPersonControllerTest.this;
-        }
     }
 }
 

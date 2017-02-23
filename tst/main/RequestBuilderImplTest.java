@@ -5,7 +5,6 @@ import domain.deleteperson.DeletePersonRequest;
 import domain.exportfile.ExportRequest;
 import domain.importfile.ImportRequest;
 import domain.refresh.RefreshRequest;
-import org.junit.Before;
 import org.junit.Test;
 import ui.EntryEvent;
 import ui.RequestBuilder;
@@ -19,12 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class RequestBuilderImplTest {
 
     private final RequestBuilder builder = new RequestBuilderImpl();
-    private HashMap<Integer, Object> args;
-
-    @Before
-    public void setUp() {
-        args = new HashMap<>();
-    }
+    private final HashMap<Integer, Object> args = new HashMap<>();
 
     @Test
     public void makeMethodShouldReturnRefreshRequest() {

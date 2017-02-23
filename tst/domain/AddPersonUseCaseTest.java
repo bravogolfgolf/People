@@ -12,7 +12,8 @@ import static org.junit.Assert.assertTrue;
 
 public class AddPersonUseCaseTest {
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final InputBoundary refreshUseCase = new RefreshUseCaseDummy();
+    private final InputBoundary refreshUseCase = request -> {
+    };
     private final InputBoundary useCase = new AddPersonUseCase(repository, refreshUseCase);
     private final AddPersonRequest request = new AddPersonRequest();
 
@@ -42,12 +43,6 @@ public class AddPersonUseCaseTest {
             assertTrue(expected.isUsCitizen());
             assertEquals(request.taxId, expected.getTaxId());
             assertEquals(request.gender, expected.getGender());
-        }
-    }
-
-    private class RefreshUseCaseDummy implements InputBoundary {
-        @Override
-        public void execute(Request request) {
         }
     }
 }

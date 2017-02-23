@@ -1,5 +1,6 @@
 package domain;
 
+import data.PersonRepository;
 import data.PersonRepositoryInMemory;
 import domain.deleteperson.DeletePersonRequest;
 import domain.deleteperson.DeletePersonUseCase;
@@ -11,17 +12,17 @@ import static org.junit.Assert.assertTrue;
 
 public class DeletePersonUseCaseTest {
 
-    private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
-    private final InputBoundary refreshUseCase = new RefreshUseCaseDummy();
+    private final PersonRepository repository = new PersonRepositoryInMemory();
+    private final InputBoundary refreshUseCase = request -> {
+    };
     private final InputBoundary useCase = new DeletePersonUseCase(repository, refreshUseCase);
     private final DeletePersonRequest request = new DeletePersonRequest();
-    private Person person1;
+    private final Person person1 = new Person(1, "Full Name", "Occupation",
+            1, 0, true,
+            "123-45-6789", "Male");
 
     @Before
     public void setUp() {
-        person1 = new Person(1, "Full Name", "Occupation",
-                1, 0, true,
-                "123-45-6789", "Male");
         Person person2 = new Person(2, "New Full Name",
                 "New Occupation", 0, 1,
                 false, "New Tax ID", "Female");
@@ -46,13 +47,6 @@ public class DeletePersonUseCaseTest {
             assertTrue(expected.isUsCitizen());
             assertEquals(person1.getTaxId(), expected.getTaxId());
             assertEquals(person1.getGender(), expected.getGender());
-        }
-    }
-
-    private class RefreshUseCaseDummy implements InputBoundary {
-        @Override
-        public void execute(Request request) {
-
         }
     }
 }

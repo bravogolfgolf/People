@@ -38,7 +38,7 @@ public class ImportControllerTest implements InputBoundary, View {
 
     private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final Map<Integer, Object> args = new HashMap<>();
-    private final PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
+    private final Presenter presenter = new PersonTablePanelPresenter();
     private final View view = this;
 
     private final File file = new File("ImportTest.per");
@@ -50,7 +50,7 @@ public class ImportControllerTest implements InputBoundary, View {
 
     @Test
     public void shouldSendRequestToUseCase() {
-        UseCaseFactory factory = new UseCaseFactoryImplStub();
+        UseCaseFactory factory = (useCase, presenter) -> ImportControllerTest.this;
         Controller controller = new ImportController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
@@ -61,7 +61,6 @@ public class ImportControllerTest implements InputBoundary, View {
     @Test
     public void shouldReturnRecords() {
         PersonRepository repository = new PersonRepositoryInMemory();
-        ExportImport exportImport = new ExportImport();
         ResponseBuilder responseBuilder = new ResponseBuilderImpl();
         UseCaseFactory factory = new UseCaseFactoryImpl(repository, responseBuilder);
         Controller controller = new ImportController(requestBuilder, args, factory, presenter, view);
@@ -69,13 +68,6 @@ public class ImportControllerTest implements InputBoundary, View {
         controller.execute();
 
         assertEquals(1, records.length);
-    }
-
-    class UseCaseFactoryImplStub implements UseCaseFactory {
-        @Override
-        public InputBoundary make(String useCase, Presenter presenter) {
-            return ImportControllerTest.this;
-        }
     }
 }
 

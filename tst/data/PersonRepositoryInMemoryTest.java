@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 public class PersonRepositoryInMemoryTest {
 
-    private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
+    private final PersonRepository repository = new PersonRepositoryInMemory();
     private final Person person = new Person(1, "Full Name", "Occupation", 0, 0, false,
             "Tax ID", "Male");
     private final Person person1 = new Person(1, "Update Name", "Update", 1, 1, true,

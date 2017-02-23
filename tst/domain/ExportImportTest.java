@@ -36,7 +36,6 @@ public class ExportImportTest {
             assertTrue(loaded.get(key).isUsCitizen());
             assertEquals(people.get(key).getTaxId(), loaded.get(key).getTaxId());
             assertEquals(people.get(key).getGender(), loaded.get(key).getGender());
-
         }
         assertTrue(deleteFile());
     }

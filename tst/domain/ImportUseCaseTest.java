@@ -2,6 +2,7 @@ package domain;
 
 import data.PersonRepository;
 import data.PersonRepositoryInMemory;
+import domain.importfile.Import;
 import domain.importfile.ImportRequest;
 import domain.importfile.ImportUseCase;
 import org.junit.Before;
@@ -13,9 +14,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ImportUseCaseTest {
-    private final ExportImport exportImport = new ExportImport();
+    private final Import exportImport = new ExportImport();
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final InputBoundary refreshUseCase = new RefreshUseCaseDummy();
+    private final InputBoundary refreshUseCase = request -> {
+    };
     private final InputBoundary useCase = new ImportUseCase(exportImport, repository, refreshUseCase);
     private final ImportRequest request = new ImportRequest();
 
@@ -48,12 +50,5 @@ public class ImportUseCaseTest {
     public void shouldThrowException() {
         request.file = new File("/bad_path/ImportTest.per");
         useCase.execute(request);
-    }
-
-    private class RefreshUseCaseDummy implements InputBoundary {
-        @Override
-        public void execute(Request request) {
-
-        }
     }
 }

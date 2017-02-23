@@ -1,7 +1,7 @@
 package domain;
 
-import data.PersonRepositoryInMemory;
 import data.PersonRepository;
+import data.PersonRepositoryInMemory;
 import domain.refresh.RefreshRequest;
 import domain.refresh.RefreshUseCase;
 import main.ResponseBuilderImpl;
@@ -47,15 +47,15 @@ public class RefreshUseCaseTest implements Presenter {
         RefreshResponse r = (RefreshResponse) response;
         assertEquals(1, r.responseRecords.length);
 
-        for (RefreshResponseRecord response : r.responseRecords) {
-            assertEquals(person.getId(), response.id);
-            assertEquals(person.getFullName(), response.fullName);
-            assertEquals(person.getOccupation(), response.occupation);
-            assertEquals(person.getAgeCategory(), response.ageCategory);
-            assertEquals(person.getEmploymentStatus(), response.employmentStatus);
-            assertTrue(response.uSCitizen);
-            assertEquals(person.getTaxId(), response.taxId);
-            assertEquals(person.getGender(), response.gender);
+        for (RefreshResponseRecord expected : r.responseRecords) {
+            assertEquals(person.getId(), expected.id);
+            assertEquals(person.getFullName(), expected.fullName);
+            assertEquals(person.getOccupation(), expected.occupation);
+            assertEquals(person.getAgeCategory(), expected.ageCategory);
+            assertEquals(person.getEmploymentStatus(), expected.employmentStatus);
+            assertTrue(expected.uSCitizen);
+            assertEquals(person.getTaxId(), expected.taxId);
+            assertEquals(person.getGender(), expected.gender);
         }
     }
 }
