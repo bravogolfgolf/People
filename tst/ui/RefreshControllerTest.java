@@ -5,7 +5,6 @@ import data.PersonRepositoryInMemory;
 import domain.*;
 import domain.refresh.RefreshRequest;
 import main.RequestBuilderImpl;
-import main.ResponseBuilderImpl;
 import main.UseCaseFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,8 +61,7 @@ public class RefreshControllerTest implements InputBoundary, View {
 
     @Test
     public void shouldReturnRecords() {
-        ResponseBuilder responseBuilder = new ResponseBuilderImpl();
-        UseCaseFactory factory = new UseCaseFactoryImpl(repository, responseBuilder);
+        UseCaseFactory factory = new UseCaseFactoryImpl(repository);
         Controller controller = new RefreshController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();

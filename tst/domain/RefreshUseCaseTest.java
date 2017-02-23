@@ -3,12 +3,11 @@ package domain;
 import data.PersonRepository;
 import data.PersonRepositoryInMemory;
 import domain.refresh.RefreshRequest;
+import domain.refresh.RefreshResponse;
+import domain.refresh.RefreshResponseRecord;
 import domain.refresh.RefreshUseCase;
-import main.ResponseBuilderImpl;
 import org.junit.Before;
 import org.junit.Test;
-import ui.RefreshResponse;
-import ui.RefreshResponseRecord;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -27,9 +26,8 @@ public class RefreshUseCaseTest implements Presenter {
         return null;
     }
 
-    private final ResponseBuilder builder = new ResponseBuilderImpl();
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final InputBoundary useCase = new RefreshUseCase(repository, builder, this);
+    private final InputBoundary useCase = new RefreshUseCase(repository, this);
     private final Request request = new RefreshRequest();
     private final Person person = new Person(2, "New Full Name",
             "New Occupation", 0, 1,
@@ -45,9 +43,9 @@ public class RefreshUseCaseTest implements Presenter {
         useCase.execute(request);
 
         RefreshResponse r = (RefreshResponse) response;
-        assertEquals(1, r.responseRecords.length);
+        assertEquals(1, r.records.size());
 
-        for (RefreshResponseRecord expected : r.responseRecords) {
+        for (RefreshResponseRecord expected : r.records) {
             assertEquals(person.getId(), expected.id);
             assertEquals(person.getFullName(), expected.fullName);
             assertEquals(person.getOccupation(), expected.occupation);

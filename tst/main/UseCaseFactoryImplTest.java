@@ -5,7 +5,6 @@ import data.PersonRepositoryInMemory;
 import domain.PersonTableModelRecord;
 import domain.Presenter;
 import domain.Response;
-import domain.ResponseBuilder;
 import domain.addperson.AddPersonUseCase;
 import domain.deleteperson.DeletePersonUseCase;
 import domain.exportfile.ExportUseCase;
@@ -19,7 +18,6 @@ import static org.junit.Assert.assertTrue;
 public class UseCaseFactoryImplTest {
 
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final ResponseBuilder builder = new ResponseBuilderImpl();
     private final Presenter presenter = new Presenter() {
         @Override
         public void present(Response response) {
@@ -33,7 +31,7 @@ public class UseCaseFactoryImplTest {
 
     @Test
     public void makeMethodReturnsProperUseCase() {
-        UseCaseFactory factory = new UseCaseFactoryImpl(repository, builder);
+        UseCaseFactory factory = new UseCaseFactoryImpl(repository);
         assertTrue(factory.make("RefreshUseCase", presenter) instanceof RefreshUseCase);
         assertTrue(factory.make("AddPersonUseCase", presenter) instanceof AddPersonUseCase);
         assertTrue(factory.make("DeletePersonUseCase", presenter) instanceof DeletePersonUseCase);

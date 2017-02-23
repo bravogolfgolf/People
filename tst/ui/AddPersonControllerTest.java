@@ -2,10 +2,12 @@ package ui;
 
 import data.PersonRepository;
 import data.PersonRepositoryInMemory;
-import domain.*;
+import domain.InputBoundary;
+import domain.PersonTableModelRecord;
+import domain.Presenter;
+import domain.Request;
 import domain.addperson.AddPersonRequest;
 import main.RequestBuilderImpl;
-import main.ResponseBuilderImpl;
 import main.UseCaseFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,8 +68,7 @@ public class AddPersonControllerTest implements InputBoundary, View {
     @Test
     public void shouldReturnRecords() {
         PersonRepository repository = new PersonRepositoryInMemory();
-        ResponseBuilder responseBuilder = new ResponseBuilderImpl();
-        UseCaseFactory factory = new UseCaseFactoryImpl(repository, responseBuilder);
+        UseCaseFactory factory = new UseCaseFactoryImpl(repository);
         Controller controller = new AddPersonController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();

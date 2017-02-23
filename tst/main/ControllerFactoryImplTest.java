@@ -1,7 +1,6 @@
 package main;
 
 import data.PersonRepositoryInMemory;
-import domain.ResponseBuilder;
 import org.junit.Test;
 import ui.*;
 import ui.contoller.*;
@@ -15,8 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class ControllerFactoryImplTest {
 
     private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
-    private final ResponseBuilder responseBuilder = new ResponseBuilderImpl();
-    private final UseCaseFactory useCaseFactory = new UseCaseFactoryImpl(repository, responseBuilder);
+    private final UseCaseFactory useCaseFactory = new UseCaseFactoryImpl(repository);
     private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final ControllerFactory factory = new ControllerFactoryImpl(requestBuilder, useCaseFactory);
     private final Map<Integer, Object> args = new HashMap<>();

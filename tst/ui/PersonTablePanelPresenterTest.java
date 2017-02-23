@@ -1,6 +1,8 @@
 package ui;
 
 import domain.PersonTableModelRecord;
+import domain.refresh.RefreshResponse;
+import domain.refresh.RefreshResponseRecord;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +27,7 @@ public class PersonTablePanelPresenterTest {
         responseRecord.uSCitizen = true;
         responseRecord.taxId = taxId;
         responseRecord.gender = gender;
-        response.responseRecords = new RefreshResponseRecord[]{responseRecord};
+        response.records.add(responseRecord);
     }
 
     @Test

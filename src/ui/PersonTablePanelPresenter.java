@@ -3,6 +3,8 @@ package ui;
 import domain.PersonTableModelRecord;
 import domain.Presenter;
 import domain.Response;
+import domain.refresh.RefreshResponse;
+import domain.refresh.RefreshResponseRecord;
 
 public class PersonTablePanelPresenter implements Presenter {
 
@@ -11,9 +13,9 @@ public class PersonTablePanelPresenter implements Presenter {
     @Override
     public void present(Response response) {
         RefreshResponse r = (RefreshResponse) response;
-        viewModel = new PersonTableModelRecord[r.responseRecords.length];
+        viewModel = new PersonTableModelRecord[r.records.size()];
         int i = 0;
-        for (RefreshResponseRecord responseRecord : r.responseRecords)
+        for (RefreshResponseRecord responseRecord : r.records)
             viewModel[i++] = makeModelRecord(responseRecord);
     }
 

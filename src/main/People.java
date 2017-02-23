@@ -14,8 +14,7 @@ class People {
 
             PersonRepository repository = new PersonRepositoryMySQL();
             RequestBuilderImpl requestBuilder = new RequestBuilderImpl();
-            ResponseBuilderImpl responseBuilder = new ResponseBuilderImpl();
-            UseCaseFactoryImpl useCaseFactory = new UseCaseFactoryImpl(repository, responseBuilder);
+            UseCaseFactoryImpl useCaseFactory = new UseCaseFactoryImpl(repository);
             ControllerFactoryImpl controllerFactory = new ControllerFactoryImpl(requestBuilder, useCaseFactory);
             MainFrame mainFrame = new MainFrame(controllerFactory);
             mainFrame.initialize();

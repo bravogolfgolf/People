@@ -5,7 +5,6 @@ import data.PersonRepositoryInMemory;
 import domain.*;
 import domain.deleteperson.DeletePersonRequest;
 import main.RequestBuilderImpl;
-import main.ResponseBuilderImpl;
 import main.UseCaseFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -68,8 +67,7 @@ public class DeletePersonControllerTest implements InputBoundary, View {
 
     @Test
     public void shouldReturnRecords() {
-        ResponseBuilder responseBuilder = new ResponseBuilderImpl();
-        UseCaseFactory factory = new UseCaseFactoryImpl(repository, responseBuilder);
+        UseCaseFactory factory = new UseCaseFactoryImpl(repository);
         Controller controller = new DeletePersonController(requestBuilder, args, factory, presenter, view);
         assertEquals(2, repository.getPeople().size());
 

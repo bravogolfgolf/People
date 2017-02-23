@@ -4,7 +4,6 @@ import data.PersonRepository;
 import domain.ExportImport;
 import domain.InputBoundary;
 import domain.Presenter;
-import domain.ResponseBuilder;
 import domain.addperson.AddPersonUseCase;
 import domain.deleteperson.DeletePersonUseCase;
 import domain.exportfile.ExportUseCase;
@@ -15,16 +14,14 @@ import ui.contoller.UseCaseFactory;
 public class UseCaseFactoryImpl implements UseCaseFactory {
     private final PersonRepository repository;
     private final ExportImport exportImport = new ExportImport();
-    private final ResponseBuilder builder;
 
-    public UseCaseFactoryImpl(PersonRepository repository, ResponseBuilder builder) {
+    public UseCaseFactoryImpl(PersonRepository repository) {
         this.repository = repository;
-        this.builder = builder;
     }
 
     @Override
     public InputBoundary make(String useCase, Presenter presenter) {
-        InputBoundary refreshUseCase = new RefreshUseCase(repository, builder, presenter);
+        InputBoundary refreshUseCase = new RefreshUseCase(repository, presenter);
 
         if (useCase.equals("RefreshUseCase"))
             return refreshUseCase;

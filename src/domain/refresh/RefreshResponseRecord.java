@@ -1,4 +1,4 @@
-package ui;
+package domain.refresh;
 
 public class RefreshResponseRecord {
     public int id;
