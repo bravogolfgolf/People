@@ -55,8 +55,9 @@ class PersonTablePanel extends JPanel implements View {
     }
 
     @Override
-    public void update(PersonTableModelRecord[] records) {
+    public String generateView(PersonTableModelRecord[] records) {
         personTableModel.addDataForPersonTableModel(records);
         personTableModel.fireTableDataChanged();
+        return null;
     }
 }

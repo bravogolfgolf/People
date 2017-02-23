@@ -9,6 +9,9 @@ import main.ResponseBuilderImpl;
 import main.UseCaseFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
+import ui.contoller.Controller;
+import ui.contoller.RefreshController;
+import ui.contoller.UseCaseFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,8 +31,9 @@ public class RefreshControllerTest implements InputBoundary, View {
     private PersonTableModelRecord[] records;
 
     @Override
-    public void update(PersonTableModelRecord[] records) {
+    public String generateView(PersonTableModelRecord[] records) {
         this.records = records;
+        return null;
     }
 
     private final RequestBuilder requestBuilder = new RequestBuilderImpl();
@@ -60,7 +64,7 @@ public class RefreshControllerTest implements InputBoundary, View {
     public void shouldReturnRecords() {
         ExportImport exportImport = new ExportImport();
         ResponseBuilder responseBuilder = new ResponseBuilderImpl();
-        UseCaseFactory factory = new UseCaseFactoryImpl(repository, exportImport, responseBuilder, presenter);
+        UseCaseFactory factory = new UseCaseFactoryImpl(repository, responseBuilder);
         Controller controller = new RefreshController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
@@ -70,7 +74,7 @@ public class RefreshControllerTest implements InputBoundary, View {
 
     private class UseCaseFactoryImplStub implements UseCaseFactory {
         @Override
-        public InputBoundary make(String useCase) {
+        public InputBoundary make(String useCase, Presenter presenter) {
             return RefreshControllerTest.this;
         }
     }

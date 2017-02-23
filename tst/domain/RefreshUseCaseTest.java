@@ -13,13 +13,18 @@ import ui.RefreshResponseRecord;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class RefreshUseCaseTest implements OutputBoundary {
+public class RefreshUseCaseTest implements Presenter {
 
     private Response response;
 
     @Override
     public void present(Response response) {
         this.response = response;
+    }
+
+    @Override
+    public PersonTableModelRecord[] getViewModel() {
+        return null;
     }
 
     private final ResponseBuilder builder = new ResponseBuilderImpl();

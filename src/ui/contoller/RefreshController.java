@@ -1,8 +1,8 @@
-package ui;
+package ui.contoller;
 
-import domain.InputBoundary;
-import domain.Presenter;
-import domain.Request;
+import domain.*;
+import ui.RequestBuilder;
+import ui.View;
 
 import java.util.Map;
 
@@ -13,15 +13,15 @@ public class RefreshController implements Controller {
     private final View view;
 
     public RefreshController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
+        this.request = request.make("RefreshRequest", args);
+        this.useCase = useCase.make("RefreshUseCase", presenter);
         this.presenter = presenter;
         this.view = view;
-        this.request = request.make("RefreshRequest", args);
-        this.useCase = useCase.make("RefreshUseCase");
     }
 
     @Override
-    public void execute() {
+    public Object execute() {
         useCase.execute(request);
-        view.update(presenter.getViewModel());
+        return (view != null && presenter != null) ? view.generateView(presenter.getViewModel()) : null;
     }
 }

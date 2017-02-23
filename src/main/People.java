@@ -1,10 +1,8 @@
 package main;
 
-import data.PersonRepositoryMySQL;
 import data.PersonRepository;
-import domain.ExportImport;
+import data.PersonRepositoryMySQL;
 import ui.MainFrame;
-import ui.PersonTablePanelPresenter;
 
 import javax.swing.*;
 
@@ -14,13 +12,11 @@ class People {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
         SwingUtilities.invokeLater(() -> {
 
-            PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
             PersonRepository repository = new PersonRepositoryMySQL();
-            ExportImport exportImport = new ExportImport();
             RequestBuilderImpl requestBuilder = new RequestBuilderImpl();
             ResponseBuilderImpl responseBuilder = new ResponseBuilderImpl();
-            UseCaseFactoryImpl useCaseFactory = new UseCaseFactoryImpl(repository, exportImport, responseBuilder, presenter);
-            ControllerFactoryImpl controllerFactory = new ControllerFactoryImpl(requestBuilder, useCaseFactory, presenter);
+            UseCaseFactoryImpl useCaseFactory = new UseCaseFactoryImpl(repository, responseBuilder);
+            ControllerFactoryImpl controllerFactory = new ControllerFactoryImpl(requestBuilder, useCaseFactory);
             MainFrame mainFrame = new MainFrame(controllerFactory);
             mainFrame.initialize();
         });

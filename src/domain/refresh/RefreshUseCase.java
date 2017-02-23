@@ -8,10 +8,10 @@ import java.util.Map;
 public class RefreshUseCase implements InputBoundary {
 
     private final RefreshGateway repository;
-    private final OutputBoundary presenter;
+    private final Presenter presenter;
     private final ResponseBuilder builder;
 
-    public RefreshUseCase(RefreshGateway repository, ResponseBuilder builder, OutputBoundary presenter) {
+    public RefreshUseCase(RefreshGateway repository, ResponseBuilder builder, Presenter presenter) {
         this.repository = repository;
         this.builder = builder;
         this.presenter = presenter;

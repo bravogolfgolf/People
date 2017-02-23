@@ -1,11 +1,10 @@
 package ui;
 
-import domain.OutputBoundary;
 import domain.PersonTableModelRecord;
 import domain.Presenter;
 import domain.Response;
 
-public class PersonTablePanelPresenter implements OutputBoundary, Presenter {
+public class PersonTablePanelPresenter implements Presenter {
 
     private PersonTableModelRecord[] viewModel;
 

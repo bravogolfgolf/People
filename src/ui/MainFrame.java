@@ -60,7 +60,7 @@ public class MainFrame extends JFrame {
         //Application Specific
         setupMainFrame();
         createAndAddComponentsToMainFrame();
-        controllerFactory.make("RefreshController", new HashMap<>(), personTablePanel).execute();
+        controllerFactory.make("RefreshController", new HashMap<>(), new PersonTablePanelPresenter(), personTablePanel).execute();
         setMainFrameVisible();
     }
 
@@ -166,7 +166,7 @@ public class MainFrame extends JFrame {
 
     private void tryExport(Map<Integer, Object> args) {
         try {
-            controllerFactory.make("ExportController", args, personTablePanel).execute();
+            controllerFactory.make("ExportController", args, new PersonTablePanelPresenter(), personTablePanel).execute();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(MainFrame.this, "Could not Export file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -185,7 +185,7 @@ public class MainFrame extends JFrame {
 
     private void tryImport(Map<Integer, Object> args) {
         try {
-            controllerFactory.make("ImportController", args, personTablePanel).execute();
+            controllerFactory.make("ImportController", args, new PersonTablePanelPresenter(), personTablePanel).execute();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(MainFrame.this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -262,7 +262,7 @@ public class MainFrame extends JFrame {
         entryPanel = new EntryPanel(formEvent -> {
             Map<Integer, Object> args = new HashMap<>();
             args.put(1, formEvent);
-            controllerFactory.make("AddPersonController", args, personTablePanel).execute();
+            controllerFactory.make("AddPersonController", args, new PersonTablePanelPresenter(), personTablePanel).execute();
         });
         add(entryPanel, BorderLayout.LINE_START);
         SwingUtilities.getRootPane(entryPanel.okButton).setDefaultButton(entryPanel.okButton);
@@ -272,7 +272,7 @@ public class MainFrame extends JFrame {
         personTablePanel = new PersonTablePanel(id -> {
             Map<Integer, Object> args = new HashMap<>();
             args.put(1, id);
-            controllerFactory.make("DeletePersonController", args, personTablePanel).execute();
+            controllerFactory.make("DeletePersonController", args, new PersonTablePanelPresenter(), personTablePanel).execute();
         });
         add(personTablePanel, BorderLayout.CENTER);
     }

@@ -1,11 +1,13 @@
 package ui;
 
+import domain.*;
 import domain.exportfile.ExportRequest;
-import domain.Request;
-import domain.InputBoundary;
 import main.RequestBuilderImpl;
 import org.junit.Before;
 import org.junit.Test;
+import ui.contoller.Controller;
+import ui.contoller.ExportController;
+import ui.contoller.UseCaseFactory;
 
 import java.io.File;
 import java.util.HashMap;
@@ -23,8 +25,20 @@ public class ExportControllerTest implements InputBoundary {
     }
 
     private final RequestBuilder builder = new RequestBuilderImpl();
-    private final UseCaseFactory factory = new UseCaseFactoryImplStub();
     private final Map<Integer, Object> args = new HashMap<>();
+    private final UseCaseFactory factory = (useCase, presenter) -> ExportControllerTest.this;
+    private final Presenter presenter = new Presenter() {
+        @Override
+        public void present(Response response) {
+
+        }
+
+        @Override
+        public PersonTableModelRecord[] getViewModel() {
+            return null;
+        }
+    };
+    private final View view = records -> null;
     private final File file = new File("Export.per");
 
     @Before
@@ -34,19 +48,12 @@ public class ExportControllerTest implements InputBoundary {
 
     @Test
     public void shouldSendRequestToUseCase()  {
-        Controller controller = new ExportController(builder, args, factory);
+        Controller controller = new ExportController(builder, args, factory, presenter, view);
 
         controller.execute();
 
         assertEquals(file, r.file);
 
-    }
-
-    class UseCaseFactoryImplStub implements UseCaseFactory {
-        @Override
-        public InputBoundary make(String useCase) {
-            return ExportControllerTest.this;
-        }
     }
 }
 

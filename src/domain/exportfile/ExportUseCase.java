@@ -9,16 +9,19 @@ import java.io.IOException;
 public class ExportUseCase implements InputBoundary {
     private final ExportGateway repository;
     private final Export exporter;
+    private final InputBoundary refreshUseCase;
 
-    public ExportUseCase(ExportGateway repository, Export exporter) {
+    public ExportUseCase(ExportGateway repository, Export exporter, InputBoundary refreshUseCase) {
         this.repository = repository;
         this.exporter = exporter;
+        this.refreshUseCase = refreshUseCase;
     }
 
     @Override
     public void execute(Request request) {
         ExportRequest r = (ExportRequest) request;
         tryExport(r.file);
+        refreshUseCase.execute(request);
     }
 
     private void tryExport(File file) {
