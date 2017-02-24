@@ -1,4 +1,4 @@
-package ui;
+package ui.contoller;
 
 import data.PersonRepository;
 import data.PersonRepositoryInMemory;
@@ -8,9 +8,10 @@ import main.RequestBuilderImpl;
 import main.UseCaseFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
-import ui.contoller.AddPersonController;
-import ui.contoller.Controller;
-import ui.contoller.UseCaseFactory;
+import ui.EntryEvent;
+import ui.RequestBuilder;
+import ui.View;
+import ui.presenter.PersonTablePanelPresenter;
 
 import java.util.HashMap;
 import java.util.Map;

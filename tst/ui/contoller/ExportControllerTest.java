@@ -1,13 +1,12 @@
-package ui;
+package ui.contoller;
 
 import domain.*;
 import domain.exportfile.ExportRequest;
 import main.RequestBuilderImpl;
 import org.junit.Before;
 import org.junit.Test;
-import ui.contoller.Controller;
-import ui.contoller.ExportController;
-import ui.contoller.UseCaseFactory;
+import ui.RequestBuilder;
+import ui.View;
 
 import java.io.File;
 import java.util.HashMap;

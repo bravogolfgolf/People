@@ -4,6 +4,7 @@ import data.PersonRepositoryInMemory;
 import org.junit.Test;
 import ui.*;
 import ui.contoller.*;
+import ui.presenter.PersonTablePanelPresenter;
 
 import java.io.File;
 import java.util.HashMap;

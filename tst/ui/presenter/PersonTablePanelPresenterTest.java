@@ -1,10 +1,11 @@
-package ui;
+package ui.presenter;
 
 import domain.PersonRecord;
 import domain.refresh.RefreshResponse;
 import domain.refresh.RefreshResponseRecord;
 import org.junit.Before;
 import org.junit.Test;
+import ui.presenter.PersonTablePanelPresenter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

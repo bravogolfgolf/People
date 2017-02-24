@@ -1,4 +1,4 @@
-package ui;
+package ui.presenter;
 
 import domain.PersonRecord;
 import domain.Presenter;
