@@ -33,7 +33,7 @@ public class UseCaseFactoryImpl implements UseCaseFactory {
         if (useCase.equals("ExportUseCase"))
             return new ExportUseCase(exportImport, refreshUseCase);
         if (useCase.equals("ImportUseCase"))
-            return new ImportUseCase(exportImport, repository, refreshUseCase);
+            return new ImportUseCase(exportImport, refreshUseCase);
         return null;
     }
 }

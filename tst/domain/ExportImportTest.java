@@ -31,7 +31,12 @@ public class ExportImportTest {
         repository.setPeople(people);
 
         exportImport.toDisk(file);
-        Map<Integer, PersonTemplate> loaded = exportImport.fromDisk(file);
+
+        repository.setPeople(new HashMap<>());
+
+        exportImport.fromDisk(file);
+
+        Map<Integer, PersonTemplate> loaded = repository.getPeople();
 
         for (Integer key : people.keySet()) {
             assertEquals(people.get(key).getId(), loaded.get(key).getId());

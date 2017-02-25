@@ -19,7 +19,7 @@ public class ImportUseCaseTest {
     private final Import exportImport = new ExportImport(repository);
     private final InputBoundary refreshUseCase = request -> {
     };
-    private final InputBoundary useCase = new ImportUseCase(exportImport, repository, refreshUseCase);
+    private final InputBoundary useCase = new ImportUseCase(exportImport, refreshUseCase);
     private final ImportRequest request = new ImportRequest();
 
     private final File file = new File(("ImportTest.per"));

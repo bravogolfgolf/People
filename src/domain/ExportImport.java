@@ -26,7 +26,7 @@ public class ExportImport implements Export, Import {
     }
 
     @Override
-    public Map<Integer, PersonTemplate> fromDisk(File file) throws IOException, ClassNotFoundException {
+    public void fromDisk(File file) throws IOException, ClassNotFoundException {
         Map<Integer, PersonTemplate> map = new HashMap<>();
         PersonTemplate[] people;
         List<PersonTemplate> list;
@@ -36,7 +36,7 @@ public class ExportImport implements Export, Import {
         list = Arrays.asList(people);
         for (PersonTemplate person : list)
             map.put(person.getId(), person);
-        return map;
+        repository.setPeople(map);
     }
 
 }
