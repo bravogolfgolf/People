@@ -1,7 +1,7 @@
 package view;
 
 import respondor.Presenter;
-import contoller.Controller;
+import other.Controller;
 
 import java.util.Map;
 

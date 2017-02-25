@@ -2,8 +2,11 @@ package contoller;
 
 import database.PersonRepository;
 import database.PersonRepositoryInMemory;
+import other.Controller;
+import requestor.RequestBuilder;
+import requestor.UseCaseFactory;
 import requestor.InputBoundary;
-import view.PersonRecord;
+import respondor.PersonRecord;
 import respondor.Presenter;
 import requestor.Request;
 import usecase.deleteperson.DeletePersonRequest;
@@ -11,7 +14,6 @@ import usecase.RequestBuilderImpl;
 import usecase.UseCaseFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
-import view.RequestBuilder;
 import view.View;
 import view.PersonTablePanelPresenter;
 

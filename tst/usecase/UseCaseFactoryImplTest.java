@@ -2,8 +2,7 @@ package usecase;
 
 import database.PersonRepository;
 import database.PersonRepositoryInMemory;
-import usecase.UseCaseFactoryImpl;
-import view.PersonRecord;
+import respondor.PersonRecord;
 import respondor.Presenter;
 import respondor.Response;
 import usecase.addperson.AddPersonUseCase;
@@ -12,7 +11,7 @@ import usecase.exportfile.ExportUseCase;
 import usecase.importfile.ImportUseCase;
 import usecase.refresh.RefreshUseCase;
 import org.junit.Test;
-import contoller.UseCaseFactory;
+import requestor.UseCaseFactory;
 
 import static org.junit.Assert.assertTrue;
 

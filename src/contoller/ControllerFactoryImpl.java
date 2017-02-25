@@ -1,10 +1,11 @@
 package contoller;
 
 
-import contoller.*;
+import other.Controller;
+import requestor.RequestBuilder;
+import requestor.UseCaseFactory;
 import respondor.Presenter;
 import view.ControllerFactory;
-import view.RequestBuilder;
 import view.View;
 
 import java.util.Map;

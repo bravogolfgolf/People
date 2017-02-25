@@ -1,5 +1,6 @@
 package view;
 
+import respondor.PersonRecord;
 import respondor.Presenter;
 import respondor.Response;
 import usecase.refresh.RefreshResponse;

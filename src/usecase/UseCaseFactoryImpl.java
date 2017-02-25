@@ -9,7 +9,7 @@ import usecase.deleteperson.DeletePersonUseCase;
 import usecase.exportfile.ExportUseCase;
 import usecase.importfile.ImportUseCase;
 import usecase.refresh.RefreshUseCase;
-import contoller.UseCaseFactory;
+import requestor.UseCaseFactory;
 
 public class UseCaseFactoryImpl implements UseCaseFactory {
     private final PersonRepository repository;

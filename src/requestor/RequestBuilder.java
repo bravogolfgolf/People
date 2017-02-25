@@ -1,4 +1,4 @@
-package view;
+package requestor;
 
 import requestor.Request;
 

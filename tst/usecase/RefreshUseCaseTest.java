@@ -12,7 +12,7 @@ import usecase.refresh.RefreshResponseRecord;
 import usecase.refresh.RefreshUseCase;
 import org.junit.Before;
 import org.junit.Test;
-import view.PersonRecord;
+import respondor.PersonRecord;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

@@ -1,8 +1,10 @@
 package contoller;
 
-import contoller.*;
 import database.PersonRepositoryInMemory;
 import org.junit.Test;
+import other.Controller;
+import requestor.RequestBuilder;
+import requestor.UseCaseFactory;
 import usecase.RequestBuilderImpl;
 import usecase.UseCaseFactoryImpl;
 import view.*;

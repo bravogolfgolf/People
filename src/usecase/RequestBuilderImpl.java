@@ -7,7 +7,7 @@ import usecase.exportfile.ExportRequest;
 import usecase.importfile.ImportRequest;
 import usecase.refresh.RefreshRequest;
 import view.EntryEvent;
-import view.RequestBuilder;
+import requestor.RequestBuilder;
 
 import java.io.File;
 import java.util.Map;
