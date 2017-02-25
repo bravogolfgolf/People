@@ -1,8 +1,11 @@
 package main;
 
-import data.PersonRepository;
-import data.PersonRepositoryMySQL;
-import ui.MainFrame;
+import contoller.ControllerFactoryImpl;
+import database.PersonRepository;
+import database.PersonRepositoryMySQL;
+import usecase.RequestBuilderImpl;
+import usecase.UseCaseFactoryImpl;
+import view.MainFrame;
 
 import javax.swing.*;
 
