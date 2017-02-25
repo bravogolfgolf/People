@@ -2,7 +2,6 @@ package data;
 
 import domain.addperson.AddPersonGateway;
 import domain.deleteperson.DeletePersonGateway;
-import domain.exportfile.ExportGateway;
 import domain.importfile.ImportGateway;
 import domain.refresh.RefreshGateway;
 import domain.updateperson.UpdatePersonGateway;
@@ -12,7 +11,7 @@ import java.util.Collections;
 import java.util.NoSuchElementException;
 
 public abstract class PersonRepository
-        implements RefreshGateway, AddPersonGateway, UpdatePersonGateway, DeletePersonGateway, ExportGateway, ImportGateway {
+        implements RefreshGateway, AddPersonGateway, UpdatePersonGateway, DeletePersonGateway, ImportGateway {
 
     @Override
     public void addPerson(String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {

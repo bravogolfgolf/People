@@ -1,6 +1,8 @@
 package domain;
 
 import data.Person;
+import data.PersonRepository;
+import data.PersonRepositoryInMemory;
 import entity.PersonTemplate;
 import org.junit.Test;
 
@@ -15,7 +17,8 @@ import static org.junit.Assert.assertTrue;
 public class ExportImportTest {
 
     private final File file = new File("Test.per");
-    private final ExportImport exportImport = new ExportImport();
+    private final PersonRepository repository= new PersonRepositoryInMemory();
+    private final ExportImport exportImport = new ExportImport(repository);
 
     @Test
     public void shouldSaveMapToFileAndLoadMapFromFileToRecreateMap() throws IOException, ClassNotFoundException {
@@ -25,8 +28,9 @@ public class ExportImportTest {
         Map<Integer, PersonTemplate> people = new HashMap<Integer, PersonTemplate>() {{
             put(person.getId(), person);
         }};
+        repository.setPeople(people);
 
-        exportImport.toDisk(people, file);
+        exportImport.toDisk(file);
         Map<Integer, PersonTemplate> loaded = exportImport.fromDisk(file);
 
         for (Integer key : people.keySet()) {

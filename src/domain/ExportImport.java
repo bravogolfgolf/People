@@ -1,5 +1,6 @@
 package domain;
 
+import data.PersonRepository;
 import domain.exportfile.Export;
 import domain.importfile.Import;
 import entity.PersonTemplate;
@@ -9,9 +10,15 @@ import java.util.*;
 
 public class ExportImport implements Export, Import {
 
+    private final PersonRepository repository;
+
+    public ExportImport(PersonRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
-    public void toDisk(Map<Integer, PersonTemplate> map, File file) throws IOException {
-        List<PersonTemplate> list = new ArrayList<>(map.values());
+    public void toDisk(File file) throws IOException {
+        List<PersonTemplate> list = new ArrayList<>(repository.getPeople().values());
         PersonTemplate[] array = list.toArray(new PersonTemplate[list.size()]);
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
             oos.writeObject(array);

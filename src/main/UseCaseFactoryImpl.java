@@ -13,10 +13,11 @@ import ui.contoller.UseCaseFactory;
 
 public class UseCaseFactoryImpl implements UseCaseFactory {
     private final PersonRepository repository;
-    private final ExportImport exportImport = new ExportImport();
+    private final ExportImport exportImport;
 
     public UseCaseFactoryImpl(PersonRepository repository) {
         this.repository = repository;
+        exportImport = new ExportImport(repository);
     }
 
     @Override
@@ -30,7 +31,7 @@ public class UseCaseFactoryImpl implements UseCaseFactory {
         if (useCase.equals("DeletePersonUseCase"))
             return new DeletePersonUseCase(repository, refreshUseCase);
         if (useCase.equals("ExportUseCase"))
-            return new ExportUseCase(repository, exportImport, refreshUseCase);
+            return new ExportUseCase(exportImport, refreshUseCase);
         if (useCase.equals("ImportUseCase"))
             return new ImportUseCase(exportImport, repository, refreshUseCase);
         return null;

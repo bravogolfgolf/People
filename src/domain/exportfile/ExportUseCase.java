@@ -7,12 +7,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class ExportUseCase implements InputBoundary {
-    private final ExportGateway repository;
     private final Export exporter;
     private final InputBoundary refreshUseCase;
 
-    public ExportUseCase(ExportGateway repository, Export exporter, InputBoundary refreshUseCase) {
-        this.repository = repository;
+    public ExportUseCase(Export exporter, InputBoundary refreshUseCase) {
         this.exporter = exporter;
         this.refreshUseCase = refreshUseCase;
     }
@@ -26,7 +24,7 @@ public class ExportUseCase implements InputBoundary {
 
     private void tryExport(File file) {
         try {
-            exporter.toDisk(repository.getPeople(), file);
+            exporter.toDisk(file);
         } catch (IOException e) {
             throw new ExportFailed(e);
         }

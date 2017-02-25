@@ -15,8 +15,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ImportUseCaseTest {
-    private final Import exportImport = new ExportImport();
     private final PersonRepository repository = new PersonRepositoryInMemory();
+    private final Import exportImport = new ExportImport(repository);
     private final InputBoundary refreshUseCase = request -> {
     };
     private final InputBoundary useCase = new ImportUseCase(exportImport, repository, refreshUseCase);

@@ -5,8 +5,6 @@ import data.PersonRepositoryInMemory;
 import domain.exportfile.Export;
 import domain.exportfile.ExportRequest;
 import domain.exportfile.ExportUseCase;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -19,28 +17,18 @@ public class ExportUseCaseTest {
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final InputBoundary refreshUseCase = (Request request) -> {
     };
-    private final Export exportImport = new ExportImport();
-    private final InputBoundary useCase = new ExportUseCase(repository, exportImport, refreshUseCase);
+    private final Export exportImport = new ExportImport(repository);
+    private final InputBoundary useCase = new ExportUseCase(exportImport, refreshUseCase);
     private final ExportRequest request = new ExportRequest();
-    private final File file = new File("ExportTest.per");
-
-    @Before
-    public void setUp() {
-        file.delete();
-        repository.addPerson("Full Name", "Occupation", 1, 0,true, "123-45-6789", "Male");
-        request.file = file;
-    }
-
-    @After
-    public void tearDown() {
-        file.delete();
-    }
 
     @Test
     public void shouldExportPersonRepositoryToFile() throws IOException {
-        assertTrue(!file.exists());
+        repository.addPerson("Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
+        File file = new File("ExportTest.per");
+        request.file = file;
+        assertTrue(!file.delete());
         useCase.execute(request);
-        assertTrue(file.exists());
+        assertTrue(file.delete());
     }
 
     @Test(expected = ExportUseCase.ExportFailed.class)
