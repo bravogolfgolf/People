@@ -1,9 +1,9 @@
 package domain.refresh;
 
-import domain.Person;
+import entity.PersonTemplate;
 
 import java.util.Map;
 
 public interface RefreshGateway {
-    Map<Integer, Person> getPeople();
+    Map<Integer, PersonTemplate> getPeople();
 }

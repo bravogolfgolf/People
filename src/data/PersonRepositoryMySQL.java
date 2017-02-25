@@ -1,6 +1,6 @@
 package data;
 
-import domain.Person;
+import entity.PersonTemplate;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ public class PersonRepositoryMySQL extends PersonRepository {
     private ResultSet resultSet;
 
     @Override
-    public void addPerson(Person person) {
+    void addPerson(PersonTemplate person) {
         connect();
         String sql = "insert into person set id=?,  fullName=?,  occupation=?,  ageCategory=?,  employmentStatus=?, uSCitizen=?, taxId=?, gender=?";
         tryPrepareStatement(sql);
@@ -90,15 +90,15 @@ public class PersonRepositoryMySQL extends PersonRepository {
     }
 
     @Override
-    public Map<Integer, Person> getPeople() {
-        HashMap<Integer, Person> people = new HashMap<>();
+    public Map<Integer, PersonTemplate> getPeople() {
+        HashMap<Integer, PersonTemplate> people = new HashMap<>();
 
         connect();
         String sql = "Select id, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender from person";
         tryPrepareStatement(sql);
         tryExecuteQuery();
         while (tryIsNext()) {
-            Person person = new Person(tryGetInt(1), tryGetString(2), tryGetString(3), tryGetInt(4), tryGetInt(5), tryGetBoolean(6), tryGetString(7), tryGetString(8));
+            PersonTemplate person = new Person(tryGetInt(1), tryGetString(2), tryGetString(3), tryGetInt(4), tryGetInt(5), tryGetBoolean(6), tryGetString(7), tryGetString(8));
             people.put(person.getId(), person);
         }
         return people;
@@ -153,12 +153,12 @@ public class PersonRepositoryMySQL extends PersonRepository {
     }
 
     @Override
-    public void setPeople(Map<Integer, Person> people) {
+    public void setPeople(Map<Integer, PersonTemplate> people) {
         connect();
         String sql = "delete from person";
         tryPrepareStatement(sql);
         tryExecuteUpdate();
-        for (Person person : people.values()) {
+        for (PersonTemplate person : people.values()) {
             addPerson(person);
         }
     }
@@ -173,7 +173,7 @@ public class PersonRepositoryMySQL extends PersonRepository {
     }
 
     @Override
-    public void updatePerson(Person person) {
+    public void updatePerson(PersonTemplate person) {
         connect();
         String sql = "update person set fullName=?, occupation=?, ageCategory=?, employmentStatus=?, uSCitizen=?, taxId=?, gender=? where id=?";
         tryPrepareStatement(sql);

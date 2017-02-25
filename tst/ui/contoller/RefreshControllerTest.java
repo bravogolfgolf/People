@@ -2,7 +2,10 @@ package ui.contoller;
 
 import data.PersonRepository;
 import data.PersonRepositoryInMemory;
-import domain.*;
+import domain.InputBoundary;
+import domain.PersonRecord;
+import domain.Presenter;
+import domain.Request;
 import domain.refresh.RefreshRequest;
 import main.RequestBuilderImpl;
 import main.UseCaseFactoryImpl;
@@ -44,10 +47,7 @@ public class RefreshControllerTest implements InputBoundary, View {
 
     @Before
     public void setUp() {
-        Person person = new Person(2, "New Full Name",
-                "New Occupation", 0, 1,
-                false, "New Tax ID", "Female");
-        repository.addPerson(person);
+        repository.addPerson("New Full Name", "New Occupation", 0, 1, false, "New Tax ID", "Female");
     }
 
     @Test

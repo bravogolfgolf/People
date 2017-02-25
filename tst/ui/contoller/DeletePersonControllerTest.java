@@ -2,7 +2,10 @@ package ui.contoller;
 
 import data.PersonRepository;
 import data.PersonRepositoryInMemory;
-import domain.*;
+import domain.InputBoundary;
+import domain.PersonRecord;
+import domain.Presenter;
+import domain.Request;
 import domain.deleteperson.DeletePersonRequest;
 import main.RequestBuilderImpl;
 import main.UseCaseFactoryImpl;
@@ -43,15 +46,8 @@ public class DeletePersonControllerTest implements InputBoundary, View {
 
     @Before
     public void setUp() throws Exception {
-        Person person1 = new Person(1, "New Full Name1",
-                "New Occupation1", 1, 1,
-                false, "New Tax ID1", "Male");
-
-        Person person2 = new Person(2, "New Full Name2",
-                "New Occupation1", 2, 2,
-                true, "New Tax ID2", "Female");
-        repository.addPerson(person1);
-        repository.addPerson(person2);
+        repository.addPerson("New Full Name1", "New Occupation1", 1, 1, false, "New Tax ID1", "Male");
+        repository.addPerson("New Full Name2", "New Occupation1", 2, 2, true, "New Tax ID2", "Female");
         args.put(1, idToDelete);
     }
 

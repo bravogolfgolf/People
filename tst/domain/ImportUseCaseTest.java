@@ -5,6 +5,7 @@ import data.PersonRepositoryInMemory;
 import domain.importfile.Import;
 import domain.importfile.ImportRequest;
 import domain.importfile.ImportUseCase;
+import entity.PersonTemplate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,7 +35,7 @@ public class ImportUseCaseTest {
         useCase.execute(request);
         assertEquals(1, repository.getPeople().size());
 
-        for (Person expected : repository.getPeople().values()) {
+        for (PersonTemplate expected : repository.getPeople().values()) {
             assertEquals(1, expected.getId());
             assertEquals("Import Test", expected.getFullName());
             assertEquals("Occupation", expected.getOccupation());

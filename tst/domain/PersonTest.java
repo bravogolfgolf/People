@@ -1,5 +1,7 @@
 package domain;
 
+import data.Person;
+import entity.PersonTemplate;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -9,7 +11,7 @@ public class PersonTest {
 
     @Test
     public void newPersonShouldHaveAllFieldsDefined() {
-        Person person = new Person(1, "Full Name", "Occupation",
+        PersonTemplate person = new Person(1, "Full Name", "Occupation",
                 1, 0, true,
                 "123-45-6789", "Male");
         assertEquals(1, person.getId());

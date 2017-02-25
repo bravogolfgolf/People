@@ -1,9 +1,9 @@
 package domain.importfile;
 
-import domain.Person;
+import entity.PersonTemplate;
 
 import java.util.Map;
 
 public interface ImportGateway {
-    void setPeople(Map<Integer, Person> people);
+    void setPeople(Map<Integer, PersonTemplate> people);
 }

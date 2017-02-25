@@ -4,6 +4,7 @@ import data.PersonRepository;
 import data.PersonRepositoryInMemory;
 import domain.addperson.AddPersonRequest;
 import domain.addperson.AddPersonUseCase;
+import entity.PersonTemplate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,7 +35,7 @@ public class AddPersonUseCaseTest {
 
         assertEquals(1, repository.getPeople().size());
 
-        for (Person expected : repository.getPeople().values()) {
+        for (PersonTemplate expected : repository.getPeople().values()) {
             assertEquals(1, expected.getId());
             assertEquals(request.fullName, expected.getFullName());
             assertEquals(request.occupation, expected.getOccupation());

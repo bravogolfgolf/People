@@ -1,6 +1,7 @@
 package domain.refresh;
 
 import domain.*;
+import entity.PersonTemplate;
 
 import java.util.Map;
 
@@ -16,14 +17,14 @@ public class RefreshUseCase implements InputBoundary {
 
     @Override
     public void execute(Request request) {
-        Map<Integer, Person> people = repository.getPeople();
+        Map<Integer, PersonTemplate> people = repository.getPeople();
         RefreshResponse response = new RefreshResponse();
-        for (Person person : people.values())
+        for (PersonTemplate person : people.values())
             response.records.add(createRecord(person));
         presenter.present(response);
     }
 
-    private RefreshResponseRecord createRecord(Person person) {
+    private RefreshResponseRecord createRecord(PersonTemplate person) {
         RefreshResponseRecord record = new RefreshResponseRecord();
         record.id = person.getId();
         record.fullName = person.getFullName();

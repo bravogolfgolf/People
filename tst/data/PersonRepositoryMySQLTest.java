@@ -1,6 +1,6 @@
 package data;
 
-import domain.Person;
+import entity.PersonTemplate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,14 +18,14 @@ import static org.junit.Assert.assertTrue;
 public class PersonRepositoryMySQLTest {
 
     private final PersonRepository repository = new PersonRepositoryMySQL();
-    private final Person person = new Person(1, "Full Name", "Occupation", 0, 0, false,
+    private final PersonTemplate person = new Person(1, "Full Name", "Occupation", 0, 0, false,
             "Tax ID", "Male");
-    private final Person person1 = new Person(1, "Update Name", "Update", 1, 1, true,
+    private final PersonTemplate person1 = new Person(1, "Update Name", "Update", 1, 1, true,
             "Update ID", "Female");
-    private final Person person2 = new Person(2, "Full Name", "Occupation", 0, 2, true,
+    private final PersonTemplate person2 = new Person(2, "Full Name", "Occupation", 0, 2, true,
             "Tax ID", "Female");
 
-    private Map<Integer, Person> people = new HashMap<>();
+    private Map<Integer, PersonTemplate> people = new HashMap<>();
 
     @Before
     public void setUp() {
@@ -93,7 +93,7 @@ public class PersonRepositoryMySQLTest {
         repository.updatePerson(person1);
         people = repository.getPeople();
         assertEquals(1, people.size());
-        for (Person person : people.values()) {
+        for (PersonTemplate person : people.values()) {
             assertEquals(person.getId(), person1.getId());
             assertEquals(person.getFullName(), person1.getFullName());
             assertEquals(person.getOccupation(), person1.getOccupation());
@@ -118,15 +118,15 @@ public class PersonRepositoryMySQLTest {
     @Test
     public void shouldBeAbleToReplaceRepository() {
         repository.addPerson(person);
-        Map<Integer, Person> expected = new HashMap<>(repository.getPeople());
+        Map<Integer, PersonTemplate> expected = new HashMap<>(repository.getPeople());
         assertEquals(1, expected.size());
 
         repository.addPerson(person2);
-        Map<Integer, Person> updated = repository.getPeople();
+        Map<Integer, PersonTemplate> updated = repository.getPeople();
         assertEquals(2, updated.size());
 
         repository.setPeople(expected);
-        Map<Integer, Person> actual = repository.getPeople();
+        Map<Integer, PersonTemplate> actual = repository.getPeople();
         assertEquals(1, actual.size());
     }
 }

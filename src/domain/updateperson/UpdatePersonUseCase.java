@@ -1,8 +1,9 @@
 package domain.updateperson;
 
 import domain.InputBoundary;
-import domain.Person;
+import data.Person;
 import domain.Request;
+import entity.PersonTemplate;
 
 public class UpdatePersonUseCase implements InputBoundary {
     private final UpdatePersonGateway repository;
@@ -16,7 +17,7 @@ public class UpdatePersonUseCase implements InputBoundary {
     @Override
     public void execute(Request request) {
         UpdatePersonRequest r = (UpdatePersonRequest) request;
-        Person person = new Person(r.id, r.fullName, r.occupation, r.ageCategory, r.employmentStatus, r.uSCitizen, r.taxId, r.gender);
+        PersonTemplate person = new Person(r.id, r.fullName, r.occupation, r.ageCategory, r.employmentStatus, r.uSCitizen, r.taxId, r.gender);
         repository.updatePerson(person);
         refreshUseCase.execute(request);
     }

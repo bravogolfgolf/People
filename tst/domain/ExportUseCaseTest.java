@@ -23,14 +23,11 @@ public class ExportUseCaseTest {
     private final InputBoundary useCase = new ExportUseCase(repository, exportImport, refreshUseCase);
     private final ExportRequest request = new ExportRequest();
     private final File file = new File("ExportTest.per");
-    private final Person person = new Person(1, "Full Name", "Occupation",
-            1, 0, true,
-            "123-45-6789", "Male");
 
     @Before
     public void setUp() {
         file.delete();
-        repository.addPerson(person);
+        repository.addPerson("Full Name", "Occupation", 1, 0,true, "123-45-6789", "Male");
         request.file = file;
     }
 

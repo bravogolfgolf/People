@@ -1,11 +1,5 @@
 package domain.addperson;
 
-import domain.Person;
-
-import java.util.Map;
-
 public interface AddPersonGateway {
-    void addPerson(Person person);
-
-    Map<Integer, Person> getPeople();
+    void addPerson(String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender);
 }

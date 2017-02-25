@@ -1,7 +1,7 @@
 package domain.updateperson;
 
-import domain.Person;
+import entity.PersonTemplate;
 
 public interface UpdatePersonGateway {
-    void updatePerson(Person person);
+    void updatePerson(PersonTemplate person);
 }

@@ -4,6 +4,7 @@ import data.PersonRepository;
 import data.PersonRepositoryInMemory;
 import domain.updateperson.UpdatePersonRequest;
 import domain.updateperson.UpdatePersonUseCase;
+import entity.PersonTemplate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,13 +17,10 @@ public class UpdatePersonUseCaseTest {
     };
     private final InputBoundary useCase = new UpdatePersonUseCase(repository, refreshUseCase);
     private final UpdatePersonRequest request = new UpdatePersonRequest();
-    private final Person person = new Person(1, "Full Name", "Occupation",
-            0, 0, false,
-            "000-00-0000", "Male");
 
     @Before
     public void setUp() {
-        repository.addPerson(person);
+        repository.addPerson("Full Name","Occupation",0,0,false,"000-00-0000","Male");
         request.id = 1;
         request.fullName = "Update Person";
         request.occupation = "Update";
@@ -39,7 +37,7 @@ public class UpdatePersonUseCaseTest {
 
         assertEquals(1, repository.getPeople().size());
 
-        for (Person expected : repository.getPeople().values()) {
+        for (PersonTemplate expected : repository.getPeople().values()) {
             assertEquals(request.id, expected.getId());
             assertEquals(request.fullName, expected.getFullName());
             assertEquals(request.occupation, expected.getOccupation());

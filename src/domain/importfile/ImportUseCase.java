@@ -1,8 +1,8 @@
 package domain.importfile;
 
 import domain.InputBoundary;
-import domain.Person;
 import domain.Request;
+import entity.PersonTemplate;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +26,8 @@ public class ImportUseCase implements InputBoundary {
         refreshUseCase.execute(request);
     }
 
-    private Map<Integer, Person> tryImportFile(File file) {
-        Map<Integer, Person> result;
+    private Map<Integer, PersonTemplate> tryImportFile(File file) {
+        Map<Integer, PersonTemplate> result;
         try {
             result = importer.fromDisk(file);
         } catch (IOException | ClassNotFoundException e) {

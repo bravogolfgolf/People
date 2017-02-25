@@ -1,5 +1,7 @@
 package domain;
 
+import data.Person;
+import entity.PersonTemplate;
 import org.junit.Test;
 
 import java.io.File;
@@ -19,13 +21,13 @@ public class ExportImportTest {
     public void shouldSaveMapToFileAndLoadMapFromFileToRecreateMap() throws IOException, ClassNotFoundException {
         assertTrue(!deleteFile());
 
-        Person person = new Person(1, "Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
-        Map<Integer, Person> people = new HashMap<Integer, Person>() {{
+        PersonTemplate person = new Person(1, "Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
+        Map<Integer, PersonTemplate> people = new HashMap<Integer, PersonTemplate>() {{
             put(person.getId(), person);
         }};
 
         exportImport.toDisk(people, file);
-        Map<Integer, Person> loaded = exportImport.fromDisk(file);
+        Map<Integer, PersonTemplate> loaded = exportImport.fromDisk(file);
 
         for (Integer key : people.keySet()) {
             assertEquals(people.get(key).getId(), loaded.get(key).getId());

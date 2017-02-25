@@ -4,6 +4,7 @@ import data.PersonRepository;
 import data.PersonRepositoryInMemory;
 import domain.deleteperson.DeletePersonRequest;
 import domain.deleteperson.DeletePersonUseCase;
+import entity.PersonTemplate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,17 +18,13 @@ public class DeletePersonUseCaseTest {
     };
     private final InputBoundary useCase = new DeletePersonUseCase(repository, refreshUseCase);
     private final DeletePersonRequest request = new DeletePersonRequest();
-    private final Person person1 = new Person(1, "Full Name", "Occupation",
-            1, 0, true,
-            "123-45-6789", "Male");
+    private final int ageCategory = 1, employmentStatus = 1;
+    private final String fullName = "Full Name1", occupation = "Occupation1", taxId = "111-11-1111", gender = "Male";
 
     @Before
     public void setUp() {
-        Person person2 = new Person(2, "New Full Name",
-                "New Occupation", 0, 1,
-                false, "New Tax ID", "Female");
-        repository.addPerson(person1);
-        repository.addPerson(person2);
+        repository.addPerson(fullName, occupation, ageCategory,employmentStatus,true,taxId,gender);
+        repository.addPerson("Full Name2", "Occupation2", 2,2,false,"222-22-2222","Female");
         request.id = 2;
     }
 
@@ -38,15 +35,15 @@ public class DeletePersonUseCaseTest {
         assertEquals(1, repository.getPeople().size());
 
         assertEquals(1, repository.getPeople().size());
-        for (Person expected : repository.getPeople().values()) {
-            assertEquals(person1.getId(), expected.getId());
-            assertEquals(person1.getFullName(), expected.getFullName());
-            assertEquals(person1.getOccupation(), expected.getOccupation());
-            assertEquals(person1.getAgeCategory(), expected.getAgeCategory());
-            assertEquals(person1.getEmploymentStatus(), expected.getEmploymentStatus());
+        for (PersonTemplate expected : repository.getPeople().values()) {
+            assertEquals(1, expected.getId());
+            assertEquals(fullName, expected.getFullName());
+            assertEquals(occupation, expected.getOccupation());
+            assertEquals(ageCategory, expected.getAgeCategory());
+            assertEquals(employmentStatus, expected.getEmploymentStatus());
             assertTrue(expected.isUsCitizen());
-            assertEquals(person1.getTaxId(), expected.getTaxId());
-            assertEquals(person1.getGender(), expected.getGender());
+            assertEquals(taxId, expected.getTaxId());
+            assertEquals(gender, expected.getGender());
         }
     }
 }

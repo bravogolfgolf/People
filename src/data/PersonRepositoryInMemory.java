@@ -1,26 +1,26 @@
 package data;
 
-import domain.Person;
+import entity.PersonTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class PersonRepositoryInMemory extends PersonRepository {
 
-    private Map<Integer, Person> people = new HashMap<>();
+    private Map<Integer, PersonTemplate> people = new HashMap<>();
 
     @Override
-    public void addPerson(Person person) {
+    public void addPerson(PersonTemplate person) {
         people.put(person.getId(), person);
     }
 
     @Override
-    public Map<Integer, Person> getPeople() {
+    public Map<Integer, PersonTemplate> getPeople() {
         return people;
     }
 
     @Override
-    public void setPeople(Map<Integer, Person> people) {
+    public void setPeople(Map<Integer, PersonTemplate> people) {
         this.people = people;
     }
 
@@ -30,7 +30,7 @@ public class PersonRepositoryInMemory extends PersonRepository {
     }
 
     @Override
-    public void updatePerson(Person person) {
+    public void updatePerson(PersonTemplate person) {
         people.put(person.getId(), person);
     }
 }

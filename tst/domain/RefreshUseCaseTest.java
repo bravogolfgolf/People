@@ -29,13 +29,12 @@ public class RefreshUseCaseTest implements Presenter {
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final InputBoundary useCase = new RefreshUseCase(repository, this);
     private final Request request = new RefreshRequest();
-    private final Person person = new Person(2, "New Full Name",
-            "New Occupation", 0, 1,
-            true, "New Tax ID", "Female");
+    private final int ageCategory = 0, employmentStatus = 1;
+    private final String fullName = "New Full Name", occupation = "New Occupation", taxId = "New Tax ID", gender = "Female";
 
     @Before
     public void setUp() {
-        repository.addPerson(person);
+        repository.addPerson(fullName, occupation, ageCategory,employmentStatus,true,taxId,gender);
     }
 
     @Test
@@ -46,14 +45,14 @@ public class RefreshUseCaseTest implements Presenter {
         assertEquals(1, r.records.size());
 
         for (RefreshResponseRecord expected : r.records) {
-            assertEquals(person.getId(), expected.id);
-            assertEquals(person.getFullName(), expected.fullName);
-            assertEquals(person.getOccupation(), expected.occupation);
-            assertEquals(person.getAgeCategory(), expected.ageCategory);
-            assertEquals(person.getEmploymentStatus(), expected.employmentStatus);
+            assertEquals(1, expected.id);
+            assertEquals(fullName, expected.fullName);
+            assertEquals(occupation, expected.occupation);
+            assertEquals(ageCategory, expected.ageCategory);
+            assertEquals(employmentStatus, expected.employmentStatus);
             assertTrue(expected.uSCitizen);
-            assertEquals(person.getTaxId(), expected.taxId);
-            assertEquals(person.getGender(), expected.gender);
+            assertEquals(taxId, expected.taxId);
+            assertEquals(gender, expected.gender);
         }
     }
 }

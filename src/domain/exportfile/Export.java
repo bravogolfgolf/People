@@ -1,11 +1,11 @@
 package domain.exportfile;
 
-import domain.Person;
+import entity.PersonTemplate;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
 public interface Export {
-    void toDisk(Map<Integer, Person> map, File file) throws IOException;
+    void toDisk(Map<Integer, PersonTemplate> map, File file) throws IOException;
 }

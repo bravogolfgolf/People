@@ -1,9 +1,9 @@
 package domain.exportfile;
 
-import domain.Person;
+import entity.PersonTemplate;
 
 import java.util.Map;
 
 public interface ExportGateway {
-    Map<Integer, Person> getPeople();
+    Map<Integer, PersonTemplate> getPeople();
 }
