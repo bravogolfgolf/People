@@ -1,4 +1,4 @@
-package view;
+package other;
 
 import responder.PersonRecord;
 

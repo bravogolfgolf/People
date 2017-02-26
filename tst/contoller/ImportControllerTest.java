@@ -12,7 +12,7 @@ import responder.Presenter;
 import usecase.RequestBuilderImpl;
 import usecase.importfile.ImportRequest;
 import view.PersonTablePanelPresenter;
-import view.View;
+import other.View;
 
 import java.io.File;
 import java.util.HashMap;
