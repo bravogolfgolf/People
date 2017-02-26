@@ -1,6 +1,5 @@
 package contoller;
 
-import other.Controller;
 import requestor.InputBoundary;
 import requestor.Request;
 import requestor.RequestBuilder;
@@ -11,7 +10,7 @@ import view.View;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class DeletePersonController implements Controller {
+public class DeletePersonController {
     private final Request request;
     private final InputBoundary useCase;
     private final Presenter presenter;
@@ -24,7 +23,6 @@ public class DeletePersonController implements Controller {
         this.view = view;
     }
 
-    @Override
     public Object execute() {
         useCase.execute(request);
         return new ArrayList<>();

@@ -2,7 +2,6 @@ package contoller;
 
 import org.junit.Before;
 import org.junit.Test;
-import other.Controller;
 import requestor.InputBoundary;
 import requestor.Request;
 import requestor.RequestBuilder;
@@ -50,7 +49,7 @@ public class ImportControllerTest implements InputBoundary, View {
     public void shouldSendRequestToUseCase() {
         UseCaseFactory factory = new UseCaseFactoryDummy(null, null, null);
 
-        Controller controller = new ImportController(requestBuilder, args, factory, presenter, view);
+        ImportController controller = new ImportController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
 

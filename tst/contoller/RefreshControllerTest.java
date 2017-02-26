@@ -10,7 +10,6 @@ import exportimportgateway.Export;
 import exportimportgateway.Import;
 import org.junit.Before;
 import org.junit.Test;
-import other.Controller;
 import requestor.InputBoundary;
 import requestor.Request;
 import requestor.RequestBuilder;
@@ -74,7 +73,7 @@ public class RefreshControllerTest implements InputBoundary, View {
     public void shouldSendRequestToUseCase() {
         UseCaseFactory factory = new UseCaseFactoryDummy(null, null, null);
 
-        Controller controller = new RefreshController(requestBuilder, args, factory, presenter, view);
+        RefreshController controller = new RefreshController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
 
@@ -84,7 +83,7 @@ public class RefreshControllerTest implements InputBoundary, View {
     @Test
     public void shouldReturnRecords() {
         UseCaseFactory factory = new UseCaseFactory(useCases, constructorClasses, constructorObjects);
-        Controller controller = new RefreshController(requestBuilder, args, factory, presenter, view);
+        RefreshController controller = new RefreshController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
 
