@@ -2,6 +2,7 @@ package contoller;
 
 import org.junit.Before;
 import org.junit.Test;
+import other.Controller;
 import requestor.InputBoundary;
 import requestor.Request;
 import requestor.RequestBuilder;
@@ -51,7 +52,7 @@ public class AddPersonControllerTest implements InputBoundary, View {
     @Test
     public void shouldSendRequestToUseCase() {
         UseCaseFactory factory = new UseCaseFactoryDummy(null, null, null);
-        AddPersonController controller = new AddPersonController(requestBuilder, args, factory, presenter, view);
+        Controller controller = new AddPersonController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
 

@@ -1,15 +1,16 @@
 package contoller;
 
+import other.Controller;
+import other.View;
 import requestor.InputBoundary;
 import requestor.Request;
 import requestor.RequestBuilder;
 import requestor.UseCaseFactory;
 import responder.Presenter;
-import other.View;
 
 import java.util.Map;
 
-public class ImportController {
+public class ImportController implements Controller {
     private final Request request;
     private final InputBoundary useCase;
     private final Presenter presenter;
@@ -22,6 +23,7 @@ public class ImportController {
         this.view = view;
     }
 
+    @Override
     public Object execute() {
         useCase.execute(request);
         return null;
