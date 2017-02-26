@@ -1,19 +1,18 @@
-package usecase;
+package requestor;
 
-import requestor.InputBoundary;
 import responder.Presenter;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-public class UseCaseFactoryImpl {
+public class UseCaseFactory {
 
     private final Map<String, Class<? extends InputBoundary>> useCases;
     private final Map<String, Class<?>[]> constructorClasses;
     private final Map<String, Object> constructorObjects;
 
-    public UseCaseFactoryImpl(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
+    public UseCaseFactory(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
         this.useCases = useCases;
         this.constructorClasses = constructorClasses;
         this.constructorObjects = constructorObjects;

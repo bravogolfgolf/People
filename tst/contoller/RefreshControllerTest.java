@@ -14,10 +14,10 @@ import other.Controller;
 import requestor.InputBoundary;
 import requestor.Request;
 import requestor.RequestBuilder;
+import requestor.UseCaseFactory;
 import responder.PersonRecord;
 import responder.Presenter;
 import usecase.RequestBuilderImpl;
-import usecase.UseCaseFactoryImpl;
 import usecase.addperson.AddPersonUseCase;
 import usecase.deleteperson.DeletePersonUseCase;
 import usecase.exportfile.ExportUseCase;
@@ -72,7 +72,7 @@ public class RefreshControllerTest implements InputBoundary, View {
 
     @Test
     public void shouldSendRequestToUseCase() {
-        UseCaseFactoryImpl factory = new UseCaseFactoryImplDummy(null, null, null);
+        UseCaseFactory factory = new UseCaseFactoryDummy(null, null, null);
 
         Controller controller = new RefreshController(requestBuilder, args, factory, presenter, view);
 
@@ -83,7 +83,7 @@ public class RefreshControllerTest implements InputBoundary, View {
 
     @Test
     public void shouldReturnRecords() {
-        UseCaseFactoryImpl factory = new UseCaseFactoryImpl(useCases, constructorClasses, constructorObjects);
+        UseCaseFactory factory = new UseCaseFactory(useCases, constructorClasses, constructorObjects);
         Controller controller = new RefreshController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
@@ -115,8 +115,8 @@ public class RefreshControllerTest implements InputBoundary, View {
         constructorObjects.put("ImportUseCase", exportImport);
     }
 
-    private class UseCaseFactoryImplDummy extends UseCaseFactoryImpl {
-        UseCaseFactoryImplDummy(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
+    private class UseCaseFactoryDummy extends UseCaseFactory {
+        UseCaseFactoryDummy(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
             super(useCases, constructorClasses, constructorObjects);
         }
 

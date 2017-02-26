@@ -4,9 +4,9 @@ import org.junit.Test;
 import other.Controller;
 import requestor.InputBoundary;
 import requestor.RequestBuilder;
+import requestor.UseCaseFactory;
 import responder.Presenter;
 import usecase.RequestBuilderImpl;
-import usecase.UseCaseFactoryImpl;
 import view.ControllerFactory;
 import view.EntryEvent;
 import view.PersonTablePanelPresenter;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ControllerFactoryImplTest {
 
-    private final UseCaseFactoryImpl useCaseFactory = new UseCaseFactoryImplDummy(null, null, null);
+    private final UseCaseFactory useCaseFactory = new UseCaseFactoryDummy(null, null, null);
     private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final ControllerFactory factory = new ControllerFactoryImpl(requestBuilder, useCaseFactory);
     private final Map<Integer, Object> args = new HashMap<>();
@@ -65,8 +65,8 @@ public class ControllerFactoryImplTest {
         assertTrue(controller instanceof ImportController);
     }
 
-    private class UseCaseFactoryImplDummy extends UseCaseFactoryImpl {
-        UseCaseFactoryImplDummy(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
+    private class UseCaseFactoryDummy extends UseCaseFactory {
+        UseCaseFactoryDummy(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
             super(useCases, constructorClasses, constructorObjects);
         }
 

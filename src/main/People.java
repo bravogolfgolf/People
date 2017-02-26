@@ -10,9 +10,9 @@ import exportimport.ExportImport;
 import exportimportgateway.Export;
 import exportimportgateway.Import;
 import requestor.InputBoundary;
+import requestor.UseCaseFactory;
 import responder.Presenter;
 import usecase.RequestBuilderImpl;
-import usecase.UseCaseFactoryImpl;
 import usecase.addperson.AddPersonUseCase;
 import usecase.deleteperson.DeletePersonUseCase;
 import usecase.exportfile.ExportUseCase;
@@ -43,7 +43,7 @@ class People {
             setConstructorObjects();
 
             RequestBuilderImpl requestBuilder = new RequestBuilderImpl();
-            UseCaseFactoryImpl useCaseFactory = new UseCaseFactoryImpl(useCases, constructorClasses, constructorObjects);
+            UseCaseFactory useCaseFactory = new UseCaseFactory(useCases, constructorClasses, constructorObjects);
             ControllerFactoryImpl controllerFactory = new ControllerFactoryImpl(requestBuilder, useCaseFactory);
             MainFrame mainFrame = new MainFrame(controllerFactory);
             mainFrame.initialize();

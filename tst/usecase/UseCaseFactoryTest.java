@@ -11,6 +11,7 @@ import exportimportgateway.Import;
 import org.junit.Before;
 import org.junit.Test;
 import requestor.InputBoundary;
+import requestor.UseCaseFactory;
 import responder.PersonRecord;
 import responder.Presenter;
 import responder.Response;
@@ -25,7 +26,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
-public class UseCaseFactoryImplTest {
+public class UseCaseFactoryTest {
 
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final ExportImport exportImport = new ExportImport(repository);
@@ -39,7 +40,7 @@ public class UseCaseFactoryImplTest {
             return null;
         }
     };
-    private UseCaseFactoryImpl factory;
+    private UseCaseFactory factory;
     private final Map<String, Class<? extends InputBoundary>> useCases = new HashMap<>();
     private final Map<String, Class<?>[]> constructorClasses = new HashMap<>();
     private final Map<String, Object> constructorObjects = new HashMap<>();
@@ -47,7 +48,7 @@ public class UseCaseFactoryImplTest {
 
     @Before
     public void setUp() throws Exception {
-        factory = new UseCaseFactoryImpl(useCases, constructorClasses, constructorObjects);
+        factory = new UseCaseFactory(useCases, constructorClasses, constructorObjects);
     }
 
     @Test
@@ -71,7 +72,7 @@ public class UseCaseFactoryImplTest {
         useCases.put("ImportUseCase", ImportUseCase.class);
     }
 
-    private void registerUseCasePrimaryConstructorParameter(UseCaseFactoryImpl factory) {
+    private void registerUseCasePrimaryConstructorParameter(UseCaseFactory factory) {
         constructorClasses.put("RefreshUseCase", new Class[]{RefreshGateway.class, Presenter.class});
         constructorClasses.put("AddPersonUseCase", new Class[]{AddPersonGateway.class, Presenter.class});
         constructorClasses.put("DeletePersonUseCase", new Class[]{DeletePersonGateway.class, Presenter.class});
@@ -79,7 +80,7 @@ public class UseCaseFactoryImplTest {
         constructorClasses.put("ImportUseCase", new Class[]{Import.class, Presenter.class});
     }
 
-    private void registerUseCasePrimaryConstructorObject(UseCaseFactoryImpl factory) {
+    private void registerUseCasePrimaryConstructorObject(UseCaseFactory factory) {
         constructorObjects.put("RefreshUseCase", repository);
         constructorObjects.put("AddPersonUseCase", repository);
         constructorObjects.put("DeletePersonUseCase", repository);

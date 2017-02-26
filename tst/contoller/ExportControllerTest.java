@@ -6,11 +6,11 @@ import other.Controller;
 import requestor.InputBoundary;
 import requestor.Request;
 import requestor.RequestBuilder;
+import requestor.UseCaseFactory;
 import responder.PersonRecord;
 import responder.Presenter;
 import responder.Response;
 import usecase.RequestBuilderImpl;
-import usecase.UseCaseFactoryImpl;
 import usecase.exportfile.ExportRequest;
 import view.View;
 
@@ -31,7 +31,7 @@ public class ExportControllerTest implements InputBoundary {
 
     private final RequestBuilder builder = new RequestBuilderImpl();
     private final Map<Integer, Object> args = new HashMap<>();
-    private final UseCaseFactoryImpl factory = new UseCaseFactoryImplDummy(null, null, null);
+    private final UseCaseFactory factory = new UseCaseFactoryDummy(null, null, null);
 
     private final Presenter presenter = new Presenter() {
         @Override
@@ -61,8 +61,8 @@ public class ExportControllerTest implements InputBoundary {
         assertEquals(file, r.file);
     }
 
-    private class UseCaseFactoryImplDummy extends UseCaseFactoryImpl {
-        UseCaseFactoryImplDummy(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
+    private class UseCaseFactoryDummy extends UseCaseFactory {
+        UseCaseFactoryDummy(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
             super(useCases, constructorClasses, constructorObjects);
         }
 

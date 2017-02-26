@@ -3,8 +3,8 @@ package contoller;
 
 import other.Controller;
 import requestor.RequestBuilder;
+import requestor.UseCaseFactory;
 import responder.Presenter;
-import usecase.UseCaseFactoryImpl;
 import view.ControllerFactory;
 import view.View;
 
@@ -12,9 +12,9 @@ import java.util.Map;
 
 public class ControllerFactoryImpl implements ControllerFactory {
     private final RequestBuilder builder;
-    private final UseCaseFactoryImpl factory;
+    private final UseCaseFactory factory;
 
-    public ControllerFactoryImpl(RequestBuilder builder, UseCaseFactoryImpl factory) {
+    public ControllerFactoryImpl(RequestBuilder builder, UseCaseFactory factory) {
         this.builder = builder;
         this.factory = factory;
     }
