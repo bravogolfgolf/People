@@ -1,6 +1,5 @@
 package main;
 
-import contoller.ControllerFactoryImpl;
 import database.PersonRepository;
 import database.PersonRepositoryMySQL;
 import databasegateway.AddPersonGateway;
@@ -44,8 +43,7 @@ class People {
 
             RequestBuilderImpl requestBuilder = new RequestBuilderImpl();
             UseCaseFactory useCaseFactory = new UseCaseFactory(useCases, constructorClasses, constructorObjects);
-            ControllerFactoryImpl controllerFactory = new ControllerFactoryImpl(requestBuilder, useCaseFactory);
-            MainFrame mainFrame = new MainFrame(controllerFactory);
+            MainFrame mainFrame = new MainFrame(requestBuilder, useCaseFactory);
             mainFrame.initialize();
         });
     }

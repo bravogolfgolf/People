@@ -16,7 +16,7 @@ public class ExportController implements Controller {
     private final Presenter presenter;
     private final View view;
 
-    ExportController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
+    public ExportController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
         this.request = request.make("ExportRequest", args);
         this.useCase = useCase.make("ExportUseCase", presenter);
         this.presenter = presenter;

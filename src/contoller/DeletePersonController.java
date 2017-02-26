@@ -17,7 +17,7 @@ public class DeletePersonController implements Controller {
     private final Presenter presenter;
     private final View view;
 
-    DeletePersonController(RequestBuilder builder, Map<Integer, Object> args, UseCaseFactory factory, Presenter presenter, View view) {
+    public DeletePersonController(RequestBuilder builder, Map<Integer, Object> args, UseCaseFactory factory, Presenter presenter, View view) {
         this.request = builder.make("DeletePersonRequest", args);
         this.useCase = factory.make("DeletePersonUseCase", presenter);
         this.presenter = presenter;

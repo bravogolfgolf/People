@@ -16,7 +16,7 @@ public class ImportController implements Controller {
     private final Presenter presenter;
     private final View view;
 
-    ImportController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
+    public ImportController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
         this.request = request.make("ImportRequest", args);
         this.useCase = useCase.make("ImportUseCase", presenter);
         this.presenter = presenter;

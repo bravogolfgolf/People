@@ -16,7 +16,7 @@ public class AddPersonController implements Controller {
     private final Presenter presenter;
     private final View view;
 
-    AddPersonController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
+    public AddPersonController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
         this.request = request.make("AddPersonRequest", args);
         this.useCase = useCase.make("AddPersonUseCase", presenter);
         this.presenter = presenter;
