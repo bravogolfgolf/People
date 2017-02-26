@@ -1,21 +1,18 @@
 package contoller;
 
-import database.PersonRepository;
-import database.PersonRepositoryInMemory;
-import other.Controller;
-import requestor.RequestBuilder;
-import requestor.UseCaseFactory;
-import requestor.InputBoundary;
-import requestor.Request;
-import respondor.Presenter;
-import usecase.importfile.ImportRequest;
-import usecase.RequestBuilderImpl;
-import usecase.UseCaseFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
-import respondor.PersonRecord;
-import view.View;
+import other.Controller;
+import requestor.InputBoundary;
+import requestor.Request;
+import requestor.RequestBuilder;
+import requestor.UseCaseFactory;
+import responder.PersonRecord;
+import responder.Presenter;
+import usecase.RequestBuilderImpl;
+import usecase.importfile.ImportRequest;
 import view.PersonTablePanelPresenter;
+import view.View;
 
 import java.io.File;
 import java.util.HashMap;
@@ -32,11 +29,8 @@ public class ImportControllerTest implements InputBoundary, View {
         this.r = (ImportRequest) request;
     }
 
-    private PersonRecord[] records;
-
     @Override
     public String generateView(PersonRecord[] records) {
-        this.records = records;
         return null;
     }
 
@@ -60,17 +54,6 @@ public class ImportControllerTest implements InputBoundary, View {
         controller.execute();
 
         assertEquals(file, r.file);
-    }
-
-    @Test
-    public void shouldReturnRecords() {
-        PersonRepository repository = new PersonRepositoryInMemory();
-        UseCaseFactory factory = new UseCaseFactoryImpl(repository);
-        Controller controller = new ImportController(requestBuilder, args, factory, presenter, view);
-
-        controller.execute();
-
-        assertEquals(1, records.length);
     }
 }
 

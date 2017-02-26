@@ -4,7 +4,7 @@ package contoller;
 import other.Controller;
 import requestor.RequestBuilder;
 import requestor.UseCaseFactory;
-import respondor.Presenter;
+import responder.Presenter;
 import view.ControllerFactory;
 import view.View;
 

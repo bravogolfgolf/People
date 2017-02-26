@@ -1,13 +1,14 @@
 package contoller;
 
-import database.PersonRepositoryInMemory;
 import org.junit.Test;
 import other.Controller;
 import requestor.RequestBuilder;
 import requestor.UseCaseFactory;
 import usecase.RequestBuilderImpl;
-import usecase.UseCaseFactoryImpl;
-import view.*;
+import view.ControllerFactory;
+import view.EntryEvent;
+import view.PersonTablePanelPresenter;
+import view.View;
 
 import java.io.File;
 import java.util.HashMap;
@@ -17,8 +18,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ControllerFactoryImplTest {
 
-    private final PersonRepositoryInMemory repository = new PersonRepositoryInMemory();
-    private final UseCaseFactory useCaseFactory = new UseCaseFactoryImpl(repository);
+    private final UseCaseFactory useCaseFactory = (useCase, presenter) -> null;
     private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final ControllerFactory factory = new ControllerFactoryImpl(requestBuilder, useCaseFactory);
     private final Map<Integer, Object> args = new HashMap<>();

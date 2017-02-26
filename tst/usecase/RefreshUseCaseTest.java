@@ -2,17 +2,17 @@ package usecase;
 
 import database.PersonRepository;
 import database.PersonRepositoryInMemory;
+import org.junit.Before;
+import org.junit.Test;
 import requestor.InputBoundary;
 import requestor.Request;
-import respondor.Presenter;
-import respondor.Response;
+import responder.PersonRecord;
+import responder.Presenter;
+import responder.Response;
 import usecase.refresh.RefreshRequest;
 import usecase.refresh.RefreshResponse;
 import usecase.refresh.RefreshResponseRecord;
 import usecase.refresh.RefreshUseCase;
-import org.junit.Before;
-import org.junit.Test;
-import respondor.PersonRecord;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -39,7 +39,7 @@ public class RefreshUseCaseTest implements Presenter {
 
     @Before
     public void setUp() {
-        repository.addPerson(fullName, occupation, ageCategory,employmentStatus,true,taxId,gender);
+        repository.addPerson(fullName, occupation, ageCategory, employmentStatus, true, taxId, gender);
     }
 
     @Test

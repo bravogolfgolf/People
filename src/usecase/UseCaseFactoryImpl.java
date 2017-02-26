@@ -1,39 +1,44 @@
 package usecase;
 
-import database.PersonRepository;
-import exportimport.ExportImport;
 import requestor.InputBoundary;
-import respondor.Presenter;
-import usecase.addperson.AddPersonUseCase;
-import usecase.deleteperson.DeletePersonUseCase;
-import usecase.exportfile.ExportUseCase;
-import usecase.importfile.ImportUseCase;
-import usecase.refresh.RefreshUseCase;
 import requestor.UseCaseFactory;
+import responder.Presenter;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
 public class UseCaseFactoryImpl implements UseCaseFactory {
-    private final PersonRepository repository;
-    private final ExportImport exportImport;
 
-    public UseCaseFactoryImpl(PersonRepository repository) {
-        this.repository = repository;
-        exportImport = new ExportImport(repository);
+    private final Map<String, Class<? extends InputBoundary>> useCases;
+    private final Map<String, Class<?>[]> constructorClasses;
+    private final Map<String, Object> constructorObjects;
+
+    public UseCaseFactoryImpl(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
+        this.useCases = useCases;
+        this.constructorClasses = constructorClasses;
+        this.constructorObjects = constructorObjects;
     }
 
     @Override
     public InputBoundary make(String useCase, Presenter presenter) {
-        InputBoundary refreshUseCase = new RefreshUseCase(repository, presenter);
 
-        if (useCase.equals("RefreshUseCase"))
-            return refreshUseCase;
-        if (useCase.equals("AddPersonUseCase"))
-            return new AddPersonUseCase(repository, refreshUseCase);
-        if (useCase.equals("DeletePersonUseCase"))
-            return new DeletePersonUseCase(repository, refreshUseCase);
-        if (useCase.equals("ExportUseCase"))
-            return new ExportUseCase(exportImport, refreshUseCase);
-        if (useCase.equals("ImportUseCase"))
-            return new ImportUseCase(exportImport, refreshUseCase);
-        return null;
+        Class aClass = useCases.get(useCase);
+
+        Constructor constructor = null;
+        try {
+            constructor = aClass.getConstructor(constructorClasses.get(useCase));
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        InputBoundary newClass = null;
+        try {
+            newClass = (InputBoundary) constructor.newInstance(constructorObjects.get(useCase), presenter);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        return newClass;
     }
 }

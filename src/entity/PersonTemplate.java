@@ -13,15 +13,15 @@ public abstract class PersonTemplate implements Serializable {
     protected final String taxId;
     protected final String gender;
 
-    protected PersonTemplate(int id, int ageCategory, String gender, boolean uSCitizen, String taxId, String fullName, int employmentStatus, String occupation) {
+    protected PersonTemplate(int id, String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {
         this.id = id;
+        this.fullName = fullName;
+        this.occupation = occupation;
         this.ageCategory = ageCategory;
-        this.gender = gender;
+        this.employmentStatus = employmentStatus;
         this.uSCitizen = uSCitizen;
         this.taxId = taxId;
-        this.fullName = fullName;
-        this.employmentStatus = employmentStatus;
-        this.occupation = occupation;
+        this.gender = gender;
     }
 
     public abstract int getId();

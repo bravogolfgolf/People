@@ -1,7 +1,6 @@
 package requestor;
 
-import requestor.InputBoundary;
-import respondor.Presenter;
+import responder.Presenter;
 
 public interface UseCaseFactory {
     InputBoundary make(String useCase, Presenter presenter);

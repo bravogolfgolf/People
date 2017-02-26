@@ -1,10 +1,10 @@
 package view;
 
-import respondor.PersonRecord;
-import usecase.refresh.RefreshResponse;
-import usecase.refresh.RefreshResponseRecord;
 import org.junit.Before;
 import org.junit.Test;
+import responder.PersonRecord;
+import usecase.refresh.RefreshResponse;
+import usecase.refresh.RefreshResponseRecord;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

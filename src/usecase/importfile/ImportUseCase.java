@@ -3,24 +3,22 @@ package usecase.importfile;
 import exportimportgateway.Import;
 import requestor.InputBoundary;
 import requestor.Request;
+import responder.Presenter;
 
 import java.io.File;
 import java.io.IOException;
 
 public class ImportUseCase implements InputBoundary {
     private final Import importer;
-    private final InputBoundary refreshUseCase;
 
-    public ImportUseCase(Import importer, InputBoundary refreshUseCase) {
+    public ImportUseCase(Import importer, Presenter presenter) {
         this.importer = importer;
-        this.refreshUseCase = refreshUseCase;
     }
 
     @Override
     public void execute(Request request) {
         ImportRequest r = (ImportRequest) request;
         tryImportFile(r.file);
-        refreshUseCase.execute(request);
     }
 
     private void tryImportFile(File file) {

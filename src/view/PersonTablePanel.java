@@ -1,6 +1,6 @@
 package view;
 
-import respondor.PersonRecord;
+import responder.PersonRecord;
 
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;

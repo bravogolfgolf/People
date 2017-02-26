@@ -153,7 +153,7 @@ public class MainFrame extends JFrame {
             if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
                 Map<Integer, Object> args = new HashMap<>();
                 args.put(1, fileChooser.getSelectedFile());
-                personTablePanel.updateModel(tryExport(args));
+                tryExport(args);
             }
         });
         fileMenu.add(exportDataMenuItem);
@@ -165,14 +165,12 @@ public class MainFrame extends JFrame {
         return menuItem;
     }
 
-    private PersonTableModelRecord[] tryExport(Map<Integer, Object> args) {
-        PersonTableModelRecord[] records = null;
+    private void tryExport(Map<Integer, Object> args) {
         try {
-             records = (PersonTableModelRecord[]) controllerFactory.make("ExportController", args, new PersonTablePanelPresenter(), personTablePanel).execute();
+            controllerFactory.make("ExportController", args, new PersonTablePanelPresenter(), personTablePanel).execute();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(MainFrame.this, "Could not Export file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        return records;
     }
 
     private void addImportMenuItem() {
@@ -180,22 +178,22 @@ public class MainFrame extends JFrame {
             if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
                 Map<Integer, Object> args = new HashMap<>();
                 args.put(1, fileChooser.getSelectedFile());
-                personTablePanel.updateModel(tryImport(args));
+                tryImport(args);
+                personTablePanel.updateModel((PersonTableModelRecord[]) controllerFactory.make(
+                        "RefreshController", args, new PersonTablePanelPresenter(), personTablePanel)
+                        .execute());
             }
         });
         fileMenu.add(importDataMenuItem);
     }
 
-    private PersonTableModelRecord[] tryImport(Map<Integer, Object> args) {
-        PersonTableModelRecord[] records = null;
+    private void tryImport(Map<Integer, Object> args) {
         try {
-            records = (PersonTableModelRecord[]) controllerFactory.make(
-                    "ImportController", args, new PersonTablePanelPresenter(), personTablePanel)
+            controllerFactory.make("ImportController", args, new PersonTablePanelPresenter(), personTablePanel)
                     .execute();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(MainFrame.this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        return records;
     }
 
     private JMenu createViewMenu() {
@@ -269,10 +267,11 @@ public class MainFrame extends JFrame {
         entryPanel = new EntryPanel(formEvent -> {
             Map<Integer, Object> args = new HashMap<>();
             args.put(1, formEvent);
-            PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make(
-                    "AddPersonController", args, new PersonTablePanelPresenter(), personTablePanel)
-                    .execute();
-            personTablePanel.updateModel(records);
+            controllerFactory.make("AddPersonController",
+                    args, new PersonTablePanelPresenter(), personTablePanel).execute();
+            personTablePanel.updateModel((PersonTableModelRecord[]) controllerFactory.make(
+                    "RefreshController", args, new PersonTablePanelPresenter(), personTablePanel)
+                    .execute());
         });
         add(entryPanel, BorderLayout.LINE_START);
         SwingUtilities.getRootPane(entryPanel.okButton).setDefaultButton(entryPanel.okButton);
@@ -282,10 +281,11 @@ public class MainFrame extends JFrame {
         personTablePanel = new PersonTablePanel(id -> {
             Map<Integer, Object> args = new HashMap<>();
             args.put(1, id);
-            PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make(
-                    "DeletePersonController", args, new PersonTablePanelPresenter(), personTablePanel)
-                    .execute();
-            personTablePanel.updateModel(records);
+            controllerFactory.make("DeletePersonController", args,
+                    new PersonTablePanelPresenter(), personTablePanel).execute();
+            personTablePanel.updateModel((PersonTableModelRecord[]) controllerFactory.make(
+                    "RefreshController", args, new PersonTablePanelPresenter(), personTablePanel)
+                    .execute());
         });
         add(personTablePanel, BorderLayout.CENTER);
     }

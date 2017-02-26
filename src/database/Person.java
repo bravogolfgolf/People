@@ -3,7 +3,7 @@ package database;
 public class Person extends entity.PersonTemplate {
 
     public Person(int id, String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {
-        super(id, ageCategory, gender, uSCitizen, taxId, fullName, employmentStatus, occupation);
+        super(id, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package respondor;
+package responder;
 
 public class PersonRecord {
     public int id;

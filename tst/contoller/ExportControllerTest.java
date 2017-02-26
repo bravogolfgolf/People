@@ -1,17 +1,17 @@
 package contoller;
 
-import other.Controller;
-import requestor.RequestBuilder;
-import requestor.UseCaseFactory;
-import requestor.InputBoundary;
-import requestor.Request;
-import respondor.Presenter;
-import respondor.Response;
-import usecase.exportfile.ExportRequest;
-import usecase.RequestBuilderImpl;
 import org.junit.Before;
 import org.junit.Test;
-import respondor.PersonRecord;
+import other.Controller;
+import requestor.InputBoundary;
+import requestor.Request;
+import requestor.RequestBuilder;
+import requestor.UseCaseFactory;
+import responder.PersonRecord;
+import responder.Presenter;
+import responder.Response;
+import usecase.RequestBuilderImpl;
+import usecase.exportfile.ExportRequest;
 import view.View;
 
 import java.io.File;

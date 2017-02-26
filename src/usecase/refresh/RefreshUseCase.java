@@ -1,10 +1,10 @@
 package usecase.refresh;
 
 import databasegateway.RefreshGateway;
+import entity.PersonTemplate;
 import requestor.InputBoundary;
 import requestor.Request;
-import respondor.Presenter;
-import entity.PersonTemplate;
+import responder.Presenter;
 
 import java.util.Map;
 

@@ -2,21 +2,19 @@ package usecase;
 
 import database.PersonRepository;
 import database.PersonRepositoryInMemory;
-import requestor.InputBoundary;
-import usecase.addperson.AddPersonRequest;
-import usecase.addperson.AddPersonUseCase;
 import entity.PersonTemplate;
 import org.junit.Before;
 import org.junit.Test;
+import requestor.InputBoundary;
+import usecase.addperson.AddPersonRequest;
+import usecase.addperson.AddPersonUseCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class AddPersonUseCaseTest {
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final InputBoundary refreshUseCase = request -> {
-    };
-    private final InputBoundary useCase = new AddPersonUseCase(repository, refreshUseCase);
+    private final InputBoundary useCase = new AddPersonUseCase(repository, null);
     private final AddPersonRequest request = new AddPersonRequest();
 
     @Before

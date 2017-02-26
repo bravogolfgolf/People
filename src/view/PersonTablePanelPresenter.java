@@ -1,8 +1,8 @@
 package view;
 
-import respondor.PersonRecord;
-import respondor.Presenter;
-import respondor.Response;
+import responder.PersonRecord;
+import responder.Presenter;
+import responder.Response;
 import usecase.refresh.RefreshResponse;
 import usecase.refresh.RefreshResponseRecord;
 

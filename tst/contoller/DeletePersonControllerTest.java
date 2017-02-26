@@ -2,20 +2,19 @@ package contoller;
 
 import database.PersonRepository;
 import database.PersonRepositoryInMemory;
-import other.Controller;
-import requestor.RequestBuilder;
-import requestor.UseCaseFactory;
-import requestor.InputBoundary;
-import respondor.PersonRecord;
-import respondor.Presenter;
-import requestor.Request;
-import usecase.deleteperson.DeletePersonRequest;
-import usecase.RequestBuilderImpl;
-import usecase.UseCaseFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
-import view.View;
+import other.Controller;
+import requestor.InputBoundary;
+import requestor.Request;
+import requestor.RequestBuilder;
+import requestor.UseCaseFactory;
+import responder.PersonRecord;
+import responder.Presenter;
+import usecase.RequestBuilderImpl;
+import usecase.deleteperson.DeletePersonRequest;
 import view.PersonTablePanelPresenter;
+import view.View;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,11 +30,8 @@ public class DeletePersonControllerTest implements InputBoundary, View {
         this.r = (DeletePersonRequest) request;
     }
 
-    private PersonRecord[] records;
-
     @Override
     public String generateView(PersonRecord[] records) {
-        this.records = records;
         return null;
     }
 
@@ -61,17 +57,6 @@ public class DeletePersonControllerTest implements InputBoundary, View {
         controller.execute();
 
         assertEquals(idToDelete, r.id);
-    }
-
-    @Test
-    public void shouldReturnRecords() {
-        UseCaseFactory factory = new UseCaseFactoryImpl(repository);
-        Controller controller = new DeletePersonController(requestBuilder, args, factory, presenter, view);
-        assertEquals(2, repository.getPeople().size());
-
-        controller.execute();
-
-        assertEquals(1, records.length);
     }
 }
 
