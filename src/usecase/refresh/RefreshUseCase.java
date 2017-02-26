@@ -2,13 +2,13 @@ package usecase.refresh;
 
 import databasegateway.RefreshGateway;
 import entity.PersonTemplate;
-import requestor.InputBoundary;
 import requestor.Request;
+import requestor.UseCase;
 import responder.Presenter;
 
 import java.util.Map;
 
-public class RefreshUseCase implements InputBoundary {
+public class RefreshUseCase extends UseCase {
 
     private final RefreshGateway repository;
     private final Presenter presenter;
@@ -18,7 +18,6 @@ public class RefreshUseCase implements InputBoundary {
         this.presenter = presenter;
     }
 
-    @Override
     public void execute(Request request) {
         Map<Integer, PersonTemplate> people = repository.getPeople();
         RefreshResponse response = new RefreshResponse();

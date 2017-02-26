@@ -5,7 +5,6 @@ import database.PersonRepositoryInMemory;
 import entity.PersonTemplate;
 import org.junit.Before;
 import org.junit.Test;
-import requestor.InputBoundary;
 import usecase.addperson.AddPersonRequest;
 import usecase.addperson.AddPersonUseCase;
 
@@ -14,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 public class AddPersonUseCaseTest {
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final InputBoundary useCase = new AddPersonUseCase(repository, null);
+    private final AddPersonUseCase useCase = new AddPersonUseCase(repository, null);
     private final AddPersonRequest request = new AddPersonRequest();
 
     @Before

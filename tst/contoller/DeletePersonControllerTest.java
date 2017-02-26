@@ -2,45 +2,34 @@ package contoller;
 
 import database.PersonRepository;
 import database.PersonRepositoryInMemory;
+import databasegateway.DeletePersonGateway;
 import org.junit.Before;
 import org.junit.Test;
 import other.Controller;
-import requestor.InputBoundary;
+import other.View;
 import requestor.Request;
 import requestor.RequestBuilder;
+import requestor.UseCase;
 import requestor.UseCaseFactory;
-import responder.PersonRecord;
 import responder.Presenter;
 import usecase.RequestBuilderImpl;
 import usecase.deleteperson.DeletePersonRequest;
+import usecase.deleteperson.DeletePersonUseCase;
 import view.PersonTablePanelPresenter;
-import other.View;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class DeletePersonControllerTest implements InputBoundary, View {
-
-    private DeletePersonRequest r;
-
-    @Override
-    public void execute(Request request) {
-        this.r = (DeletePersonRequest) request;
-    }
-
-    @Override
-    public String generateView(PersonRecord[] records) {
-        return null;
-    }
-
+public class DeletePersonControllerTest {
     private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final Map<Integer, Object> args = new HashMap<>();
     private final Presenter presenter = new PersonTablePanelPresenter();
-    private final View view = this;
+    private final View view = null;
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final int idToDelete = 1;
+    private DeletePersonRequest r;
 
     @Before
     public void setUp() throws Exception {
@@ -60,13 +49,23 @@ public class DeletePersonControllerTest implements InputBoundary, View {
     }
 
     private class UseCaseFactoryDummy extends UseCaseFactory {
-        UseCaseFactoryDummy(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
+        UseCaseFactoryDummy(Map<String, Class<? extends UseCase>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
             super(useCases, constructorClasses, constructorObjects);
         }
 
         @Override
-        public InputBoundary make(String useCase, Presenter presenter) {
-            return DeletePersonControllerTest.this;
+        public UseCase make(String useCase, Presenter presenter) {
+            return new DeletePersonUseCaseSpy(null, null);
+        }
+    }
+
+    private class DeletePersonUseCaseSpy extends DeletePersonUseCase {
+        DeletePersonUseCaseSpy(DeletePersonGateway repository, Presenter presenter) {
+            super(repository, presenter);
+        }
+
+        public void execute(Request request) {
+            r = (DeletePersonRequest) request;
         }
     }
 }

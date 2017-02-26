@@ -7,7 +7,6 @@ import exportimport.ExportImport;
 import exportimportgateway.Import;
 import org.junit.Before;
 import org.junit.Test;
-import requestor.InputBoundary;
 import usecase.importfile.ImportRequest;
 import usecase.importfile.ImportUseCase;
 
@@ -19,9 +18,8 @@ import static org.junit.Assert.assertTrue;
 public class ImportUseCaseTest {
     private final ExportImportGateway repository = new PersonRepositoryInMemory();
     private final Import exportImport = new ExportImport(repository);
-    private final InputBoundary useCase = new ImportUseCase(exportImport, null);
+    private final ImportUseCase useCase = new ImportUseCase(exportImport, null);
     private final ImportRequest request = new ImportRequest();
-
     private final File file = new File(("ImportTest.per"));
 
     @Before

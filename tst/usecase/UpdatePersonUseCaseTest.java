@@ -2,26 +2,23 @@ package usecase;
 
 import database.PersonRepository;
 import database.PersonRepositoryInMemory;
-import requestor.InputBoundary;
-import usecase.updateperson.UpdatePersonRequest;
-import usecase.updateperson.UpdatePersonUseCase;
 import entity.PersonTemplate;
 import org.junit.Before;
 import org.junit.Test;
+import usecase.updateperson.UpdatePersonRequest;
+import usecase.updateperson.UpdatePersonUseCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class UpdatePersonUseCaseTest {
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final InputBoundary refreshUseCase = request -> {
-    };
-    private final InputBoundary useCase = new UpdatePersonUseCase(repository, refreshUseCase);
+    private final UpdatePersonUseCase useCase = new UpdatePersonUseCase(repository);
     private final UpdatePersonRequest request = new UpdatePersonRequest();
 
     @Before
     public void setUp() {
-        repository.addPerson("Full Name","Occupation",0,0,false,"000-00-0000","Male");
+        repository.addPerson("Full Name", "Occupation", 0, 0, false, "000-00-0000", "Male");
         request.id = 1;
         request.fullName = "Update Person";
         request.occupation = "Update";

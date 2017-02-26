@@ -1,25 +1,21 @@
 package usecase.updateperson;
 
-import databasegateway.UpdatePersonGateway;
-import requestor.InputBoundary;
 import database.Person;
-import requestor.Request;
+import databasegateway.UpdatePersonGateway;
 import entity.PersonTemplate;
+import requestor.Request;
+import requestor.UseCase;
 
-public class UpdatePersonUseCase implements InputBoundary {
+public class UpdatePersonUseCase extends UseCase {
     private final UpdatePersonGateway repository;
-    private final InputBoundary refreshUseCase;
 
-    public UpdatePersonUseCase(UpdatePersonGateway repository, InputBoundary refreshUseCase) {
+    public UpdatePersonUseCase(UpdatePersonGateway repository) {
         this.repository = repository;
-        this.refreshUseCase = refreshUseCase;
     }
 
-    @Override
     public void execute(Request request) {
         UpdatePersonRequest r = (UpdatePersonRequest) request;
         PersonTemplate person = new Person(r.id, r.fullName, r.occupation, r.ageCategory, r.employmentStatus, r.uSCitizen, r.taxId, r.gender);
         repository.updatePerson(person);
-        refreshUseCase.execute(request);
     }
 }

@@ -4,7 +4,6 @@ import database.PersonRepository;
 import database.PersonRepositoryInMemory;
 import org.junit.Before;
 import org.junit.Test;
-import requestor.InputBoundary;
 import requestor.Request;
 import responder.PersonRecord;
 import responder.Presenter;
@@ -32,7 +31,7 @@ public class RefreshUseCaseTest implements Presenter {
     }
 
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final InputBoundary useCase = new RefreshUseCase(repository, this);
+    private final RefreshUseCase useCase = new RefreshUseCase(repository, this);
     private final Request request = new RefreshRequest();
     private final int ageCategory = 0, employmentStatus = 1;
     private final String fullName = "New Full Name", occupation = "New Occupation", taxId = "New Tax ID", gender = "Female";

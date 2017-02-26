@@ -1,21 +1,20 @@
 package usecase.exportfile;
 
 import exportimportgateway.Export;
-import requestor.InputBoundary;
 import requestor.Request;
+import requestor.UseCase;
 import responder.Presenter;
 
 import java.io.File;
 import java.io.IOException;
 
-public class ExportUseCase implements InputBoundary {
+public class ExportUseCase extends UseCase {
     private final Export exporter;
 
     public ExportUseCase(Export exporter, Presenter presenter) {
         this.exporter = exporter;
     }
 
-    @Override
     public void execute(Request request) {
         ExportRequest r = (ExportRequest) request;
         tryExport(r.file);

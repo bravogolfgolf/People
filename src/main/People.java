@@ -8,7 +8,7 @@ import databasegateway.RefreshGateway;
 import exportimport.ExportImport;
 import exportimportgateway.Export;
 import exportimportgateway.Import;
-import requestor.InputBoundary;
+import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.Presenter;
 import usecase.RequestBuilderImpl;
@@ -25,7 +25,7 @@ import java.util.Map;
 
 class People {
 
-    private static final Map<String, Class<? extends InputBoundary>> useCases = new HashMap<>();
+    private static final Map<String, Class<? extends UseCase>> useCases = new HashMap<>();
     private static final Map<String, Class<?>[]> constructorClasses = new HashMap<>();
     private static final Map<String, Object> constructorObjects = new HashMap<>();
     private static ExportImport exportImport;

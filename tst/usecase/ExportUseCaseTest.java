@@ -5,7 +5,6 @@ import database.PersonRepositoryInMemory;
 import exportimport.ExportImport;
 import exportimportgateway.Export;
 import org.junit.Test;
-import requestor.InputBoundary;
 import usecase.exportfile.ExportRequest;
 import usecase.exportfile.ExportUseCase;
 
@@ -15,10 +14,9 @@ import java.io.IOException;
 import static org.junit.Assert.assertTrue;
 
 public class ExportUseCaseTest {
-
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final Export exportImport = new ExportImport(repository);
-    private final InputBoundary useCase = new ExportUseCase(exportImport, null);
+    private final ExportUseCase useCase = new ExportUseCase(exportImport, null);
     private final ExportRequest request = new ExportRequest();
 
     @Test

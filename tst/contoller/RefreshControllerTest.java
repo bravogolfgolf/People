@@ -11,9 +11,10 @@ import exportimportgateway.Import;
 import org.junit.Before;
 import org.junit.Test;
 import other.Controller;
-import requestor.InputBoundary;
+import other.View;
 import requestor.Request;
 import requestor.RequestBuilder;
+import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.PersonRecord;
 import responder.Presenter;
@@ -26,7 +27,6 @@ import usecase.refresh.RefreshRequest;
 import usecase.refresh.RefreshUseCase;
 import view.PersonTableModelRecord;
 import view.PersonTablePanelPresenter;
-import other.View;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,14 +34,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class RefreshControllerTest implements InputBoundary, View {
-
-    private RefreshRequest r;
-
-    @Override
-    public void execute(Request request) {
-        this.r = (RefreshRequest) request;
-    }
+public class RefreshControllerTest implements View {
 
     private PersonRecord[] records;
 
@@ -57,10 +50,10 @@ public class RefreshControllerTest implements InputBoundary, View {
     private final View view = this;
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final ExportImport exportImport = new ExportImport(repository);
-    private final Map<String, Class<? extends InputBoundary>> useCases = new HashMap<>();
+    private final Map<String, Class<? extends UseCase>> useCases = new HashMap<>();
     private final Map<String, Class<?>[]> constructorClasses = new HashMap<>();
     private final Map<String, Object> constructorObjects = new HashMap<>();
-
+    private RefreshRequest r;
 
     @Before
     public void setUp() {
@@ -116,13 +109,24 @@ public class RefreshControllerTest implements InputBoundary, View {
     }
 
     private class UseCaseFactoryDummy extends UseCaseFactory {
-        UseCaseFactoryDummy(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
+
+        UseCaseFactoryDummy(Map<String, Class<? extends UseCase>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
             super(useCases, constructorClasses, constructorObjects);
         }
 
         @Override
-        public InputBoundary make(String useCase, Presenter presenter) {
-            return RefreshControllerTest.this;
+        public UseCase make(String useCase, Presenter presenter) {
+            return new RefreshUseCaseSpy(null, null);
+        }
+    }
+
+    private class RefreshUseCaseSpy extends RefreshUseCase {
+        RefreshUseCaseSpy(RefreshGateway repository, Presenter presenter) {
+            super(repository, presenter);
+        }
+
+        public void execute(Request request) {
+            r = (RefreshRequest) request;
         }
     }
 }
