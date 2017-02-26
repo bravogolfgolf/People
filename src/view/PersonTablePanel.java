@@ -1,5 +1,6 @@
 package view;
 
+import other.View;
 import responder.PersonRecord;
 
 import javax.swing.*;

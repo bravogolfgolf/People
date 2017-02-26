@@ -13,7 +13,7 @@ import responder.Presenter;
 import usecase.RequestBuilderImpl;
 import usecase.deleteperson.DeletePersonRequest;
 import view.PersonTablePanelPresenter;
-import view.View;
+import other.View;
 
 import java.util.HashMap;
 import java.util.Map;
