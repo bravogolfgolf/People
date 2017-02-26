@@ -1,6 +1,5 @@
 package contoller;
 
-import other.Controller;
 import requestor.InputBoundary;
 import requestor.Request;
 import requestor.RequestBuilder;
@@ -10,7 +9,7 @@ import other.View;
 
 import java.util.Map;
 
-public class ExportController implements Controller {
+public class ExportController {
     private final Request request;
     private final InputBoundary useCase;
     private final Presenter presenter;
@@ -23,7 +22,6 @@ public class ExportController implements Controller {
         this.view = view;
     }
 
-    @Override
     public Object execute() {
         useCase.execute(request);
         return 1;
