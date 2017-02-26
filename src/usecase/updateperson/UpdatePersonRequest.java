@@ -2,7 +2,7 @@ package usecase.updateperson;
 
 import requestor.Request;
 
-public class UpdatePersonRequest implements Request {
+public class UpdatePersonRequest extends Request {
     public int id;
     public String fullName;
     public String occupation;

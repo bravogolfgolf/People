@@ -4,6 +4,6 @@ import requestor.Request;
 
 import java.io.File;
 
-public class ImportRequest implements Request {
+public class ImportRequest extends Request {
     public File file;
 }

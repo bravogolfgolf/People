@@ -2,5 +2,5 @@ package usecase.refresh;
 
 import requestor.Request;
 
-public class RefreshRequest implements Request {
+public class RefreshRequest extends Request {
 }

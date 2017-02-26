@@ -1,4 +1,4 @@
 package requestor;
 
-public interface Request {
+public class Request {
 }
