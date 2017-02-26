@@ -13,7 +13,7 @@ import usecase.RequestBuilderImpl;
 import usecase.addperson.AddPersonRequest;
 import view.EntryEvent;
 import view.PersonTablePanelPresenter;
-import view.View;
+import other.View;
 
 import java.util.HashMap;
 import java.util.Map;
