@@ -8,10 +8,10 @@ import other.Controller;
 import requestor.InputBoundary;
 import requestor.Request;
 import requestor.RequestBuilder;
-import requestor.UseCaseFactory;
 import responder.PersonRecord;
 import responder.Presenter;
 import usecase.RequestBuilderImpl;
+import usecase.UseCaseFactoryImpl;
 import usecase.deleteperson.DeletePersonRequest;
 import view.PersonTablePanelPresenter;
 import view.View;
@@ -51,12 +51,23 @@ public class DeletePersonControllerTest implements InputBoundary, View {
 
     @Test
     public void shouldSendRequestToUseCase() {
-        UseCaseFactory factory = (useCase, presenter) -> DeletePersonControllerTest.this;
+        UseCaseFactoryImpl factory = new UseCaseFactoryImplDummy(null, null, null);
         Controller controller = new DeletePersonController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
 
         assertEquals(idToDelete, r.id);
+    }
+
+    private class UseCaseFactoryImplDummy extends UseCaseFactoryImpl {
+        UseCaseFactoryImplDummy(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
+            super(useCases, constructorClasses, constructorObjects);
+        }
+
+        @Override
+        public InputBoundary make(String useCase, Presenter presenter) {
+            return DeletePersonControllerTest.this;
+        }
     }
 }
 

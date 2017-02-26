@@ -1,14 +1,13 @@
 package usecase;
 
 import requestor.InputBoundary;
-import requestor.UseCaseFactory;
 import responder.Presenter;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-public class UseCaseFactoryImpl implements UseCaseFactory {
+public class UseCaseFactoryImpl {
 
     private final Map<String, Class<? extends InputBoundary>> useCases;
     private final Map<String, Class<?>[]> constructorClasses;
@@ -20,7 +19,6 @@ public class UseCaseFactoryImpl implements UseCaseFactory {
         this.constructorObjects = constructorObjects;
     }
 
-    @Override
     public InputBoundary make(String useCase, Presenter presenter) {
 
         Class aClass = useCases.get(useCase);

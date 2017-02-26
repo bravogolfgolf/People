@@ -6,10 +6,10 @@ import other.Controller;
 import requestor.InputBoundary;
 import requestor.Request;
 import requestor.RequestBuilder;
-import requestor.UseCaseFactory;
 import responder.PersonRecord;
 import responder.Presenter;
 import usecase.RequestBuilderImpl;
+import usecase.UseCaseFactoryImpl;
 import usecase.addperson.AddPersonRequest;
 import view.EntryEvent;
 import view.PersonTablePanelPresenter;
@@ -51,7 +51,7 @@ public class AddPersonControllerTest implements InputBoundary, View {
 
     @Test
     public void shouldSendRequestToUseCase() {
-        UseCaseFactory factory = (useCase, presenter) -> AddPersonControllerTest.this;
+        UseCaseFactoryImpl factory = new UseCaseFactoryImplDummy(null, null, null);
         Controller controller = new AddPersonController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
@@ -63,6 +63,17 @@ public class AddPersonControllerTest implements InputBoundary, View {
         assertTrue(r.uSCitizen);
         assertEquals(entryEvent.getTaxId(), r.taxId);
         assertEquals(entryEvent.getGender(), r.gender);
+    }
+
+    private class UseCaseFactoryImplDummy extends UseCaseFactoryImpl {
+        UseCaseFactoryImplDummy(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
+            super(useCases, constructorClasses, constructorObjects);
+        }
+
+        @Override
+        public InputBoundary make(String useCase, Presenter presenter) {
+            return AddPersonControllerTest.this;
+        }
     }
 }
 

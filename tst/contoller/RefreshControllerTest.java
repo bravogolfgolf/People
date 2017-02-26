@@ -14,7 +14,6 @@ import other.Controller;
 import requestor.InputBoundary;
 import requestor.Request;
 import requestor.RequestBuilder;
-import requestor.UseCaseFactory;
 import responder.PersonRecord;
 import responder.Presenter;
 import usecase.RequestBuilderImpl;
@@ -73,7 +72,8 @@ public class RefreshControllerTest implements InputBoundary, View {
 
     @Test
     public void shouldSendRequestToUseCase() {
-        UseCaseFactory factory = (useCase, presenter) -> RefreshControllerTest.this;
+        UseCaseFactoryImpl factory = new UseCaseFactoryImplDummy(null, null, null);
+
         Controller controller = new RefreshController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
@@ -83,7 +83,7 @@ public class RefreshControllerTest implements InputBoundary, View {
 
     @Test
     public void shouldReturnRecords() {
-        UseCaseFactory factory = new UseCaseFactoryImpl(useCases, constructorClasses, constructorObjects);
+        UseCaseFactoryImpl factory = new UseCaseFactoryImpl(useCases, constructorClasses, constructorObjects);
         Controller controller = new RefreshController(requestBuilder, args, factory, presenter, view);
 
         controller.execute();
@@ -113,6 +113,17 @@ public class RefreshControllerTest implements InputBoundary, View {
         constructorObjects.put("DeletePersonUseCase", repository);
         constructorObjects.put("ExportUseCase", exportImport);
         constructorObjects.put("ImportUseCase", exportImport);
+    }
+
+    private class UseCaseFactoryImplDummy extends UseCaseFactoryImpl {
+        UseCaseFactoryImplDummy(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
+            super(useCases, constructorClasses, constructorObjects);
+        }
+
+        @Override
+        public InputBoundary make(String useCase, Presenter presenter) {
+            return RefreshControllerTest.this;
+        }
     }
 }
 

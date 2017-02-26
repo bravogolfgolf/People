@@ -4,8 +4,8 @@ import other.Controller;
 import requestor.InputBoundary;
 import requestor.Request;
 import requestor.RequestBuilder;
-import requestor.UseCaseFactory;
 import responder.Presenter;
+import usecase.UseCaseFactoryImpl;
 import view.View;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class DeletePersonController implements Controller {
     private final Presenter presenter;
     private final View view;
 
-    DeletePersonController(RequestBuilder builder, Map<Integer, Object> args, UseCaseFactory factory, Presenter presenter, View view) {
+    DeletePersonController(RequestBuilder builder, Map<Integer, Object> args, UseCaseFactoryImpl factory, Presenter presenter, View view) {
         this.request = builder.make("DeletePersonRequest", args);
         this.useCase = factory.make("DeletePersonUseCase", presenter);
         this.presenter = presenter;

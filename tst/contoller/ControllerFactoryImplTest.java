@@ -2,9 +2,11 @@ package contoller;
 
 import org.junit.Test;
 import other.Controller;
+import requestor.InputBoundary;
 import requestor.RequestBuilder;
-import requestor.UseCaseFactory;
+import responder.Presenter;
 import usecase.RequestBuilderImpl;
+import usecase.UseCaseFactoryImpl;
 import view.ControllerFactory;
 import view.EntryEvent;
 import view.PersonTablePanelPresenter;
@@ -18,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ControllerFactoryImplTest {
 
-    private final UseCaseFactory useCaseFactory = (useCase, presenter) -> null;
+    private final UseCaseFactoryImpl useCaseFactory = new UseCaseFactoryImplDummy(null, null, null);
     private final RequestBuilder requestBuilder = new RequestBuilderImpl();
     private final ControllerFactory factory = new ControllerFactoryImpl(requestBuilder, useCaseFactory);
     private final Map<Integer, Object> args = new HashMap<>();
@@ -61,5 +63,17 @@ public class ControllerFactoryImplTest {
         args.put(1, file);
         Controller controller = factory.make("ImportController", args, presenter, view);
         assertTrue(controller instanceof ImportController);
+    }
+
+    private class UseCaseFactoryImplDummy extends UseCaseFactoryImpl {
+        UseCaseFactoryImplDummy(Map<String, Class<? extends InputBoundary>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
+            super(useCases, constructorClasses, constructorObjects);
+        }
+
+        @Override
+        public InputBoundary make(String useCase, Presenter presenter) {
+            return request -> {
+            };
+        }
     }
 }
