@@ -26,7 +26,7 @@ import usecase.refresh.RefreshRequest;
 import usecase.refresh.RefreshUseCase;
 import view.PersonTableModelRecord;
 import view.PersonTablePanelPresenter;
-import view.View;
+import other.View;
 
 import java.util.HashMap;
 import java.util.Map;
