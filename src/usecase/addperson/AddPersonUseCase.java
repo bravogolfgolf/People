@@ -12,6 +12,7 @@ public class AddPersonUseCase extends UseCase {
         this.repository = repository;
     }
 
+    @Override
     public void execute(Request request) {
         AddPersonRequest r = (AddPersonRequest) request;
         repository.addPerson(r.fullName, r.occupation, r.ageCategory, r.employmentStatus, r.uSCitizen, r.taxId, r.gender);

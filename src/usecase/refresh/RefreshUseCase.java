@@ -18,6 +18,7 @@ public class RefreshUseCase extends UseCase {
         this.presenter = presenter;
     }
 
+    @Override
     public void execute(Request request) {
         List<PersonTemplate> people = repository.findAll();
         RefreshResponse response = new RefreshResponse();

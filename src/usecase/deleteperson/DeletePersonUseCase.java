@@ -12,6 +12,7 @@ public class DeletePersonUseCase extends UseCase {
         this.repository = repository;
     }
 
+    @Override
     public void execute(Request request) {
         DeletePersonRequest r = (DeletePersonRequest) request;
         repository.deletePerson(r.id);

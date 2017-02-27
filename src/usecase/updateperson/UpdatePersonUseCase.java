@@ -11,6 +11,7 @@ public class UpdatePersonUseCase extends UseCase {
         this.repository = repository;
     }
 
+    @Override
     public void execute(Request request) {
         UpdatePersonRequest r = (UpdatePersonRequest) request;
         repository.updatePerson(r.id, r.fullName, r.occupation, r.ageCategory, r.employmentStatus, r.uSCitizen, r.taxId, r.gender);
