@@ -6,7 +6,7 @@ import requestor.Request;
 import requestor.UseCase;
 import responder.Presenter;
 
-import java.util.Map;
+import java.util.List;
 
 public class RefreshUseCase extends UseCase {
 
@@ -19,9 +19,9 @@ public class RefreshUseCase extends UseCase {
     }
 
     public void execute(Request request) {
-        Map<Integer, PersonTemplate> people = repository.getPeople();
+        List<PersonTemplate> people = repository.findAll();
         RefreshResponse response = new RefreshResponse();
-        for (PersonTemplate person : people.values())
+        for (PersonTemplate person : people)
             response.records.add(createRecord(person));
         presenter.present(response);
     }

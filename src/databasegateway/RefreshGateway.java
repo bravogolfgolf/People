@@ -2,8 +2,8 @@ package databasegateway;
 
 import entity.PersonTemplate;
 
-import java.util.Map;
+import java.util.List;
 
 public interface RefreshGateway {
-    Map<Integer, PersonTemplate> getPeople();
+    List<PersonTemplate> findAll();
 }

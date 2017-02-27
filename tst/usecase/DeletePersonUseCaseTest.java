@@ -29,10 +29,10 @@ public class DeletePersonUseCaseTest {
     public void shouldDeletePersonFromRepository() {
         useCase.execute(request);
 
-        assertEquals(1, repository.getPeople().size());
+        assertEquals(1, repository.findAll().size());
 
-        assertEquals(1, repository.getPeople().size());
-        for (PersonTemplate expected : repository.getPeople().values()) {
+        assertEquals(1, repository.findAll().size());
+        for (PersonTemplate expected : repository.findAll()) {
             assertEquals(1, expected.getId());
             assertEquals(fullName, expected.getFullName());
             assertEquals(occupation, expected.getOccupation());

@@ -1,11 +1,12 @@
 package databasegateway;
 
-import entity.PersonTemplate;
+import database.Person;
 
-import java.util.Map;
+import java.util.Collection;
+import java.util.List;
 
 public interface ExportImportGateway {
-    void setPeople(Map<Integer, PersonTemplate> map);
+    void fromImport(List<Person> people);
 
-    Map<Integer, PersonTemplate> getPeople();
+    Collection<Person> forExport();
 }

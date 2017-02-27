@@ -4,8 +4,7 @@ import databasegateway.PersonRepository;
 import entity.PersonTemplate;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class PersonRepositoryMySQL extends PersonRepository {
     private Connection connection;
@@ -91,8 +90,8 @@ public class PersonRepositoryMySQL extends PersonRepository {
     }
 
     @Override
-    public Map<Integer, PersonTemplate> getPeople() {
-        HashMap<Integer, PersonTemplate> people = new HashMap<>();
+    public List<PersonTemplate> findAll() {
+        List<PersonTemplate> people = new ArrayList<>();
 
         connect();
         String sql = "Select id, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender from person";
@@ -100,7 +99,7 @@ public class PersonRepositoryMySQL extends PersonRepository {
         tryExecuteQuery();
         while (tryIsNext()) {
             PersonTemplate person = new Person(tryGetInt(1), tryGetString(2), tryGetString(3), tryGetInt(4), tryGetInt(5), tryGetBoolean(6), tryGetString(7), tryGetString(8));
-            people.put(person.getId(), person);
+            people.add(person);
         }
         return people;
     }
@@ -154,17 +153,6 @@ public class PersonRepositoryMySQL extends PersonRepository {
     }
 
     @Override
-    public void setPeople(Map<Integer, PersonTemplate> people) {
-        connect();
-        String sql = "delete from person";
-        tryPrepareStatement(sql);
-        tryExecuteUpdate();
-        for (PersonTemplate person : people.values()) {
-            addPerson(person.getId(), person.getFullName(), person.getOccupation(), person.getAgeCategory(), person.getEmploymentStatus(), person.isUsCitizen(), person.getTaxId(), person.getGender());
-        }
-    }
-
-    @Override
     public void deletePerson(int id) {
         connect();
         String sql = "delete from person where id=?";
@@ -190,8 +178,40 @@ public class PersonRepositoryMySQL extends PersonRepository {
     }
 
     public void addPerson(String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {
-        int id = determineId(getPeople().keySet());
+        connect();
+        String sql = "select max(id) from person";
+        tryPrepareStatement(sql);
+        tryExecuteQuery();
+        int id = 0;
+        while (tryIsNext()) {
+            id = tryGetInt(1) + 1;
+        }
         addPerson(id, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender);
+    }
+
+    @Override
+    public void fromImport(List<Person> people) {
+        connect();
+        String sql = "delete from person";
+        tryPrepareStatement(sql);
+        tryExecuteUpdate();
+        for (Person person : people) {
+            addPerson(person.getId(), person.getFullName(), person.getOccupation(), person.getAgeCategory(), person.getEmploymentStatus(), person.isUsCitizen(), person.getTaxId(), person.getGender());
+        }
+    }
+
+    @Override
+    public Collection<Person> forExport() {
+        Set<Person> people = new HashSet<>();
+        connect();
+        String sql = "Select id, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender from person";
+        tryPrepareStatement(sql);
+        tryExecuteQuery();
+        while (tryIsNext()) {
+            Person person = new Person(tryGetInt(1), tryGetString(2), tryGetString(3), tryGetInt(4), tryGetInt(5), tryGetBoolean(6), tryGetString(7), tryGetString(8));
+            people.add(person);
+        }
+        return people;
     }
 
     private class DriverNotFound extends RuntimeException {

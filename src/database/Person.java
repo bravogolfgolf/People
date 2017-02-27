@@ -2,7 +2,7 @@ package database;
 
 import entity.PersonTemplate;
 
-public class Person extends PersonTemplate {
+public class Person extends PersonTemplate  {
 
     public Person(int id, String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {
         super(id, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender);

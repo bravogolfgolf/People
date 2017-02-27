@@ -1,12 +1,14 @@
 package exportimport;
 
+import database.Person;
 import databasegateway.ExportImportGateway;
-import entity.PersonTemplate;
 import exportimportgateway.Export;
 import exportimportgateway.Import;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ExportImport implements Export, Import {
 
@@ -18,8 +20,8 @@ public class ExportImport implements Export, Import {
 
     @Override
     public void toDisk(File file) throws IOException {
-        List<PersonTemplate> list = new ArrayList<>(repository.getPeople().values());
-        PersonTemplate[] array = list.toArray(new PersonTemplate[list.size()]);
+        List<Person> list = new ArrayList<>(repository.forExport());
+        Person[] array = list.toArray(new Person[list.size()]);
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
             oos.writeObject(array);
         }
@@ -27,16 +29,12 @@ public class ExportImport implements Export, Import {
 
     @Override
     public void fromDisk(File file) throws IOException, ClassNotFoundException {
-        Map<Integer, PersonTemplate> map = new HashMap<>();
-        PersonTemplate[] people;
-        List<PersonTemplate> list;
+        Person[] array;
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-            people = (PersonTemplate[]) ois.readObject();
+            array = (Person[]) ois.readObject();
         }
-        list = Arrays.asList(people);
-        for (PersonTemplate person : list)
-            map.put(person.getId(), person);
-        repository.setPeople(map);
+        List<Person> list = Arrays.asList(array);
+        repository.fromImport(list);
     }
 
 }

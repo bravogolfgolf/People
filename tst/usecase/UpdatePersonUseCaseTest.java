@@ -33,9 +33,9 @@ public class UpdatePersonUseCaseTest {
     public void shouldProcessUpdatePersonRequestIntoAddPersonResult() {
         useCase.execute(request);
 
-        assertEquals(1, repository.getPeople().size());
+        assertEquals(1, repository.findAll().size());
 
-        for (PersonTemplate expected : repository.getPeople().values()) {
+        for (PersonTemplate expected : repository.findAll()) {
             assertEquals(request.id, expected.getId());
             assertEquals(request.fullName, expected.getFullName());
             assertEquals(request.occupation, expected.getOccupation());

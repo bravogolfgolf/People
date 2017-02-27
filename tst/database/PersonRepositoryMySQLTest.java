@@ -10,7 +10,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -20,7 +22,7 @@ public class PersonRepositoryMySQLTest {
 
     private final PersonRepository repository = new PersonRepositoryMySQL();
 
-    private Map<Integer, PersonTemplate> people = new HashMap<>();
+    private List<PersonTemplate> people = new ArrayList<>();
 
     @Before
     public void setUp() {
@@ -63,7 +65,7 @@ public class PersonRepositoryMySQLTest {
 
     @Test
     public void newDatabaseShouldBeEmpty() {
-        people = repository.getPeople();
+        people = repository.findAll();
         assertEquals(0, people.size());
     }
 
@@ -71,7 +73,7 @@ public class PersonRepositoryMySQLTest {
     public void newDatabaseShouldExceptPerson() {
         repository.addPerson("Full Name", "Occupation", 0, 0, false,
                 "Tax ID", "Male");
-        people = repository.getPeople();
+        people = repository.findAll();
         assertEquals(1, people.size());
     }
 
@@ -81,9 +83,9 @@ public class PersonRepositoryMySQLTest {
                 "Tax ID", "Male");
         repository.updatePerson(1, "Update Name", "Update", 1, 1, true,
                 "Update ID", "Female");
-        people = repository.getPeople();
+        people = repository.findAll();
         assertEquals(1, people.size());
-        for (PersonTemplate person : people.values()) {
+        for (PersonTemplate person : people) {
             assertEquals(1, person.getId());
             assertEquals("Update Name", person.getFullName());
             assertEquals("Update", person.getOccupation());
@@ -102,25 +104,8 @@ public class PersonRepositoryMySQLTest {
                 "Tax ID", "Male");
         repository.addPerson("Full Name", "Occupation", 0, 2, true,
                 "Tax ID", "Female");
-        assertEquals(2, repository.getPeople().size());
+        assertEquals(2, repository.findAll().size());
         repository.deletePerson(id);
-        assertEquals(1, repository.getPeople().size());
-    }
-
-    @Test
-    public void shouldBeAbleToReplaceRepository() {
-        repository.addPerson("Full Name", "Occupation", 0, 0, false,
-                "Tax ID", "Male");
-        Map<Integer, PersonTemplate> expected = new HashMap<>(repository.getPeople());
-        assertEquals(1, expected.size());
-
-        repository.addPerson("Full Name", "Occupation", 0, 2, true,
-                "Tax ID", "Female");
-        Map<Integer, PersonTemplate> updated = repository.getPeople();
-        assertEquals(2, updated.size());
-
-        repository.setPeople(expected);
-        Map<Integer, PersonTemplate> actual = repository.getPeople();
-        assertEquals(1, actual.size());
+        assertEquals(1, repository.findAll().size());
     }
 }
