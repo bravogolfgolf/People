@@ -1,5 +1,6 @@
 package database;
 
+import databasegateway.PersonRepository;
 import entity.PersonTemplate;
 import org.junit.After;
 import org.junit.Before;
@@ -18,12 +19,6 @@ import static org.junit.Assert.assertTrue;
 public class PersonRepositoryMySQLTest {
 
     private final PersonRepository repository = new PersonRepositoryMySQL();
-    private final PersonTemplate person = new Person(1, "Full Name", "Occupation", 0, 0, false,
-            "Tax ID", "Male");
-    private final PersonTemplate person1 = new Person(1, "Update Name", "Update", 1, 1, true,
-            "Update ID", "Female");
-    private final PersonTemplate person2 = new Person(2, "Full Name", "Occupation", 0, 2, true,
-            "Tax ID", "Female");
 
     private Map<Integer, PersonTemplate> people = new HashMap<>();
 
@@ -74,42 +69,39 @@ public class PersonRepositoryMySQLTest {
 
     @Test
     public void newDatabaseShouldExceptPerson() {
-        repository.addPerson(person);
-        people = repository.getPeople();
-        assertEquals(1, people.size());
-    }
-
-    @Test
-    public void shouldNotBeAbleToAddPeopleWithSameID() {
-        repository.addPerson(person);
-        repository.addPerson(person);
+        repository.addPerson("Full Name", "Occupation", 0, 0, false,
+                "Tax ID", "Male");
         people = repository.getPeople();
         assertEquals(1, people.size());
     }
 
     @Test
     public void shouldBeAbleToUpdatePeopleWithSameID() {
-        repository.addPerson(person);
-        repository.updatePerson(person1);
+        repository.addPerson("Full Name", "Occupation", 0, 0, false,
+                "Tax ID", "Male");
+        repository.updatePerson(1, "Update Name", "Update", 1, 1, true,
+                "Update ID", "Female");
         people = repository.getPeople();
         assertEquals(1, people.size());
         for (PersonTemplate person : people.values()) {
-            assertEquals(person.getId(), person1.getId());
-            assertEquals(person.getFullName(), person1.getFullName());
-            assertEquals(person.getOccupation(), person1.getOccupation());
-            assertEquals(person.getAgeCategory(), person1.getAgeCategory());
-            assertEquals(person.getEmploymentStatus(), person1.getEmploymentStatus());
+            assertEquals(1, person.getId());
+            assertEquals("Update Name", person.getFullName());
+            assertEquals("Update", person.getOccupation());
+            assertEquals(1, person.getAgeCategory());
+            assertEquals(1, person.getEmploymentStatus());
             assertTrue(person.isUsCitizen());
-            assertEquals(person.getTaxId(), person1.getTaxId());
-            assertEquals(person.getGender(), person1.getGender());
+            assertEquals("Update ID", person.getTaxId());
+            assertEquals("Female", person.getGender());
         }
     }
 
     @Test
     public void shouldBeAbleToDeletePerson() {
         int id = 2;
-        repository.addPerson(person);
-        repository.addPerson(person2);
+        repository.addPerson("Full Name", "Occupation", 0, 0, false,
+                "Tax ID", "Male");
+        repository.addPerson("Full Name", "Occupation", 0, 2, true,
+                "Tax ID", "Female");
         assertEquals(2, repository.getPeople().size());
         repository.deletePerson(id);
         assertEquals(1, repository.getPeople().size());
@@ -117,11 +109,13 @@ public class PersonRepositoryMySQLTest {
 
     @Test
     public void shouldBeAbleToReplaceRepository() {
-        repository.addPerson(person);
+        repository.addPerson("Full Name", "Occupation", 0, 0, false,
+                "Tax ID", "Male");
         Map<Integer, PersonTemplate> expected = new HashMap<>(repository.getPeople());
         assertEquals(1, expected.size());
 
-        repository.addPerson(person2);
+        repository.addPerson("Full Name", "Occupation", 0, 2, true,
+                "Tax ID", "Female");
         Map<Integer, PersonTemplate> updated = repository.getPeople();
         assertEquals(2, updated.size());
 

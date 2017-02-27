@@ -1,9 +1,9 @@
 package exportimport;
 
+import databasegateway.ExportImportGateway;
+import entity.PersonTemplate;
 import exportimportgateway.Export;
 import exportimportgateway.Import;
-import entity.PersonTemplate;
-import databasegateway.ExportImportGateway;
 
 import java.io.*;
 import java.util.*;

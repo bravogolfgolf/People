@@ -1,7 +1,5 @@
 package databasegateway;
 
-import entity.PersonTemplate;
-
 public interface UpdatePersonGateway {
-    void updatePerson(PersonTemplate person);
+    void updatePerson(int id, String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender);
 }

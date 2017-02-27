@@ -1,8 +1,8 @@
 package contoller;
 
-import database.PersonRepository;
 import database.PersonRepositoryInMemory;
 import databasegateway.DeletePersonGateway;
+import databasegateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
 import other.Controller;

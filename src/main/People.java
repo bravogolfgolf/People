@@ -1,9 +1,9 @@
 package main;
 
-import database.PersonRepository;
 import database.PersonRepositoryMySQL;
 import databasegateway.AddPersonGateway;
 import databasegateway.DeletePersonGateway;
+import databasegateway.PersonRepository;
 import databasegateway.RefreshGateway;
 import exportimport.ExportImport;
 import exportimportgateway.Export;

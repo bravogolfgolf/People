@@ -1,8 +1,6 @@
 package usecase.updateperson;
 
-import database.Person;
 import databasegateway.UpdatePersonGateway;
-import entity.PersonTemplate;
 import requestor.Request;
 import requestor.UseCase;
 
@@ -15,7 +13,6 @@ public class UpdatePersonUseCase extends UseCase {
 
     public void execute(Request request) {
         UpdatePersonRequest r = (UpdatePersonRequest) request;
-        PersonTemplate person = new Person(r.id, r.fullName, r.occupation, r.ageCategory, r.employmentStatus, r.uSCitizen, r.taxId, r.gender);
-        repository.updatePerson(person);
+        repository.updatePerson(r.id, r.fullName, r.occupation, r.ageCategory, r.employmentStatus, r.uSCitizen, r.taxId, r.gender);
     }
 }

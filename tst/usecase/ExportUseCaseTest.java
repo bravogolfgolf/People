@@ -1,7 +1,7 @@
 package usecase;
 
-import database.PersonRepository;
 import database.PersonRepositoryInMemory;
+import databasegateway.PersonRepository;
 import exportimport.ExportImport;
 import exportimportgateway.Export;
 import org.junit.Test;

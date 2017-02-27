@@ -1,17 +1,15 @@
-package usecase;
+package requestor;
 
-import database.PersonRepository;
 import database.PersonRepositoryInMemory;
 import databasegateway.AddPersonGateway;
 import databasegateway.DeletePersonGateway;
+import databasegateway.PersonRepository;
 import databasegateway.RefreshGateway;
 import exportimport.ExportImport;
 import exportimportgateway.Export;
 import exportimportgateway.Import;
 import org.junit.Before;
 import org.junit.Test;
-import requestor.UseCase;
-import requestor.UseCaseFactory;
 import responder.PersonRecord;
 import responder.Presenter;
 import responder.Response;

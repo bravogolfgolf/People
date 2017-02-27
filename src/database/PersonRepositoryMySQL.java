@@ -1,5 +1,6 @@
 package database;
 
+import databasegateway.PersonRepository;
 import entity.PersonTemplate;
 
 import java.sql.*;
@@ -11,20 +12,20 @@ public class PersonRepositoryMySQL extends PersonRepository {
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
-    @Override
-    void addPerson(PersonTemplate person) {
+    private void addPerson(int id, String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {
         connect();
         String sql = "insert into person set id=?,  fullName=?,  occupation=?,  ageCategory=?,  employmentStatus=?, uSCitizen=?, taxId=?, gender=?";
         tryPrepareStatement(sql);
-        trySetInt(1, person.getId());
-        trySetString(2, person.getFullName());
-        trySetString(3, person.getOccupation());
-        trySetInt(4, person.getAgeCategory());
-        trySetInt(5, person.getEmploymentStatus());
-        trySetBoolean(6, person.isUsCitizen());
-        trySetString(7, person.getTaxId());
-        trySetString(8, person.getGender());
+        trySetInt(1, id);
+        trySetString(2, fullName);
+        trySetString(3, occupation);
+        trySetInt(4, ageCategory);
+        trySetInt(5, employmentStatus);
+        trySetBoolean(6, uSCitizen);
+        trySetString(7, taxId);
+        trySetString(8, gender);
         tryExecuteUpdate();
+
     }
 
     private void connect() {
@@ -159,7 +160,7 @@ public class PersonRepositoryMySQL extends PersonRepository {
         tryPrepareStatement(sql);
         tryExecuteUpdate();
         for (PersonTemplate person : people.values()) {
-            addPerson(person);
+            addPerson(person.getId(), person.getFullName(), person.getOccupation(), person.getAgeCategory(), person.getEmploymentStatus(), person.isUsCitizen(), person.getTaxId(), person.getGender());
         }
     }
 
@@ -173,19 +174,24 @@ public class PersonRepositoryMySQL extends PersonRepository {
     }
 
     @Override
-    public void updatePerson(PersonTemplate person) {
+    public void updatePerson(int id, String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {
         connect();
         String sql = "update person set fullName=?, occupation=?, ageCategory=?, employmentStatus=?, uSCitizen=?, taxId=?, gender=? where id=?";
         tryPrepareStatement(sql);
-        trySetString(1, person.getFullName());
-        trySetString(2, person.getOccupation());
-        trySetInt(3, person.getAgeCategory());
-        trySetInt(4, person.getEmploymentStatus());
-        trySetBoolean(5, person.isUsCitizen());
-        trySetString(6, person.getTaxId());
-        trySetString(7, person.getGender());
-        trySetInt(8, person.getId());
+        trySetString(1, fullName);
+        trySetString(2, occupation);
+        trySetInt(3, ageCategory);
+        trySetInt(4, employmentStatus);
+        trySetBoolean(5, uSCitizen);
+        trySetString(6, taxId);
+        trySetString(7, gender);
+        trySetInt(8, id);
         tryExecuteUpdate();
+    }
+
+    public void addPerson(String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {
+        int id = determineId(getPeople().keySet());
+        addPerson(id, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender);
     }
 
     private class DriverNotFound extends RuntimeException {

@@ -1,5 +1,6 @@
 package database;
 
+import databasegateway.PersonRepository;
 import entity.PersonTemplate;
 import org.junit.Test;
 
@@ -12,12 +13,8 @@ import static org.junit.Assert.assertTrue;
 public class PersonRepositoryInMemoryTest {
 
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final PersonTemplate person = new Person(1, "Full Name", "Occupation", 0, 0, false,
-            "Tax ID", "Male");
     private final PersonTemplate person1 = new Person(1, "Update Name", "Update", 1, 1, true,
             "Update ID", "Female");
-    private final PersonTemplate person2 = new Person(2, "Updated Name", "Occupation", 0, 2, true,
-            "Tax ID", "Female");
     private Map<Integer, PersonTemplate> people = new HashMap<>();
 
     @Test
@@ -28,23 +25,18 @@ public class PersonRepositoryInMemoryTest {
 
     @Test
     public void newDatabaseShouldExceptPerson() {
-        repository.addPerson(person);
-        people = repository.getPeople();
-        assertEquals(1, people.size());
-    }
-
-    @Test
-    public void shouldNotBeAbleToAddPeopleWithSameID() {
-        repository.addPerson(person);
-        repository.addPerson(person);
+        repository.addPerson("Full Name", "Occupation", 0, 0, false,
+                "Tax ID", "Male");
         people = repository.getPeople();
         assertEquals(1, people.size());
     }
 
     @Test
     public void shouldBeAbleToUpdatePeopleWithSameID() {
-        repository.addPerson(person);
-        repository.updatePerson(person1);
+        repository.addPerson("Full Name", "Occupation", 0, 0, false,
+                "Tax ID", "Male");
+        repository.updatePerson(1, "Update Name", "Update", 1, 1, true,
+                "Update ID", "Female");
         people = repository.getPeople();
         assertEquals(1, people.size());
         for (PersonTemplate person : people.values()) {
@@ -62,8 +54,10 @@ public class PersonRepositoryInMemoryTest {
     @Test
     public void shouldBeAbleToDeletePerson() {
         int id = 2;
-        repository.addPerson(person);
-        repository.addPerson(person2);
+        repository.addPerson("Full Name", "Occupation", 0, 0, false,
+                "Tax ID", "Male");
+        repository.addPerson("Updated Name", "Occupation", 0, 2, true,
+                "Tax ID", "Female");
         assertEquals(2, repository.getPeople().size());
         repository.deletePerson(id);
         assertEquals(1, repository.getPeople().size());
@@ -71,11 +65,13 @@ public class PersonRepositoryInMemoryTest {
 
     @Test
     public void shouldBeAbleToReplaceRepository() {
-        repository.addPerson(person);
+        repository.addPerson("Full Name", "Occupation", 0, 0, false,
+                "Tax ID", "Male");
         Map<Integer, PersonTemplate> expected = new HashMap<>(repository.getPeople());
         assertEquals(1, expected.size());
 
-        repository.addPerson(person2);
+        repository.addPerson("Updated Name", "Occupation", 0, 2, true,
+                "Tax ID", "Female");
         Map<Integer, PersonTemplate> updated = repository.getPeople();
         assertEquals(2, updated.size());
 
