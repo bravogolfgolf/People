@@ -269,7 +269,7 @@ public class MainFrame extends JFrame {
     private void createAndAddEntryPane() {
         entryPanel = new EntryPanel(formEvent -> {
             Map<Integer, Object> args = new HashMap<>();
-            args.put(1, formEvent);
+            args.put(1, formEvent.toObjects());
             new AddPersonController(builder, args, factory, new PersonTablePanelPresenter(), personTablePanel).execute();
 
             PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, new PersonTablePanelPresenter(), personTablePanel).execute();

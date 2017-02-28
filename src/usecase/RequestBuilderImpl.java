@@ -1,13 +1,12 @@
 package usecase;
 
 import requestor.Request;
+import requestor.RequestBuilder;
 import usecase.addperson.AddPersonRequest;
 import usecase.deleteperson.DeletePersonRequest;
 import usecase.exportfile.ExportRequest;
 import usecase.importfile.ImportRequest;
 import usecase.refresh.RefreshRequest;
-import view.EntryEvent;
-import requestor.RequestBuilder;
 
 import java.io.File;
 import java.util.Map;
@@ -21,14 +20,14 @@ public class RequestBuilderImpl implements RequestBuilder {
 
         if (request.equals("AddPersonRequest")) {
             AddPersonRequest r = new AddPersonRequest();
-            EntryEvent entryEvent = (EntryEvent) args.get(1);
-            r.fullName = entryEvent.getFullName();
-            r.occupation = entryEvent.getOccupation();
-            r.ageCategory = entryEvent.getAgeCategory();
-            r.employmentStatus = entryEvent.getEmploymentStatus();
-            r.uSCitizen = entryEvent.isUsCitizen();
-            r.taxId = entryEvent.getTaxId();
-            r.gender = entryEvent.getGender();
+            Object[] objects = (Object[]) args.get(1);
+            r.fullName = (String) objects[0];
+            r.occupation = (String) objects[1];
+            r.ageCategory = (int) objects[2];
+            r.employmentStatus = (int) objects[3];
+            r.uSCitizen = (boolean) objects[4];
+            r.taxId = (String) objects[5];
+            r.gender = (String) objects[6];
             return r;
         }
 

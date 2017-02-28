@@ -13,7 +13,6 @@ import responder.Presenter;
 import usecase.RequestBuilderImpl;
 import usecase.addperson.AddPersonRequest;
 import usecase.addperson.AddPersonUseCase;
-import view.EntryEvent;
 import view.PersonTablePanelPresenter;
 
 import java.util.HashMap;
@@ -27,12 +26,12 @@ public class AddPersonControllerTest {
     private final Map<Integer, Object> args = new HashMap<>();
     private final Presenter presenter = new PersonTablePanelPresenter();
     private final View view = null;
-    private final EntryEvent entryEvent = new EntryEvent(new Object(), "Full Name", "Occupation", 0, 0, true, "Tax ID", "Gender");
+    private final Object[] objects = new Object[]{"Full Name", "Occupation", 0, 0, true, "Tax ID", "Gender"};
     private AddPersonRequest r;
 
     @Before
     public void setUp() throws Exception {
-        args.put(1, entryEvent);
+        args.put(1, objects);
     }
 
     @Test
@@ -42,13 +41,13 @@ public class AddPersonControllerTest {
 
         controller.execute();
 
-        assertEquals(entryEvent.getFullName(), r.fullName);
-        assertEquals(entryEvent.getOccupation(), r.occupation);
-        assertEquals(entryEvent.getAgeCategory(), r.ageCategory);
-        assertEquals(entryEvent.getEmploymentStatus(), r.employmentStatus);
+        assertEquals(objects[0], r.fullName);
+        assertEquals(objects[1], r.occupation);
+        assertEquals(objects[2], r.ageCategory);
+        assertEquals(objects[3], r.employmentStatus);
         assertTrue(r.uSCitizen);
-        assertEquals(entryEvent.getTaxId(), r.taxId);
-        assertEquals(entryEvent.getGender(), r.gender);
+        assertEquals(objects[5], r.taxId);
+        assertEquals(objects[6], r.gender);
     }
 
     private class UseCaseFactoryDummy extends UseCaseFactory {

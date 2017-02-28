@@ -1,5 +1,5 @@
 package view;
 
 interface EntryPanelListener {
-    void eventEmitted(EntryEvent e);
+    void eventEmitted(EntryPanelEvent e);
 }

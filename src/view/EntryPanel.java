@@ -134,7 +134,7 @@ class EntryPanel extends JPanel {
         boolean uSCitizen = uSCitizenCheckBox.isSelected();
         String taxId = uSCitizenCheckBox.isSelected() ? (String) taxIdField.getValue() : "000-00-0000";
         String gender = genderButtonGroup.getSelection().getActionCommand();
-        entryPanelListener.eventEmitted(new EntryEvent(e, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender));
+        entryPanelListener.eventEmitted(new EntryPanelEvent(e, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender));
     }
 
     private void resetEventPanel() {

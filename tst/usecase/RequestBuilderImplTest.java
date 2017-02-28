@@ -7,7 +7,6 @@ import usecase.deleteperson.DeletePersonRequest;
 import usecase.exportfile.ExportRequest;
 import usecase.importfile.ImportRequest;
 import usecase.refresh.RefreshRequest;
-import view.EntryEvent;
 
 import java.io.File;
 import java.util.HashMap;
@@ -16,7 +15,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class RequestBuilderImplTest {
-
     private final RequestBuilder builder = new RequestBuilderImpl();
     private final HashMap<Integer, Object> args = new HashMap<>();
 
@@ -28,16 +26,16 @@ public class RequestBuilderImplTest {
 
     @Test
     public void makeMethodShouldReturnAddPersonRequest() {
-        EntryEvent formEvent = new EntryEvent(new Object(), "Full Name", "Occupation", 0, 0, true, "Tax ID", "Gender");
-        args.put(1, formEvent);
+        Object[] objects = new Object[]{"Full Name", "Occupation", 0, 0, true, "Tax ID", "Gender"};
+        args.put(1, objects);
         AddPersonRequest request = (AddPersonRequest) builder.make("AddPersonRequest", args);
-        assertEquals(formEvent.getFullName(), request.fullName);
-        assertEquals(formEvent.getOccupation(), request.occupation);
-        assertEquals(formEvent.getAgeCategory(), request.ageCategory);
-        assertEquals(formEvent.getEmploymentStatus(), request.employmentStatus);
+        assertEquals(objects[0], request.fullName);
+        assertEquals(objects[1], request.occupation);
+        assertEquals(objects[2], request.ageCategory);
+        assertEquals(objects[3], request.employmentStatus);
         assertTrue(request.uSCitizen);
-        assertEquals(formEvent.getTaxId(), request.taxId);
-        assertEquals(formEvent.getGender(), request.gender);
+        assertEquals(objects[5], request.taxId);
+        assertEquals(objects[6], request.gender);
     }
 
     @Test
