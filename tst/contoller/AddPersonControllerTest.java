@@ -3,13 +3,13 @@ package contoller;
 import databasegateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
-import other.Controller;
-import other.View;
 import requestor.Request;
 import requestor.RequestBuilder;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
+import responder.Controller;
 import responder.Presenter;
+import responder.View;
 import usecase.addperson.AddPersonRequest;
 import usecase.addperson.AddPersonUseCase;
 import view.PersonTablePanelPresenter;
@@ -58,12 +58,12 @@ public class AddPersonControllerTest {
     }
 
     private class UseCaseFactoryDummy extends UseCaseFactory {
-        UseCaseFactoryDummy(Map<String, Class<? extends UseCase>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
+        UseCaseFactoryDummy(Map<String, Class<? extends UseCase>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object[]> constructorObjects) {
             super(useCases, constructorClasses, constructorObjects);
         }
 
         @Override
-        public UseCase make(String useCase, Presenter presenter) {
+        public UseCase make(String useCase) {
             return new AddPersonUseCaseSpy(null, null);
         }
     }

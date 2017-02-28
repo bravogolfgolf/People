@@ -2,9 +2,8 @@ package view;
 
 import org.junit.Before;
 import org.junit.Test;
-import responder.PersonRecord;
-import usecase.refresh.RefreshResponse;
-import usecase.refresh.RefreshResponseRecord;
+import responder.RefreshViewModel;
+import usecase.refresh.RefreshUseCaseResponse;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -12,28 +11,28 @@ import static org.junit.Assert.assertTrue;
 public class PersonTablePanelPresenterTest {
 
     private final PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
-    private final RefreshResponse response = new RefreshResponse();
+    private final RefreshUseCaseResponse response = new RefreshUseCaseResponse();
     private final int id = 1, ageCategory = 1, employmentStatus = 0;
     private final String fullName = "Full Name", occupation = "Occupation", taxId = "123-45-6789", gender = "Male";
 
     @Before
     public void setUp() throws Exception {
-        RefreshResponseRecord responseRecord = new RefreshResponseRecord();
-        responseRecord.id = id;
-        responseRecord.fullName = fullName;
-        responseRecord.occupation = occupation;
-        responseRecord.ageCategory = ageCategory;
-        responseRecord.employmentStatus = employmentStatus;
-        responseRecord.uSCitizen = true;
-        responseRecord.taxId = taxId;
-        responseRecord.gender = gender;
-        response.records.add(responseRecord);
+        Object[] record = new Object[8];
+        record[0] = id;
+        record[1] = fullName;
+        record[2] = occupation;
+        record[3] = ageCategory;
+        record[4] = employmentStatus;
+        record[5] = true;
+        record[6] = taxId;
+        record[7] = gender;
+        response.add(record);
     }
 
     @Test
     public void shouldTransformResponseIntoPersonTableModelRecords() {
         presenter.present(response);
-        PersonRecord[] records = presenter.getViewModel();
+        RefreshViewModel[] records = presenter.getViewModel();
 
         assertEquals(1, records.length);
 

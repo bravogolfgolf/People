@@ -3,15 +3,11 @@ package contoller;
 import exportimportgateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
-import other.Controller;
-import other.View;
 import requestor.Request;
 import requestor.RequestBuilder;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
-import responder.PersonRecord;
-import responder.Presenter;
-import responder.Response;
+import responder.*;
 import usecase.exportfile.ExportRequest;
 import usecase.exportfile.ExportUseCase;
 
@@ -30,12 +26,12 @@ public class ExportControllerTest {
     private final UseCaseFactory factory = new UseCaseFactoryDummy(null, null, null);
     private final Presenter presenter = new Presenter() {
         @Override
-        public void present(Response response) {
+        public void present(RefreshResponse response) {
 
         }
 
         @Override
-        public PersonRecord[] getViewModel() {
+        public RefreshViewModel[] getViewModel() {
             return null;
         }
     };
@@ -58,12 +54,12 @@ public class ExportControllerTest {
     }
 
     private class UseCaseFactoryDummy extends UseCaseFactory {
-        UseCaseFactoryDummy(Map<String, Class<? extends UseCase>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
+        UseCaseFactoryDummy(Map<String, Class<? extends UseCase>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object[]> constructorObjects) {
             super(useCases, constructorClasses, constructorObjects);
         }
 
         @Override
-        public UseCase make(String useCase, Presenter presenter) {
+        public UseCase make(String useCase) {
             return new ExportUseCaseSpy(null, null);
         }
     }

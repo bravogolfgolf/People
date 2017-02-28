@@ -1,6 +1,6 @@
 package responder;
 
-public class PersonRecord {
+public class RefreshViewModel {
     public int id;
     public String fullName;
     public String occupation;

@@ -6,14 +6,14 @@ import databasegateway.PersonRepository;
 import exportimportgateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
-import other.Controller;
-import other.View;
 import requestor.Request;
 import requestor.RequestBuilder;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
-import responder.PersonRecord;
+import responder.Controller;
 import responder.Presenter;
+import responder.RefreshViewModel;
+import responder.View;
 import usecase.addperson.AddPersonUseCase;
 import usecase.deleteperson.DeletePersonUseCase;
 import usecase.exportfile.ExportUseCase;
@@ -31,10 +31,10 @@ import static org.junit.Assert.assertTrue;
 
 public class RefreshControllerTest implements View {
 
-    private PersonRecord[] records;
+    private RefreshViewModel[] records;
 
     @Override
-    public PersonTableModelRecord[] generateView(PersonRecord[] records) {
+    public PersonTableModelRecord[] generateView(RefreshViewModel[] records) {
         this.records = records;
         return null;
     }
@@ -50,7 +50,7 @@ public class RefreshControllerTest implements View {
     private final PersonRepositoryExportImport exportImport = new PersonRepositoryExportImport(repository);
     private final Map<String, Class<? extends UseCase>> useCases = new HashMap<>();
     private final Map<String, Class<?>[]> constructorClasses = new HashMap<>();
-    private final Map<String, Object> constructorObjects = new HashMap<>();
+    private final Map<String, Object[]> constructorObjects = new HashMap<>();
     private RefreshRequest r;
 
     @Before
@@ -99,21 +99,21 @@ public class RefreshControllerTest implements View {
     }
 
     private void setConstructorObjects() {
-        constructorObjects.put("RefreshUseCase", repository);
-        constructorObjects.put("AddPersonUseCase", repository);
-        constructorObjects.put("DeletePersonUseCase", repository);
-        constructorObjects.put("ExportUseCase", exportImport);
-        constructorObjects.put("ImportUseCase", exportImport);
+        constructorObjects.put("RefreshUseCase", new Object[]{repository, presenter});
+        constructorObjects.put("AddPersonUseCase", new Object[]{repository, presenter});
+        constructorObjects.put("DeletePersonUseCase", new Object[]{repository, presenter});
+        constructorObjects.put("ExportUseCase", new Object[]{exportImport, presenter});
+        constructorObjects.put("ImportUseCase", new Object[]{exportImport, presenter});
     }
 
     private class UseCaseFactoryDummy extends UseCaseFactory {
 
-        UseCaseFactoryDummy(Map<String, Class<? extends UseCase>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object> constructorObjects) {
+        UseCaseFactoryDummy(Map<String, Class<? extends UseCase>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object[]> constructorObjects) {
             super(useCases, constructorClasses, constructorObjects);
         }
 
         @Override
-        public UseCase make(String useCase, Presenter presenter) {
+        public UseCase make(String useCase) {
             return new RefreshUseCaseSpy(null, null);
         }
     }

@@ -1,7 +1,7 @@
 package responder;
 
 public interface Presenter {
-    void present(Response response);
+    void present(RefreshResponse response);
 
-    PersonRecord[] getViewModel();
+    RefreshViewModel[] getViewModel();
 }

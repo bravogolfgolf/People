@@ -1,39 +1,36 @@
 package view;
 
-import responder.PersonRecord;
 import responder.Presenter;
-import responder.Response;
-import usecase.refresh.RefreshResponse;
-import usecase.refresh.RefreshResponseRecord;
+import responder.RefreshResponse;
+import responder.RefreshViewModel;
 
 public class PersonTablePanelPresenter implements Presenter {
 
-    private PersonRecord[] viewModel;
+    private RefreshViewModel[] viewModel;
 
     @Override
-    public void present(Response response) {
-        RefreshResponse r = (RefreshResponse) response;
-        viewModel = new PersonRecord[r.records.size()];
+    public void present(RefreshResponse response) {
+        viewModel = new RefreshViewModel[response.getRecords().size()];
         int i = 0;
-        for (RefreshResponseRecord responseRecord : r.records)
-            viewModel[i++] = makeModelRecord(responseRecord);
+        for (Object[] object : response.getRecords())
+            viewModel[i++] = makeModelRecord(object);
     }
 
-    private PersonRecord makeModelRecord(RefreshResponseRecord responseRecord) {
-        PersonRecord modelRecord = new PersonRecord();
-        modelRecord.id = responseRecord.id;
-        modelRecord.fullName = responseRecord.fullName;
-        modelRecord.occupation = responseRecord.occupation;
-        modelRecord.ageCategory = responseRecord.ageCategory;
-        modelRecord.employmentStatus = responseRecord.employmentStatus;
-        modelRecord.uSCitizen = responseRecord.uSCitizen;
-        modelRecord.taxId = responseRecord.taxId;
-        modelRecord.gender = responseRecord.gender;
+    private RefreshViewModel makeModelRecord(Object[] object) {
+        RefreshViewModel modelRecord = new RefreshViewModel();
+        modelRecord.id = (int) object[0];
+        modelRecord.fullName = (String) object[1];
+        modelRecord.occupation = (String) object[2];
+        modelRecord.ageCategory = (int) object[3];
+        modelRecord.employmentStatus = (int) object[4];
+        modelRecord.uSCitizen = (boolean) object[5];
+        modelRecord.taxId = (String) object[6];
+        modelRecord.gender = (String) object[7];
         return modelRecord;
     }
 
     @Override
-    public PersonRecord[] getViewModel() {
+    public RefreshViewModel[] getViewModel() {
         return viewModel;
     }
 }

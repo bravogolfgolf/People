@@ -29,6 +29,7 @@ public class MainFrame extends JFrame {
     private static final String HIDE_FORM = "Hide Form";
     private final RequestBuilder builder;
     private final UseCaseFactory factory;
+    private final PersonTablePanelPresenter presenter;
 
     //Menu Bar Components
     private JMenu fileMenu;
@@ -48,10 +49,11 @@ public class MainFrame extends JFrame {
     private PreferenceDialog preferenceDialog;
 
 
-    public MainFrame(RequestBuilder builder, UseCaseFactory factory) {
+    public MainFrame(RequestBuilder builder, UseCaseFactory factory, PersonTablePanelPresenter presenter) {
         super();
         this.builder = builder;
         this.factory = factory;
+        this.presenter = presenter;
     }
 
     public void initialize() {
@@ -64,7 +66,7 @@ public class MainFrame extends JFrame {
         //Application Specific
         setupMainFrame();
         createAndAddComponentsToMainFrame();
-        PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, new PersonTablePanelPresenter(), personTablePanel).execute();
+        PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, presenter, personTablePanel).execute();
         personTablePanel.updateModel(records);
         setMainFrameVisible();
     }
@@ -171,7 +173,7 @@ public class MainFrame extends JFrame {
 
     private void tryExport(Map<Integer, Object> args) {
         try {
-            new ExportController(builder, args, factory, new PersonTablePanelPresenter(), personTablePanel).execute();
+            new ExportController(builder, args, factory, presenter, personTablePanel).execute();
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(MainFrame.this, "Could not Export file.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -184,7 +186,7 @@ public class MainFrame extends JFrame {
                 Map<Integer, Object> args = new HashMap<>();
                 args.put(0, fileChooser.getSelectedFile());
                 tryImport(args);
-                PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, new PersonTablePanelPresenter(), personTablePanel).execute();
+                PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, presenter, personTablePanel).execute();
                 personTablePanel.updateModel(records);
             }
         });
@@ -193,7 +195,7 @@ public class MainFrame extends JFrame {
 
     private void tryImport(Map<Integer, Object> args) {
         try {
-            new ImportController(builder, args, factory, new PersonTablePanelPresenter(), personTablePanel).execute();
+            new ImportController(builder, args, factory, presenter, personTablePanel).execute();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(MainFrame.this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -276,9 +278,9 @@ public class MainFrame extends JFrame {
             args.put(4, formEvent.uSCitizen);
             args.put(5, formEvent.taxId);
             args.put(6, formEvent.gender);
-            new AddPersonController(builder, args, factory, new PersonTablePanelPresenter(), personTablePanel).execute();
+            new AddPersonController(builder, args, factory, presenter, personTablePanel).execute();
 
-            PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, new PersonTablePanelPresenter(), personTablePanel).execute();
+            PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, presenter, personTablePanel).execute();
             personTablePanel.updateModel(records);
         });
         add(entryPanel, BorderLayout.LINE_START);
@@ -289,8 +291,8 @@ public class MainFrame extends JFrame {
         personTablePanel = new PersonTablePanel(id -> {
             Map<Integer, Object> args = new HashMap<>();
             args.put(0, id);
-            new DeletePersonController(builder, args, factory, new PersonTablePanelPresenter(), personTablePanel).execute();
-            PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, new PersonTablePanelPresenter(), personTablePanel).execute();
+            new DeletePersonController(builder, args, factory, presenter, personTablePanel).execute();
+            PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, presenter, personTablePanel).execute();
             personTablePanel.updateModel(records);
         });
         add(personTablePanel, BorderLayout.CENTER);

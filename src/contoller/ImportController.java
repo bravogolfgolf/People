@@ -1,12 +1,12 @@
 package contoller;
 
-import other.Controller;
-import other.View;
 import requestor.Request;
 import requestor.RequestBuilder;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
+import responder.Controller;
 import responder.Presenter;
+import responder.View;
 
 import java.util.Map;
 
@@ -18,7 +18,7 @@ public class ImportController implements Controller {
 
     public ImportController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
         this.request = request.make("ImportRequest", args);
-        this.useCase = useCase.make("ImportUseCase", presenter);
+        this.useCase = useCase.make("ImportUseCase");
         this.presenter = presenter;
         this.view = view;
     }

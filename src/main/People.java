@@ -20,6 +20,7 @@ import usecase.importfile.ImportUseCase;
 import usecase.refresh.RefreshRequest;
 import usecase.refresh.RefreshUseCase;
 import view.MainFrame;
+import view.PersonTablePanelPresenter;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -31,16 +32,18 @@ class People {
 
     private static final Map<String, Class<? extends UseCase>> useCases = new HashMap<>();
     private static final Map<String, Class<?>[]> constructorClasses = new HashMap<>();
-    private static final Map<String, Object> constructorObjects = new HashMap<>();
+    private static final Map<String, Object[]> constructorObjects = new HashMap<>();
 
-    private static PersonRepositoryExportImport exportImport;
     private static PersonRepository repository;
+    private static PersonRepositoryExportImport exportImport;
+    private static PersonTablePanelPresenter presenter;
 
     public static void main(String[] args) {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
         SwingUtilities.invokeLater(() -> {
             repository = new PersonRepositoryMySQL();
             exportImport = new PersonRepositoryExportImport(repository);
+            presenter = new PersonTablePanelPresenter();
 
             setRequests();
             RequestBuilder requestBuilder = new RequestBuilder(requests);
@@ -50,7 +53,7 @@ class People {
             setConstructorObjects();
             UseCaseFactory useCaseFactory = new UseCaseFactory(useCases, constructorClasses, constructorObjects);
 
-            MainFrame mainFrame = new MainFrame(requestBuilder, useCaseFactory);
+            MainFrame mainFrame = new MainFrame(requestBuilder, useCaseFactory, presenter);
             mainFrame.initialize();
         });
     }
@@ -80,10 +83,10 @@ class People {
     }
 
     private static void setConstructorObjects() {
-        constructorObjects.put("RefreshUseCase", repository);
-        constructorObjects.put("AddPersonUseCase", repository);
-        constructorObjects.put("DeletePersonUseCase", repository);
-        constructorObjects.put("ExportUseCase", exportImport);
-        constructorObjects.put("ImportUseCase", exportImport);
+        constructorObjects.put("RefreshUseCase", new Object[]{repository, presenter});
+        constructorObjects.put("AddPersonUseCase", new Object[]{repository, presenter});
+        constructorObjects.put("DeletePersonUseCase", new Object[]{repository, presenter});
+        constructorObjects.put("ExportUseCase", new Object[]{exportImport, presenter});
+        constructorObjects.put("ImportUseCase", new Object[]{exportImport, presenter});
     }
 }

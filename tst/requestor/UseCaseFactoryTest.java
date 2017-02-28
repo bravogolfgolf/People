@@ -6,9 +6,9 @@ import databasegateway.PersonRepository;
 import exportimportgateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
-import responder.PersonRecord;
 import responder.Presenter;
-import responder.Response;
+import responder.RefreshResponse;
+import responder.RefreshViewModel;
 import usecase.addperson.AddPersonUseCase;
 import usecase.deleteperson.DeletePersonUseCase;
 import usecase.exportfile.ExportUseCase;
@@ -25,18 +25,18 @@ public class UseCaseFactoryTest {
     private final PersonRepositoryExportImport exportImport = new PersonRepositoryExportImport(repository);
     private final Presenter presenter = new Presenter() {
         @Override
-        public void present(Response response) {
+        public void present(RefreshResponse response) {
         }
 
         @Override
-        public PersonRecord[] getViewModel() {
+        public RefreshViewModel[] getViewModel() {
             return null;
         }
     };
     private UseCaseFactory factory;
     private final Map<String, Class<? extends UseCase>> useCases = new HashMap<>();
     private final Map<String, Class<?>[]> constructorClasses = new HashMap<>();
-    private final Map<String, Object> constructorObjects = new HashMap<>();
+    private final Map<String, Object[]> constructorObjects = new HashMap<>();
 
 
     @Before
@@ -50,11 +50,11 @@ public class UseCaseFactoryTest {
         registerUseCasePrimaryConstructorParameter();
         registerUseCasePrimaryConstructorObject();
 
-        assertTrue(factory.make("RefreshUseCase", presenter) instanceof RefreshUseCase);
-        assertTrue(factory.make("AddPersonUseCase", presenter) instanceof AddPersonUseCase);
-        assertTrue(factory.make("DeletePersonUseCase", presenter) instanceof DeletePersonUseCase);
-        assertTrue(factory.make("ExportUseCase", presenter) instanceof ExportUseCase);
-        assertTrue(factory.make("ImportUseCase", presenter) instanceof ImportUseCase);
+        assertTrue(factory.make("RefreshUseCase") instanceof RefreshUseCase);
+        assertTrue(factory.make("AddPersonUseCase") instanceof AddPersonUseCase);
+        assertTrue(factory.make("DeletePersonUseCase") instanceof DeletePersonUseCase);
+        assertTrue(factory.make("ExportUseCase") instanceof ExportUseCase);
+        assertTrue(factory.make("ImportUseCase") instanceof ImportUseCase);
     }
 
     private void setUseCases() {
@@ -74,10 +74,10 @@ public class UseCaseFactoryTest {
     }
 
     private void registerUseCasePrimaryConstructorObject() {
-        constructorObjects.put("RefreshUseCase", repository);
-        constructorObjects.put("AddPersonUseCase", repository);
-        constructorObjects.put("DeletePersonUseCase", repository);
-        constructorObjects.put("ExportUseCase", exportImport);
-        constructorObjects.put("ImportUseCase", exportImport);
+        constructorObjects.put("RefreshUseCase", new Object[]{repository, presenter});
+        constructorObjects.put("AddPersonUseCase", new Object[]{repository, presenter});
+        constructorObjects.put("DeletePersonUseCase", new Object[]{repository, presenter});
+        constructorObjects.put("ExportUseCase", new Object[]{exportImport, presenter});
+        constructorObjects.put("ImportUseCase", new Object[]{exportImport, presenter});
     }
 }

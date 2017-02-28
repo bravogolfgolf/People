@@ -5,12 +5,10 @@ import databasegateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
 import requestor.Request;
-import responder.PersonRecord;
 import responder.Presenter;
-import responder.Response;
+import responder.RefreshResponse;
+import responder.RefreshViewModel;
 import usecase.refresh.RefreshRequest;
-import usecase.refresh.RefreshResponse;
-import usecase.refresh.RefreshResponseRecord;
 import usecase.refresh.RefreshUseCase;
 
 import static org.junit.Assert.assertEquals;
@@ -18,15 +16,15 @@ import static org.junit.Assert.assertTrue;
 
 public class RefreshUseCaseTest implements Presenter {
 
-    private Response response;
+    private RefreshResponse response;
 
     @Override
-    public void present(Response response) {
+    public void present(RefreshResponse response) {
         this.response = response;
     }
 
     @Override
-    public PersonRecord[] getViewModel() {
+    public RefreshViewModel[] getViewModel() {
         return null;
     }
 
@@ -45,18 +43,17 @@ public class RefreshUseCaseTest implements Presenter {
     public void shouldProcessUpdateRequestIntoUpdateResponse() {
         useCase.execute(request);
 
-        RefreshResponse r = (RefreshResponse) response;
-        assertEquals(1, r.records.size());
+        assertEquals(1, response.getRecords().size());
 
-        for (RefreshResponseRecord expected : r.records) {
-            assertEquals(1, expected.id);
-            assertEquals(fullName, expected.fullName);
-            assertEquals(occupation, expected.occupation);
-            assertEquals(ageCategory, expected.ageCategory);
-            assertEquals(employmentStatus, expected.employmentStatus);
-            assertTrue(expected.uSCitizen);
-            assertEquals(taxId, expected.taxId);
-            assertEquals(gender, expected.gender);
+        for (Object[] object : response.getRecords()) {
+            assertEquals(1, (int) object[0]);
+            assertEquals(fullName, object[1]);
+            assertEquals(occupation, object[2]);
+            assertEquals(ageCategory, (int) object[3]);
+            assertEquals(employmentStatus, (int) object[4]);
+            assertTrue((boolean) object[5]);
+            assertEquals(taxId, object[6]);
+            assertEquals(gender, object[7]);
         }
     }
 }

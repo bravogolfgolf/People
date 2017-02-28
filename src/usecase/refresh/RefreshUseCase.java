@@ -21,23 +21,23 @@ public class RefreshUseCase extends UseCase {
     @Override
     public void execute(Request request) {
         List people = repository.findAll();
-        RefreshResponse response = new RefreshResponse();
+        RefreshUseCaseResponse response = new RefreshUseCaseResponse();
         for (Object object : people)
-            response.records.add(createRecord(object));
+            response.add(createRecord(object));
         presenter.present(response);
     }
 
-    private RefreshResponseRecord createRecord(Object object) {
-        RefreshResponseRecord record = new RefreshResponseRecord();
+    private Object[] createRecord(Object object) {
+        Object[] record = new Object[8];
         PersonTemplate person = (PersonTemplate) object;
-        record.id = person.getId();
-        record.fullName = person.getFullName();
-        record.occupation = person.getOccupation();
-        record.ageCategory = person.getAgeCategory();
-        record.employmentStatus = person.getEmploymentStatus();
-        record.uSCitizen = person.isUsCitizen();
-        record.taxId = person.getTaxId();
-        record.gender = person.getGender();
+        record[0] = person.getId();
+        record[1] = person.getFullName();
+        record[2] = person.getOccupation();
+        record[3] = person.getAgeCategory();
+        record[4] = person.getEmploymentStatus();
+        record[5] = person.isUsCitizen();
+        record[6] = person.getTaxId();
+        record[7] = person.getGender();
         return record;
     }
 }
