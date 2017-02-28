@@ -6,11 +6,10 @@ import org.junit.Test;
 import other.Controller;
 import other.View;
 import requestor.Request;
-import requestor.RequestBuilder;
+import requestor.RequestBuilderImpl;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.Presenter;
-import usecase.RequestBuilderImpl;
 import usecase.addperson.AddPersonRequest;
 import usecase.addperson.AddPersonUseCase;
 import view.PersonTablePanelPresenter;
@@ -22,16 +21,24 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class AddPersonControllerTest {
-    private final RequestBuilder requestBuilder = new RequestBuilderImpl();
+    private final Map<String, Class<? extends Request>> requests = new HashMap<String, Class<? extends Request>>() {{
+        put("AddPersonRequest", AddPersonRequest.class);
+    }};
+    private final RequestBuilderImpl requestBuilder = new RequestBuilderImpl(requests);
     private final Map<Integer, Object> args = new HashMap<>();
     private final Presenter presenter = new PersonTablePanelPresenter();
     private final View view = null;
-    private final Object[] objects = new Object[]{"Full Name", "Occupation", 0, 0, true, "Tax ID", "Gender"};
     private AddPersonRequest r;
 
     @Before
     public void setUp() throws Exception {
-        args.put(1, objects);
+        args.put(0, "Full Name");
+        args.put(1, "Occupation");
+        args.put(2, 0);
+        args.put(3, 0);
+        args.put(4, true);
+        args.put(5, "Tax ID");
+        args.put(6, "Gender");
     }
 
     @Test
@@ -41,13 +48,13 @@ public class AddPersonControllerTest {
 
         controller.execute();
 
-        assertEquals(objects[0], r.fullName);
-        assertEquals(objects[1], r.occupation);
-        assertEquals(objects[2], r.ageCategory);
-        assertEquals(objects[3], r.employmentStatus);
+        assertEquals(args.get(0), r.fullName);
+        assertEquals(args.get(1), r.occupation);
+        assertEquals(args.get(2), r.ageCategory);
+        assertEquals(args.get(3), r.employmentStatus);
         assertTrue(r.uSCitizen);
-        assertEquals(objects[5], r.taxId);
-        assertEquals(objects[6], r.gender);
+        assertEquals(args.get(5), r.taxId);
+        assertEquals(args.get(6), r.gender);
     }
 
     private class UseCaseFactoryDummy extends UseCaseFactory {

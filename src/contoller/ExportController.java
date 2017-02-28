@@ -3,7 +3,7 @@ package contoller;
 import other.Controller;
 import other.View;
 import requestor.Request;
-import requestor.RequestBuilder;
+import requestor.RequestBuilderImpl;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.Presenter;
@@ -16,8 +16,8 @@ public class ExportController implements Controller {
     private final Presenter presenter;
     private final View view;
 
-    public ExportController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
-        this.request = request.make("ExportRequest", args);
+    public ExportController(RequestBuilderImpl request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
+        this.request = request.get("ExportRequest", args);
         this.useCase = useCase.make("ExportUseCase", presenter);
         this.presenter = presenter;
         this.view = view;

@@ -4,14 +4,20 @@ import database.PersonRepositoryExportImport;
 import database.PersonRepositoryMySQL;
 import databasegateway.PersonRepository;
 import exportimportgateway.ExportImport;
+import requestor.Request;
+import requestor.RequestBuilderImpl;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.Presenter;
-import usecase.RequestBuilderImpl;
+import usecase.addperson.AddPersonRequest;
 import usecase.addperson.AddPersonUseCase;
+import usecase.deleteperson.DeletePersonRequest;
 import usecase.deleteperson.DeletePersonUseCase;
+import usecase.exportfile.ExportRequest;
 import usecase.exportfile.ExportUseCase;
+import usecase.importfile.ImportRequest;
 import usecase.importfile.ImportUseCase;
+import usecase.refresh.RefreshRequest;
 import usecase.refresh.RefreshUseCase;
 import view.MainFrame;
 
@@ -21,9 +27,12 @@ import java.util.Map;
 
 class People {
 
+    private static final Map<String, Class<? extends Request>> requests = new HashMap<>();
+
     private static final Map<String, Class<? extends UseCase>> useCases = new HashMap<>();
     private static final Map<String, Class<?>[]> constructorClasses = new HashMap<>();
     private static final Map<String, Object> constructorObjects = new HashMap<>();
+
     private static PersonRepositoryExportImport exportImport;
     private static PersonRepository repository;
 
@@ -33,15 +42,25 @@ class People {
             repository = new PersonRepositoryMySQL();
             exportImport = new PersonRepositoryExportImport(repository);
 
+            setRequests();
+            RequestBuilderImpl requestBuilder = new RequestBuilderImpl(requests);
+
             setUseCases();
             setConstructorClasses();
             setConstructorObjects();
-
-            RequestBuilderImpl requestBuilder = new RequestBuilderImpl();
             UseCaseFactory useCaseFactory = new UseCaseFactory(useCases, constructorClasses, constructorObjects);
+
             MainFrame mainFrame = new MainFrame(requestBuilder, useCaseFactory);
             mainFrame.initialize();
         });
+    }
+
+    private static void setRequests() {
+        requests.put("RefreshRequest", RefreshRequest.class);
+        requests.put("AddPersonRequest", AddPersonRequest.class);
+        requests.put("DeletePersonRequest", DeletePersonRequest.class);
+        requests.put("ExportRequest", ExportRequest.class);
+        requests.put("ImportRequest", ImportRequest.class);
     }
 
     private static void setUseCases() {

@@ -6,13 +6,12 @@ import org.junit.Test;
 import other.Controller;
 import other.View;
 import requestor.Request;
-import requestor.RequestBuilder;
+import requestor.RequestBuilderImpl;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.PersonRecord;
 import responder.Presenter;
 import responder.Response;
-import usecase.RequestBuilderImpl;
 import usecase.exportfile.ExportRequest;
 import usecase.exportfile.ExportUseCase;
 
@@ -23,7 +22,10 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 public class ExportControllerTest {
-    private final RequestBuilder builder = new RequestBuilderImpl();
+    private final Map<String, Class<? extends Request>> requests = new HashMap<String, Class<? extends Request>>() {{
+        put("ExportRequest", ExportRequest.class);
+    }};
+    private final RequestBuilderImpl builder = new RequestBuilderImpl(requests);
     private final Map<Integer, Object> args = new HashMap<>();
     private final UseCaseFactory factory = new UseCaseFactoryDummy(null, null, null);
     private final Presenter presenter = new Presenter() {
@@ -43,7 +45,7 @@ public class ExportControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        args.put(1, file);
+        args.put(0, file);
     }
 
     @Test

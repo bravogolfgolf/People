@@ -6,11 +6,10 @@ import org.junit.Test;
 import other.Controller;
 import other.View;
 import requestor.Request;
-import requestor.RequestBuilder;
+import requestor.RequestBuilderImpl;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.Presenter;
-import usecase.RequestBuilderImpl;
 import usecase.importfile.ImportRequest;
 import usecase.importfile.ImportUseCase;
 import view.PersonTablePanelPresenter;
@@ -22,7 +21,10 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 public class ImportControllerTest {
-    private final RequestBuilder requestBuilder = new RequestBuilderImpl();
+    private final Map<String, Class<? extends Request>> requests = new HashMap<String, Class<? extends Request>>() {{
+        put("ImportRequest", ImportRequest.class);
+    }};
+    private final RequestBuilderImpl requestBuilder = new RequestBuilderImpl(requests);
     private final Map<Integer, Object> args = new HashMap<>();
     private final Presenter presenter = new PersonTablePanelPresenter();
     private final View view = null;
@@ -31,7 +33,7 @@ public class ImportControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        args.put(1, file);
+        args.put(0, file);
     }
 
     @Test

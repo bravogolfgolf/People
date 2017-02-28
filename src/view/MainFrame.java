@@ -5,7 +5,7 @@ import com.apple.eawt.Application;
 import com.apple.eawt.FullScreenListener;
 import com.apple.eawt.FullScreenUtilities;
 import contoller.*;
-import requestor.RequestBuilder;
+import requestor.RequestBuilderImpl;
 import requestor.UseCaseFactory;
 
 import javax.swing.*;
@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
 
     private static final String ENTER_FULL_SCREEN = "Enter Full Screen";
     private static final String HIDE_FORM = "Hide Form";
-    private final RequestBuilder builder;
+    private final RequestBuilderImpl builder;
     private final UseCaseFactory factory;
 
     //Menu Bar Components
@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
     private PreferenceDialog preferenceDialog;
 
 
-    public MainFrame(RequestBuilder builder, UseCaseFactory factory) {
+    public MainFrame(RequestBuilderImpl builder, UseCaseFactory factory) {
         super();
         this.builder = builder;
         this.factory = factory;
@@ -156,7 +156,7 @@ public class MainFrame extends JFrame {
         final JMenuItem exportDataMenuItem = newJMenuItemWithListener("Export Data...", e -> {
             if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
                 Map<Integer, Object> args = new HashMap<>();
-                args.put(1, fileChooser.getSelectedFile());
+                args.put(0, fileChooser.getSelectedFile());
                 tryExport(args);
             }
         });
@@ -182,7 +182,7 @@ public class MainFrame extends JFrame {
         final JMenuItem importDataMenuItem = newJMenuItemWithListener("Import Data...", e -> {
             if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
                 Map<Integer, Object> args = new HashMap<>();
-                args.put(1, fileChooser.getSelectedFile());
+                args.put(0, fileChooser.getSelectedFile());
                 tryImport(args);
                 PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, new PersonTablePanelPresenter(), personTablePanel).execute();
                 personTablePanel.updateModel(records);
@@ -269,7 +269,13 @@ public class MainFrame extends JFrame {
     private void createAndAddEntryPane() {
         entryPanel = new EntryPanel(formEvent -> {
             Map<Integer, Object> args = new HashMap<>();
-            args.put(1, formEvent.toObjects());
+            args.put(0, formEvent.fullName);
+            args.put(1, formEvent.occupation);
+            args.put(2, formEvent.ageCategory);
+            args.put(3, formEvent.employmentStatus);
+            args.put(4, formEvent.uSCitizen);
+            args.put(5, formEvent.taxId);
+            args.put(6, formEvent.gender);
             new AddPersonController(builder, args, factory, new PersonTablePanelPresenter(), personTablePanel).execute();
 
             PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, new PersonTablePanelPresenter(), personTablePanel).execute();
@@ -282,7 +288,7 @@ public class MainFrame extends JFrame {
     private void createAndAddPersonTablePanel() {
         personTablePanel = new PersonTablePanel(id -> {
             Map<Integer, Object> args = new HashMap<>();
-            args.put(1, id);
+            args.put(0, id);
             new DeletePersonController(builder, args, factory, new PersonTablePanelPresenter(), personTablePanel).execute();
             PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, new PersonTablePanelPresenter(), personTablePanel).execute();
             personTablePanel.updateModel(records);
