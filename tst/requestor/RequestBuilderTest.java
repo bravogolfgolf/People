@@ -1,9 +1,7 @@
-package usecase;
+package requestor;
 
 import org.junit.Before;
 import org.junit.Test;
-import requestor.Request;
-import requestor.RequestBuilderImpl;
 import usecase.addperson.AddPersonRequest;
 import usecase.deleteperson.DeletePersonRequest;
 import usecase.exportfile.ExportRequest;
@@ -17,9 +15,9 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class RequestBuilderImplTest {
+public class RequestBuilderTest {
     private final Map<String, Class<? extends Request>> requests = new HashMap<>();
-    private final RequestBuilderImpl builder = new RequestBuilderImpl(requests);
+    private final RequestBuilder builder = new RequestBuilder(requests);
     private final HashMap<Integer, Object> args = new HashMap<>();
 
     @Before
@@ -33,7 +31,7 @@ public class RequestBuilderImplTest {
 
     @Test
     public void makeMethodShouldReturnRefreshRequest() {
-        RefreshRequest request = (RefreshRequest) builder.get("RefreshRequest", args);
+        RefreshRequest request = (RefreshRequest) builder.make("RefreshRequest", args);
         assertTrue(request != null);
     }
 
@@ -47,7 +45,7 @@ public class RequestBuilderImplTest {
         args.put(5, "Tax ID");
         args.put(6, "Gender");
 
-        AddPersonRequest request = (AddPersonRequest) builder.get("AddPersonRequest", args);
+        AddPersonRequest request = (AddPersonRequest) builder.make("AddPersonRequest", args);
         assertEquals(args.get(0), request.fullName);
         assertEquals(args.get(1), request.occupation);
         assertEquals(args.get(2), request.ageCategory);
@@ -61,7 +59,7 @@ public class RequestBuilderImplTest {
     public void makeMethodShouldReturnDeletePersonRequest() {
         int idToBeDeleted = 1;
         args.put(0, idToBeDeleted);
-        DeletePersonRequest request = (DeletePersonRequest) builder.get("DeletePersonRequest", args);
+        DeletePersonRequest request = (DeletePersonRequest) builder.make("DeletePersonRequest", args);
         assertEquals(idToBeDeleted, request.id);
     }
 
@@ -69,7 +67,7 @@ public class RequestBuilderImplTest {
     public void makeMethodShouldReturnExportRequest() {
         File file = new File("Export.per");
         args.put(0, file);
-        ExportRequest request = (ExportRequest) builder.get("ExportRequest", args);
+        ExportRequest request = (ExportRequest) builder.make("ExportRequest", args);
         assertEquals(file, request.file);
     }
 
@@ -77,7 +75,7 @@ public class RequestBuilderImplTest {
     public void makeMethodShouldReturnImportRequest() {
         File file = new File("Import.per");
         args.put(0, file);
-        ImportRequest request = (ImportRequest) builder.get("ImportRequest", args);
+        ImportRequest request = (ImportRequest) builder.make("ImportRequest", args);
         assertEquals(file, request.file);
     }
 }

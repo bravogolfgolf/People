@@ -6,7 +6,7 @@ import org.junit.Test;
 import other.Controller;
 import other.View;
 import requestor.Request;
-import requestor.RequestBuilderImpl;
+import requestor.RequestBuilder;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.PersonRecord;
@@ -25,7 +25,7 @@ public class ExportControllerTest {
     private final Map<String, Class<? extends Request>> requests = new HashMap<String, Class<? extends Request>>() {{
         put("ExportRequest", ExportRequest.class);
     }};
-    private final RequestBuilderImpl builder = new RequestBuilderImpl(requests);
+    private final RequestBuilder builder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
     private final UseCaseFactory factory = new UseCaseFactoryDummy(null, null, null);
     private final Presenter presenter = new Presenter() {

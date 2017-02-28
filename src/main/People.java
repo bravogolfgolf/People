@@ -5,7 +5,7 @@ import database.PersonRepositoryMySQL;
 import databasegateway.PersonRepository;
 import exportimportgateway.ExportImport;
 import requestor.Request;
-import requestor.RequestBuilderImpl;
+import requestor.RequestBuilder;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.Presenter;
@@ -43,7 +43,7 @@ class People {
             exportImport = new PersonRepositoryExportImport(repository);
 
             setRequests();
-            RequestBuilderImpl requestBuilder = new RequestBuilderImpl(requests);
+            RequestBuilder requestBuilder = new RequestBuilder(requests);
 
             setUseCases();
             setConstructorClasses();

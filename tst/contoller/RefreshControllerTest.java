@@ -9,7 +9,7 @@ import org.junit.Test;
 import other.Controller;
 import other.View;
 import requestor.Request;
-import requestor.RequestBuilderImpl;
+import requestor.RequestBuilder;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.PersonRecord;
@@ -42,7 +42,7 @@ public class RefreshControllerTest implements View {
     private final Map<String, Class<? extends Request>> requests = new HashMap<String, Class<? extends Request>>() {{
         put("RefreshRequest", RefreshRequest.class);
     }};
-    private final RequestBuilderImpl requestBuilder = new RequestBuilderImpl(requests);
+    private final RequestBuilder requestBuilder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
     private final Presenter presenter = new PersonTablePanelPresenter();
     private final View view = this;

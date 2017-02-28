@@ -5,7 +5,7 @@ import com.apple.eawt.Application;
 import com.apple.eawt.FullScreenListener;
 import com.apple.eawt.FullScreenUtilities;
 import contoller.*;
-import requestor.RequestBuilderImpl;
+import requestor.RequestBuilder;
 import requestor.UseCaseFactory;
 
 import javax.swing.*;
@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
 
     private static final String ENTER_FULL_SCREEN = "Enter Full Screen";
     private static final String HIDE_FORM = "Hide Form";
-    private final RequestBuilderImpl builder;
+    private final RequestBuilder builder;
     private final UseCaseFactory factory;
 
     //Menu Bar Components
@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
     private PreferenceDialog preferenceDialog;
 
 
-    public MainFrame(RequestBuilderImpl builder, UseCaseFactory factory) {
+    public MainFrame(RequestBuilder builder, UseCaseFactory factory) {
         super();
         this.builder = builder;
         this.factory = factory;
