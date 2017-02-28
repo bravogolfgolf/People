@@ -1,6 +1,6 @@
 package contoller;
 
-import exportimportgateway.Import;
+import exportimportgateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
 import other.Controller;
@@ -57,7 +57,7 @@ public class ImportControllerTest {
     }
 
     private class ImportUseCaseSpy extends ImportUseCase {
-        ImportUseCaseSpy(Import importer, Presenter presenter) {
+        ImportUseCaseSpy(ExportImport importer, Presenter presenter) {
             super(importer, presenter);
         }
 

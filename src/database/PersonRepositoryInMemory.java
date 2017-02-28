@@ -1,21 +1,20 @@
 package database;
 
 import databasegateway.PersonRepository;
-import entity.PersonTemplate;
 
 import java.util.*;
 
-public class PersonRepositoryInMemory extends PersonRepository {
+public class PersonRepositoryInMemory implements PersonRepository {
 
     private final Map<Integer, Person> people = new HashMap<>();
     private Person person;
 
     @Override
-    public List<PersonTemplate> findAll() {
-        List<PersonTemplate> personTemplates = new ArrayList<>();
-        for (Person person : people.values())
-            personTemplates.add(person);
-        return personTemplates;
+    public List findAll() {
+        List<Person> people = new ArrayList<>();
+        for (Person person : this.people.values())
+            people.add(person);
+        return people;
     }
 
     @Override
@@ -51,10 +50,10 @@ public class PersonRepositoryInMemory extends PersonRepository {
     }
 
     @Override
-    public void fromImport(List<Person> people) {
+    public void fromImport(List people) {
         this.people.clear();
-        for (Person person : people) {
-            this.people.put(person.getId(), person);
+        for (Object object : people) {
+            this.people.put(((Person) object).getId(), (Person) object);
         }
     }
 

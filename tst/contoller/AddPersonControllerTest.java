@@ -1,6 +1,6 @@
 package contoller;
 
-import databasegateway.AddPersonGateway;
+import databasegateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
 import other.Controller;
@@ -63,7 +63,7 @@ public class AddPersonControllerTest {
     }
 
     private class AddPersonUseCaseSpy extends AddPersonUseCase {
-        AddPersonUseCaseSpy(AddPersonGateway repository, Presenter presenter) {
+        AddPersonUseCaseSpy(PersonRepository repository, Presenter presenter) {
             super(repository, presenter);
         }
 

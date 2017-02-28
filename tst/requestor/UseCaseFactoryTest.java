@@ -1,13 +1,9 @@
 package requestor;
 
+import database.PersonRepositoryExportImport;
 import database.PersonRepositoryInMemory;
-import databasegateway.AddPersonGateway;
-import databasegateway.DeletePersonGateway;
 import databasegateway.PersonRepository;
-import databasegateway.RefreshGateway;
-import exportimport.ExportImport;
-import exportimportgateway.Export;
-import exportimportgateway.Import;
+import exportimportgateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
 import responder.PersonRecord;
@@ -26,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 public class UseCaseFactoryTest {
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final ExportImport exportImport = new ExportImport(repository);
+    private final PersonRepositoryExportImport exportImport = new PersonRepositoryExportImport(repository);
     private final Presenter presenter = new Presenter() {
         @Override
         public void present(Response response) {
@@ -70,11 +66,11 @@ public class UseCaseFactoryTest {
     }
 
     private void registerUseCasePrimaryConstructorParameter() {
-        constructorClasses.put("RefreshUseCase", new Class[]{RefreshGateway.class, Presenter.class});
-        constructorClasses.put("AddPersonUseCase", new Class[]{AddPersonGateway.class, Presenter.class});
-        constructorClasses.put("DeletePersonUseCase", new Class[]{DeletePersonGateway.class, Presenter.class});
-        constructorClasses.put("ExportUseCase", new Class[]{Export.class, Presenter.class});
-        constructorClasses.put("ImportUseCase", new Class[]{Import.class, Presenter.class});
+        constructorClasses.put("RefreshUseCase", new Class[]{PersonRepository.class, Presenter.class});
+        constructorClasses.put("AddPersonUseCase", new Class[]{PersonRepository.class, Presenter.class});
+        constructorClasses.put("DeletePersonUseCase", new Class[]{PersonRepository.class, Presenter.class});
+        constructorClasses.put("ExportUseCase", new Class[]{ExportImport.class, Presenter.class});
+        constructorClasses.put("ImportUseCase", new Class[]{ExportImport.class, Presenter.class});
     }
 
     private void registerUseCasePrimaryConstructorObject() {

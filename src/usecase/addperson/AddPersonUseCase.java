@@ -1,14 +1,14 @@
 package usecase.addperson;
 
-import databasegateway.AddPersonGateway;
+import databasegateway.PersonRepository;
 import requestor.Request;
 import requestor.UseCase;
 import responder.Presenter;
 
 public class AddPersonUseCase extends UseCase {
-    private final AddPersonGateway repository;
+    private final PersonRepository repository;
 
-    public AddPersonUseCase(AddPersonGateway repository, Presenter presenter) {
+    public AddPersonUseCase(PersonRepository repository, Presenter presenter) {
         this.repository = repository;
     }
 

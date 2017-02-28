@@ -1,13 +1,13 @@
 package usecase.updateperson;
 
-import databasegateway.UpdatePersonGateway;
+import databasegateway.PersonRepository;
 import requestor.Request;
 import requestor.UseCase;
 
 public class UpdatePersonUseCase extends UseCase {
-    private final UpdatePersonGateway repository;
+    private final PersonRepository repository;
 
-    public UpdatePersonUseCase(UpdatePersonGateway repository) {
+    public UpdatePersonUseCase(PersonRepository repository) {
         this.repository = repository;
     }
 

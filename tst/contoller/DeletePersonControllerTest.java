@@ -1,7 +1,6 @@
 package contoller;
 
 import database.PersonRepositoryInMemory;
-import databasegateway.DeletePersonGateway;
 import databasegateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,7 +59,7 @@ public class DeletePersonControllerTest {
     }
 
     private class DeletePersonUseCaseSpy extends DeletePersonUseCase {
-        DeletePersonUseCaseSpy(DeletePersonGateway repository, Presenter presenter) {
+        DeletePersonUseCaseSpy(PersonRepository repository, Presenter presenter) {
             super(repository, presenter);
         }
 

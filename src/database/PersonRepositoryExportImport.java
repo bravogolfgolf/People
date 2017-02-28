@@ -1,27 +1,29 @@
-package exportimport;
+package database;
 
-import database.Person;
-import databasegateway.ExportImportGateway;
-import exportimportgateway.Export;
-import exportimportgateway.Import;
+import databasegateway.PersonRepository;
+import exportimportgateway.ExportImport;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
-public class ExportImport implements Export, Import {
+public class PersonRepositoryExportImport implements ExportImport {
 
-    private final ExportImportGateway repository;
+    private final PersonRepository repository;
 
-    public ExportImport(ExportImportGateway repository) {
+    public PersonRepositoryExportImport(PersonRepository repository) {
         this.repository = repository;
     }
 
     @Override
     public void toDisk(File file) throws IOException {
-        List<Person> list = new ArrayList<>(repository.forExport());
-        Person[] array = list.toArray(new Person[list.size()]);
+        Collection list = repository.forExport();
+        Person[] array = new Person[list.size()];
+        int i = 0;
+        for (Object object : list) {
+            array[i++] = (Person) object;
+        }
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
             oos.writeObject(array);
         }
@@ -36,5 +38,4 @@ public class ExportImport implements Export, Import {
         List<Person> list = Arrays.asList(array);
         repository.fromImport(list);
     }
-
 }

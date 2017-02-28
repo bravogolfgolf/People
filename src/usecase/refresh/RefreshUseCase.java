@@ -1,6 +1,6 @@
 package usecase.refresh;
 
-import databasegateway.RefreshGateway;
+import databasegateway.PersonRepository;
 import entity.PersonTemplate;
 import requestor.Request;
 import requestor.UseCase;
@@ -10,25 +10,26 @@ import java.util.List;
 
 public class RefreshUseCase extends UseCase {
 
-    private final RefreshGateway repository;
+    private final PersonRepository repository;
     private final Presenter presenter;
 
-    public RefreshUseCase(RefreshGateway repository, Presenter presenter) {
+    public RefreshUseCase(PersonRepository repository, Presenter presenter) {
         this.repository = repository;
         this.presenter = presenter;
     }
 
     @Override
     public void execute(Request request) {
-        List<PersonTemplate> people = repository.findAll();
+        List people = repository.findAll();
         RefreshResponse response = new RefreshResponse();
-        for (PersonTemplate person : people)
-            response.records.add(createRecord(person));
+        for (Object object : people)
+            response.records.add(createRecord(object));
         presenter.present(response);
     }
 
-    private RefreshResponseRecord createRecord(PersonTemplate person) {
+    private RefreshResponseRecord createRecord(Object object) {
         RefreshResponseRecord record = new RefreshResponseRecord();
+        PersonTemplate person = (PersonTemplate) object;
         record.id = person.getId();
         record.fullName = person.getFullName();
         record.occupation = person.getOccupation();

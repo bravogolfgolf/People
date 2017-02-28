@@ -1,8 +1,8 @@
 package usecase;
 
+import database.Person;
 import database.PersonRepositoryInMemory;
 import databasegateway.PersonRepository;
-import entity.PersonTemplate;
 import org.junit.Before;
 import org.junit.Test;
 import usecase.updateperson.UpdatePersonRequest;
@@ -35,7 +35,8 @@ public class UpdatePersonUseCaseTest {
 
         assertEquals(1, repository.findAll().size());
 
-        for (PersonTemplate expected : repository.findAll()) {
+        for (Object object : repository.findAll()) {
+            Person expected = (Person) object;
             assertEquals(request.id, expected.getId());
             assertEquals(request.fullName, expected.getFullName());
             assertEquals(request.occupation, expected.getOccupation());

@@ -1,12 +1,11 @@
 package database;
 
 import databasegateway.PersonRepository;
-import entity.PersonTemplate;
 
 import java.sql.*;
 import java.util.*;
 
-public class PersonRepositoryMySQL extends PersonRepository {
+public class PersonRepositoryMySQL implements PersonRepository {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
@@ -90,15 +89,15 @@ public class PersonRepositoryMySQL extends PersonRepository {
     }
 
     @Override
-    public List<PersonTemplate> findAll() {
-        List<PersonTemplate> people = new ArrayList<>();
+    public List findAll() {
+        List<Person> people = new ArrayList<>();
 
         connect();
         String sql = "Select id, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender from person";
         tryPrepareStatement(sql);
         tryExecuteQuery();
         while (tryIsNext()) {
-            PersonTemplate person = new Person(tryGetInt(1), tryGetString(2), tryGetString(3), tryGetInt(4), tryGetInt(5), tryGetBoolean(6), tryGetString(7), tryGetString(8));
+            Person person = new Person(tryGetInt(1), tryGetString(2), tryGetString(3), tryGetInt(4), tryGetInt(5), tryGetBoolean(6), tryGetString(7), tryGetString(8));
             people.add(person);
         }
         return people;
@@ -190,12 +189,13 @@ public class PersonRepositoryMySQL extends PersonRepository {
     }
 
     @Override
-    public void fromImport(List<Person> people) {
+    public void fromImport(List people) {
         connect();
         String sql = "delete from person";
         tryPrepareStatement(sql);
         tryExecuteUpdate();
-        for (Person person : people) {
+        for (Object object : people) {
+            Person person = (Person) object;
             addPerson(person.getId(), person.getFullName(), person.getOccupation(), person.getAgeCategory(), person.getEmploymentStatus(), person.isUsCitizen(), person.getTaxId(), person.getGender());
         }
     }

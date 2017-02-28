@@ -1,11 +1,10 @@
 package usecase;
 
+import database.Person;
+import database.PersonRepositoryExportImport;
 import database.PersonRepositoryInMemory;
-import databasegateway.ExportImportGateway;
 import databasegateway.PersonRepository;
-import entity.PersonTemplate;
-import exportimport.ExportImport;
-import exportimportgateway.Import;
+import exportimportgateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
 import usecase.importfile.ImportRequest;
@@ -18,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ImportUseCaseTest {
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final Import exportImport = new ExportImport(repository);
+    private final ExportImport exportImport = new PersonRepositoryExportImport(repository);
     private final ImportUseCase useCase = new ImportUseCase(exportImport, null);
     private final ImportRequest request = new ImportRequest();
     private final File file = new File(("ImportTest.per"));
@@ -34,7 +33,8 @@ public class ImportUseCaseTest {
         useCase.execute(request);
         assertEquals(1, repository.findAll().size());
 
-        for (PersonTemplate expected : repository.findAll()) {
+        for (Object object : repository.findAll()) {
+            Person expected = (Person) object;
             assertEquals(1, expected.getId());
             assertEquals("Import Test", expected.getFullName());
             assertEquals("Occupation", expected.getOccupation());

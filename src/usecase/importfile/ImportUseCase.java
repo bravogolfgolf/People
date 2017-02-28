@@ -1,6 +1,6 @@
 package usecase.importfile;
 
-import exportimportgateway.Import;
+import exportimportgateway.ExportImport;
 import requestor.Request;
 import requestor.UseCase;
 import responder.Presenter;
@@ -9,9 +9,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class ImportUseCase extends UseCase {
-    private final Import importer;
+    private final ExportImport importer;
 
-    public ImportUseCase(Import importer, Presenter presenter) {
+    public ImportUseCase(ExportImport importer, Presenter presenter) {
         this.importer = importer;
     }
 

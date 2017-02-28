@@ -2,8 +2,8 @@ package usecase;
 
 import database.PersonRepositoryInMemory;
 import databasegateway.PersonRepository;
-import exportimport.ExportImport;
-import exportimportgateway.Export;
+import database.PersonRepositoryExportImport;
+import exportimportgateway.ExportImport;
 import org.junit.Test;
 import usecase.exportfile.ExportRequest;
 import usecase.exportfile.ExportUseCase;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ExportUseCaseTest {
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final Export exportImport = new ExportImport(repository);
+    private final ExportImport exportImport = new PersonRepositoryExportImport(repository);
     private final ExportUseCase useCase = new ExportUseCase(exportImport, null);
     private final ExportRequest request = new ExportRequest();
 

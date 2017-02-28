@@ -1,13 +1,9 @@
 package contoller;
 
+import database.PersonRepositoryExportImport;
 import database.PersonRepositoryInMemory;
-import databasegateway.AddPersonGateway;
-import databasegateway.DeletePersonGateway;
 import databasegateway.PersonRepository;
-import databasegateway.RefreshGateway;
-import exportimport.ExportImport;
-import exportimportgateway.Export;
-import exportimportgateway.Import;
+import exportimportgateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
 import other.Controller;
@@ -49,7 +45,7 @@ public class RefreshControllerTest implements View {
     private final Presenter presenter = new PersonTablePanelPresenter();
     private final View view = this;
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final ExportImport exportImport = new ExportImport(repository);
+    private final PersonRepositoryExportImport exportImport = new PersonRepositoryExportImport(repository);
     private final Map<String, Class<? extends UseCase>> useCases = new HashMap<>();
     private final Map<String, Class<?>[]> constructorClasses = new HashMap<>();
     private final Map<String, Object> constructorObjects = new HashMap<>();
@@ -93,11 +89,11 @@ public class RefreshControllerTest implements View {
     }
 
     private void setConstructorClasses() {
-        constructorClasses.put("RefreshUseCase", new Class[]{RefreshGateway.class, Presenter.class});
-        constructorClasses.put("AddPersonUseCase", new Class[]{AddPersonGateway.class, Presenter.class});
-        constructorClasses.put("DeletePersonUseCase", new Class[]{DeletePersonGateway.class, Presenter.class});
-        constructorClasses.put("ExportUseCase", new Class[]{Export.class, Presenter.class});
-        constructorClasses.put("ImportUseCase", new Class[]{Import.class, Presenter.class});
+        constructorClasses.put("RefreshUseCase", new Class[]{PersonRepository.class, Presenter.class});
+        constructorClasses.put("AddPersonUseCase", new Class[]{PersonRepository.class, Presenter.class});
+        constructorClasses.put("DeletePersonUseCase", new Class[]{PersonRepository.class, Presenter.class});
+        constructorClasses.put("ExportUseCase", new Class[]{ExportImport.class, Presenter.class});
+        constructorClasses.put("ImportUseCase", new Class[]{ExportImport.class, Presenter.class});
     }
 
     private void setConstructorObjects() {
@@ -121,7 +117,7 @@ public class RefreshControllerTest implements View {
     }
 
     private class RefreshUseCaseSpy extends RefreshUseCase {
-        RefreshUseCaseSpy(RefreshGateway repository, Presenter presenter) {
+        RefreshUseCaseSpy(PersonRepository repository, Presenter presenter) {
             super(repository, presenter);
         }
 

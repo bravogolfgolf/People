@@ -1,14 +1,14 @@
 package usecase.deleteperson;
 
-import databasegateway.DeletePersonGateway;
+import databasegateway.PersonRepository;
 import requestor.Request;
 import requestor.UseCase;
 import responder.Presenter;
 
 public class DeletePersonUseCase extends UseCase {
-    private final DeletePersonGateway repository;
+    private final PersonRepository repository;
 
-    public DeletePersonUseCase(DeletePersonGateway repository, Presenter presenter) {
+    public DeletePersonUseCase(PersonRepository repository, Presenter presenter) {
         this.repository = repository;
     }
 

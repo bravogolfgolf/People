@@ -1,25 +1,22 @@
 package exportimport;
 
 import database.Person;
+import database.PersonRepositoryExportImport;
 import database.PersonRepositoryInMemory;
 import databasegateway.PersonRepository;
-import entity.PersonTemplate;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ExportImportTest {
+public class PersonRepositoryExportImportTest {
 
     private final File file = new File("Test.per");
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final ExportImport exportImport = new ExportImport(repository);
+    private final PersonRepositoryExportImport exportImport = new PersonRepositoryExportImport(repository);
 
     @Test
     public void shouldSaveMapToFileAndLoadMapFromFileToRecreateMap() throws IOException, ClassNotFoundException {
@@ -31,17 +28,18 @@ public class ExportImportTest {
 
         exportImport.fromDisk(file);
 
-        List<PersonTemplate> loaded = repository.findAll();
+        assertEquals(1, repository.findAll().size());
 
-        for (PersonTemplate personTemplate : loaded) {
-            assertEquals(1, personTemplate.getId());
-            assertEquals("Full Name", personTemplate.getFullName());
-            assertEquals("Occupation", personTemplate.getOccupation());
-            assertEquals(1, personTemplate.getAgeCategory());
-            assertEquals(0, personTemplate.getEmploymentStatus());
-            assertTrue(personTemplate.isUsCitizen());
-            assertEquals("123-45-6789", personTemplate.getTaxId());
-            assertEquals("Male", personTemplate.getGender());
+        for (Object object : repository.findAll()) {
+            Person person = (Person) object;
+            assertEquals(1, person.getId());
+            assertEquals("Full Name", person.getFullName());
+            assertEquals("Occupation", person.getOccupation());
+            assertEquals(1, person.getAgeCategory());
+            assertEquals(0, person.getEmploymentStatus());
+            assertTrue(person.isUsCitizen());
+            assertEquals("123-45-6789", person.getTaxId());
+            assertEquals("Male", person.getGender());
         }
         assertTrue(deleteFile());
     }

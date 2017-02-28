@@ -1,13 +1,9 @@
 package main;
 
+import database.PersonRepositoryExportImport;
 import database.PersonRepositoryMySQL;
-import databasegateway.AddPersonGateway;
-import databasegateway.DeletePersonGateway;
 import databasegateway.PersonRepository;
-import databasegateway.RefreshGateway;
-import exportimport.ExportImport;
-import exportimportgateway.Export;
-import exportimportgateway.Import;
+import exportimportgateway.ExportImport;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.Presenter;
@@ -28,14 +24,14 @@ class People {
     private static final Map<String, Class<? extends UseCase>> useCases = new HashMap<>();
     private static final Map<String, Class<?>[]> constructorClasses = new HashMap<>();
     private static final Map<String, Object> constructorObjects = new HashMap<>();
-    private static ExportImport exportImport;
+    private static PersonRepositoryExportImport exportImport;
     private static PersonRepository repository;
 
     public static void main(String[] args) {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
         SwingUtilities.invokeLater(() -> {
             repository = new PersonRepositoryMySQL();
-            exportImport = new ExportImport(repository);
+            exportImport = new PersonRepositoryExportImport(repository);
 
             setUseCases();
             setConstructorClasses();
@@ -57,11 +53,11 @@ class People {
     }
 
     private static void setConstructorClasses() {
-        constructorClasses.put("RefreshUseCase", new Class[]{RefreshGateway.class, Presenter.class});
-        constructorClasses.put("AddPersonUseCase", new Class[]{AddPersonGateway.class, Presenter.class});
-        constructorClasses.put("DeletePersonUseCase", new Class[]{DeletePersonGateway.class, Presenter.class});
-        constructorClasses.put("ExportUseCase", new Class[]{Export.class, Presenter.class});
-        constructorClasses.put("ImportUseCase", new Class[]{Import.class, Presenter.class});
+        constructorClasses.put("RefreshUseCase", new Class[]{PersonRepository.class, Presenter.class});
+        constructorClasses.put("AddPersonUseCase", new Class[]{PersonRepository.class, Presenter.class});
+        constructorClasses.put("DeletePersonUseCase", new Class[]{PersonRepository.class, Presenter.class});
+        constructorClasses.put("ExportUseCase", new Class[]{ExportImport.class, Presenter.class});
+        constructorClasses.put("ImportUseCase", new Class[]{ExportImport.class, Presenter.class});
     }
 
     private static void setConstructorObjects() {
