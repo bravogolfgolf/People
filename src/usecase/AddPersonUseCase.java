@@ -1,4 +1,4 @@
-package usecase.addperson;
+package usecase;
 
 import databasegateway.PersonRepository;
 import requestor.Request;

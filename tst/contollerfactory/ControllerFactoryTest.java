@@ -11,19 +11,9 @@ import requestor.RequestBuilder;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.Presenter;
-import view.View;
-import usecase.addperson.AddPersonRequest;
-import usecase.addperson.AddPersonUseCase;
-import usecase.deleteperson.DeletePersonRequest;
-import usecase.deleteperson.DeletePersonUseCase;
-import usecase.exportfile.ExportRequest;
-import usecase.exportfile.ExportUseCase;
-import usecase.importfile.ImportRequest;
-import usecase.importfile.ImportUseCase;
-import usecase.refresh.RefreshRequest;
-import usecase.refresh.RefreshUseCase;
-import ui.PersonTablePanel;
 import ui.PersonTablePanelPresenter;
+import usecase.*;
+import view.View;
 
 import java.io.File;
 import java.util.HashMap;
@@ -82,8 +72,7 @@ public class ControllerFactoryTest {
     private final ControllerFactory factory = new ControllerFactory(requestBuilder, useCaseFactory, controllers, constructorClasses);
     private final Map<Integer, Object> requestArgs = new HashMap<>();
     private final Presenter presenter = new PersonTablePanelPresenter();
-    private final View view = new PersonTablePanel(rowNumber -> {
-    });
+    private final View view = null;
 
 
     @Test

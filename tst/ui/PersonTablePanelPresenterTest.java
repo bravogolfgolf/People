@@ -2,7 +2,7 @@ package ui;
 
 import org.junit.Before;
 import org.junit.Test;
-import usecase.refresh.RefreshUseCaseResponse;
+import usecase.RefreshUseCaseResponse;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

@@ -5,8 +5,6 @@ import databasegateway.PersonRepository;
 import database.PersonRepositoryExportImport;
 import exportimportgateway.ExportImport;
 import org.junit.Test;
-import usecase.exportfile.ExportRequest;
-import usecase.exportfile.ExportUseCase;
 
 import java.io.File;
 import java.io.IOException;

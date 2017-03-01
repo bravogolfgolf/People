@@ -9,10 +9,10 @@ import requestor.RequestBuilder;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.Presenter;
-import view.View;
-import usecase.addperson.AddPersonRequest;
-import usecase.addperson.AddPersonUseCase;
 import ui.PersonTablePanelPresenter;
+import usecase.AddPersonRequest;
+import usecase.AddPersonUseCase;
+import view.View;
 
 import java.util.HashMap;
 import java.util.Map;

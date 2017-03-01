@@ -11,9 +11,9 @@ import requestor.UseCaseFactory;
 import responder.Presenter;
 import responder.RefreshResponse;
 import ui.RefreshViewModel;
+import usecase.ExportRequest;
+import usecase.ExportUseCase;
 import view.View;
-import usecase.exportfile.ExportRequest;
-import usecase.exportfile.ExportUseCase;
 
 import java.io.File;
 import java.util.HashMap;
@@ -39,7 +39,7 @@ public class ExportControllerTest {
             return null;
         }
     };
-    private final View view = records -> null;
+    private final View view = null;
     private final File file = new File("Export.per");
     private ExportRequest r;
 

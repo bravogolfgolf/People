@@ -9,11 +9,7 @@ import org.junit.Test;
 import responder.Presenter;
 import responder.RefreshResponse;
 import ui.RefreshViewModel;
-import usecase.addperson.AddPersonUseCase;
-import usecase.deleteperson.DeletePersonUseCase;
-import usecase.exportfile.ExportUseCase;
-import usecase.importfile.ImportUseCase;
-import usecase.refresh.RefreshUseCase;
+import usecase.*;
 
 import java.util.HashMap;
 import java.util.Map;

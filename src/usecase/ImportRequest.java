@@ -1,4 +1,4 @@
-package usecase.importfile;
+package usecase;
 
 import requestor.Request;
 

@@ -1,5 +1,5 @@
 package ui;
 
-public interface PersonTablePanelListener {
+interface PersonTablePanelListener {
     void personDeleted(int rowNumber);
 }

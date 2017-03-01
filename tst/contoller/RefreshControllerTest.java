@@ -10,10 +10,10 @@ import requestor.RequestBuilder;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.Presenter;
-import view.View;
-import usecase.refresh.RefreshRequest;
-import usecase.refresh.RefreshUseCase;
 import ui.PersonTablePanelPresenter;
+import usecase.RefreshRequest;
+import usecase.RefreshUseCase;
+import view.View;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +28,7 @@ public class RefreshControllerTest {
     private final RequestBuilder requestBuilder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
     private final Presenter presenter = new PersonTablePanelPresenter();
-    private final View view = records -> null;
+    private final View view = null;
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private RefreshRequest r;
 

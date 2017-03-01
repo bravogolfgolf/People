@@ -10,10 +10,10 @@ import requestor.RequestBuilder;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.Presenter;
-import view.View;
-import usecase.deleteperson.DeletePersonRequest;
-import usecase.deleteperson.DeletePersonUseCase;
 import ui.PersonTablePanelPresenter;
+import usecase.DeletePersonRequest;
+import usecase.DeletePersonUseCase;
+import view.View;
 
 import java.util.HashMap;
 import java.util.Map;

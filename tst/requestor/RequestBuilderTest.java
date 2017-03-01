@@ -2,11 +2,7 @@ package requestor;
 
 import org.junit.Before;
 import org.junit.Test;
-import usecase.addperson.AddPersonRequest;
-import usecase.deleteperson.DeletePersonRequest;
-import usecase.exportfile.ExportRequest;
-import usecase.importfile.ImportRequest;
-import usecase.refresh.RefreshRequest;
+import usecase.*;
 
 import java.io.File;
 import java.util.HashMap;

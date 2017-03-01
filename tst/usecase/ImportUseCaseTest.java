@@ -7,8 +7,6 @@ import databasegateway.PersonRepository;
 import exportimportgateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
-import usecase.importfile.ImportRequest;
-import usecase.importfile.ImportUseCase;
 
 import java.io.File;
 

@@ -1,4 +1,4 @@
-package usecase.importfile;
+package usecase;
 
 import exportimportgateway.ExportImport;
 import requestor.Request;
@@ -29,7 +29,7 @@ public class ImportUseCase extends UseCase {
         }
     }
 
-    public class ImportFailed extends RuntimeException {
+    class ImportFailed extends RuntimeException {
         ImportFailed(Exception e) {
             super(e);
         }

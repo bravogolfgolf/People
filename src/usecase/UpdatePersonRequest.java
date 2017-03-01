@@ -1,13 +1,14 @@
-package usecase.addperson;
+package usecase;
 
 import requestor.Request;
 
-public class AddPersonRequest extends Request {
+class UpdatePersonRequest extends Request {
+    public int id;
     public String fullName;
     public String occupation;
     public int ageCategory;
     public int employmentStatus;
-    public Boolean uSCitizen;
+    public boolean uSCitizen;
     public String taxId;
     public String gender;
 }

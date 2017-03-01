@@ -5,8 +5,6 @@ import database.PersonRepositoryInMemory;
 import databasegateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
-import usecase.updateperson.UpdatePersonRequest;
-import usecase.updateperson.UpdatePersonUseCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

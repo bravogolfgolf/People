@@ -1,4 +1,4 @@
-package usecase.refresh;
+package usecase;
 
 import requestor.Request;
 

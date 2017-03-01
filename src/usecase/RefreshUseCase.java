@@ -1,4 +1,4 @@
-package usecase.refresh;
+package usecase;
 
 import databasegateway.PersonRepository;
 import entity.PersonTemplate;

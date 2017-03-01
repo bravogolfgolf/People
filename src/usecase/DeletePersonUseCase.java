@@ -1,4 +1,4 @@
-package usecase.deleteperson;
+package usecase;
 
 import databasegateway.PersonRepository;
 import requestor.Request;

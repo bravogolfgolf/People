@@ -1,4 +1,4 @@
-package usecase.updateperson;
+package usecase;
 
 import databasegateway.PersonRepository;
 import requestor.Request;
@@ -7,7 +7,7 @@ import requestor.UseCase;
 public class UpdatePersonUseCase extends UseCase {
     private final PersonRepository repository;
 
-    public UpdatePersonUseCase(PersonRepository repository) {
+    UpdatePersonUseCase(PersonRepository repository) {
         this.repository = repository;
     }
 

@@ -8,8 +8,6 @@ import requestor.Request;
 import responder.Presenter;
 import responder.RefreshResponse;
 import ui.RefreshViewModel;
-import usecase.refresh.RefreshRequest;
-import usecase.refresh.RefreshUseCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

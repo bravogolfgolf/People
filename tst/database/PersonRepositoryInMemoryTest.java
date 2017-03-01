@@ -4,9 +4,6 @@ import databasegateway.PersonRepository;
 import entity.PersonTemplate;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -15,20 +12,17 @@ public class PersonRepositoryInMemoryTest {
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final PersonTemplate person1 = new Person(1, "Update Name", "Update", 1, 1, true,
             "Update ID", "Female");
-    private List<PersonTemplate> people = new ArrayList<>();
 
     @Test
     public void newDatabaseShouldBeEmpty() {
-        people = repository.findAll();
-        assertEquals(0, people.size());
+        assertEquals(0, repository.findAll().size());
     }
 
     @Test
     public void newDatabaseShouldExceptPerson() {
         repository.addPerson("Full Name", "Occupation", 0, 0, false,
                 "Tax ID", "Male");
-        people = repository.findAll();
-        assertEquals(1, people.size());
+        assertEquals(1, repository.findAll().size());
     }
 
     @Test
@@ -37,9 +31,9 @@ public class PersonRepositoryInMemoryTest {
                 "Tax ID", "Male");
         repository.updatePerson(1, "Update Name", "Update", 1, 1, true,
                 "Update ID", "Female");
-        people = repository.findAll();
-        assertEquals(1, people.size());
-        for (PersonTemplate person : people) {
+        assertEquals(1, repository.findAll().size());
+        for (Object object : repository.findAll()) {
+            PersonTemplate person = (PersonTemplate) object;
             assertEquals(person.getId(), person1.getId());
             assertEquals(person.getFullName(), person1.getFullName());
             assertEquals(person.getOccupation(), person1.getOccupation());

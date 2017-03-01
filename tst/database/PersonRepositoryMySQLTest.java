@@ -10,8 +10,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -19,8 +17,6 @@ import static org.junit.Assert.assertTrue;
 public class PersonRepositoryMySQLTest {
 
     private final PersonRepository repository = new PersonRepositoryMySQL();
-
-    private List<PersonTemplate> people = new ArrayList<>();
 
     @Before
     public void setUp() {
@@ -63,16 +59,14 @@ public class PersonRepositoryMySQLTest {
 
     @Test
     public void newDatabaseShouldBeEmpty() {
-        people = repository.findAll();
-        assertEquals(0, people.size());
+        assertEquals(0, repository.findAll().size());
     }
 
     @Test
     public void newDatabaseShouldExceptPerson() {
         repository.addPerson("Full Name", "Occupation", 0, 0, false,
                 "Tax ID", "Male");
-        people = repository.findAll();
-        assertEquals(1, people.size());
+        assertEquals(1, repository.findAll().size());
     }
 
     @Test
@@ -81,9 +75,9 @@ public class PersonRepositoryMySQLTest {
                 "Tax ID", "Male");
         repository.updatePerson(1, "Update Name", "Update", 1, 1, true,
                 "Update ID", "Female");
-        people = repository.findAll();
-        assertEquals(1, people.size());
-        for (PersonTemplate person : people) {
+        assertEquals(1, repository.findAll().size());
+        for (Object object : repository.findAll()) {
+            PersonTemplate person = (PersonTemplate) object;
             assertEquals(1, person.getId());
             assertEquals("Update Name", person.getFullName());
             assertEquals("Update", person.getOccupation());
