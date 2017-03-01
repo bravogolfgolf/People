@@ -1,7 +1,6 @@
-package contoller;
+package contollerfactory;
 
-import contollerfactory.Controller;
-import contollerfactory.ControllerFactory;
+import contoller.*;
 import database.PersonRepositoryExportImport;
 import database.PersonRepositoryInMemory;
 import databasegateway.PersonRepository;
@@ -34,8 +33,8 @@ import static org.junit.Assert.assertTrue;
 
 public class ControllerFactoryTest {
 
-    private PersonRepository repository = new PersonRepositoryInMemory();
-    private PersonRepositoryExportImport exportImport = new PersonRepositoryExportImport(repository);
+    private final PersonRepository repository = new PersonRepositoryInMemory();
+    private final PersonRepositoryExportImport exportImport = new PersonRepositoryExportImport(repository);
     private final Map<String, Object[]> constructorObjects = new HashMap<String, Object[]>() {{
         put("RefreshUseCase", new Object[]{repository});
         put("AddPersonUseCase", new Object[]{repository});

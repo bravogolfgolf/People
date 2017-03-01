@@ -1,8 +1,5 @@
-package exportimport;
+package database;
 
-import database.Person;
-import database.PersonRepositoryExportImport;
-import database.PersonRepositoryInMemory;
 import databasegateway.PersonRepository;
 import org.junit.Test;
 
