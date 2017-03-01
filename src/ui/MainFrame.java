@@ -1,12 +1,10 @@
-package view;
+package ui;
 
 import com.apple.eawt.AppEvent;
 import com.apple.eawt.Application;
 import com.apple.eawt.FullScreenListener;
 import com.apple.eawt.FullScreenUtilities;
-import contoller.*;
-import requestor.RequestBuilder;
-import requestor.UseCaseFactory;
+import contollerfactory.ControllerFactory;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -27,9 +25,7 @@ public class MainFrame extends JFrame {
 
     private static final String ENTER_FULL_SCREEN = "Enter Full Screen";
     private static final String HIDE_FORM = "Hide Form";
-    private final RequestBuilder builder;
-    private final UseCaseFactory factory;
-    private final PersonTablePanelPresenter presenter;
+    private final ControllerFactory controllerFactory;
 
     //Menu Bar Components
     private JMenu fileMenu;
@@ -48,12 +44,8 @@ public class MainFrame extends JFrame {
     private Application application;
     private PreferenceDialog preferenceDialog;
 
-
-    public MainFrame(RequestBuilder builder, UseCaseFactory factory, PersonTablePanelPresenter presenter) {
-        super();
-        this.builder = builder;
-        this.factory = factory;
-        this.presenter = presenter;
+    public MainFrame(ControllerFactory controllerFactory) {
+        this.controllerFactory = controllerFactory;
     }
 
     public void initialize() {
@@ -66,7 +58,14 @@ public class MainFrame extends JFrame {
         //Application Specific
         setupMainFrame();
         createAndAddComponentsToMainFrame();
-        PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, presenter, personTablePanel).execute();
+
+        Object[] constructorArgs = new Object[3];
+        constructorArgs[0] = new HashMap<>();
+        constructorArgs[1] = new PersonTablePanelPresenter();
+        constructorArgs[2] = personTablePanel;
+
+        PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("RefreshController", constructorArgs).execute();
+//        PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, presenter, personTablePanel).execute();
         personTablePanel.updateModel(records);
         setMainFrameVisible();
     }
@@ -172,9 +171,13 @@ public class MainFrame extends JFrame {
     }
 
     private void tryExport(Map<Integer, Object> args) {
+        Object[] constructorArgs = new Object[3];
+        constructorArgs[0] = args;
+        constructorArgs[1] = new PersonTablePanelPresenter();
+        constructorArgs[2] = personTablePanel;
         try {
-            new ExportController(builder, args, factory, presenter, personTablePanel).execute();
-
+            controllerFactory.make("ExportController", constructorArgs).execute();
+            //            new ExportController(builder, args, factory, presenter, personTablePanel).execute();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(MainFrame.this, "Could not Export file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -186,7 +189,13 @@ public class MainFrame extends JFrame {
                 Map<Integer, Object> args = new HashMap<>();
                 args.put(0, fileChooser.getSelectedFile());
                 tryImport(args);
-                PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, presenter, personTablePanel).execute();
+
+                Object[] constructorArgs = new Object[3];
+                constructorArgs[0] = new HashMap<>();
+                constructorArgs[1] = new PersonTablePanelPresenter();
+                constructorArgs[2] = personTablePanel;
+                PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("RefreshController", constructorArgs).execute();
+                //                PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, presenter, personTablePanel).execute();
                 personTablePanel.updateModel(records);
             }
         });
@@ -194,8 +203,13 @@ public class MainFrame extends JFrame {
     }
 
     private void tryImport(Map<Integer, Object> args) {
+        Object[] constructorArgs = new Object[3];
+        constructorArgs[0] = args;
+        constructorArgs[1] = new PersonTablePanelPresenter();
+        constructorArgs[2] = personTablePanel;
         try {
-            new ImportController(builder, args, factory, presenter, personTablePanel).execute();
+            controllerFactory.make("ImportController", constructorArgs).execute();
+            //            new ImportController(builder, args, factory, presenter, personTablePanel).execute();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(MainFrame.this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -278,9 +292,19 @@ public class MainFrame extends JFrame {
             args.put(4, formEvent.uSCitizen);
             args.put(5, formEvent.taxId);
             args.put(6, formEvent.gender);
-            new AddPersonController(builder, args, factory, presenter, personTablePanel).execute();
 
-            PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, presenter, personTablePanel).execute();
+            Object[] constructorArgs = new Object[3];
+            constructorArgs[0] = args;
+            constructorArgs[1] = new PersonTablePanelPresenter();
+            constructorArgs[2] = personTablePanel;
+            controllerFactory.make("AddPersonController", constructorArgs).execute();
+            //            new AddPersonController(builder, args, factory, presenter, personTablePanel).execute();
+
+            constructorArgs[0] = new HashMap<>();
+            constructorArgs[1] = new PersonTablePanelPresenter();
+            constructorArgs[2] = personTablePanel;
+            PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("RefreshController", constructorArgs).execute();
+            //            PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, presenter, personTablePanel).execute();
             personTablePanel.updateModel(records);
         });
         add(entryPanel, BorderLayout.LINE_START);
@@ -291,8 +315,19 @@ public class MainFrame extends JFrame {
         personTablePanel = new PersonTablePanel(id -> {
             Map<Integer, Object> args = new HashMap<>();
             args.put(0, id);
-            new DeletePersonController(builder, args, factory, presenter, personTablePanel).execute();
-            PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, presenter, personTablePanel).execute();
+
+            Object[] constructorArgs = new Object[3];
+            constructorArgs[0] = args;
+            constructorArgs[1] = new PersonTablePanelPresenter();
+            constructorArgs[2] = personTablePanel;
+            controllerFactory.make("DeletePersonController", constructorArgs).execute();
+            //            new DeletePersonController(builder, args, factory, presenter, personTablePanel).execute();
+
+            constructorArgs[0] = new HashMap<>();
+            constructorArgs[1] = new PersonTablePanelPresenter();
+            constructorArgs[2] = personTablePanel;
+            PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("RefreshController", constructorArgs).execute();
+            //            PersonTableModelRecord[] records = (PersonTableModelRecord[]) new RefreshController(builder, new HashMap<>(), factory, presenter, personTablePanel).execute();
             personTablePanel.updateModel(records);
         });
         add(personTablePanel, BorderLayout.CENTER);

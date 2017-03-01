@@ -1,8 +1,7 @@
-package view;
+package ui;
 
 import responder.Presenter;
 import responder.RefreshResponse;
-import responder.RefreshViewModel;
 
 public class PersonTablePanelPresenter implements Presenter {
 

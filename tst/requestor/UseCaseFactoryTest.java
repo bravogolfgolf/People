@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import responder.Presenter;
 import responder.RefreshResponse;
-import responder.RefreshViewModel;
+import ui.RefreshViewModel;
 import usecase.addperson.AddPersonUseCase;
 import usecase.deleteperson.DeletePersonUseCase;
 import usecase.exportfile.ExportUseCase;

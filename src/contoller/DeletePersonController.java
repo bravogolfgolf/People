@@ -6,7 +6,7 @@ import requestor.RequestBuilder;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.Presenter;
-import responder.View;
+import view.View;
 
 import java.util.ArrayList;
 import java.util.Map;

@@ -1,6 +1,6 @@
-package view;
+package ui;
 
-public class PersonTableModelRecord {
+public class RefreshViewModel {
     public int id;
     public String fullName;
     public String occupation;

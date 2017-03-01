@@ -1,4 +1,4 @@
-package view;
+package ui;
 
 import javax.swing.*;
 import javax.swing.text.AttributeSet;

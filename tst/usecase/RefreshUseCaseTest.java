@@ -7,7 +7,7 @@ import org.junit.Test;
 import requestor.Request;
 import responder.Presenter;
 import responder.RefreshResponse;
-import responder.RefreshViewModel;
+import ui.RefreshViewModel;
 import usecase.refresh.RefreshRequest;
 import usecase.refresh.RefreshUseCase;
 

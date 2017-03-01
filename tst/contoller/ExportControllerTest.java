@@ -10,8 +10,8 @@ import requestor.UseCase;
 import requestor.UseCaseFactory;
 import responder.Presenter;
 import responder.RefreshResponse;
-import responder.RefreshViewModel;
-import responder.View;
+import ui.RefreshViewModel;
+import view.View;
 import usecase.exportfile.ExportRequest;
 import usecase.exportfile.ExportUseCase;
 

@@ -1,8 +1,7 @@
-package view;
+package ui;
 
 import org.junit.Before;
 import org.junit.Test;
-import responder.RefreshViewModel;
 import usecase.refresh.RefreshUseCaseResponse;
 
 import static org.junit.Assert.assertEquals;

@@ -1,7 +1,6 @@
-package view;
+package ui;
 
-import responder.RefreshViewModel;
-import responder.View;
+import view.View;
 
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
@@ -56,10 +55,11 @@ public class PersonTablePanel extends JPanel implements View {
     }
 
     @Override
-    public PersonTableModelRecord[] generateView(RefreshViewModel[] records) {
-        PersonTableModelRecord[] model = new PersonTableModelRecord[records.length];
+    public PersonTableModelRecord[] generateView(Object object) {
+        RefreshViewModel[] refreshViewModels = (RefreshViewModel[]) object;
+        PersonTableModelRecord[] model = new PersonTableModelRecord[refreshViewModels.length];
         int i = 0;
-        for (RefreshViewModel record : records)
+        for (RefreshViewModel record : refreshViewModels)
             model[i++] = addRecord(record);
         return model;
     }
