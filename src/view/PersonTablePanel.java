@@ -1,7 +1,7 @@
 package view;
 
-import responder.View;
 import responder.RefreshViewModel;
+import responder.View;
 
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-class PersonTablePanel extends JPanel implements View {
+public class PersonTablePanel extends JPanel implements View {
 
     private final PersonTableModel personTableModel = new PersonTableModel();
     private final JTable tablePanel = new JTable(personTableModel);
@@ -19,7 +19,7 @@ class PersonTablePanel extends JPanel implements View {
     private final JMenuItem deleteRowMenuItem = new JMenuItem("Delete row");
     private final PersonTablePanelListener personTablePanelListener;
 
-    PersonTablePanel(PersonTablePanelListener personTablePanelListener) {
+    public PersonTablePanel(PersonTablePanelListener personTablePanelListener) {
         this.personTablePanelListener = personTablePanelListener;
         setLayout(new BorderLayout());
         createAndAddPopUp();

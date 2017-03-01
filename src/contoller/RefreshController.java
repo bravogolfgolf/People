@@ -1,16 +1,16 @@
 package contoller;
 
+import contollerfactory.Controller;
 import requestor.Request;
 import requestor.RequestBuilder;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
-import responder.Controller;
 import responder.Presenter;
 import responder.View;
 
 import java.util.Map;
 
-public class RefreshController implements Controller {
+public class RefreshController extends Controller {
     private final Request request;
     private final UseCase useCase;
     private final Presenter presenter;
@@ -18,7 +18,7 @@ public class RefreshController implements Controller {
 
     public RefreshController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
         this.request = request.make("RefreshRequest", args);
-        this.useCase = useCase.make("RefreshUseCase");
+        this.useCase = useCase.make("RefreshUseCase", presenter);
         this.presenter = presenter;
         this.view = view;
     }

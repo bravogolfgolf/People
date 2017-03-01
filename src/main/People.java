@@ -83,10 +83,10 @@ class People {
     }
 
     private static void setConstructorObjects() {
-        constructorObjects.put("RefreshUseCase", new Object[]{repository, presenter});
-        constructorObjects.put("AddPersonUseCase", new Object[]{repository, presenter});
-        constructorObjects.put("DeletePersonUseCase", new Object[]{repository, presenter});
-        constructorObjects.put("ExportUseCase", new Object[]{exportImport, presenter});
-        constructorObjects.put("ImportUseCase", new Object[]{exportImport, presenter});
+        constructorObjects.put("RefreshUseCase", new Object[]{repository});
+        constructorObjects.put("AddPersonUseCase", new Object[]{repository});
+        constructorObjects.put("DeletePersonUseCase", new Object[]{repository});
+        constructorObjects.put("ExportUseCase", new Object[]{exportImport});
+        constructorObjects.put("ImportUseCase", new Object[]{exportImport});
     }
 }

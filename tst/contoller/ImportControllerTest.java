@@ -1,5 +1,6 @@
 package contoller;
 
+import contollerfactory.Controller;
 import exportimportgateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,7 +8,6 @@ import requestor.Request;
 import requestor.RequestBuilder;
 import requestor.UseCase;
 import requestor.UseCaseFactory;
-import responder.Controller;
 import responder.Presenter;
 import responder.View;
 import usecase.importfile.ImportRequest;
@@ -53,7 +53,7 @@ public class ImportControllerTest {
         }
 
         @Override
-        public UseCase make(String useCase) {
+        public UseCase make(String useCase, Presenter presenter) {
             return new ImportUseCaseSpy(null, null);
         }
     }

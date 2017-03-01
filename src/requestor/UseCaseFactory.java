@@ -1,5 +1,7 @@
 package requestor;
 
+import responder.Presenter;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -16,9 +18,9 @@ public class UseCaseFactory {
         this.constructorObjects = constructorObjects;
     }
 
-    public UseCase make(String useCase) {
+    public UseCase make(String useCase, Presenter presenter) {
 
-        Class aClass = useCases.get(useCase);
+        Class<? extends UseCase> aClass = useCases.get(useCase);
 
         Constructor constructor = null;
         try {
@@ -27,13 +29,22 @@ public class UseCaseFactory {
             e.printStackTrace();
         }
 
-        UseCase newClass = null;
+
+        Object[] objects = new Object[constructorObjects.get(useCase).length + 1];
+        int i = 0;
+        for (Object object : constructorObjects.get(useCase)) {
+            objects[i++] = object;
+        }
+        objects[i] = presenter;
+
+        Object newClass = null;
         try {
-            newClass = (UseCase) constructor.newInstance(constructorObjects.get(useCase));
+            assert constructor != null;
+            newClass = constructor.newInstance(objects);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
 
-        return newClass;
+        return (UseCase) newClass;
     }
 }

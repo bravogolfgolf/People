@@ -50,11 +50,11 @@ public class UseCaseFactoryTest {
         registerUseCasePrimaryConstructorParameter();
         registerUseCasePrimaryConstructorObject();
 
-        assertTrue(factory.make("RefreshUseCase") instanceof RefreshUseCase);
-        assertTrue(factory.make("AddPersonUseCase") instanceof AddPersonUseCase);
-        assertTrue(factory.make("DeletePersonUseCase") instanceof DeletePersonUseCase);
-        assertTrue(factory.make("ExportUseCase") instanceof ExportUseCase);
-        assertTrue(factory.make("ImportUseCase") instanceof ImportUseCase);
+        assertTrue(factory.make("RefreshUseCase", presenter) instanceof RefreshUseCase);
+        assertTrue(factory.make("AddPersonUseCase", presenter) instanceof AddPersonUseCase);
+        assertTrue(factory.make("DeletePersonUseCase", presenter) instanceof DeletePersonUseCase);
+        assertTrue(factory.make("ExportUseCase", presenter) instanceof ExportUseCase);
+        assertTrue(factory.make("ImportUseCase", presenter) instanceof ImportUseCase);
     }
 
     private void setUseCases() {
@@ -74,10 +74,10 @@ public class UseCaseFactoryTest {
     }
 
     private void registerUseCasePrimaryConstructorObject() {
-        constructorObjects.put("RefreshUseCase", new Object[]{repository, presenter});
-        constructorObjects.put("AddPersonUseCase", new Object[]{repository, presenter});
-        constructorObjects.put("DeletePersonUseCase", new Object[]{repository, presenter});
-        constructorObjects.put("ExportUseCase", new Object[]{exportImport, presenter});
-        constructorObjects.put("ImportUseCase", new Object[]{exportImport, presenter});
+        constructorObjects.put("RefreshUseCase", new Object[]{repository});
+        constructorObjects.put("AddPersonUseCase", new Object[]{repository});
+        constructorObjects.put("DeletePersonUseCase", new Object[]{repository});
+        constructorObjects.put("ExportUseCase", new Object[]{exportImport});
+        constructorObjects.put("ImportUseCase", new Object[]{exportImport});
     }
 }
