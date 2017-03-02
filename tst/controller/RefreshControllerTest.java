@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 public class RefreshControllerTest {
 
-    private final Map<String, Class<?>> requests = new HashMap<String, Class<?>>() {{
+    private final Map<String, Class> requests = new HashMap<String, Class>() {{
         put("Refresh", RefreshRequest.class);
     }};
     private final RequestBuilder requestBuilder = new RequestBuilder(requests);
@@ -50,7 +50,7 @@ public class RefreshControllerTest {
 
     private class UseCaseFactoryDummy extends UseCaseFactory {
 
-        UseCaseFactoryDummy(Map<String, Class<?>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object[]> constructorObjects) {
+        UseCaseFactoryDummy(Map<String, Class> useCases, Map<String, Class[]> constructorClasses, Map<String, Object[]> constructorObjects) {
             super(useCases, constructorClasses, constructorObjects);
         }
 

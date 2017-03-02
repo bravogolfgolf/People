@@ -22,7 +22,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 public class ExportControllerTest {
-    private final Map<String, Class<?>> requests = new HashMap<String, Class<?>>() {{
+    private final Map<String, Class> requests = new HashMap<String, Class>() {{
         put("Export", ExportRequest.class);
     }};
     private final RequestBuilder builder = new RequestBuilder(requests);
@@ -58,7 +58,7 @@ public class ExportControllerTest {
     }
 
     private class UseCaseFactoryDummy extends UseCaseFactory {
-        UseCaseFactoryDummy(Map<String, Class<?>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object[]> constructorObjects) {
+        UseCaseFactoryDummy(Map<String, Class> useCases, Map<String, Class[]> constructorClasses, Map<String, Object[]> constructorObjects) {
             super(useCases, constructorClasses, constructorObjects);
         }
 

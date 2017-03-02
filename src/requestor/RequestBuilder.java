@@ -5,9 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class RequestBuilder {
-    private final Map<String, Class<?>> requests;
+    private final Map<String, Class> requests;
 
-    public RequestBuilder(Map<String, Class<?>> requests) {
+    public RequestBuilder(Map<String, Class> requests) {
         this.requests = requests;
     }
 

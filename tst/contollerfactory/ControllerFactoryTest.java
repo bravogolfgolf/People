@@ -30,14 +30,14 @@ public class ControllerFactoryTest {
         put("Export", new Object[]{exportImport});
         put("Import", new Object[]{exportImport});
     }};
-    private final Map<String, Class<?>> useCases = new HashMap<String, Class<?>>() {{
+    private final Map<String, Class> useCases = new HashMap<String, Class>() {{
         put("Refresh", RefreshUseCase.class);
         put("AddPerson", AddPersonUseCase.class);
         put("DeletePerson", DeletePersonUseCase.class);
         put("Export", ExportUseCase.class);
         put("Import", ImportUseCase.class);
     }};
-    private final Map<String, Class<?>[]> useCaseConstructorClasses = new HashMap<String, Class<?>[]>() {{
+    private final Map<String, Class[]> useCaseConstructorClasses = new HashMap<String, Class[]>() {{
         put("Refresh", new Class[]{PersonRepository.class, Presenter.class});
         put("AddPerson", new Class[]{PersonRepository.class, Presenter.class});
         put("DeletePerson", new Class[]{PersonRepository.class, Presenter.class});
@@ -45,7 +45,7 @@ public class ControllerFactoryTest {
         put("Import", new Class[]{ExportImport.class, Presenter.class});
     }};
     private final UseCaseFactory useCaseFactory = new UseCaseFactory(useCases, useCaseConstructorClasses, constructorObjects);
-    private final Map<String, Class<?>> requests = new HashMap<String, Class<?>>() {{
+    private final Map<String, Class> requests = new HashMap<String, Class>() {{
         put("Refresh", RefreshRequest.class);
         put("AddPerson", AddPersonRequest.class);
         put("DeletePerson", DeletePersonRequest.class);
@@ -53,14 +53,14 @@ public class ControllerFactoryTest {
         put("Import", ImportRequest.class);
     }};
     private final RequestBuilder requestBuilder = new RequestBuilder(requests);
-    private final Map<String, Class<?>> controllers = new HashMap<String, Class<?>>() {{
+    private final Map<String, Class> controllers = new HashMap<String, Class>() {{
         put("Refresh", RefreshController.class);
         put("AddPerson", AddPersonController.class);
         put("DeletePerson", DeletePersonController.class);
         put("Export", ExportController.class);
         put("Import", ImportController.class);
     }};
-    private final Map<String, Class<?>[]> constructorClasses = new HashMap<String, Class<?>[]>() {{
+    private final Map<String, Class[]> constructorClasses = new HashMap<String, Class[]>() {{
         put("Refresh", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, Presenter.class, View.class});
         put("AddPerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, Presenter.class, View.class});
         put("DeletePerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, Presenter.class, View.class});

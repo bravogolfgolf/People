@@ -10,17 +10,18 @@ import requestor.UseCaseFactory;
 import ui.MainFrame;
 
 import javax.swing.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 class People {
-    private static final Map<String, Class<?>> controllers = new HashMap<>();
-    private static final Map<String, Class<?>[]> controllerConstructorClasses = new HashMap<>();
-    private static final Map<String, Class<?>> requests = new HashMap<>();
-    private static final Map<String, Class<?>> useCases = new HashMap<>();
-    private static final Map<String, Class<?>[]> useCaseConstructorClasses = new HashMap<>();
+    private static final Map<String, Class> controllers = new HashMap<>();
+    private static final Map<String, Class[]> controllerConstructorClasses = new HashMap<>();
+    private static final Map<String, Class> requests = new HashMap<>();
+    private static final Map<String, Class> useCases = new HashMap<>();
+    private static final Map<String, Class[]> useCaseConstructorClasses = new HashMap<>();
     private static final Map<String, Object[]> useCaseConstructorObjects = new HashMap<>();
     private static final List<String[]> registry = new ArrayList<String[]>() {{
         add(new String[]{"Refresh", "controller.RefreshController", "responder.Presenter", "view.View", "usecase.RefreshRequest", "usecase.RefreshUseCase", "databasegateway.PersonRepository"});
@@ -34,6 +35,21 @@ class People {
     public static void main(String[] args) {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
         SwingUtilities.invokeLater(() -> {
+
+            Class<?> repositoryClass = null;
+            try {
+                repositoryClass = Class.forName("database.PersonRepositoryMySQL");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            Object repositoryObject = null;
+            try {
+                assert repositoryClass != null;
+                repositoryObject = repositoryClass.getConstructor().newInstance();
+            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
 
             PersonRepository repository = new PersonRepositoryMySQL();
             PersonRepositoryExportImport exportImport = new PersonRepositoryExportImport(repository);

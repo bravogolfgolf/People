@@ -8,11 +8,11 @@ import java.util.Map;
 
 public class UseCaseFactory {
 
-    private final Map<String, Class<?>> useCases;
-    private final Map<String, Class<?>[]> constructorClasses;
+    private final Map<String, Class> useCases;
+    private final Map<String, Class[]> constructorClasses;
     private final Map<String, Object[]> constructorObjects;
 
-    public UseCaseFactory(Map<String, Class<?>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object[]> constructorObjects) {
+    public UseCaseFactory(Map<String, Class> useCases, Map<String, Class[]> constructorClasses, Map<String, Object[]> constructorObjects) {
         this.useCases = useCases;
         this.constructorClasses = constructorClasses;
         this.constructorObjects = constructorObjects;

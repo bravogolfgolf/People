@@ -30,8 +30,8 @@ public class UseCaseFactoryTest {
         }
     };
     private UseCaseFactory factory;
-    private final Map<String, Class<?>> useCases = new HashMap<>();
-    private final Map<String, Class<?>[]> constructorClasses = new HashMap<>();
+    private final Map<String, Class> useCases = new HashMap<>();
+    private final Map<String, Class[]> constructorClasses = new HashMap<>();
     private final Map<String, Object[]> constructorObjects = new HashMap<>();
 
 

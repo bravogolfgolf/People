@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class RequestBuilderTest {
-    private final Map<String, Class<?>> requests = new HashMap<>();
+    private final Map<String, Class> requests = new HashMap<>();
     private final RequestBuilder builder = new RequestBuilder(requests);
     private final HashMap<Integer, Object> args = new HashMap<>();
 
