@@ -19,7 +19,7 @@ import java.util.prefs.Preferences;
 import static java.awt.event.KeyEvent.VK_F;
 import static java.awt.event.KeyEvent.VK_M;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements Runnable {
     private static final String PERSON_DATABASE_FILE_EXTENSION = "per";
     private static final String PERSON_DATABASE_FILE_EXTENSION_DESC = "Person database files (*.per)";
 
@@ -48,7 +48,8 @@ public class MainFrame extends JFrame {
         this.controllerFactory = controllerFactory;
     }
 
-    public void initialize() {
+    @Override
+    public void run() {
 
         // MacOS Specific
         application = Application.getApplication();
