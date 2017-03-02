@@ -1,4 +1,4 @@
-package contoller;
+package controller;
 
 import contollerfactory.Controller;
 import requestor.Request;
@@ -17,8 +17,8 @@ public class ImportController extends Controller {
     private final View view;
 
     public ImportController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
-        this.request = request.make("ImportRequest", args);
-        this.useCase = useCase.make("ImportUseCase", presenter);
+        this.request = request.make("Import", args);
+        this.useCase = useCase.make("Import", presenter);
         this.presenter = presenter;
         this.view = view;
     }

@@ -8,11 +8,11 @@ import java.util.Map;
 
 public class UseCaseFactory {
 
-    private final Map<String, Class<? extends UseCase>> useCases;
+    private final Map<String, Class<?>> useCases;
     private final Map<String, Class<?>[]> constructorClasses;
     private final Map<String, Object[]> constructorObjects;
 
-    public UseCaseFactory(Map<String, Class<? extends UseCase>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object[]> constructorObjects) {
+    public UseCaseFactory(Map<String, Class<?>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object[]> constructorObjects) {
         this.useCases = useCases;
         this.constructorClasses = constructorClasses;
         this.constructorObjects = constructorObjects;
@@ -20,7 +20,7 @@ public class UseCaseFactory {
 
     public UseCase make(String useCase, Presenter presenter) {
 
-        Class<? extends UseCase> aClass = useCases.get(useCase);
+        Class<?> aClass = useCases.get(useCase);
 
         Constructor constructor = null;
         try {

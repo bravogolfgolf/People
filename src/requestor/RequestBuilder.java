@@ -5,14 +5,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class RequestBuilder {
-    private final Map<String, Class<? extends Request>> requests;
+    private final Map<String, Class<?>> requests;
 
-    public RequestBuilder(Map<String, Class<? extends Request>> requests) {
+    public RequestBuilder(Map<String, Class<?>> requests) {
         this.requests = requests;
     }
 
     public Request make(String request, Map<Integer, Object> args) {
-        Class<? extends Request> aClass = requests.get(request);
+        Class<?> aClass = requests.get(request);
         Field[] fields = aClass.getFields();
         Object object = null;
 

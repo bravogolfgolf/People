@@ -12,22 +12,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class RequestBuilderTest {
-    private final Map<String, Class<? extends Request>> requests = new HashMap<>();
+    private final Map<String, Class<?>> requests = new HashMap<>();
     private final RequestBuilder builder = new RequestBuilder(requests);
     private final HashMap<Integer, Object> args = new HashMap<>();
 
     @Before
     public void setUp() {
-        requests.put("RefreshRequest", RefreshRequest.class);
-        requests.put("AddPersonRequest", AddPersonRequest.class);
-        requests.put("DeletePersonRequest", DeletePersonRequest.class);
-        requests.put("ExportRequest", ExportRequest.class);
-        requests.put("ImportRequest", ImportRequest.class);
+        requests.put("Refresh", RefreshRequest.class);
+        requests.put("AddPerson", AddPersonRequest.class);
+        requests.put("DeletePerson", DeletePersonRequest.class);
+        requests.put("Export", ExportRequest.class);
+        requests.put("Import", ImportRequest.class);
     }
 
     @Test
     public void makeMethodShouldReturnRefreshRequest() {
-        RefreshRequest request = (RefreshRequest) builder.make("RefreshRequest", args);
+        RefreshRequest request = (RefreshRequest) builder.make("Refresh", args);
         assertTrue(request != null);
     }
 
@@ -41,7 +41,7 @@ public class RequestBuilderTest {
         args.put(5, "Tax ID");
         args.put(6, "Gender");
 
-        AddPersonRequest request = (AddPersonRequest) builder.make("AddPersonRequest", args);
+        AddPersonRequest request = (AddPersonRequest) builder.make("AddPerson", args);
         assertEquals(args.get(0), request.fullName);
         assertEquals(args.get(1), request.occupation);
         assertEquals(args.get(2), request.ageCategory);
@@ -55,7 +55,7 @@ public class RequestBuilderTest {
     public void makeMethodShouldReturnDeletePersonRequest() {
         int idToBeDeleted = 1;
         args.put(0, idToBeDeleted);
-        DeletePersonRequest request = (DeletePersonRequest) builder.make("DeletePersonRequest", args);
+        DeletePersonRequest request = (DeletePersonRequest) builder.make("DeletePerson", args);
         assertEquals(idToBeDeleted, request.id);
     }
 
@@ -63,7 +63,7 @@ public class RequestBuilderTest {
     public void makeMethodShouldReturnExportRequest() {
         File file = new File("Export.per");
         args.put(0, file);
-        ExportRequest request = (ExportRequest) builder.make("ExportRequest", args);
+        ExportRequest request = (ExportRequest) builder.make("Export", args);
         assertEquals(file, request.file);
     }
 
@@ -71,7 +71,7 @@ public class RequestBuilderTest {
     public void makeMethodShouldReturnImportRequest() {
         File file = new File("Import.per");
         args.put(0, file);
-        ImportRequest request = (ImportRequest) builder.make("ImportRequest", args);
+        ImportRequest request = (ImportRequest) builder.make("Import", args);
         assertEquals(file, request.file);
     }
 }

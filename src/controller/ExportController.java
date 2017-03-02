@@ -1,4 +1,4 @@
-package contoller;
+package controller;
 
 import contollerfactory.Controller;
 import requestor.Request;
@@ -10,15 +10,15 @@ import view.View;
 
 import java.util.Map;
 
-public class RefreshController extends Controller {
+public class ExportController extends Controller {
     private final Request request;
     private final UseCase useCase;
     private final Presenter presenter;
     private final View view;
 
-    public RefreshController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
-        this.request = request.make("RefreshRequest", args);
-        this.useCase = useCase.make("RefreshUseCase", presenter);
+    public ExportController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
+        this.request = request.make("Export", args);
+        this.useCase = useCase.make("Export", presenter);
         this.presenter = presenter;
         this.view = view;
     }
@@ -26,6 +26,6 @@ public class RefreshController extends Controller {
     @Override
     public Object execute() {
         useCase.execute(request);
-        return (view != null && presenter != null) ? view.generateView(presenter.getViewModel()) : null;
+        return 1;
     }
 }

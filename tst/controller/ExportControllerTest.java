@@ -1,4 +1,4 @@
-package contoller;
+package controller;
 
 import contollerfactory.Controller;
 import exportimportgateway.ExportImport;
@@ -22,8 +22,8 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 public class ExportControllerTest {
-    private final Map<String, Class<? extends Request>> requests = new HashMap<String, Class<? extends Request>>() {{
-        put("ExportRequest", ExportRequest.class);
+    private final Map<String, Class<?>> requests = new HashMap<String, Class<?>>() {{
+        put("Export", ExportRequest.class);
     }};
     private final RequestBuilder builder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
@@ -58,7 +58,7 @@ public class ExportControllerTest {
     }
 
     private class UseCaseFactoryDummy extends UseCaseFactory {
-        UseCaseFactoryDummy(Map<String, Class<? extends UseCase>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object[]> constructorObjects) {
+        UseCaseFactoryDummy(Map<String, Class<?>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object[]> constructorObjects) {
             super(useCases, constructorClasses, constructorObjects);
         }
 

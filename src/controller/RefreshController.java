@@ -1,4 +1,4 @@
-package contoller;
+package controller;
 
 import contollerfactory.Controller;
 import requestor.Request;
@@ -8,18 +8,17 @@ import requestor.UseCaseFactory;
 import responder.Presenter;
 import view.View;
 
-import java.util.ArrayList;
 import java.util.Map;
 
-public class DeletePersonController extends Controller {
+public class RefreshController extends Controller {
     private final Request request;
     private final UseCase useCase;
     private final Presenter presenter;
     private final View view;
 
-    public DeletePersonController(RequestBuilder builder, Map<Integer, Object> args, UseCaseFactory factory, Presenter presenter, View view) {
-        this.request = builder.make("DeletePersonRequest", args);
-        this.useCase = factory.make("DeletePersonUseCase", presenter);
+    public RefreshController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
+        this.request = request.make("Refresh", args);
+        this.useCase = useCase.make("Refresh", presenter);
         this.presenter = presenter;
         this.view = view;
     }
@@ -27,6 +26,6 @@ public class DeletePersonController extends Controller {
     @Override
     public Object execute() {
         useCase.execute(request);
-        return new ArrayList<>();
+        return (view != null && presenter != null) ? view.generateView(presenter.getViewModel()) : null;
     }
 }

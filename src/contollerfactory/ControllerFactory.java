@@ -11,10 +11,10 @@ public class ControllerFactory {
 
     private final RequestBuilder builder;
     private final UseCaseFactory factory;
-    private final Map<String, Class<? extends Controller>> controllers;
+    private final Map<String, Class<?>> controllers;
     private final Map<String, Class<?>[]> constructorClasses;
 
-    public ControllerFactory(RequestBuilder builder, UseCaseFactory factory, Map<String, Class<? extends Controller>> controllers, Map<String, Class<?>[]> constructorClasses) {
+    public ControllerFactory(RequestBuilder builder, UseCaseFactory factory, Map<String, Class<?>> controllers, Map<String, Class<?>[]> constructorClasses) {
         this.builder = builder;
         this.factory = factory;
         this.controllers = controllers;
@@ -22,7 +22,7 @@ public class ControllerFactory {
     }
 
     public Controller make(String controller, Object[] constructorArgs) {
-        Class<? extends Controller> aClass = controllers.get(controller);
+        Class<?> aClass = controllers.get(controller);
 
         Constructor constructor = null;
         try {

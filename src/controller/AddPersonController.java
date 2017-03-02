@@ -1,4 +1,4 @@
-package contoller;
+package controller;
 
 import contollerfactory.Controller;
 import requestor.Request;
@@ -10,15 +10,15 @@ import view.View;
 
 import java.util.Map;
 
-public class ExportController extends Controller {
+public class AddPersonController extends Controller {
     private final Request request;
     private final UseCase useCase;
     private final Presenter presenter;
     private final View view;
 
-    public ExportController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
-        this.request = request.make("ExportRequest", args);
-        this.useCase = useCase.make("ExportUseCase", presenter);
+    public AddPersonController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
+        this.request = request.make("AddPerson", args);
+        this.useCase = useCase.make("AddPerson", presenter);
         this.presenter = presenter;
         this.view = view;
     }
@@ -26,6 +26,6 @@ public class ExportController extends Controller {
     @Override
     public Object execute() {
         useCase.execute(request);
-        return 1;
+        return "AddPersonUseCase";
     }
 }

@@ -1,45 +1,48 @@
 package main;
 
-import contoller.*;
-import contollerfactory.Controller;
 import contollerfactory.ControllerFactory;
 import database.PersonRepositoryExportImport;
 import database.PersonRepositoryMySQL;
 import databasegateway.PersonRepository;
 import exportimportgateway.ExportImport;
-import requestor.Request;
 import requestor.RequestBuilder;
-import requestor.UseCase;
 import requestor.UseCaseFactory;
-import responder.Presenter;
 import ui.MainFrame;
-import usecase.*;
-import view.View;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 class People {
-    private static final Map<String, Class<? extends Controller>> controllers = new HashMap<>();
+    private static final Map<String, Class<?>> controllers = new HashMap<>();
     private static final Map<String, Class<?>[]> controllerConstructorClasses = new HashMap<>();
-
-    private static final Map<String, Class<? extends Request>> requests = new HashMap<>();
-
-    private static final Map<String, Class<? extends UseCase>> useCases = new HashMap<>();
+    private static final Map<String, Class<?>> requests = new HashMap<>();
+    private static final Map<String, Class<?>> useCases = new HashMap<>();
     private static final Map<String, Class<?>[]> useCaseConstructorClasses = new HashMap<>();
     private static final Map<String, Object[]> useCaseConstructorObjects = new HashMap<>();
-
-    private static PersonRepository repository;
-    private static PersonRepositoryExportImport exportImport;
+    private static final List<String[]> registry = new ArrayList<String[]>() {{
+        add(new String[]{"Refresh", "controller.RefreshController", "responder.Presenter", "view.View", "usecase.RefreshRequest", "usecase.RefreshUseCase", "databasegateway.PersonRepository"});
+        add(new String[]{"AddPerson", "controller.AddPersonController", "responder.Presenter", "view.View", "usecase.AddPersonRequest", "usecase.AddPersonUseCase", "databasegateway.PersonRepository"});
+        add(new String[]{"DeletePerson", "controller.DeletePersonController", "responder.Presenter", "view.View", "usecase.DeletePersonRequest", "usecase.DeletePersonUseCase", "databasegateway.PersonRepository"});
+        add(new String[]{"Export", "controller.ExportController", "responder.Presenter", "view.View", "usecase.ExportRequest", "usecase.ExportUseCase", "exportimportgateway.ExportImport"});
+        add(new String[]{"Import", "controller.ImportController", "responder.Presenter", "view.View", "usecase.ImportRequest", "usecase.ImportUseCase", "exportimportgateway.ExportImport"});
+    }};
+    private static final Map<Class, Object> gateways = new HashMap<>();
 
     public static void main(String[] args) {
         System.setProperty("apple.laf.useScreenMenuBar", "true");
         SwingUtilities.invokeLater(() -> {
-            repository = new PersonRepositoryMySQL();
-            exportImport = new PersonRepositoryExportImport(repository);
 
-            registration();
+            PersonRepository repository = new PersonRepositoryMySQL();
+            PersonRepositoryExportImport exportImport = new PersonRepositoryExportImport(repository);
+            gateways.put(PersonRepository.class, repository);
+            gateways.put(ExportImport.class, exportImport);
+
+            for (String[] entry : registry)
+                register(entry);
+
             RequestBuilder requestBuilder = new RequestBuilder(requests);
             UseCaseFactory useCaseFactory = new UseCaseFactory(useCases, useCaseConstructorClasses, useCaseConstructorObjects);
             ControllerFactory controllerFactory = new ControllerFactory(requestBuilder, useCaseFactory, controllers, controllerConstructorClasses);
@@ -49,58 +52,57 @@ class People {
         });
     }
 
-    private static void registration() {
-        refreshRegistration();
-        addPersonRegistration();
-        deletePersonRegistration();
-        exportRegistration();
-        importRegistration();
-    }
+    private static void register(String[] entry) {
 
-    private static void refreshRegistration() {
-        controllers.put("RefreshController", RefreshController.class);
-        controllerConstructorClasses.put("RefreshController", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, Presenter.class, View.class});
-        requests.put("RefreshRequest", RefreshRequest.class);
-        useCases.put("RefreshUseCase", RefreshUseCase.class);
-        useCaseConstructorClasses.put("RefreshUseCase", new Class[]{PersonRepository.class, Presenter.class});
-        useCaseConstructorObjects.put("RefreshUseCase", new Object[]{repository});
+        String key = entry[0];
 
-    }
+        Class controllerClass = null;
+        try {
+            controllerClass = Class.forName(entry[1]);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
-    private static void addPersonRegistration() {
-        controllers.put("AddPersonController", AddPersonController.class);
-        controllerConstructorClasses.put("AddPersonController", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, Presenter.class, View.class});
-        requests.put("AddPersonRequest", AddPersonRequest.class);
-        useCases.put("AddPersonUseCase", AddPersonUseCase.class);
-        useCaseConstructorClasses.put("AddPersonUseCase", new Class[]{PersonRepository.class, Presenter.class});
-        useCaseConstructorObjects.put("AddPersonUseCase", new Object[]{repository});
-    }
+        Class presenterClass = null;
+        try {
+            presenterClass = Class.forName(entry[2]);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
-    private static void deletePersonRegistration() {
-        controllers.put("DeletePersonController", DeletePersonController.class);
-        controllerConstructorClasses.put("DeletePersonController", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, Presenter.class, View.class});
-        requests.put("DeletePersonRequest", DeletePersonRequest.class);
-        useCases.put("DeletePersonUseCase", DeletePersonUseCase.class);
-        useCaseConstructorClasses.put("DeletePersonUseCase", new Class[]{PersonRepository.class, Presenter.class});
-        useCaseConstructorObjects.put("DeletePersonUseCase", new Object[]{repository});
+        Class viewClass = null;
+        try {
+            viewClass = Class.forName(entry[3]);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
-    }
+        Class requestClass = null;
+        try {
+            requestClass = Class.forName(entry[4]);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
-    private static void exportRegistration() {
-        controllers.put("ExportController", ExportController.class);
-        controllerConstructorClasses.put("ExportController", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, Presenter.class, View.class});
-        requests.put("ExportRequest", ExportRequest.class);
-        useCases.put("ExportUseCase", ExportUseCase.class);
-        useCaseConstructorClasses.put("ExportUseCase", new Class[]{ExportImport.class, Presenter.class});
-        useCaseConstructorObjects.put("ExportUseCase", new Object[]{exportImport});
-    }
+        Class useCaseClass = null;
+        try {
+            useCaseClass = Class.forName(entry[5]);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
-    private static void importRegistration() {
-        controllers.put("ImportController", ImportController.class);
-        controllerConstructorClasses.put("ImportController", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, Presenter.class, View.class});
-        requests.put("ImportRequest", ImportRequest.class);
-        useCases.put("ImportUseCase", ImportUseCase.class);
-        useCaseConstructorClasses.put("ImportUseCase", new Class[]{ExportImport.class, Presenter.class});
-        useCaseConstructorObjects.put("ImportUseCase", new Object[]{exportImport});
+        Class gatewayClass = null;
+        try {
+            gatewayClass = Class.forName(entry[6]);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        controllers.put(key, controllerClass);
+        controllerConstructorClasses.put(key, new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, presenterClass, viewClass});
+        requests.put(key, requestClass);
+        useCases.put(key, useCaseClass);
+        useCaseConstructorClasses.put(key, new Class[]{gatewayClass, presenterClass});
+        useCaseConstructorObjects.put(key, new Object[]{gateways.get(gatewayClass)});
     }
 }

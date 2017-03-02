@@ -1,4 +1,4 @@
-package contoller;
+package controller;
 
 import contollerfactory.Controller;
 import database.PersonRepositoryInMemory;
@@ -22,8 +22,8 @@ import static org.junit.Assert.assertTrue;
 
 public class RefreshControllerTest {
 
-    private final Map<String, Class<? extends Request>> requests = new HashMap<String, Class<? extends Request>>() {{
-        put("RefreshRequest", RefreshRequest.class);
+    private final Map<String, Class<?>> requests = new HashMap<String, Class<?>>() {{
+        put("Refresh", RefreshRequest.class);
     }};
     private final RequestBuilder requestBuilder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
@@ -50,7 +50,7 @@ public class RefreshControllerTest {
 
     private class UseCaseFactoryDummy extends UseCaseFactory {
 
-        UseCaseFactoryDummy(Map<String, Class<? extends UseCase>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object[]> constructorObjects) {
+        UseCaseFactoryDummy(Map<String, Class<?>> useCases, Map<String, Class<?>[]> constructorClasses, Map<String, Object[]> constructorObjects) {
             super(useCases, constructorClasses, constructorObjects);
         }
 
