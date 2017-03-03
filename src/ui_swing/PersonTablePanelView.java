@@ -1,4 +1,4 @@
-package ui;
+package ui_swing;
 
 import response.View;
 

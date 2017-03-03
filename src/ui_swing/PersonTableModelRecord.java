@@ -1,4 +1,4 @@
-package ui;
+package ui_swing;
 
 public class PersonTableModelRecord {
     public int id;

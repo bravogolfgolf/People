@@ -1,4 +1,4 @@
-package ui;
+package ui_swing;
 
 public class RefreshViewModel {
     public int id;

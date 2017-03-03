@@ -1,4 +1,4 @@
-package ui;
+package ui_swing;
 
 import com.apple.eawt.AppEvent;
 import com.apple.eawt.Application;

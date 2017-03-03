@@ -1,4 +1,4 @@
-package ui;
+package ui_swing;
 
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;

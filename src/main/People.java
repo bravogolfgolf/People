@@ -119,7 +119,7 @@ class People {
     }
 
     private static void runApplication() {
-        Class<?> applicationClass = tryGetClass("ui.MainFrame");
+        Class<?> applicationClass = tryGetClass("ui_swing.MainFrame");
         Constructor constructor = tryGetConstructor(applicationClass, new Class[]{ControllerFactory.class});
         Runnable applicationObject = (Runnable) getObject(controllerFactory, constructor);
         applicationObject.run();

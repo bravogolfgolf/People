@@ -7,7 +7,7 @@ import org.junit.Test;
 import builderfactory.Request;
 import response.Presenter;
 import response.RefreshResponse;
-import ui.RefreshViewModel;
+import ui_swing.RefreshViewModel;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

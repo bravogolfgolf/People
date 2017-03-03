@@ -10,7 +10,7 @@ import builderfactory.UseCase;
 import builderfactory.UseCaseFactory;
 import response.Presenter;
 import response.RefreshResponse;
-import ui.RefreshViewModel;
+import ui_swing.RefreshViewModel;
 import usecase.ExportRequest;
 import usecase.ExportUseCase;
 import response.View;
