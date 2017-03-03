@@ -1,9 +1,9 @@
 package usecase;
 
-import gateway.PersonRepository;
 import builderfactory.Request;
 import builderfactory.UseCase;
-import response.Presenter;
+import gateway.PersonRepository;
+import presenter.Presenter;
 
 public class AddPersonUseCase extends UseCase {
     private final PersonRepository repository;

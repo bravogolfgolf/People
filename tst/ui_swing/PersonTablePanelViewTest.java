@@ -2,7 +2,7 @@ package ui_swing;
 
 import org.junit.Before;
 import org.junit.Test;
-import response.View;
+import presenter.View;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

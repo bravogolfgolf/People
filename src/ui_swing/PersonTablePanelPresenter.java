@@ -1,7 +1,7 @@
 package ui_swing;
 
-import response.Presenter;
-import response.RefreshResponse;
+import presenter.Presenter;
+import presenter.RefreshResponse;
 
 public class PersonTablePanelPresenter implements Presenter {
 

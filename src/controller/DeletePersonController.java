@@ -1,12 +1,8 @@
 package controller;
 
-import builderfactory.Controller;
-import builderfactory.Request;
-import builderfactory.RequestBuilder;
-import builderfactory.UseCase;
-import builderfactory.UseCaseFactory;
-import response.Presenter;
-import response.View;
+import builderfactory.*;
+import presenter.Presenter;
+import presenter.View;
 
 import java.util.ArrayList;
 import java.util.Map;

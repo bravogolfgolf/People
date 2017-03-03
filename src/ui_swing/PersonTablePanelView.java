@@ -1,6 +1,6 @@
 package ui_swing;
 
-import response.View;
+import presenter.View;
 
 public class PersonTablePanelView implements View {
 

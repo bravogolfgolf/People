@@ -17,11 +17,11 @@ import java.util.Map;
 class People {
     private static final Map<Class, Object> gateways = new HashMap<>();
     private static final List<String[]> registry = new ArrayList<String[]>() {{
-        add(new String[]{"Refresh", "controller.RefreshController", "response.Presenter", "response.View", "usecase.RefreshRequest", "usecase.RefreshUseCase", "gateway.PersonRepository"});
-        add(new String[]{"AddPerson", "controller.AddPersonController", "response.Presenter", "response.View", "usecase.AddPersonRequest", "usecase.AddPersonUseCase", "gateway.PersonRepository"});
-        add(new String[]{"DeletePerson", "controller.DeletePersonController", "response.Presenter", "response.View", "usecase.DeletePersonRequest", "usecase.DeletePersonUseCase", "gateway.PersonRepository"});
-        add(new String[]{"Export", "controller.ExportController", "response.Presenter", "response.View", "usecase.ExportRequest", "usecase.ExportUseCase", "gateway.ExportImport"});
-        add(new String[]{"Import", "controller.ImportController", "response.Presenter", "response.View", "usecase.ImportRequest", "usecase.ImportUseCase", "gateway.ExportImport"});
+        add(new String[]{"Refresh", "controller.RefreshController", "presenter.Presenter", "presenter.View", "usecase.RefreshRequest", "usecase.RefreshUseCase", "gateway.PersonRepository"});
+        add(new String[]{"AddPerson", "controller.AddPersonController", "presenter.Presenter", "presenter.View", "usecase.AddPersonRequest", "usecase.AddPersonUseCase", "gateway.PersonRepository"});
+        add(new String[]{"DeletePerson", "controller.DeletePersonController", "presenter.Presenter", "presenter.View", "usecase.DeletePersonRequest", "usecase.DeletePersonUseCase", "gateway.PersonRepository"});
+        add(new String[]{"Export", "controller.ExportController", "presenter.Presenter", "presenter.View", "usecase.ExportRequest", "usecase.ExportUseCase", "gateway.ExportImport"});
+        add(new String[]{"Import", "controller.ImportController", "presenter.Presenter", "presenter.View", "usecase.ImportRequest", "usecase.ImportUseCase", "gateway.ExportImport"});
     }};
     private static final Map<String, Class> controllers = new HashMap<>();
     private static final Map<String, Class[]> controllerConstructorClasses = new HashMap<>();
