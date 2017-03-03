@@ -1,7 +1,5 @@
 package ui;
 
-import view.View;
-
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
@@ -10,7 +8,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonTablePanel extends JPanel implements View {
+class PersonTablePanel extends JPanel {
 
     private final PersonTableModel personTableModel = new PersonTableModel();
     private final JTable tablePanel = new JTable(personTableModel);
@@ -18,7 +16,7 @@ public class PersonTablePanel extends JPanel implements View {
     private final JMenuItem deleteRowMenuItem = new JMenuItem("Delete row");
     private final PersonTablePanelListener personTablePanelListener;
 
-    public PersonTablePanel(PersonTablePanelListener personTablePanelListener) {
+    PersonTablePanel(PersonTablePanelListener personTablePanelListener) {
         this.personTablePanelListener = personTablePanelListener;
         setLayout(new BorderLayout());
         createAndAddPopUp();
@@ -52,29 +50,6 @@ public class PersonTablePanel extends JPanel implements View {
         sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
         sorter.setSortKeys(sortKeys);
         add(new JScrollPane(tablePanel), BorderLayout.CENTER);
-    }
-
-    @Override
-    public PersonTableModelRecord[] generateView(Object object) {
-        RefreshViewModel[] refreshViewModels = (RefreshViewModel[]) object;
-        PersonTableModelRecord[] model = new PersonTableModelRecord[refreshViewModels.length];
-        int i = 0;
-        for (RefreshViewModel record : refreshViewModels)
-            model[i++] = addRecord(record);
-        return model;
-    }
-
-    private PersonTableModelRecord addRecord(RefreshViewModel pr) {
-        PersonTableModelRecord modelRecord = new PersonTableModelRecord();
-        modelRecord.id = pr.id;
-        modelRecord.fullName = pr.fullName;
-        modelRecord.occupation = pr.occupation;
-        modelRecord.ageCategory = pr.ageCategory;
-        modelRecord.employmentStatus = pr.employmentStatus;
-        modelRecord.uSCitizen = pr.uSCitizen;
-        modelRecord.taxId = pr.taxId;
-        modelRecord.gender = pr.gender;
-        return modelRecord;
     }
 
     void updateModel(PersonTableModelRecord[] records) {

@@ -5,10 +5,10 @@ import database.PersonRepositoryInMemory;
 import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
-import presenter.Presenter;
+import response.Presenter;
 import usecase.RefreshRequest;
 import usecase.RefreshUseCase;
-import view.View;
+import response.View;
 
 import java.util.HashMap;
 import java.util.Map;

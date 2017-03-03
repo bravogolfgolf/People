@@ -2,12 +2,12 @@ package ui;
 
 import org.junit.Before;
 import org.junit.Test;
-import view.View;
+import response.View;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class RefreshViewTest {
+public class PersonTablePanelViewTest {
     private RefreshViewModel[] viewModels = new RefreshViewModel[1];
 
     @Before
@@ -25,7 +25,7 @@ public class RefreshViewTest {
 
     @Test
     public void shouldFormatRefreshViewModelForUi() {
-        View refreshView = new RefreshView();
+        View refreshView = new PersonTablePanelView();
         PersonTableModelRecord[] records = (PersonTableModelRecord[]) refreshView.generateView(viewModels);
         assertEquals(1, records.length);
         for (PersonTableModelRecord record : records) {

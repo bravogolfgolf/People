@@ -4,10 +4,10 @@ import builderfactory.*;
 import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
-import presenter.Presenter;
+import response.Presenter;
 import usecase.AddPersonRequest;
 import usecase.AddPersonUseCase;
-import view.View;
+import response.View;
 
 import java.util.HashMap;
 import java.util.Map;

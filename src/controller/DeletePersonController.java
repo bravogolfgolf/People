@@ -5,8 +5,8 @@ import builderfactory.Request;
 import builderfactory.RequestBuilder;
 import builderfactory.UseCase;
 import builderfactory.UseCaseFactory;
-import presenter.Presenter;
-import view.View;
+import response.Presenter;
+import response.View;
 
 import java.util.ArrayList;
 import java.util.Map;

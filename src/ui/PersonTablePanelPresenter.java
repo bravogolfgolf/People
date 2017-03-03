@@ -1,9 +1,9 @@
 package ui;
 
-import presenter.Presenter;
-import presenter.RefreshResponse;
+import response.Presenter;
+import response.RefreshResponse;
 
-public class RefreshPresenter implements Presenter {
+public class PersonTablePanelPresenter implements Presenter {
 
     private RefreshViewModel[] viewModel;
 

@@ -5,8 +5,8 @@ import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
 import builderfactory.Request;
-import presenter.Presenter;
-import presenter.RefreshResponse;
+import response.Presenter;
+import response.RefreshResponse;
 import ui.RefreshViewModel;
 
 import static org.junit.Assert.assertEquals;

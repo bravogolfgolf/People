@@ -63,8 +63,8 @@ public class MainFrame extends JFrame implements Runnable {
 
         Object[] constructorArgs = new Object[3];
         constructorArgs[0] = new HashMap<>();
-        constructorArgs[1] = new RefreshPresenter();
-        constructorArgs[2] = new RefreshView();
+        constructorArgs[1] = new PersonTablePanelPresenter();
+        constructorArgs[2] = new PersonTablePanelView();
 
         PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("Refresh", constructorArgs).execute();
         personTablePanel.updateModel(records);
@@ -174,8 +174,8 @@ public class MainFrame extends JFrame implements Runnable {
     private void tryExport(Map<Integer, Object> args) {
         Object[] constructorArgs = new Object[3];
         constructorArgs[0] = args;
-        constructorArgs[1] = new RefreshPresenter();
-        constructorArgs[2] = new RefreshView();
+        constructorArgs[1] = new PersonTablePanelPresenter();
+        constructorArgs[2] = new PersonTablePanelView();
         try {
             controllerFactory.make("Export", constructorArgs).execute();
         } catch (Exception ex) {
@@ -192,8 +192,8 @@ public class MainFrame extends JFrame implements Runnable {
 
                 Object[] constructorArgs = new Object[3];
                 constructorArgs[0] = new HashMap<>();
-                constructorArgs[1] = new RefreshPresenter();
-                constructorArgs[2] = new RefreshView();
+                constructorArgs[1] = new PersonTablePanelPresenter();
+                constructorArgs[2] = new PersonTablePanelView();
                 PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("Refresh", constructorArgs).execute();
                 personTablePanel.updateModel(records);
             }
@@ -204,8 +204,8 @@ public class MainFrame extends JFrame implements Runnable {
     private void tryImport(Map<Integer, Object> args) {
         Object[] constructorArgs = new Object[3];
         constructorArgs[0] = args;
-        constructorArgs[1] = new RefreshPresenter();
-        constructorArgs[2] = new RefreshView();
+        constructorArgs[1] = new PersonTablePanelPresenter();
+        constructorArgs[2] = new PersonTablePanelView();
         try {
             controllerFactory.make("Import", constructorArgs).execute();
         } catch (Exception ex) {
@@ -293,13 +293,13 @@ public class MainFrame extends JFrame implements Runnable {
 
             Object[] constructorArgs = new Object[3];
             constructorArgs[0] = args;
-            constructorArgs[1] = new RefreshPresenter();
-            constructorArgs[2] = new RefreshView();
+            constructorArgs[1] = new PersonTablePanelPresenter();
+            constructorArgs[2] = new PersonTablePanelView();
             controllerFactory.make("AddPerson", constructorArgs).execute();
 
             constructorArgs[0] = new HashMap<>();
-            constructorArgs[1] = new RefreshPresenter();
-            constructorArgs[2] = new RefreshView();
+            constructorArgs[1] = new PersonTablePanelPresenter();
+            constructorArgs[2] = new PersonTablePanelView();
             PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("Refresh", constructorArgs).execute();
             personTablePanel.updateModel(records);
         });
@@ -314,13 +314,13 @@ public class MainFrame extends JFrame implements Runnable {
 
             Object[] constructorArgs = new Object[3];
             constructorArgs[0] = args;
-            constructorArgs[1] = new RefreshPresenter();
-            constructorArgs[2] = new RefreshView();
+            constructorArgs[1] = new PersonTablePanelPresenter();
+            constructorArgs[2] = new PersonTablePanelView();
             controllerFactory.make("DeletePerson", constructorArgs).execute();
 
             constructorArgs[0] = new HashMap<>();
-            constructorArgs[1] = new RefreshPresenter();
-            constructorArgs[2] = new RefreshView();
+            constructorArgs[1] = new PersonTablePanelPresenter();
+            constructorArgs[2] = new PersonTablePanelView();
             PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("Refresh", constructorArgs).execute();
             personTablePanel.updateModel(records);
         });

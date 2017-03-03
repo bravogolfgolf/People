@@ -2,8 +2,8 @@ package builderfactory;
 
 import controller.*;
 import org.junit.Test;
-import presenter.Presenter;
-import view.View;
+import response.Presenter;
+import response.View;
 
 import java.io.File;
 import java.util.HashMap;

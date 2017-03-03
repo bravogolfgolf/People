@@ -3,7 +3,7 @@ package usecase;
 import gateway.PersonRepository;
 import builderfactory.Request;
 import builderfactory.UseCase;
-import presenter.Presenter;
+import response.Presenter;
 
 public class AddPersonUseCase extends UseCase {
     private final PersonRepository repository;
