@@ -20,7 +20,7 @@ public class UseCaseFactoryTest {
     private final Map<String, Class> useCases = new HashMap<>();
     private final Map<String, Class[]> constructorClasses = new HashMap<>();
     private final Map<String, Object[]> constructorObjects = new HashMap<>();
-    private UseCaseFactory factory = new UseCaseFactory(useCases, constructorClasses, constructorObjects);
+    private final UseCaseFactory factory = new UseCaseFactory(useCases, constructorClasses, constructorObjects);
 
     @Before
     public void setUp() throws Exception {

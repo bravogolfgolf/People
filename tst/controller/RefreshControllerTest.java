@@ -1,16 +1,11 @@
 package controller;
 
-import builderfactory.Controller;
+import builderfactory.*;
 import database.PersonRepositoryInMemory;
 import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
-import builderfactory.Request;
-import builderfactory.RequestBuilder;
-import builderfactory.UseCase;
-import builderfactory.UseCaseFactory;
 import presenter.Presenter;
-import ui.PersonTablePanelPresenter;
 import usecase.RefreshRequest;
 import usecase.RefreshUseCase;
 import view.View;
@@ -27,7 +22,7 @@ public class RefreshControllerTest {
     }};
     private final RequestBuilder requestBuilder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
-    private final Presenter presenter = new PersonTablePanelPresenter();
+    private final Presenter presenter = null;
     private final View view = null;
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private RefreshRequest r;

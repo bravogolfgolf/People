@@ -1,15 +1,10 @@
 package controller;
 
-import builderfactory.Controller;
+import builderfactory.*;
 import gateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
-import builderfactory.Request;
-import builderfactory.RequestBuilder;
-import builderfactory.UseCase;
-import builderfactory.UseCaseFactory;
 import presenter.Presenter;
-import ui.PersonTablePanelPresenter;
 import usecase.ImportRequest;
 import usecase.ImportUseCase;
 import view.View;
@@ -26,7 +21,7 @@ public class ImportControllerTest {
     }};
     private final RequestBuilder requestBuilder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
-    private final Presenter presenter = new PersonTablePanelPresenter();
+    private final Presenter presenter = null;
     private final View view = null;
     private final File file = new File("ImportTest.per");
     private ImportRequest r;

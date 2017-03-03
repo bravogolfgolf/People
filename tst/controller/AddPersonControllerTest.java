@@ -1,15 +1,10 @@
 package controller;
 
-import builderfactory.Controller;
+import builderfactory.*;
 import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
-import builderfactory.Request;
-import builderfactory.RequestBuilder;
-import builderfactory.UseCase;
-import builderfactory.UseCaseFactory;
 import presenter.Presenter;
-import ui.PersonTablePanelPresenter;
 import usecase.AddPersonRequest;
 import usecase.AddPersonUseCase;
 import view.View;
@@ -26,7 +21,7 @@ public class AddPersonControllerTest {
     }};
     private final RequestBuilder requestBuilder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
-    private final Presenter presenter = new PersonTablePanelPresenter();
+    private final Presenter presenter = null;
     private final View view = null;
     private AddPersonRequest r;
 

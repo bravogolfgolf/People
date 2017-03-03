@@ -19,6 +19,7 @@ import java.util.prefs.Preferences;
 import static java.awt.event.KeyEvent.VK_F;
 import static java.awt.event.KeyEvent.VK_M;
 
+@SuppressWarnings("WeakerAccess")
 public class MainFrame extends JFrame implements Runnable {
     private static final String PERSON_DATABASE_FILE_EXTENSION = "per";
     private static final String PERSON_DATABASE_FILE_EXTENSION_DESC = "Person database files (*.per)";
@@ -62,7 +63,7 @@ public class MainFrame extends JFrame implements Runnable {
 
         Object[] constructorArgs = new Object[3];
         constructorArgs[0] = new HashMap<>();
-        constructorArgs[1] = new PersonTablePanelPresenter();
+        constructorArgs[1] = new RefreshPersonPresenter();
         constructorArgs[2] = personTablePanel;
 
         PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("Refresh", constructorArgs).execute();
@@ -173,7 +174,7 @@ public class MainFrame extends JFrame implements Runnable {
     private void tryExport(Map<Integer, Object> args) {
         Object[] constructorArgs = new Object[3];
         constructorArgs[0] = args;
-        constructorArgs[1] = new PersonTablePanelPresenter();
+        constructorArgs[1] = new RefreshPersonPresenter();
         constructorArgs[2] = personTablePanel;
         try {
             controllerFactory.make("Export", constructorArgs).execute();
@@ -191,7 +192,7 @@ public class MainFrame extends JFrame implements Runnable {
 
                 Object[] constructorArgs = new Object[3];
                 constructorArgs[0] = new HashMap<>();
-                constructorArgs[1] = new PersonTablePanelPresenter();
+                constructorArgs[1] = new RefreshPersonPresenter();
                 constructorArgs[2] = personTablePanel;
                 PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("Refresh", constructorArgs).execute();
                 personTablePanel.updateModel(records);
@@ -203,7 +204,7 @@ public class MainFrame extends JFrame implements Runnable {
     private void tryImport(Map<Integer, Object> args) {
         Object[] constructorArgs = new Object[3];
         constructorArgs[0] = args;
-        constructorArgs[1] = new PersonTablePanelPresenter();
+        constructorArgs[1] = new RefreshPersonPresenter();
         constructorArgs[2] = personTablePanel;
         try {
             controllerFactory.make("Import", constructorArgs).execute();
@@ -292,12 +293,12 @@ public class MainFrame extends JFrame implements Runnable {
 
             Object[] constructorArgs = new Object[3];
             constructorArgs[0] = args;
-            constructorArgs[1] = new PersonTablePanelPresenter();
+            constructorArgs[1] = new RefreshPersonPresenter();
             constructorArgs[2] = personTablePanel;
             controllerFactory.make("AddPerson", constructorArgs).execute();
 
             constructorArgs[0] = new HashMap<>();
-            constructorArgs[1] = new PersonTablePanelPresenter();
+            constructorArgs[1] = new RefreshPersonPresenter();
             constructorArgs[2] = personTablePanel;
             PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("Refresh", constructorArgs).execute();
             personTablePanel.updateModel(records);
@@ -313,12 +314,12 @@ public class MainFrame extends JFrame implements Runnable {
 
             Object[] constructorArgs = new Object[3];
             constructorArgs[0] = args;
-            constructorArgs[1] = new PersonTablePanelPresenter();
+            constructorArgs[1] = new RefreshPersonPresenter();
             constructorArgs[2] = personTablePanel;
             controllerFactory.make("DeletePerson", constructorArgs).execute();
 
             constructorArgs[0] = new HashMap<>();
-            constructorArgs[1] = new PersonTablePanelPresenter();
+            constructorArgs[1] = new RefreshPersonPresenter();
             constructorArgs[2] = personTablePanel;
             PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("Refresh", constructorArgs).execute();
             personTablePanel.updateModel(records);
