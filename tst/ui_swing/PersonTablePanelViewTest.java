@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class PersonTablePanelViewTest {
-    private RefreshViewModel[] viewModels = new RefreshViewModel[1];
+    private final RefreshViewModel[] viewModels = new RefreshViewModel[1];
 
     @Before
     public void setUp() {

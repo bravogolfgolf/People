@@ -1,6 +1,6 @@
 package ui_swing;
 
-public class PersonTableModelRecord {
+class PersonTableModelRecord {
     public int id;
     public String fullName;
     public String occupation;
