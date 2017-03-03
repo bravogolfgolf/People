@@ -3,7 +3,7 @@ package ui;
 import presenter.Presenter;
 import presenter.RefreshResponse;
 
-public class RefreshPersonPresenter implements Presenter {
+public class RefreshPresenter implements Presenter {
 
     private RefreshViewModel[] viewModel;
 

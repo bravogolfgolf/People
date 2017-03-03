@@ -2,7 +2,6 @@ package builderfactory;
 
 import controller.*;
 import org.junit.Test;
-import builderfactory.*;
 import presenter.Presenter;
 import view.View;
 
