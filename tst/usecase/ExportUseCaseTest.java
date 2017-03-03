@@ -1,9 +1,9 @@
 package usecase;
 
 import database.PersonRepositoryInMemory;
-import databasegateway.PersonRepository;
+import gateway.PersonRepository;
 import database.PersonRepositoryExportImport;
-import exportimportgateway.ExportImport;
+import gateway.ExportImport;
 import org.junit.Test;
 
 import java.io.File;

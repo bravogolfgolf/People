@@ -1,12 +1,12 @@
 package usecase;
 
 import database.PersonRepositoryInMemory;
-import databasegateway.PersonRepository;
+import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
-import requestor.Request;
-import responder.Presenter;
-import responder.RefreshResponse;
+import builderfactory.Request;
+import presenter.Presenter;
+import presenter.RefreshResponse;
 import ui.RefreshViewModel;
 
 import static org.junit.Assert.assertEquals;

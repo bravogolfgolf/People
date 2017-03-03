@@ -1,10 +1,10 @@
 package main;
 
-import contollerfactory.ControllerFactory;
-import databasegateway.PersonRepository;
-import exportimportgateway.ExportImport;
-import requestor.RequestBuilder;
-import requestor.UseCaseFactory;
+import builderfactory.ControllerFactory;
+import gateway.PersonRepository;
+import gateway.ExportImport;
+import builderfactory.RequestBuilder;
+import builderfactory.UseCaseFactory;
 
 import javax.swing.*;
 import java.lang.reflect.Constructor;
@@ -17,11 +17,11 @@ import java.util.Map;
 class People {
     private static final Map<Class, Object> gateways = new HashMap<>();
     private static final List<String[]> registry = new ArrayList<String[]>() {{
-        add(new String[]{"Refresh", "controller.RefreshController", "responder.Presenter", "view.View", "usecase.RefreshRequest", "usecase.RefreshUseCase", "databasegateway.PersonRepository"});
-        add(new String[]{"AddPerson", "controller.AddPersonController", "responder.Presenter", "view.View", "usecase.AddPersonRequest", "usecase.AddPersonUseCase", "databasegateway.PersonRepository"});
-        add(new String[]{"DeletePerson", "controller.DeletePersonController", "responder.Presenter", "view.View", "usecase.DeletePersonRequest", "usecase.DeletePersonUseCase", "databasegateway.PersonRepository"});
-        add(new String[]{"Export", "controller.ExportController", "responder.Presenter", "view.View", "usecase.ExportRequest", "usecase.ExportUseCase", "exportimportgateway.ExportImport"});
-        add(new String[]{"Import", "controller.ImportController", "responder.Presenter", "view.View", "usecase.ImportRequest", "usecase.ImportUseCase", "exportimportgateway.ExportImport"});
+        add(new String[]{"Refresh", "controller.RefreshController", "presenter.Presenter", "view.View", "usecase.RefreshRequest", "usecase.RefreshUseCase", "gateway.PersonRepository"});
+        add(new String[]{"AddPerson", "controller.AddPersonController", "presenter.Presenter", "view.View", "usecase.AddPersonRequest", "usecase.AddPersonUseCase", "gateway.PersonRepository"});
+        add(new String[]{"DeletePerson", "controller.DeletePersonController", "presenter.Presenter", "view.View", "usecase.DeletePersonRequest", "usecase.DeletePersonUseCase", "gateway.PersonRepository"});
+        add(new String[]{"Export", "controller.ExportController", "presenter.Presenter", "view.View", "usecase.ExportRequest", "usecase.ExportUseCase", "gateway.ExportImport"});
+        add(new String[]{"Import", "controller.ImportController", "presenter.Presenter", "view.View", "usecase.ImportRequest", "usecase.ImportUseCase", "gateway.ExportImport"});
     }};
     private static final Map<String, Class> controllers = new HashMap<>();
     private static final Map<String, Class[]> controllerConstructorClasses = new HashMap<>();

@@ -1,7 +1,7 @@
 package database;
 
-import databasegateway.PersonRepository;
-import exportimportgateway.ExportImport;
+import gateway.PersonRepository;
+import gateway.ExportImport;
 
 import java.io.*;
 import java.util.Arrays;

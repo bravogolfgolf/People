@@ -1,16 +1,9 @@
-package contollerfactory;
+package builderfactory;
 
 import controller.*;
-import database.PersonRepositoryExportImport;
-import database.PersonRepositoryInMemory;
-import databasegateway.PersonRepository;
-import exportimportgateway.ExportImport;
 import org.junit.Test;
-import requestor.RequestBuilder;
-import requestor.UseCaseFactory;
-import responder.Presenter;
-import ui.PersonTablePanelPresenter;
-import usecase.*;
+import builderfactory.*;
+import presenter.Presenter;
 import view.View;
 
 import java.io.File;
@@ -20,39 +13,8 @@ import java.util.Map;
 import static org.junit.Assert.assertTrue;
 
 public class ControllerFactoryTest {
-
-    private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final PersonRepositoryExportImport exportImport = new PersonRepositoryExportImport(repository);
-    private final Map<String, Object[]> constructorObjects = new HashMap<String, Object[]>() {{
-        put("Refresh", new Object[]{repository});
-        put("AddPerson", new Object[]{repository});
-        put("DeletePerson", new Object[]{repository});
-        put("Export", new Object[]{exportImport});
-        put("Import", new Object[]{exportImport});
-    }};
-    private final Map<String, Class> useCases = new HashMap<String, Class>() {{
-        put("Refresh", RefreshUseCase.class);
-        put("AddPerson", AddPersonUseCase.class);
-        put("DeletePerson", DeletePersonUseCase.class);
-        put("Export", ExportUseCase.class);
-        put("Import", ImportUseCase.class);
-    }};
-    private final Map<String, Class[]> useCaseConstructorClasses = new HashMap<String, Class[]>() {{
-        put("Refresh", new Class[]{PersonRepository.class, Presenter.class});
-        put("AddPerson", new Class[]{PersonRepository.class, Presenter.class});
-        put("DeletePerson", new Class[]{PersonRepository.class, Presenter.class});
-        put("Export", new Class[]{ExportImport.class, Presenter.class});
-        put("Import", new Class[]{ExportImport.class, Presenter.class});
-    }};
-    private final UseCaseFactory useCaseFactory = new UseCaseFactory(useCases, useCaseConstructorClasses, constructorObjects);
-    private final Map<String, Class> requests = new HashMap<String, Class>() {{
-        put("Refresh", RefreshRequest.class);
-        put("AddPerson", AddPersonRequest.class);
-        put("DeletePerson", DeletePersonRequest.class);
-        put("Export", ExportRequest.class);
-        put("Import", ImportRequest.class);
-    }};
-    private final RequestBuilder requestBuilder = new RequestBuilder(requests);
+    private final RequestBuilder requestBuilder = new RequestBuilderStub(new HashMap<>());
+    private final UseCaseFactory useCaseFactory = new UseCaseFactoryStub(new HashMap<>(), new HashMap<>(), new HashMap<>());
     private final Map<String, Class> controllers = new HashMap<String, Class>() {{
         put("Refresh", RefreshController.class);
         put("AddPerson", AddPersonController.class);
@@ -69,9 +31,8 @@ public class ControllerFactoryTest {
     }};
     private final ControllerFactory factory = new ControllerFactory(requestBuilder, useCaseFactory, controllers, constructorClasses);
     private final Map<Integer, Object> requestArgs = new HashMap<>();
-    private final Presenter presenter = new PersonTablePanelPresenter();
+    private final Presenter presenter = null;
     private final View view = null;
-
 
     @Test
     public void makeMethodReturnsRefreshController() {
@@ -119,5 +80,27 @@ public class ControllerFactoryTest {
         Object[] factoryArgs = new Object[]{requestArgs, presenter, view};
         Controller controller = factory.make("Import", factoryArgs);
         assertTrue(controller instanceof ImportController);
+    }
+
+    private class RequestBuilderStub extends RequestBuilder {
+        RequestBuilderStub(Map<String, Class> requests) {
+            super(requests);
+        }
+
+        @Override
+        public Request make(String request, Map<Integer, Object> args) {
+            return new Request();
+        }
+    }
+
+    private class UseCaseFactoryStub extends UseCaseFactory {
+        UseCaseFactoryStub(Map<String, Class> useCases, Map<String, Class[]> useCaseConstructorClasses, Map<String, Object[]> constructorObjects) {
+            super(useCases, useCaseConstructorClasses, constructorObjects);
+        }
+
+        @Override
+        public UseCase make(String useCase, Presenter presenter) {
+            return new UseCase();
+        }
     }
 }

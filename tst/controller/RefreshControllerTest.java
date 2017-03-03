@@ -1,15 +1,15 @@
 package controller;
 
-import contollerfactory.Controller;
+import builderfactory.Controller;
 import database.PersonRepositoryInMemory;
-import databasegateway.PersonRepository;
+import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
-import requestor.Request;
-import requestor.RequestBuilder;
-import requestor.UseCase;
-import requestor.UseCaseFactory;
-import responder.Presenter;
+import builderfactory.Request;
+import builderfactory.RequestBuilder;
+import builderfactory.UseCase;
+import builderfactory.UseCaseFactory;
+import presenter.Presenter;
 import ui.PersonTablePanelPresenter;
 import usecase.RefreshRequest;
 import usecase.RefreshUseCase;

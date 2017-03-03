@@ -3,8 +3,8 @@ package usecase;
 import database.Person;
 import database.PersonRepositoryExportImport;
 import database.PersonRepositoryInMemory;
-import databasegateway.PersonRepository;
-import exportimportgateway.ExportImport;
+import gateway.PersonRepository;
+import gateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
 

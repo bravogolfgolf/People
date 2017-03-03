@@ -1,7 +1,7 @@
 package ui;
 
-import responder.Presenter;
-import responder.RefreshResponse;
+import presenter.Presenter;
+import presenter.RefreshResponse;
 
 public class PersonTablePanelPresenter implements Presenter {
 

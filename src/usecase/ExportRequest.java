@@ -1,6 +1,6 @@
 package usecase;
 
-import requestor.Request;
+import builderfactory.Request;
 
 import java.io.File;
 

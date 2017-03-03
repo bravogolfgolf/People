@@ -1,14 +1,14 @@
 package controller;
 
-import contollerfactory.Controller;
-import exportimportgateway.ExportImport;
+import builderfactory.Controller;
+import gateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
-import requestor.Request;
-import requestor.RequestBuilder;
-import requestor.UseCase;
-import requestor.UseCaseFactory;
-import responder.Presenter;
+import builderfactory.Request;
+import builderfactory.RequestBuilder;
+import builderfactory.UseCase;
+import builderfactory.UseCaseFactory;
+import presenter.Presenter;
 import ui.PersonTablePanelPresenter;
 import usecase.ImportRequest;
 import usecase.ImportUseCase;

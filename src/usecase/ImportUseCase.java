@@ -1,9 +1,9 @@
 package usecase;
 
-import exportimportgateway.ExportImport;
-import requestor.Request;
-import requestor.UseCase;
-import responder.Presenter;
+import gateway.ExportImport;
+import builderfactory.Request;
+import builderfactory.UseCase;
+import presenter.Presenter;
 
 import java.io.File;
 import java.io.IOException;

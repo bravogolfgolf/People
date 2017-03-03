@@ -1,6 +1,6 @@
 package database;
 
-import databasegateway.PersonRepository;
+import gateway.PersonRepository;
 
 import java.util.*;
 

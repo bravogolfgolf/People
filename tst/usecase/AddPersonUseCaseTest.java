@@ -2,7 +2,7 @@ package usecase;
 
 import database.Person;
 import database.PersonRepositoryInMemory;
-import databasegateway.PersonRepository;
+import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
 

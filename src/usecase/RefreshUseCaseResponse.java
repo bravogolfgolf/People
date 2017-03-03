@@ -1,6 +1,6 @@
 package usecase;
 
-import responder.RefreshResponse;
+import presenter.RefreshResponse;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package responder;
+package presenter;
 
 public interface Presenter {
     void present(RefreshResponse response);

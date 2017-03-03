@@ -1,6 +1,6 @@
 package database;
 
-import databasegateway.PersonRepository;
+import gateway.PersonRepository;
 import org.junit.Test;
 
 import java.io.File;

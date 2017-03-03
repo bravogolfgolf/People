@@ -1,4 +1,4 @@
-package databasegateway;
+package gateway;
 
 import java.util.Collection;
 import java.util.List;

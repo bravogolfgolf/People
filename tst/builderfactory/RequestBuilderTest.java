@@ -1,4 +1,4 @@
-package requestor;
+package builderfactory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,8 +13,8 @@ import static org.junit.Assert.assertTrue;
 
 public class RequestBuilderTest {
     private final Map<String, Class> requests = new HashMap<>();
-    private final RequestBuilder builder = new RequestBuilder(requests);
     private final HashMap<Integer, Object> args = new HashMap<>();
+    private RequestBuilder builder;
 
     @Before
     public void setUp() {
@@ -23,6 +23,7 @@ public class RequestBuilderTest {
         requests.put("DeletePerson", DeletePersonRequest.class);
         requests.put("Export", ExportRequest.class);
         requests.put("Import", ImportRequest.class);
+        builder = new RequestBuilder(requests);
     }
 
     @Test

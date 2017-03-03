@@ -1,11 +1,11 @@
 package controller;
 
-import contollerfactory.Controller;
-import requestor.Request;
-import requestor.RequestBuilder;
-import requestor.UseCase;
-import requestor.UseCaseFactory;
-import responder.Presenter;
+import builderfactory.Controller;
+import builderfactory.Request;
+import builderfactory.RequestBuilder;
+import builderfactory.UseCase;
+import builderfactory.UseCaseFactory;
+import presenter.Presenter;
 import view.View;
 
 import java.util.ArrayList;

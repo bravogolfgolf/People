@@ -1,8 +1,8 @@
 package usecase;
 
-import databasegateway.PersonRepository;
-import requestor.Request;
-import requestor.UseCase;
+import gateway.PersonRepository;
+import builderfactory.Request;
+import builderfactory.UseCase;
 
 public class UpdatePersonUseCase extends UseCase {
     private final PersonRepository repository;

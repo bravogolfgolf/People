@@ -1,6 +1,6 @@
 package usecase;
 
-import requestor.Request;
+import builderfactory.Request;
 
 public class DeletePersonRequest extends Request {
     public int id;

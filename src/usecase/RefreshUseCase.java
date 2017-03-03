@@ -1,10 +1,10 @@
 package usecase;
 
-import databasegateway.PersonRepository;
+import gateway.PersonRepository;
 import entity.PersonTemplate;
-import requestor.Request;
-import requestor.UseCase;
-import responder.Presenter;
+import builderfactory.Request;
+import builderfactory.UseCase;
+import presenter.Presenter;
 
 import java.util.List;
 
