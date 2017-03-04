@@ -4,8 +4,9 @@ import builderfactory.*;
 import gateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
-import responder.RefreshResponder;
+import responder.ImportResponder;
 import responder.View;
+import ui_swing.ImportPresenter;
 import usecase.ImportRequest;
 import usecase.ImportUseCase;
 
@@ -21,8 +22,8 @@ public class ImportControllerTest {
     }};
     private final RequestBuilder requestBuilder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
-    private final RefreshResponder presenter = null;
-    private final View view = null;
+    private final ImportResponder responder = new ImportPresenter();
+    private final View view = object -> null;
     private final File file = new File("ImportTest.per");
     private ImportRequest r;
 
@@ -35,7 +36,7 @@ public class ImportControllerTest {
     public void shouldSendRequestToUseCase() {
         UseCaseFactory factory = new UseCaseFactoryDummy(null, null, null);
 
-        Controller controller = new ImportController(requestBuilder, args, factory, presenter, view);
+        Controller controller = new ImportController(requestBuilder, args, factory, responder, view);
 
         controller.execute();
 
@@ -54,7 +55,7 @@ public class ImportControllerTest {
     }
 
     private class ImportUseCaseSpy extends ImportUseCase {
-        ImportUseCaseSpy(ExportImport importer, RefreshResponder responder) {
+        ImportUseCaseSpy(ExportImport importer, ImportResponder responder) {
             super(importer, responder);
         }
 

@@ -5,10 +5,7 @@ import gateway.ExportImport;
 import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
-import responder.AddPersonResponder;
-import responder.DeletePersonResponder;
-import responder.ExportResponder;
-import responder.RefreshResponder;
+import responder.*;
 import usecase.*;
 
 import java.util.HashMap;
@@ -54,7 +51,7 @@ public class UseCaseFactoryTest {
         constructorClasses.put("AddPerson", new Class[]{PersonRepository.class, AddPersonResponder.class});
         constructorClasses.put("DeletePerson", new Class[]{PersonRepository.class, DeletePersonResponder.class});
         constructorClasses.put("Export", new Class[]{ExportImport.class, ExportResponder.class});
-        constructorClasses.put("Import", new Class[]{ExportImport.class, RefreshResponder.class});
+        constructorClasses.put("Import", new Class[]{ExportImport.class, ImportResponder.class});
     }
 
     private void setConstructorObjects() {

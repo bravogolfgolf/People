@@ -27,16 +27,17 @@ public class PersonRepositoryExportImport implements ExportImport {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
             oos.writeObject(array);
         }
-        return count;
+        return list.size();
     }
 
     @Override
-    public void fromDisk(File file) throws IOException, ClassNotFoundException {
+    public int fromDisk(File file) throws IOException, ClassNotFoundException {
         Person[] array;
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
             array = (Person[]) ois.readObject();
         }
         List<Person> list = Arrays.asList(array);
         repository.fromImport(list);
+        return list.size();
     }
 }

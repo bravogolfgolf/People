@@ -193,7 +193,8 @@ public class MainFrame extends JFrame implements Runnable {
             if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
                 Map<Integer, Object> args = new HashMap<>();
                 args.put(0, fileChooser.getSelectedFile());
-                tryImport(args);
+                String string = tryImport(args);
+                statusBar.setStatusLabel(string);
 
                 Object[] constructorArgs = new Object[3];
                 constructorArgs[0] = new HashMap<>();
@@ -206,16 +207,18 @@ public class MainFrame extends JFrame implements Runnable {
         fileMenu.add(importDataMenuItem);
     }
 
-    private void tryImport(Map<Integer, Object> args) {
+    private String tryImport(Map<Integer, Object> args) {
+        String string = null;
         Object[] constructorArgs = new Object[3];
         constructorArgs[0] = args;
-        constructorArgs[1] = new RefreshPresenter();
-        constructorArgs[2] = new RefreshView();
+        constructorArgs[1] = new ImportPresenter();
+        constructorArgs[2] = new ImportView();
         try {
-            controllerFactory.make("Import", constructorArgs).execute();
+            string = (String) controllerFactory.make("Import", constructorArgs).execute();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(MainFrame.this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        return string;
     }
 
     private JMenu createViewMenu() {

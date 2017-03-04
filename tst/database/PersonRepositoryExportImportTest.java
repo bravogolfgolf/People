@@ -24,7 +24,8 @@ public class PersonRepositoryExportImportTest {
         int exportCount = exportImport.toDisk(file);
         assertEquals(1, exportCount);
 
-        exportImport.fromDisk(file);
+        int importCount = exportImport.fromDisk(file);
+        assertEquals(1, importCount);
 
         assertEquals(1, repository.findAll().size());
 

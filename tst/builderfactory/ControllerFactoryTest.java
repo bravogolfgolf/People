@@ -26,7 +26,7 @@ public class ControllerFactoryTest {
         put("AddPerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, AddPersonResponder.class, View.class});
         put("DeletePerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, DeletePersonResponder.class, View.class});
         put("Export", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, ExportResponder.class, View.class});
-        put("Import", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
+        put("Import", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, ImportResponder.class, View.class});
     }};
     private final ControllerFactory factory = new ControllerFactory(requestBuilder, useCaseFactory, controllers, constructorClasses);
     private final Map<Integer, Object> requestArgs = new HashMap<>();
@@ -82,8 +82,8 @@ public class ControllerFactoryTest {
     public void makeMethodReturnsImportController() {
         File file = new File("Import.per");
         requestArgs.put(0, file);
-        RefreshResponder presenter = new RefreshPresenter();
-        View view = new RefreshView();
+        ImportResponder presenter = new ImportPresenter();
+        View view = new ImportView();
         Object[] factoryArgs = new Object[]{requestArgs, presenter, view};
         Controller controller = factory.make("Import", factoryArgs);
         assertTrue(controller instanceof ImportController);
