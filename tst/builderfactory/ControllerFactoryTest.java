@@ -3,12 +3,10 @@ package builderfactory;
 import controller.*;
 import org.junit.Test;
 import responder.AddPersonResponder;
+import responder.DeletePersonResponder;
 import responder.RefreshResponder;
 import responder.View;
-import ui_swing.AddPersonPresenter;
-import ui_swing.AddPersonView;
-import ui_swing.RefreshPresenter;
-import ui_swing.RefreshView;
+import ui_swing.*;
 
 import java.io.File;
 import java.util.HashMap;
@@ -29,7 +27,7 @@ public class ControllerFactoryTest {
     private final Map<String, Class[]> constructorClasses = new HashMap<String, Class[]>() {{
         put("Refresh", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
         put("AddPerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, AddPersonResponder.class, View.class});
-        put("DeletePerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
+        put("DeletePerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, DeletePersonResponder.class, View.class});
         put("Export", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
         put("Import", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
     }};
@@ -65,8 +63,8 @@ public class ControllerFactoryTest {
     public void makeMethodReturnsDeletePersonController() {
         int idToDelete = 1;
         requestArgs.put(0, idToDelete);
-        RefreshResponder presenter = new RefreshPresenter();
-        View view = new RefreshView();
+        DeletePersonResponder presenter = new DeletePersonPresenter();
+        View view = new DeletePersonView();
         Object[] factoryArgs = new Object[]{requestArgs, presenter, view};
         Controller controller = factory.make("DeletePerson", factoryArgs);
         assertTrue(controller instanceof DeletePersonController);

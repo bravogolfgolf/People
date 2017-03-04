@@ -317,9 +317,10 @@ public class MainFrame extends JFrame implements Runnable {
 
             Object[] constructorArgs = new Object[3];
             constructorArgs[0] = args;
-            constructorArgs[1] = new RefreshPresenter();
-            constructorArgs[2] = new RefreshView();
-            controllerFactory.make("DeletePerson", constructorArgs).execute();
+            constructorArgs[1] = new DeletePersonPresenter();
+            constructorArgs[2] = new DeletePersonView();
+            String string = (String) controllerFactory.make("DeletePerson", constructorArgs).execute();
+            statusBar.setStatusLabel(string);
 
             constructorArgs[0] = new HashMap<>();
             constructorArgs[1] = new RefreshPresenter();

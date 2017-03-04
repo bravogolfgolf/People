@@ -5,8 +5,9 @@ import database.PersonRepositoryInMemory;
 import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
-import responder.RefreshResponder;
+import responder.DeletePersonResponder;
 import responder.View;
+import ui_swing.DeletePersonPresenter;
 import usecase.DeletePersonRequest;
 import usecase.DeletePersonUseCase;
 
@@ -21,8 +22,8 @@ public class DeletePersonControllerTest {
     }};
     private final RequestBuilder requestBuilder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
-    private final RefreshResponder presenter = null;
-    private final View view = null;
+    private final DeletePersonResponder presenter = new DeletePersonPresenter();
+    private final View view = object -> null;
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final int idToDelete = 1;
     private DeletePersonRequest r;
@@ -56,7 +57,7 @@ public class DeletePersonControllerTest {
     }
 
     private class DeletePersonUseCaseSpy extends DeletePersonUseCase {
-        DeletePersonUseCaseSpy(PersonRepository repository, RefreshResponder responder) {
+        DeletePersonUseCaseSpy(PersonRepository repository, DeletePersonResponder responder) {
             super(repository, responder);
         }
 

@@ -6,6 +6,7 @@ import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
 import responder.AddPersonResponder;
+import responder.DeletePersonResponder;
 import responder.RefreshResponder;
 import usecase.*;
 
@@ -50,7 +51,7 @@ public class UseCaseFactoryTest {
     private void setConstructorClasses() {
         constructorClasses.put("Refresh", new Class[]{PersonRepository.class, RefreshResponder.class});
         constructorClasses.put("AddPerson", new Class[]{PersonRepository.class, AddPersonResponder.class});
-        constructorClasses.put("DeletePerson", new Class[]{PersonRepository.class, RefreshResponder.class});
+        constructorClasses.put("DeletePerson", new Class[]{PersonRepository.class, DeletePersonResponder.class});
         constructorClasses.put("Export", new Class[]{ExportImport.class, RefreshResponder.class});
         constructorClasses.put("Import", new Class[]{ExportImport.class, RefreshResponder.class});
     }
