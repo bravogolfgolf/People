@@ -1,10 +1,10 @@
 package ui_swing;
 
+import builderfactory.ControllerFactory;
 import com.apple.eawt.AppEvent;
 import com.apple.eawt.Application;
 import com.apple.eawt.FullScreenListener;
 import com.apple.eawt.FullScreenUtilities;
-import builderfactory.ControllerFactory;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -28,7 +28,6 @@ public class MainFrame extends JFrame implements Runnable {
     private static final String HIDE_FORM = "Hide Form";
     private final ControllerFactory controllerFactory;
 
-    //Menu Bar Components
     private JMenu fileMenu;
     private JFileChooser fileChooser;
     private JMenu viewMenu;
@@ -39,6 +38,8 @@ public class MainFrame extends JFrame implements Runnable {
 
     private EntryPanel entryPanel;
     private PersonTablePanel personTablePanel;
+    private StatusBar statusBar;
+
     private Preferences preferences;
 
     // MacOS Specific
@@ -109,7 +110,7 @@ public class MainFrame extends JFrame implements Runnable {
 
     private void setupMainFrame() {
         setLayout(new BorderLayout());
-        setMinimumSize(new Dimension(850, 310));
+        setMinimumSize(new Dimension(850, 340));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         addWindowStateListener(e -> {
             if (e.getNewState() != JFrame.ICONIFIED) {
@@ -126,6 +127,7 @@ public class MainFrame extends JFrame implements Runnable {
         createAndSetMenuBar();
         createAndAddEntryPane();
         createAndAddPersonTablePanel();
+        createAndAddStatusBar();
         createPreferenceDialog();
     }
 
@@ -325,6 +327,11 @@ public class MainFrame extends JFrame implements Runnable {
             personTablePanel.updateModel(records);
         });
         add(personTablePanel, BorderLayout.CENTER);
+    }
+
+    private void createAndAddStatusBar() {
+        statusBar = new StatusBar();
+        add(statusBar, BorderLayout.PAGE_END);
     }
 
     private void createPreferenceDialog() {
