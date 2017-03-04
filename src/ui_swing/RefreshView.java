@@ -2,7 +2,7 @@ package ui_swing;
 
 import presenter.View;
 
-public class PersonTablePanelView implements View {
+public class RefreshView implements View {
 
     @Override
     public Object generateView(Object object) {

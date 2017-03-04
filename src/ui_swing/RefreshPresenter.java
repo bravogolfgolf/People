@@ -3,7 +3,7 @@ package ui_swing;
 import presenter.Presenter;
 import presenter.RefreshResponse;
 
-public class PersonTablePanelPresenter implements Presenter {
+public class RefreshPresenter implements Presenter {
 
     private RefreshViewModel[] viewModel;
 

@@ -7,7 +7,7 @@ import presenter.View;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class PersonTablePanelViewTest {
+public class RefreshViewTest {
     private final RefreshViewModel[] viewModels = new RefreshViewModel[1];
 
     @Before
@@ -25,7 +25,7 @@ public class PersonTablePanelViewTest {
 
     @Test
     public void shouldFormatRefreshViewModelForUi() {
-        View refreshView = new PersonTablePanelView();
+        View refreshView = new RefreshView();
         PersonTableModelRecord[] records = (PersonTableModelRecord[]) refreshView.generateView(viewModels);
         assertEquals(1, records.length);
         for (PersonTableModelRecord record : records) {

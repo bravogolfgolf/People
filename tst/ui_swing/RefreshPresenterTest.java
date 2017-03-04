@@ -7,8 +7,8 @@ import usecase.RefreshUseCaseResponse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class PersonTablePanelPresenterTest {
-    private final PersonTablePanelPresenter presenter = new PersonTablePanelPresenter();
+public class RefreshPresenterTest {
+    private final RefreshPresenter presenter = new RefreshPresenter();
     private final RefreshUseCaseResponse response = new RefreshUseCaseResponse();
     private final int id = 1, ageCategory = 1, employmentStatus = 0;
     private final String fullName = "Full Name", occupation = "Occupation", taxId = "123-45-6789", gender = "Male";
