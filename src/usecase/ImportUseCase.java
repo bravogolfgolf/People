@@ -11,7 +11,7 @@ import java.io.IOException;
 public class ImportUseCase extends UseCase {
     private final ExportImport importer;
 
-    public ImportUseCase(ExportImport importer, RefreshResponder presenter) {
+    public ImportUseCase(ExportImport importer, RefreshResponder responder) {
         this.importer = importer;
     }
 

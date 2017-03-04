@@ -29,16 +29,16 @@ public class PersonRepositoryInMemory implements PersonRepository {
     }
 
     @Override
-    public void addPerson(String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {
-        int id1;
+    public int addPerson(String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {
+        int id;
         try {
-            id1 = Collections.max(people.keySet()) + 1;
+            id = Collections.max(people.keySet()) + 1;
         } catch (NoSuchElementException e) {
-            id1 = 1;
+            id = 1;
         }
-        int id = id1;
         person = createPersonTemplate(fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender, id);
         addPerson(person);
+        return id;
     }
 
     private Person createPersonTemplate(String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender, int id) {

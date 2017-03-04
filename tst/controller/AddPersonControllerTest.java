@@ -4,8 +4,9 @@ import builderfactory.*;
 import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
-import responder.RefreshResponder;
+import responder.AddPersonResponder;
 import responder.View;
+import ui_swing.AddPersonPresenter;
 import usecase.AddPersonRequest;
 import usecase.AddPersonUseCase;
 
@@ -21,8 +22,8 @@ public class AddPersonControllerTest {
     }};
     private final RequestBuilder requestBuilder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
-    private final RefreshResponder presenter = null;
-    private final View view = null;
+    private final AddPersonResponder presenter = new AddPersonPresenter();
+    private final View view = object -> null;
     private AddPersonRequest r;
 
     @Before
@@ -58,14 +59,14 @@ public class AddPersonControllerTest {
         }
 
         @Override
-        public UseCase make(String useCase, RefreshResponder presenter) {
+        public UseCase make(String useCase, Object responder) {
             return new AddPersonUseCaseSpy(null, null);
         }
     }
 
     private class AddPersonUseCaseSpy extends AddPersonUseCase {
-        AddPersonUseCaseSpy(PersonRepository repository, RefreshResponder presenter) {
-            super(repository, presenter);
+        AddPersonUseCaseSpy(PersonRepository repository, AddPersonResponder responder) {
+            super(repository, responder);
         }
 
         public void execute(Request request) {

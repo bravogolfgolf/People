@@ -4,9 +4,9 @@ import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 
-public class StatusBar extends JPanel {
+class StatusBar extends JPanel {
 
-    private JLabel statusLabel = new JLabel();
+    private final JLabel statusLabel = new JLabel();
 
     StatusBar() {
         BorderLayout layout = new BorderLayout();
@@ -17,7 +17,7 @@ public class StatusBar extends JPanel {
         setVisible(true);
     }
 
-    public void setStatusLabel(String statusText){
+    void setStatusLabel(String statusText){
         statusLabel.setText(statusText);
     }
 }

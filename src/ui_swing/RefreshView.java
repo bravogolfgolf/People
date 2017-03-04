@@ -3,7 +3,6 @@ package ui_swing;
 import responder.View;
 
 public class RefreshView implements View {
-
     @Override
     public Object generateView(Object object) {
         RefreshViewModel[] refreshViewModels = (RefreshViewModel[]) object;

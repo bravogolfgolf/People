@@ -1,7 +1,5 @@
 package builderfactory;
 
-import responder.RefreshResponder;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -18,7 +16,7 @@ public class UseCaseFactory {
         this.constructorObjects = constructorObjects;
     }
 
-    public UseCase make(String useCase, RefreshResponder presenter) {
+    public UseCase make(String useCase, Object responder) {
 
         Class<?> aClass = useCases.get(useCase);
 
@@ -29,13 +27,12 @@ public class UseCaseFactory {
             e.printStackTrace();
         }
 
-
         Object[] objects = new Object[constructorObjects.get(useCase).length + 1];
         int i = 0;
         for (Object object : constructorObjects.get(useCase)) {
             objects[i++] = object;
         }
-        objects[i] = presenter;
+        objects[i] = responder;
 
         Object newClass = null;
         try {

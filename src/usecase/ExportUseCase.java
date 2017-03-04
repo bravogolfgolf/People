@@ -11,7 +11,7 @@ import java.io.IOException;
 public class ExportUseCase extends UseCase {
     private final ExportImport exporter;
 
-    public ExportUseCase(ExportImport exporter, RefreshResponder presenter) {
+    public ExportUseCase(ExportImport exporter, RefreshResponder responder) {
         this.exporter = exporter;
     }
 

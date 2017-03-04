@@ -11,11 +11,11 @@ import java.util.List;
 public class RefreshUseCase extends UseCase {
 
     private final PersonRepository repository;
-    private final RefreshResponder presenter;
+    private final RefreshResponder responder;
 
-    public RefreshUseCase(PersonRepository repository, RefreshResponder presenter) {
+    public RefreshUseCase(PersonRepository repository, RefreshResponder responder) {
         this.repository = repository;
-        this.presenter = presenter;
+        this.responder = responder;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class RefreshUseCase extends UseCase {
         RefreshUseCaseResponse response = new RefreshUseCaseResponse();
         for (Object object : people)
             response.add(createRecord(object));
-        presenter.present(response);
+        responder.present(response);
     }
 
     private Object[] createRecord(Object object) {

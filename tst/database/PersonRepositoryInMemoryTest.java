@@ -1,7 +1,7 @@
 package database;
 
-import gateway.PersonRepository;
 import entity.PersonTemplate;
+import gateway.PersonRepository;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -20,8 +20,9 @@ public class PersonRepositoryInMemoryTest {
 
     @Test
     public void newDatabaseShouldExceptPerson() {
-        repository.addPerson("Full Name", "Occupation", 0, 0, false,
+        int id = repository.addPerson("Full Name", "Occupation", 0, 0, false,
                 "Tax ID", "Male");
+        assertEquals(1, id);
         assertEquals(1, repository.findAll().size());
     }
 

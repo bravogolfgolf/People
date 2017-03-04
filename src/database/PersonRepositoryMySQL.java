@@ -176,7 +176,7 @@ public class PersonRepositoryMySQL implements PersonRepository {
         tryExecuteUpdate();
     }
 
-    public void addPerson(String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {
+    public int addPerson(String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {
         connect();
         String sql = "select max(id) from person";
         tryPrepareStatement(sql);
@@ -186,6 +186,7 @@ public class PersonRepositoryMySQL implements PersonRepository {
             id = tryGetInt(1) + 1;
         }
         addPerson(id, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender);
+        return id;
     }
 
     @Override

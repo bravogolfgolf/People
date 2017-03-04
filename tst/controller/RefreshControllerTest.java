@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import responder.RefreshResponder;
 import responder.View;
+import ui_swing.RefreshPresenter;
 import usecase.RefreshRequest;
 import usecase.RefreshUseCase;
 
@@ -22,8 +23,8 @@ public class RefreshControllerTest {
     }};
     private final RequestBuilder requestBuilder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
-    private final RefreshResponder presenter = null;
-    private final View view = null;
+    private final RefreshResponder presenter = new RefreshPresenter();
+    private final View view = object -> null;
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private RefreshRequest r;
 
@@ -34,7 +35,7 @@ public class RefreshControllerTest {
 
     @Test
     public void shouldSendRequestToUseCase() {
-        UseCaseFactory factory = new UseCaseFactoryDummy(null, null, null);
+        UseCaseFactory factory = new UseCaseFactoryStub(null, null, null);
 
         Controller controller = new RefreshController(requestBuilder, args, factory, presenter, view);
 
@@ -43,21 +44,21 @@ public class RefreshControllerTest {
         assertTrue(r != null);
     }
 
-    private class UseCaseFactoryDummy extends UseCaseFactory {
+    private class UseCaseFactoryStub extends UseCaseFactory {
 
-        UseCaseFactoryDummy(Map<String, Class> useCases, Map<String, Class[]> constructorClasses, Map<String, Object[]> constructorObjects) {
+        UseCaseFactoryStub(Map<String, Class> useCases, Map<String, Class[]> constructorClasses, Map<String, Object[]> constructorObjects) {
             super(useCases, constructorClasses, constructorObjects);
         }
 
         @Override
-        public UseCase make(String useCase, RefreshResponder presenter) {
+        public UseCase make(String useCase, Object responder) {
             return new RefreshUseCaseSpy(null, null);
         }
     }
 
     private class RefreshUseCaseSpy extends RefreshUseCase {
-        RefreshUseCaseSpy(PersonRepository repository, RefreshResponder presenter) {
-            super(repository, presenter);
+        RefreshUseCaseSpy(PersonRepository repository, RefreshResponder responder) {
+            super(repository, responder);
         }
 
         public void execute(Request request) {

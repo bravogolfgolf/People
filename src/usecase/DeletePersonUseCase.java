@@ -8,7 +8,7 @@ import responder.RefreshResponder;
 public class DeletePersonUseCase extends UseCase {
     private final PersonRepository repository;
 
-    public DeletePersonUseCase(PersonRepository repository, RefreshResponder presenter) {
+    public DeletePersonUseCase(PersonRepository repository, RefreshResponder responder) {
         this.repository = repository;
     }
 

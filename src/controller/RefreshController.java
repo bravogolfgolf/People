@@ -9,19 +9,19 @@ import java.util.Map;
 public class RefreshController extends Controller {
     private final Request request;
     private final UseCase useCase;
-    private final RefreshResponder presenter;
+    private final RefreshResponder responder;
     private final View view;
 
-    public RefreshController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, RefreshResponder presenter, View view) {
+    public RefreshController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, RefreshResponder responder, View view) {
         this.request = request.make("Refresh", args);
-        this.useCase = useCase.make("Refresh", presenter);
-        this.presenter = presenter;
+        this.useCase = useCase.make("Refresh", responder);
+        this.responder = responder;
         this.view = view;
     }
 
     @Override
     public Object execute() {
         useCase.execute(request);
-        return (view != null && presenter != null) ? view.generateView(presenter.getViewModel()) : null;
+        return view.generateView(responder.getViewModel());
     }
 }

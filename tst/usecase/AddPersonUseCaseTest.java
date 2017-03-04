@@ -1,17 +1,31 @@
 package usecase;
 
-import database.Person;
 import database.PersonRepositoryInMemory;
 import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
+import responder.AddPersonResponder;
+import responder.AddPersonResponse;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-public class AddPersonUseCaseTest {
+public class AddPersonUseCaseTest implements AddPersonResponder {
+
+    private AddPersonResponse response;
+
+    @Override
+    public void present(AddPersonResponse response) {
+        this.response = response;
+    }
+
+    @Override
+    public int getViewModel() {
+        return 0;
+    }
+
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final AddPersonUseCase useCase = new AddPersonUseCase(repository, null);
+    private final AddPersonUseCase useCase = new AddPersonUseCase(repository, this);
+
     private final AddPersonRequest request = new AddPersonRequest();
 
     @Before
@@ -28,19 +42,6 @@ public class AddPersonUseCaseTest {
     @Test
     public void shouldProcessAddPersonRequestIntoAddPersonResult() {
         useCase.execute(request);
-
-        assertEquals(1, repository.findAll().size());
-
-        for (Object object : repository.findAll()) {
-            Person expected = (Person) object;
-            assertEquals(1, expected.getId());
-            assertEquals(request.fullName, expected.getFullName());
-            assertEquals(request.occupation, expected.getOccupation());
-            assertEquals(request.ageCategory, expected.getAgeCategory());
-            assertEquals(request.employmentStatus, expected.getEmploymentStatus());
-            assertTrue(expected.isUsCitizen());
-            assertEquals(request.taxId, expected.getTaxId());
-            assertEquals(request.gender, expected.getGender());
-        }
+        assertEquals(1, response.getId());
     }
 }

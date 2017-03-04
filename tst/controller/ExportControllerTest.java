@@ -59,14 +59,14 @@ public class ExportControllerTest {
         }
 
         @Override
-        public UseCase make(String useCase, RefreshResponder presenter) {
+        public UseCase make(String useCase, Object responder) {
             return new ExportUseCaseSpy(null, null);
         }
     }
 
     private class ExportUseCaseSpy extends ExportUseCase {
-        ExportUseCaseSpy(ExportImport exporter, RefreshResponder presenter) {
-            super(exporter, presenter);
+        ExportUseCaseSpy(ExportImport exporter, RefreshResponder responder) {
+            super(exporter, responder);
         }
 
         public void execute(Request request) {

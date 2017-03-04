@@ -1,7 +1,7 @@
 package database;
 
-import gateway.PersonRepository;
 import entity.PersonTemplate;
+import gateway.PersonRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,8 +64,9 @@ public class PersonRepositoryMySQLTest {
 
     @Test
     public void newDatabaseShouldExceptPerson() {
-        repository.addPerson("Full Name", "Occupation", 0, 0, false,
+        int id = repository.addPerson("Full Name", "Occupation", 0, 0, false,
                 "Tax ID", "Male");
+        assertEquals(1, id);
         assertEquals(1, repository.findAll().size());
     }
 

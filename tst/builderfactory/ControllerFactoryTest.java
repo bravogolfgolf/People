@@ -2,8 +2,13 @@ package builderfactory;
 
 import controller.*;
 import org.junit.Test;
+import responder.AddPersonResponder;
 import responder.RefreshResponder;
 import responder.View;
+import ui_swing.AddPersonPresenter;
+import ui_swing.AddPersonView;
+import ui_swing.RefreshPresenter;
+import ui_swing.RefreshView;
 
 import java.io.File;
 import java.util.HashMap;
@@ -23,18 +28,18 @@ public class ControllerFactoryTest {
     }};
     private final Map<String, Class[]> constructorClasses = new HashMap<String, Class[]>() {{
         put("Refresh", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
-        put("AddPerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
+        put("AddPerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, AddPersonResponder.class, View.class});
         put("DeletePerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
         put("Export", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
         put("Import", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
     }};
     private final ControllerFactory factory = new ControllerFactory(requestBuilder, useCaseFactory, controllers, constructorClasses);
     private final Map<Integer, Object> requestArgs = new HashMap<>();
-    private final RefreshResponder presenter = null;
-    private final View view = null;
 
     @Test
     public void makeMethodReturnsRefreshController() {
+        RefreshResponder presenter = new RefreshPresenter();
+        View view = new RefreshView();
         Object[] factoryArgs = new Object[]{requestArgs, presenter, view};
         Controller controller = factory.make("Refresh", factoryArgs);
         assertTrue(controller instanceof RefreshController);
@@ -49,6 +54,8 @@ public class ControllerFactoryTest {
         requestArgs.put(4, true);
         requestArgs.put(5, "Tax ID");
         requestArgs.put(6, "Gender");
+        AddPersonResponder presenter = new AddPersonPresenter();
+        View view = new AddPersonView();
         Object[] factoryArgs = new Object[]{requestArgs, presenter, view};
         Controller controller = factory.make("AddPerson", factoryArgs);
         assertTrue(controller instanceof AddPersonController);
@@ -58,6 +65,8 @@ public class ControllerFactoryTest {
     public void makeMethodReturnsDeletePersonController() {
         int idToDelete = 1;
         requestArgs.put(0, idToDelete);
+        RefreshResponder presenter = new RefreshPresenter();
+        View view = new RefreshView();
         Object[] factoryArgs = new Object[]{requestArgs, presenter, view};
         Controller controller = factory.make("DeletePerson", factoryArgs);
         assertTrue(controller instanceof DeletePersonController);
@@ -67,6 +76,8 @@ public class ControllerFactoryTest {
     public void makeMethodReturnsExportController() {
         File file = new File("Export.per");
         requestArgs.put(0, file);
+        RefreshResponder presenter = new RefreshPresenter();
+        View view = new RefreshView();
         Object[] factoryArgs = new Object[]{requestArgs, presenter, view};
         Controller controller = factory.make("Export", factoryArgs);
         assertTrue(controller instanceof ExportController);
@@ -76,6 +87,8 @@ public class ControllerFactoryTest {
     public void makeMethodReturnsImportController() {
         File file = new File("Import.per");
         requestArgs.put(0, file);
+        RefreshResponder presenter = new RefreshPresenter();
+        View view = new RefreshView();
         Object[] factoryArgs = new Object[]{requestArgs, presenter, view};
         Controller controller = factory.make("Import", factoryArgs);
         assertTrue(controller instanceof ImportController);
@@ -98,7 +111,7 @@ public class ControllerFactoryTest {
         }
 
         @Override
-        public UseCase make(String useCase, RefreshResponder presenter) {
+        public UseCase make(String useCase, Object responder) {
             return new UseCase();
         }
     }

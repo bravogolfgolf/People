@@ -50,14 +50,14 @@ public class DeletePersonControllerTest {
         }
 
         @Override
-        public UseCase make(String useCase, RefreshResponder presenter) {
+        public UseCase make(String useCase, Object responder) {
             return new DeletePersonUseCaseSpy(null, null);
         }
     }
 
     private class DeletePersonUseCaseSpy extends DeletePersonUseCase {
-        DeletePersonUseCaseSpy(PersonRepository repository, RefreshResponder presenter) {
-            super(repository, presenter);
+        DeletePersonUseCaseSpy(PersonRepository repository, RefreshResponder responder) {
+            super(repository, responder);
         }
 
         public void execute(Request request) {
