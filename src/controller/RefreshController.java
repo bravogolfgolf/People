@@ -1,18 +1,18 @@
 package controller;
 
 import builderfactory.*;
-import presenter.Presenter;
-import presenter.View;
+import responder.RefreshResponder;
+import responder.View;
 
 import java.util.Map;
 
 public class RefreshController extends Controller {
     private final Request request;
     private final UseCase useCase;
-    private final Presenter presenter;
+    private final RefreshResponder presenter;
     private final View view;
 
-    public RefreshController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, Presenter presenter, View view) {
+    public RefreshController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, RefreshResponder presenter, View view) {
         this.request = request.make("Refresh", args);
         this.useCase = useCase.make("Refresh", presenter);
         this.presenter = presenter;

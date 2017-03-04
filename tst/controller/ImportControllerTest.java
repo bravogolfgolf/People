@@ -4,8 +4,8 @@ import builderfactory.*;
 import gateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
-import presenter.Presenter;
-import presenter.View;
+import responder.RefreshResponder;
+import responder.View;
 import usecase.ImportRequest;
 import usecase.ImportUseCase;
 
@@ -21,7 +21,7 @@ public class ImportControllerTest {
     }};
     private final RequestBuilder requestBuilder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
-    private final Presenter presenter = null;
+    private final RefreshResponder presenter = null;
     private final View view = null;
     private final File file = new File("ImportTest.per");
     private ImportRequest r;
@@ -48,13 +48,13 @@ public class ImportControllerTest {
         }
 
         @Override
-        public UseCase make(String useCase, Presenter presenter) {
+        public UseCase make(String useCase, RefreshResponder presenter) {
             return new ImportUseCaseSpy(null, null);
         }
     }
 
     private class ImportUseCaseSpy extends ImportUseCase {
-        ImportUseCaseSpy(ExportImport importer, Presenter presenter) {
+        ImportUseCaseSpy(ExportImport importer, RefreshResponder presenter) {
             super(importer, presenter);
         }
 

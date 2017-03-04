@@ -1,9 +1,9 @@
 package ui_swing;
 
-import presenter.Presenter;
-import presenter.RefreshResponse;
+import responder.RefreshResponse;
+import responder.RefreshResponder;
 
-public class RefreshPresenter implements Presenter {
+public class RefreshPresenter implements RefreshResponder {
 
     private RefreshViewModel[] viewModel;
 

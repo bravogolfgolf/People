@@ -5,14 +5,14 @@ import database.PersonRepositoryInMemory;
 import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
-import presenter.Presenter;
-import presenter.RefreshResponse;
+import responder.RefreshResponder;
+import responder.RefreshResponse;
 import ui_swing.RefreshViewModel;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class RefreshUseCaseTest implements Presenter {
+public class RefreshUseCaseTest implements RefreshResponder {
 
     private RefreshResponse response;
 

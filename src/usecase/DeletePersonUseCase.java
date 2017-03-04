@@ -3,12 +3,12 @@ package usecase;
 import builderfactory.Request;
 import builderfactory.UseCase;
 import gateway.PersonRepository;
-import presenter.Presenter;
+import responder.RefreshResponder;
 
 public class DeletePersonUseCase extends UseCase {
     private final PersonRepository repository;
 
-    public DeletePersonUseCase(PersonRepository repository, Presenter presenter) {
+    public DeletePersonUseCase(PersonRepository repository, RefreshResponder presenter) {
         this.repository = repository;
     }
 

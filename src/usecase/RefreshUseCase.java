@@ -4,16 +4,16 @@ import builderfactory.Request;
 import builderfactory.UseCase;
 import entity.PersonTemplate;
 import gateway.PersonRepository;
-import presenter.Presenter;
+import responder.RefreshResponder;
 
 import java.util.List;
 
 public class RefreshUseCase extends UseCase {
 
     private final PersonRepository repository;
-    private final Presenter presenter;
+    private final RefreshResponder presenter;
 
-    public RefreshUseCase(PersonRepository repository, Presenter presenter) {
+    public RefreshUseCase(PersonRepository repository, RefreshResponder presenter) {
         this.repository = repository;
         this.presenter = presenter;
     }

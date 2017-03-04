@@ -3,12 +3,12 @@ package usecase;
 import builderfactory.Request;
 import builderfactory.UseCase;
 import gateway.PersonRepository;
-import presenter.Presenter;
+import responder.RefreshResponder;
 
 public class AddPersonUseCase extends UseCase {
     private final PersonRepository repository;
 
-    public AddPersonUseCase(PersonRepository repository, Presenter presenter) {
+    public AddPersonUseCase(PersonRepository repository, RefreshResponder presenter) {
         this.repository = repository;
     }
 

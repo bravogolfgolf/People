@@ -1,6 +1,6 @@
 package ui_swing;
 
-import presenter.View;
+import responder.View;
 
 public class RefreshView implements View {
 

@@ -1,6 +1,6 @@
 package builderfactory;
 
-import presenter.Presenter;
+import responder.RefreshResponder;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -18,7 +18,7 @@ public class UseCaseFactory {
         this.constructorObjects = constructorObjects;
     }
 
-    public UseCase make(String useCase, Presenter presenter) {
+    public UseCase make(String useCase, RefreshResponder presenter) {
 
         Class<?> aClass = useCases.get(useCase);
 

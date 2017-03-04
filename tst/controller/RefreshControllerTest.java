@@ -5,8 +5,8 @@ import database.PersonRepositoryInMemory;
 import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
-import presenter.Presenter;
-import presenter.View;
+import responder.RefreshResponder;
+import responder.View;
 import usecase.RefreshRequest;
 import usecase.RefreshUseCase;
 
@@ -22,7 +22,7 @@ public class RefreshControllerTest {
     }};
     private final RequestBuilder requestBuilder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
-    private final Presenter presenter = null;
+    private final RefreshResponder presenter = null;
     private final View view = null;
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private RefreshRequest r;
@@ -50,13 +50,13 @@ public class RefreshControllerTest {
         }
 
         @Override
-        public UseCase make(String useCase, Presenter presenter) {
+        public UseCase make(String useCase, RefreshResponder presenter) {
             return new RefreshUseCaseSpy(null, null);
         }
     }
 
     private class RefreshUseCaseSpy extends RefreshUseCase {
-        RefreshUseCaseSpy(PersonRepository repository, Presenter presenter) {
+        RefreshUseCaseSpy(PersonRepository repository, RefreshResponder presenter) {
             super(repository, presenter);
         }
 

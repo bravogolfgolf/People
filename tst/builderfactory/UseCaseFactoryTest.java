@@ -5,7 +5,7 @@ import gateway.ExportImport;
 import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
-import presenter.Presenter;
+import responder.RefreshResponder;
 import usecase.*;
 
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class UseCaseFactoryTest {
     private final PersonRepository repository = null;
     private final PersonRepositoryExportImport exportImport = null;
-    private final Presenter presenter = null;
+    private final RefreshResponder presenter = null;
     private final Map<String, Class> useCases = new HashMap<>();
     private final Map<String, Class[]> constructorClasses = new HashMap<>();
     private final Map<String, Object[]> constructorObjects = new HashMap<>();
@@ -47,11 +47,11 @@ public class UseCaseFactoryTest {
     }
 
     private void setConstructorClasses() {
-        constructorClasses.put("Refresh", new Class[]{PersonRepository.class, Presenter.class});
-        constructorClasses.put("AddPerson", new Class[]{PersonRepository.class, Presenter.class});
-        constructorClasses.put("DeletePerson", new Class[]{PersonRepository.class, Presenter.class});
-        constructorClasses.put("Export", new Class[]{ExportImport.class, Presenter.class});
-        constructorClasses.put("Import", new Class[]{ExportImport.class, Presenter.class});
+        constructorClasses.put("Refresh", new Class[]{PersonRepository.class, RefreshResponder.class});
+        constructorClasses.put("AddPerson", new Class[]{PersonRepository.class, RefreshResponder.class});
+        constructorClasses.put("DeletePerson", new Class[]{PersonRepository.class, RefreshResponder.class});
+        constructorClasses.put("Export", new Class[]{ExportImport.class, RefreshResponder.class});
+        constructorClasses.put("Import", new Class[]{ExportImport.class, RefreshResponder.class});
     }
 
     private void setConstructorObjects() {

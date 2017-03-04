@@ -2,8 +2,8 @@ package builderfactory;
 
 import controller.*;
 import org.junit.Test;
-import presenter.Presenter;
-import presenter.View;
+import responder.RefreshResponder;
+import responder.View;
 
 import java.io.File;
 import java.util.HashMap;
@@ -22,15 +22,15 @@ public class ControllerFactoryTest {
         put("Import", ImportController.class);
     }};
     private final Map<String, Class[]> constructorClasses = new HashMap<String, Class[]>() {{
-        put("Refresh", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, Presenter.class, View.class});
-        put("AddPerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, Presenter.class, View.class});
-        put("DeletePerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, Presenter.class, View.class});
-        put("Export", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, Presenter.class, View.class});
-        put("Import", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, Presenter.class, View.class});
+        put("Refresh", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
+        put("AddPerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
+        put("DeletePerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
+        put("Export", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
+        put("Import", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
     }};
     private final ControllerFactory factory = new ControllerFactory(requestBuilder, useCaseFactory, controllers, constructorClasses);
     private final Map<Integer, Object> requestArgs = new HashMap<>();
-    private final Presenter presenter = null;
+    private final RefreshResponder presenter = null;
     private final View view = null;
 
     @Test
@@ -98,7 +98,7 @@ public class ControllerFactoryTest {
         }
 
         @Override
-        public UseCase make(String useCase, Presenter presenter) {
+        public UseCase make(String useCase, RefreshResponder presenter) {
             return new UseCase();
         }
     }

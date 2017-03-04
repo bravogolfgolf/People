@@ -3,7 +3,7 @@ package usecase;
 import builderfactory.Request;
 import builderfactory.UseCase;
 import gateway.ExportImport;
-import presenter.Presenter;
+import responder.RefreshResponder;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.io.IOException;
 public class ExportUseCase extends UseCase {
     private final ExportImport exporter;
 
-    public ExportUseCase(ExportImport exporter, Presenter presenter) {
+    public ExportUseCase(ExportImport exporter, RefreshResponder presenter) {
         this.exporter = exporter;
     }
 
