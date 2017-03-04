@@ -6,12 +6,12 @@ public class ExportUseCaseResponse implements ExportResponse {
     private int count;
 
     @Override
-    public void setId(int count) {
+    public void setCount(int count) {
         this.count = count;
     }
 
     @Override
-    public int getId() {
+    public int getCount() {
         return count;
     }
 }

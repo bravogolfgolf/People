@@ -4,10 +4,9 @@ import builderfactory.*;
 import gateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
-import responder.RefreshResponder;
-import responder.RefreshResponse;
+import responder.ExportResponder;
+import responder.ExportResponse;
 import responder.View;
-import ui_swing.RefreshViewModel;
 import usecase.ExportRequest;
 import usecase.ExportUseCase;
 
@@ -24,18 +23,18 @@ public class ExportControllerTest {
     private final RequestBuilder builder = new RequestBuilder(requests);
     private final Map<Integer, Object> args = new HashMap<>();
     private final UseCaseFactory factory = new UseCaseFactoryDummy(null, null, null);
-    private final RefreshResponder presenter = new RefreshResponder() {
+    private final ExportResponder presenter = new ExportResponder() {
         @Override
-        public void present(RefreshResponse response) {
+        public void present(ExportResponse response) {
 
         }
 
         @Override
-        public RefreshViewModel[] getViewModel() {
-            return null;
+        public int getViewModel() {
+            return 0;
         }
     };
-    private final View view = null;
+    private final View view = object -> null;
     private final File file = new File("Export.per");
     private ExportRequest r;
 
@@ -65,7 +64,7 @@ public class ExportControllerTest {
     }
 
     private class ExportUseCaseSpy extends ExportUseCase {
-        ExportUseCaseSpy(ExportImport exporter, RefreshResponder responder) {
+        ExportUseCaseSpy(ExportImport exporter, ExportResponder responder) {
             super(exporter, responder);
         }
 

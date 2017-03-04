@@ -21,7 +21,8 @@ public class PersonRepositoryExportImportTest {
 
         repository.addPerson("Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
 
-        exportImport.toDisk(file);
+        int exportCount = exportImport.toDisk(file);
+        assertEquals(1, exportCount);
 
         exportImport.fromDisk(file);
 

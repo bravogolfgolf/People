@@ -161,7 +161,8 @@ public class MainFrame extends JFrame implements Runnable {
             if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
                 Map<Integer, Object> args = new HashMap<>();
                 args.put(0, fileChooser.getSelectedFile());
-                tryExport(args);
+                String string = tryExport(args);
+                statusBar.setStatusLabel(string);
             }
         });
         fileMenu.add(exportDataMenuItem);
@@ -173,16 +174,18 @@ public class MainFrame extends JFrame implements Runnable {
         return menuItem;
     }
 
-    private void tryExport(Map<Integer, Object> args) {
+    private String tryExport(Map<Integer, Object> args) {
+        String string = null;
         Object[] constructorArgs = new Object[3];
         constructorArgs[0] = args;
-        constructorArgs[1] = new RefreshPresenter();
-        constructorArgs[2] = new RefreshView();
+        constructorArgs[1] = new ExportPresenter();
+        constructorArgs[2] = new ExportView();
         try {
-            controllerFactory.make("Export", constructorArgs).execute();
+            string = (String) controllerFactory.make("Export", constructorArgs).execute();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(MainFrame.this, "Could not Export file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        return string;
     }
 
     private void addImportMenuItem() {

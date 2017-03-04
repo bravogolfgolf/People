@@ -17,16 +17,17 @@ public class PersonRepositoryExportImport implements ExportImport {
     }
 
     @Override
-    public void toDisk(File file) throws IOException {
+    public int toDisk(File file) throws IOException {
         Collection list = repository.forExport();
         Person[] array = new Person[list.size()];
-        int i = 0;
+        int count = 0;
         for (Object object : list) {
-            array[i++] = (Person) object;
+            array[count++] = (Person) object;
         }
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
             oos.writeObject(array);
         }
+        return count;
     }
 
     @Override

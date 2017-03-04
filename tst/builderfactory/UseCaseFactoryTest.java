@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import responder.AddPersonResponder;
 import responder.DeletePersonResponder;
+import responder.ExportResponder;
 import responder.RefreshResponder;
 import usecase.*;
 
@@ -52,7 +53,7 @@ public class UseCaseFactoryTest {
         constructorClasses.put("Refresh", new Class[]{PersonRepository.class, RefreshResponder.class});
         constructorClasses.put("AddPerson", new Class[]{PersonRepository.class, AddPersonResponder.class});
         constructorClasses.put("DeletePerson", new Class[]{PersonRepository.class, DeletePersonResponder.class});
-        constructorClasses.put("Export", new Class[]{ExportImport.class, RefreshResponder.class});
+        constructorClasses.put("Export", new Class[]{ExportImport.class, ExportResponder.class});
         constructorClasses.put("Import", new Class[]{ExportImport.class, RefreshResponder.class});
     }
 

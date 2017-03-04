@@ -8,7 +8,7 @@ public class ExportPresenter implements ExportResponder {
 
     @Override
     public void present(ExportResponse response) {
-        this.viewModel = response.getId();
+        this.viewModel = response.getCount();
     }
 
     @Override

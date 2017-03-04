@@ -2,10 +2,7 @@ package builderfactory;
 
 import controller.*;
 import org.junit.Test;
-import responder.AddPersonResponder;
-import responder.DeletePersonResponder;
-import responder.RefreshResponder;
-import responder.View;
+import responder.*;
 import ui_swing.*;
 
 import java.io.File;
@@ -28,7 +25,7 @@ public class ControllerFactoryTest {
         put("Refresh", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
         put("AddPerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, AddPersonResponder.class, View.class});
         put("DeletePerson", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, DeletePersonResponder.class, View.class});
-        put("Export", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
+        put("Export", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, ExportResponder.class, View.class});
         put("Import", new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, RefreshResponder.class, View.class});
     }};
     private final ControllerFactory factory = new ControllerFactory(requestBuilder, useCaseFactory, controllers, constructorClasses);
@@ -74,8 +71,8 @@ public class ControllerFactoryTest {
     public void makeMethodReturnsExportController() {
         File file = new File("Export.per");
         requestArgs.put(0, file);
-        RefreshResponder presenter = new RefreshPresenter();
-        View view = new RefreshView();
+        ExportResponder presenter = new ExportPresenter();
+        View view = new ExportView();
         Object[] factoryArgs = new Object[]{requestArgs, presenter, view};
         Controller controller = factory.make("Export", factoryArgs);
         assertTrue(controller instanceof ExportController);

@@ -1,20 +1,35 @@
 package usecase;
 
-import database.PersonRepositoryInMemory;
-import gateway.PersonRepository;
 import database.PersonRepositoryExportImport;
+import database.PersonRepositoryInMemory;
 import gateway.ExportImport;
+import gateway.PersonRepository;
 import org.junit.Test;
+import responder.ExportResponder;
+import responder.ExportResponse;
 
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ExportUseCaseTest {
+public class ExportUseCaseTest implements ExportResponder {
+    private ExportResponse response;
+
+    @Override
+    public void present(ExportResponse response) {
+        this.response = response;
+    }
+
+    @Override
+    public int getViewModel() {
+        return 0;
+    }
+
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final ExportImport exportImport = new PersonRepositoryExportImport(repository);
-    private final ExportUseCase useCase = new ExportUseCase(exportImport, null);
+    private final ExportUseCase useCase = new ExportUseCase(exportImport, this);
     private final ExportRequest request = new ExportRequest();
 
     @Test
@@ -24,6 +39,7 @@ public class ExportUseCaseTest {
         request.file = file;
         assertTrue(!file.delete());
         useCase.execute(request);
+        assertEquals(1, response.getCount());
         assertTrue(file.delete());
     }
 

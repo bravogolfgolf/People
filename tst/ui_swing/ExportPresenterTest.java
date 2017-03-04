@@ -13,7 +13,7 @@ public class ExportPresenterTest {
 
     @Before
     public void setUp() {
-        response.setId(1);
+        response.setCount(1);
     }
 
     @Test

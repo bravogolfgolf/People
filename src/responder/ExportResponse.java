@@ -1,7 +1,7 @@
 package responder;
 
 public interface ExportResponse {
-    void setId(int count);
+    void setCount(int count);
 
-    int getId();
+    int getCount();
 }
