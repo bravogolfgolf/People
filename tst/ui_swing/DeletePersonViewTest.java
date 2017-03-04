@@ -5,11 +5,11 @@ import responder.View;
 
 import static org.junit.Assert.assertEquals;
 
-public class AddPersonViewTest {
+public class DeletePersonViewTest {
     @Test
     public void shouldFormatRefreshViewModelForUi() {
-        View view = new AddPersonView();
+        View view = new DeletePersonView();
         String string = (String) view.generateView(1);
-        assertEquals("Added Person with id = 1", string);
+        assertEquals("Deleted Person with id = 1", string);
     }
 }
