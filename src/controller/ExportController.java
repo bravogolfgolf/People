@@ -1,10 +1,10 @@
 package controller;
 
-import builderfactory.*;
+import builderfactory.Controller;
+import builderfactory.Request;
+import builderfactory.UseCase;
 import responder.ExportResponder;
 import responder.View;
-
-import java.util.Map;
 
 public class ExportController extends Controller {
     private final Request request;
@@ -12,9 +12,9 @@ public class ExportController extends Controller {
     private final ExportResponder responder;
     private final View view;
 
-    public ExportController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, ExportResponder responder, View view) {
-        this.request = request.make("Export", args);
-        this.useCase = useCase.make("Export", responder);
+    public ExportController(Request request, UseCase useCase, ExportResponder responder, View view) {
+        this.request = request;
+        this.useCase = useCase;
         this.responder = responder;
         this.view = view;
     }

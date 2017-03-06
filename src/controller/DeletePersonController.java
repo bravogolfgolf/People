@@ -1,10 +1,10 @@
 package controller;
 
-import builderfactory.*;
+import builderfactory.Controller;
+import builderfactory.Request;
+import builderfactory.UseCase;
 import responder.DeletePersonResponder;
 import responder.View;
-
-import java.util.Map;
 
 public class DeletePersonController extends Controller {
     private final Request request;
@@ -12,9 +12,9 @@ public class DeletePersonController extends Controller {
     private final DeletePersonResponder responder;
     private final View view;
 
-    public DeletePersonController(RequestBuilder builder, Map<Integer, Object> args, UseCaseFactory factory, DeletePersonResponder responder, View view) {
-        this.request = builder.make("DeletePerson", args);
-        this.useCase = factory.make("DeletePerson", responder);
+    public DeletePersonController(Request request, UseCase useCase, DeletePersonResponder responder, View view) {
+        this.request = request;
+        this.useCase = useCase;
         this.responder = responder;
         this.view = view;
     }

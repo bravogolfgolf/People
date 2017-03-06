@@ -1,5 +1,7 @@
 package builderfactory;
 
+import responder.View;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -18,12 +20,14 @@ public class ControllerFactory {
         this.constructorClasses = constructorClasses;
     }
 
-    public Controller make(String controller, Object[] constructorArgs) {
-        Class<?> aClass = controllers.get(controller);
+    public Controller make(String string, Map<Integer, Object> requestArgs, Object responder, View view) {
+        Request request = builder.make(string, requestArgs);
+        UseCase useCase = factory.make(string, responder);
+        Class<?> aClass = controllers.get(string);
 
         Constructor constructor = null;
         try {
-            constructor = aClass.getConstructor(constructorClasses.get(controller));
+            constructor = aClass.getConstructor(constructorClasses.get(string));
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -31,7 +35,7 @@ public class ControllerFactory {
         Object newClass = null;
         try {
             assert constructor != null;
-            newClass = constructor.newInstance(builder, constructorArgs[0], factory, constructorArgs[1], constructorArgs[2]);
+            newClass = constructor.newInstance(request, useCase, responder, view);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }

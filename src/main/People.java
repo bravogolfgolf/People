@@ -1,8 +1,6 @@
 package main;
 
-import builderfactory.ControllerFactory;
-import builderfactory.RequestBuilder;
-import builderfactory.UseCaseFactory;
+import builderfactory.*;
 import gateway.ExportImport;
 import gateway.PersonRepository;
 
@@ -111,7 +109,7 @@ class People {
         Class gatewayClass = tryGetClass(entry[6]);
 
         controllers.put(key, controllerClass);
-        controllerConstructorClasses.put(key, new Class[]{RequestBuilder.class, Map.class, UseCaseFactory.class, presenterClass, viewClass});
+        controllerConstructorClasses.put(key, new Class[]{Request.class, UseCase.class, presenterClass, viewClass});
         requests.put(key, requestClass);
         useCases.put(key, useCaseClass);
         useCaseConstructorClasses.put(key, new Class[]{gatewayClass, presenterClass});

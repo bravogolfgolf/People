@@ -1,10 +1,10 @@
 package controller;
 
-import builderfactory.*;
+import builderfactory.Controller;
+import builderfactory.Request;
+import builderfactory.UseCase;
 import responder.RefreshResponder;
 import responder.View;
-
-import java.util.Map;
 
 public class RefreshController extends Controller {
     private final Request request;
@@ -12,9 +12,9 @@ public class RefreshController extends Controller {
     private final RefreshResponder responder;
     private final View view;
 
-    public RefreshController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, RefreshResponder responder, View view) {
-        this.request = request.make("Refresh", args);
-        this.useCase = useCase.make("Refresh", responder);
+    public RefreshController(Request request, UseCase useCase, RefreshResponder responder, View view) {
+        this.request = request;
+        this.useCase = useCase;
         this.responder = responder;
         this.view = view;
     }

@@ -1,10 +1,10 @@
 package controller;
 
-import builderfactory.*;
+import builderfactory.Controller;
+import builderfactory.Request;
+import builderfactory.UseCase;
 import responder.ImportResponder;
 import responder.View;
-
-import java.util.Map;
 
 public class ImportController extends Controller {
     private final Request request;
@@ -12,9 +12,9 @@ public class ImportController extends Controller {
     private final ImportResponder responder;
     private final View view;
 
-    public ImportController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, ImportResponder responder, View view) {
-        this.request = request.make("Import", args);
-        this.useCase = useCase.make("Import", responder);
+    public ImportController(Request request, UseCase useCase, ImportResponder responder, View view) {
+        this.request = request;
+        this.useCase = useCase;
         this.responder = responder;
         this.view = view;
     }

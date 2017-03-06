@@ -1,10 +1,10 @@
 package controller;
 
-import builderfactory.*;
+import builderfactory.Controller;
+import builderfactory.Request;
+import builderfactory.UseCase;
 import responder.AddPersonResponder;
 import responder.View;
-
-import java.util.Map;
 
 public class AddPersonController extends Controller {
     private final Request request;
@@ -12,9 +12,9 @@ public class AddPersonController extends Controller {
     private final AddPersonResponder responder;
     private final View view;
 
-    public AddPersonController(RequestBuilder request, Map<Integer, Object> args, UseCaseFactory useCase, AddPersonResponder responder, View view) {
-        this.request = request.make("AddPerson", args);
-        this.useCase = useCase.make("AddPerson", responder);
+    public AddPersonController(Request request, UseCase useCase, AddPersonResponder responder, View view) {
+        this.request = request;
+        this.useCase = useCase;
         this.responder = responder;
         this.view = view;
     }

@@ -1,67 +1,52 @@
 package controller;
 
-import builderfactory.*;
+import builderfactory.Controller;
+import builderfactory.Request;
+import builderfactory.UseCase;
 import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
 import responder.AddPersonResponder;
 import responder.View;
 import ui_swing.AddPersonPresenter;
+import ui_swing.AddPersonView;
 import usecase.AddPersonRequest;
 import usecase.AddPersonUseCase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class AddPersonControllerTest {
-    private final Map<String, Class> requests = new HashMap<String, Class>() {{
-        put("AddPerson", AddPersonRequest.class);
-    }};
-    private final RequestBuilder requestBuilder = new RequestBuilder(requests);
-    private final Map<Integer, Object> args = new HashMap<>();
-    private final AddPersonResponder presenter = new AddPersonPresenter();
-    private final View view = object -> null;
+    private final AddPersonRequest request = new AddPersonRequest();
+    private final UseCase useCase = new AddPersonUseCaseSpy(null, null);
+    private final AddPersonResponder responder = new AddPersonPresenter();
+    private final View view = new AddPersonView();
     private AddPersonRequest r;
 
     @Before
     public void setUp() throws Exception {
-        args.put(0, "Full Name");
-        args.put(1, "Occupation");
-        args.put(2, 0);
-        args.put(3, 0);
-        args.put(4, true);
-        args.put(5, "Tax ID");
-        args.put(6, "Gender");
+        request.fullName = "Full Name";
+        request.occupation = "Occupation";
+        request.ageCategory = 0;
+        request.employmentStatus = 0;
+        request.uSCitizen = true;
+        request.taxId = "Tax ID";
+        request.gender = "Gender";
     }
 
     @Test
     public void shouldSendRequestToUseCase() {
-        UseCaseFactory factory = new UseCaseFactoryDummy(null, null, null);
-        Controller controller = new AddPersonController(requestBuilder, args, factory, presenter, view);
+        Controller controller = new AddPersonController(request, useCase, responder, view);
 
         controller.execute();
 
-        assertEquals(args.get(0), r.fullName);
-        assertEquals(args.get(1), r.occupation);
-        assertEquals(args.get(2), r.ageCategory);
-        assertEquals(args.get(3), r.employmentStatus);
+        assertEquals(request.fullName, r.fullName);
+        assertEquals(request.occupation, r.occupation);
+        assertEquals(request.ageCategory, r.ageCategory);
+        assertEquals(request.employmentStatus, r.employmentStatus);
         assertTrue(r.uSCitizen);
-        assertEquals(args.get(5), r.taxId);
-        assertEquals(args.get(6), r.gender);
-    }
-
-    private class UseCaseFactoryDummy extends UseCaseFactory {
-        UseCaseFactoryDummy(Map<String, Class> useCases, Map<String, Class[]> constructorClasses, Map<String, Object[]> constructorObjects) {
-            super(useCases, constructorClasses, constructorObjects);
-        }
-
-        @Override
-        public UseCase make(String useCase, Object responder) {
-            return new AddPersonUseCaseSpy(null, null);
-        }
+        assertEquals(request.taxId, r.taxId);
+        assertEquals(request.gender, r.gender);
     }
 
     private class AddPersonUseCaseSpy extends AddPersonUseCase {
