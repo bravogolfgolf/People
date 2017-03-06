@@ -2,9 +2,10 @@ package ui_swing;
 
 import responder.ExportResponder;
 import responder.ExportResponse;
+import responder.Responder;
 import responder.View;
 
-public class ExportPresenter implements ExportResponder {
+public class ExportPresenter implements Responder, ExportResponder {
     private final View view;
     private int viewModel;
 

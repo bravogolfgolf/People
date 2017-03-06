@@ -17,11 +17,6 @@ public class DeletePersonUseCaseTest implements DeletePersonResponder {
         this.response = response;
     }
 
-    @Override
-    public Object generateView() {
-        return null;
-    }
-
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final DeletePersonUseCase useCase = new DeletePersonUseCase(repository, this);
     private final DeletePersonRequest request = new DeletePersonRequest();

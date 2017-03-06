@@ -7,22 +7,16 @@ import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
 import responder.AddPersonResponder;
-import responder.AddPersonResponse;
+import responder.Responder;
 import usecase.AddPersonRequest;
 import usecase.AddPersonUseCase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class AddPersonControllerTest implements AddPersonResponder {
+public class AddPersonControllerTest implements Responder {
     private boolean responderGenerateViewCalled = false;
 
-    @Override
-    public void present(AddPersonResponse response) {
-
-    }
-
-    @Override
     public Object generateView() {
         responderGenerateViewCalled = true;
         return null;
@@ -30,7 +24,7 @@ public class AddPersonControllerTest implements AddPersonResponder {
 
     private final AddPersonRequest request = new AddPersonRequest();
     private final UseCase useCase = new AddPersonUseCaseSpy(null, null);
-    private final AddPersonResponder responder = this;
+    private final Responder responder = this;
     private final Controller controller = new AddPersonController(request, useCase, responder);
     private AddPersonRequest r;
 

@@ -2,9 +2,10 @@ package ui_swing;
 
 import responder.AddPersonResponder;
 import responder.AddPersonResponse;
+import responder.Responder;
 import responder.View;
 
-public class AddPersonPresenter implements AddPersonResponder {
+public class AddPersonPresenter implements Responder, AddPersonResponder {
     private final View view;
     private int viewModel;
 

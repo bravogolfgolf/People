@@ -15,14 +15,14 @@ import java.util.Map;
 class People {
     private static final Map<Class, Object> gateways = new HashMap<>();
     private static final List<String[]> registry = new ArrayList<String[]>() {{
-        add(new String[]{"Refresh", "controller.RefreshController", "responder.RefreshResponder", "usecase.RefreshRequest", "usecase.RefreshUseCase", "gateway.PersonRepository"});
-        add(new String[]{"AddPerson", "controller.AddPersonController", "responder.AddPersonResponder", "usecase.AddPersonRequest", "usecase.AddPersonUseCase", "gateway.PersonRepository"});
-        add(new String[]{"DeletePerson", "controller.DeletePersonController", "responder.DeletePersonResponder", "usecase.DeletePersonRequest", "usecase.DeletePersonUseCase", "gateway.PersonRepository"});
-        add(new String[]{"Export", "controller.ExportController", "responder.ExportResponder", "usecase.ExportRequest", "usecase.ExportUseCase", "gateway.ExportImport"});
-        add(new String[]{"Import", "controller.ImportController", "responder.ImportResponder", "usecase.ImportRequest", "usecase.ImportUseCase", "gateway.ExportImport"});
+        add(new String[]{"Refresh", "controller.RefreshController", "usecase.RefreshRequest", "usecase.RefreshUseCase", "gateway.PersonRepository", "responder.RefreshResponder"});
+        add(new String[]{"AddPerson", "controller.AddPersonController", "usecase.AddPersonRequest", "usecase.AddPersonUseCase", "gateway.PersonRepository", "responder.AddPersonResponder"});
+        add(new String[]{"DeletePerson", "controller.DeletePersonController", "usecase.DeletePersonRequest", "usecase.DeletePersonUseCase", "gateway.PersonRepository", "responder.DeletePersonResponder"});
+        add(new String[]{"Export", "controller.ExportController", "usecase.ExportRequest", "usecase.ExportUseCase", "gateway.ExportImport", "responder.ExportResponder"});
+        add(new String[]{"Import", "controller.ImportController", "usecase.ImportRequest", "usecase.ImportUseCase", "gateway.ExportImport", "responder.ImportResponder"});
     }};
     private static final Map<String, Class> controllers = new HashMap<>();
-    private static final Map<String, Class[]> controllerConstructorClasses = new HashMap<>();
+    private static Class[] controllerConstructorClasses = new Class[3];
     private static final Map<String, Class> requests = new HashMap<>();
     private static final Map<String, Class> useCases = new HashMap<>();
     private static final Map<String, Class[]> useCaseConstructorClasses = new HashMap<>();
@@ -38,12 +38,18 @@ class People {
     }
 
     private static void setContext() {
+        createControllerConstructorClasses();
         createGatewaysMap();
         for (String[] entry : registry)
             createAllOtherMaps(entry);
         RequestBuilder requestBuilder = new RequestBuilder(requests);
         UseCaseFactory useCaseFactory = new UseCaseFactory(useCases, useCaseConstructorClasses, useCaseConstructorObjects);
         controllerFactory = new ControllerFactory(requestBuilder, useCaseFactory, controllers, controllerConstructorClasses);
+    }
+
+    private static void createControllerConstructorClasses() {
+        Class controllerClass = tryGetClass("responder.Responder");
+        controllerConstructorClasses = new Class[]{Request.class, UseCase.class, controllerClass};
     }
 
     private static void createGatewaysMap() {
@@ -103,13 +109,12 @@ class People {
         int i = 0;
         String key = entry[i++];
         Class controllerClass = tryGetClass(entry[i++]);
-        Class responderClass = tryGetClass(entry[i++]);
         Class requestClass = tryGetClass(entry[i++]);
         Class useCaseClass = tryGetClass(entry[i++]);
-        Class gatewayClass = tryGetClass(entry[i]);
+        Class gatewayClass = tryGetClass(entry[i++]);
+        Class responderClass = tryGetClass(entry[i]);
 
         controllers.put(key, controllerClass);
-        controllerConstructorClasses.put(key, new Class[]{Request.class, UseCase.class, responderClass});
         requests.put(key, requestClass);
         useCases.put(key, useCaseClass);
         useCaseConstructorClasses.put(key, new Class[]{gatewayClass, responderClass});

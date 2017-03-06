@@ -22,11 +22,6 @@ public class ImportUseCaseTest implements ImportResponder {
         this.response = response;
     }
 
-    @Override
-    public Object generateView() {
-        return null;
-    }
-
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final ExportImport exportImport = new PersonRepositoryExportImport(repository);
     private final ImportUseCase useCase = new ImportUseCase(exportImport, this);

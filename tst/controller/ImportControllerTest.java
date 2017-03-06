@@ -7,7 +7,7 @@ import gateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
 import responder.ImportResponder;
-import responder.ImportResponse;
+import responder.Responder;
 import usecase.ImportRequest;
 import usecase.ImportUseCase;
 
@@ -16,13 +16,8 @@ import java.io.File;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ImportControllerTest implements ImportResponder {
+public class ImportControllerTest implements Responder {
     private boolean responderGenerateViewCalled = false;
-
-    @Override
-    public void present(ImportResponse response) {
-
-    }
 
     @Override
     public Object generateView() {
@@ -32,7 +27,7 @@ public class ImportControllerTest implements ImportResponder {
 
     private final ImportRequest request = new ImportRequest();
     private final UseCase useCase = new ImportUseCaseSpy(null, null);
-    private final ImportResponder responder = this;
+    private final Responder responder = this;
     private final Controller controller = new ImportController(request, useCase, responder);
     private final File file = new File("ImportTest.per");
 

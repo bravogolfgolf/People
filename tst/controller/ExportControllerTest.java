@@ -7,7 +7,7 @@ import gateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
 import responder.ExportResponder;
-import responder.ExportResponse;
+import responder.Responder;
 import usecase.ExportRequest;
 import usecase.ExportUseCase;
 
@@ -16,13 +16,8 @@ import java.io.File;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ExportControllerTest implements ExportResponder {
+public class ExportControllerTest implements Responder {
     private boolean responderGenerateViewCalled = false;
-
-    @Override
-    public void present(ExportResponse response) {
-
-    }
 
     @Override
     public Object generateView() {
@@ -32,7 +27,7 @@ public class ExportControllerTest implements ExportResponder {
 
     private final ExportRequest request = new ExportRequest();
     private final UseCase useCase = new ExportUseCaseSpy(null, null);
-    private final ExportResponder responder = this;
+    private final Responder responder = this;
     private final Controller controller = new ExportController(request, useCase, responder);
     private final File file = new File("Export.per");
 

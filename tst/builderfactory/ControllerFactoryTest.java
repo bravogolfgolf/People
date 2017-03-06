@@ -21,13 +21,7 @@ public class ControllerFactoryTest {
         put("Export", ExportController.class);
         put("Import", ImportController.class);
     }};
-    private final Map<String, Class[]> constructorClasses = new HashMap<String, Class[]>() {{
-        put("Refresh", new Class[]{Request.class, UseCase.class, RefreshResponder.class});
-        put("AddPerson", new Class[]{Request.class, UseCase.class, AddPersonResponder.class});
-        put("DeletePerson", new Class[]{Request.class, UseCase.class, DeletePersonResponder.class});
-        put("Export", new Class[]{Request.class, UseCase.class, ExportResponder.class});
-        put("Import", new Class[]{Request.class, UseCase.class, ImportResponder.class});
-    }};
+    private final Class[] constructorClasses = new Class[]{Request.class, UseCase.class, Responder.class};
     private final ControllerFactory factory = new ControllerFactory(requestBuilder, useCaseFactory, controllers, constructorClasses);
     private final Map<Integer, Object> requestArgs = new HashMap<>();
 

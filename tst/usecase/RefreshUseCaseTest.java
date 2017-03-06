@@ -19,11 +19,6 @@ public class RefreshUseCaseTest implements RefreshResponder {
         this.response = response;
     }
 
-    @Override
-    public Object generateView() {
-        return null;
-    }
-
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final RefreshUseCase useCase = new RefreshUseCase(repository, this);
     private final Request request = new RefreshRequest();

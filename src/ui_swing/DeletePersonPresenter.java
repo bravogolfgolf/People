@@ -2,9 +2,10 @@ package ui_swing;
 
 import responder.DeletePersonResponder;
 import responder.DeletePersonResponse;
+import responder.Responder;
 import responder.View;
 
-public class DeletePersonPresenter implements DeletePersonResponder {
+public class DeletePersonPresenter implements Responder, DeletePersonResponder {
     private final View view;
     private int viewModel;
 

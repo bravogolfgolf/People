@@ -2,9 +2,10 @@ package ui_swing;
 
 import responder.RefreshResponder;
 import responder.RefreshResponse;
+import responder.Responder;
 import responder.View;
 
-public class RefreshPresenter implements RefreshResponder {
+public class RefreshPresenter implements Responder, RefreshResponder {
     private final View view;
     private RefreshViewModel[] viewModel;
 

@@ -3,14 +3,14 @@ package controller;
 import builderfactory.Controller;
 import builderfactory.Request;
 import builderfactory.UseCase;
-import responder.ImportResponder;
+import responder.Responder;
 
 public class ImportController extends Controller {
     private final Request request;
     private final UseCase useCase;
-    private final ImportResponder responder;
+    private final Responder responder;
 
-    public ImportController(Request request, UseCase useCase, ImportResponder responder) {
+    public ImportController(Request request, UseCase useCase, Responder responder) {
         this.request = request;
         this.useCase = useCase;
         this.responder = responder;

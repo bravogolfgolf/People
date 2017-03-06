@@ -17,11 +17,6 @@ public class AddPersonUseCaseTest implements AddPersonResponder {
         this.response = response;
     }
 
-    @Override
-    public Object generateView() {
-        return null;
-    }
-
     private final PersonRepository repository = new PersonRepositoryInMemory();
     private final AddPersonUseCase useCase = new AddPersonUseCase(repository, this);
 

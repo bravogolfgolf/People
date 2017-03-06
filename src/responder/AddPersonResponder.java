@@ -2,6 +2,4 @@ package responder;
 
 public interface AddPersonResponder {
     void present(AddPersonResponse response);
-
-    Object generateView();
 }
