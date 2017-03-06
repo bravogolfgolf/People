@@ -23,8 +23,8 @@ public class ExportUseCaseTest implements ExportResponder {
     }
 
     @Override
-    public int getViewModel() {
-        return 0;
+    public Object generateView() {
+        return null;
     }
 
     private final PersonRepository repository = new PersonRepositoryInMemory();

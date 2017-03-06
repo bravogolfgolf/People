@@ -7,8 +7,8 @@ import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
 import responder.AddPersonResponder;
+import responder.AddPersonResponse;
 import responder.View;
-import ui_swing.AddPersonPresenter;
 import ui_swing.AddPersonView;
 import usecase.AddPersonRequest;
 import usecase.AddPersonUseCase;
@@ -16,11 +16,25 @@ import usecase.AddPersonUseCase;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class AddPersonControllerTest {
+public class AddPersonControllerTest implements AddPersonResponder {
+    private boolean responderGenerateViewCalled = false;
+
+    @Override
+    public void present(AddPersonResponse response) {
+
+    }
+
+    @Override
+    public Object generateView() {
+        responderGenerateViewCalled = true;
+        return null;
+    }
+
     private final AddPersonRequest request = new AddPersonRequest();
     private final UseCase useCase = new AddPersonUseCaseSpy(null, null);
-    private final AddPersonResponder responder = new AddPersonPresenter();
     private final View view = new AddPersonView();
+    private final AddPersonResponder responder = this;
+    private final Controller controller = new AddPersonController(request, useCase, responder, view);
     private AddPersonRequest r;
 
     @Before
@@ -36,8 +50,6 @@ public class AddPersonControllerTest {
 
     @Test
     public void shouldSendRequestToUseCase() {
-        Controller controller = new AddPersonController(request, useCase, responder, view);
-
         controller.execute();
 
         assertEquals(request.fullName, r.fullName);
@@ -47,6 +59,13 @@ public class AddPersonControllerTest {
         assertTrue(r.uSCitizen);
         assertEquals(request.taxId, r.taxId);
         assertEquals(request.gender, r.gender);
+    }
+
+    @Test
+    public void shouldCallResponder() {
+        controller.execute();
+
+        assertTrue(responderGenerateViewCalled);
     }
 
     private class AddPersonUseCaseSpy extends AddPersonUseCase {

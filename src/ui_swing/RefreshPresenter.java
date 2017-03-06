@@ -1,11 +1,16 @@
 package ui_swing;
 
-import responder.RefreshResponse;
 import responder.RefreshResponder;
+import responder.RefreshResponse;
+import responder.View;
 
 public class RefreshPresenter implements RefreshResponder {
-
+    private final View view;
     private RefreshViewModel[] viewModel;
+
+    public RefreshPresenter(View view) {
+        this.view = view;
+    }
 
     @Override
     public void present(RefreshResponse response) {
@@ -13,6 +18,11 @@ public class RefreshPresenter implements RefreshResponder {
         int i = 0;
         for (Object[] object : response.getRecords())
             viewModel[i++] = makeModelRecord(object);
+    }
+
+    @Override
+    public Object generateView() {
+        return view.generateView(getViewModel());
     }
 
     private RefreshViewModel makeModelRecord(Object[] object) {
@@ -28,7 +38,6 @@ public class RefreshPresenter implements RefreshResponder {
         return modelRecord;
     }
 
-    @Override
     public RefreshViewModel[] getViewModel() {
         return viewModel;
     }

@@ -61,9 +61,7 @@ public class MainFrame extends JFrame implements Runnable {
         //Application Specific
         setupMainFrame();
         createAndAddComponentsToMainFrame();
-
-        PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("Refresh", new HashMap<>(), new RefreshPresenter(), new RefreshView()).execute();
-        personTablePanel.updateModel(records);
+        updatePersonTablePanelModel();
         setMainFrameVisible();
     }
 
@@ -172,7 +170,7 @@ public class MainFrame extends JFrame implements Runnable {
     private String tryExport(Map<Integer, Object> args) {
         String string = null;
         try {
-            string = (String) controllerFactory.make("Export", args, new ExportPresenter(), new ExportView()).execute();
+            string = (String) controllerFactory.make("Export", args, new ExportPresenter(new ExportView()), new ExportView()).execute();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(MainFrame.this, "Could not Export file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -187,8 +185,7 @@ public class MainFrame extends JFrame implements Runnable {
                 String string = tryImport(args);
                 statusBar.setStatusLabel(string);
 
-                PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("Refresh", new HashMap<>(), new RefreshPresenter(), new RefreshView()).execute();
-                personTablePanel.updateModel(records);
+                updatePersonTablePanelModel();
             }
         });
         fileMenu.add(importDataMenuItem);
@@ -197,7 +194,7 @@ public class MainFrame extends JFrame implements Runnable {
     private String tryImport(Map<Integer, Object> args) {
         String string = null;
         try {
-            string = (String) controllerFactory.make("Import", args, new ImportPresenter(), new ImportView()).execute();
+            string = (String) controllerFactory.make("Import", args, new ImportPresenter(new ImportView()), new ImportView()).execute();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(MainFrame.this, "Could not import file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -281,11 +278,10 @@ public class MainFrame extends JFrame implements Runnable {
             args.put(4, formEvent.uSCitizen);
             args.put(5, formEvent.taxId);
             args.put(6, formEvent.gender);
-            String string = (String) controllerFactory.make("AddPerson", args, new AddPersonPresenter(), new AddPersonView()).execute();
+            String string = (String) controllerFactory.make("AddPerson", args, new AddPersonPresenter(new AddPersonView()), new AddPersonView()).execute();
             statusBar.setStatusLabel(string);
 
-            PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("Refresh", new HashMap<>(), new RefreshPresenter(), new RefreshView()).execute();
-            personTablePanel.updateModel(records);
+            updatePersonTablePanelModel();
         });
         add(entryPanel, BorderLayout.LINE_START);
         SwingUtilities.getRootPane(entryPanel.okButton).setDefaultButton(entryPanel.okButton);
@@ -295,11 +291,10 @@ public class MainFrame extends JFrame implements Runnable {
         personTablePanel = new PersonTablePanel(id -> {
             Map<Integer, Object> args = new HashMap<>();
             args.put(0, id);
-            String string = (String) controllerFactory.make("DeletePerson", args, new DeletePersonPresenter(), new DeletePersonView()).execute();
+            String string = (String) controllerFactory.make("DeletePerson", args, new DeletePersonPresenter(new DeletePersonView()), new DeletePersonView()).execute();
             statusBar.setStatusLabel(string);
 
-            PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("Refresh", new HashMap<>(), new RefreshPresenter(), new RefreshView()).execute();
-            personTablePanel.updateModel(records);
+            updatePersonTablePanelModel();
         });
         add(personTablePanel, BorderLayout.CENTER);
     }
@@ -316,6 +311,11 @@ public class MainFrame extends JFrame implements Runnable {
             preferences.putInt("portNumber", portNumber);
             preferenceDialog.setVisible(false);
         });
+    }
+
+    private void updatePersonTablePanelModel() {
+        PersonTableModelRecord[] records = (PersonTableModelRecord[]) controllerFactory.make("Refresh", new HashMap<>(), new RefreshPresenter(new RefreshView()), new RefreshView()).execute();
+        personTablePanel.updateModel(records);
     }
 
     private void setMainFrameVisible() {

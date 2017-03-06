@@ -2,8 +2,8 @@ package ui_swing;
 
 import org.junit.Before;
 import org.junit.Test;
-import responder.ExportResponder;
 import responder.ExportResponse;
+import responder.View;
 import usecase.ExportUseCaseResponse;
 
 import static org.junit.Assert.assertEquals;
@@ -18,7 +18,8 @@ public class ExportPresenterTest {
 
     @Test
     public void shouldFormatResponseForView() {
-        ExportResponder presenter = new ExportPresenter();
+        View view = new ExportView();
+        ExportPresenter presenter = new ExportPresenter(view);
         presenter.present(response);
         int viewModel = presenter.getViewModel();
         assertEquals(1, viewModel);

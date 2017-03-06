@@ -10,7 +10,6 @@ import responder.AddPersonResponse;
 import static org.junit.Assert.assertEquals;
 
 public class AddPersonUseCaseTest implements AddPersonResponder {
-
     private AddPersonResponse response;
 
     @Override
@@ -19,8 +18,8 @@ public class AddPersonUseCaseTest implements AddPersonResponder {
     }
 
     @Override
-    public int getViewModel() {
-        return 0;
+    public Object generateView() {
+        return null;
     }
 
     private final PersonRepository repository = new PersonRepositoryInMemory();

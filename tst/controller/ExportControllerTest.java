@@ -7,8 +7,8 @@ import gateway.ExportImport;
 import org.junit.Before;
 import org.junit.Test;
 import responder.ExportResponder;
+import responder.ExportResponse;
 import responder.View;
-import ui_swing.ExportPresenter;
 import ui_swing.ExportView;
 import usecase.ExportRequest;
 import usecase.ExportUseCase;
@@ -16,13 +16,29 @@ import usecase.ExportUseCase;
 import java.io.File;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-public class ExportControllerTest {
+public class ExportControllerTest implements ExportResponder {
+    private boolean responderGenerateViewCalled = false;
+
+    @Override
+    public void present(ExportResponse response) {
+
+    }
+
+    @Override
+    public Object generateView() {
+        responderGenerateViewCalled = true;
+        return null;
+    }
+
     private final ExportRequest request = new ExportRequest();
     private final UseCase useCase = new ExportUseCaseSpy(null, null);
-    private final ExportResponder responder = new ExportPresenter();
     private final View view = new ExportView();
+    private final ExportResponder responder = this;
+    private final Controller controller = new ExportController(request, useCase, responder, view);
     private final File file = new File("Export.per");
+
     private ExportRequest r;
 
     @Before
@@ -32,11 +48,16 @@ public class ExportControllerTest {
 
     @Test
     public void shouldSendRequestToUseCase() {
-        Controller controller = new ExportController(request, useCase, responder, view);
-
         controller.execute();
 
         assertEquals(file, r.file);
+    }
+
+    @Test
+    public void shouldCallResponder() {
+        controller.execute();
+
+        assertTrue(responderGenerateViewCalled);
     }
 
     private class ExportUseCaseSpy extends ExportUseCase {

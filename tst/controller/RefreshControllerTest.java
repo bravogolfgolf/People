@@ -6,27 +6,47 @@ import builderfactory.UseCase;
 import gateway.PersonRepository;
 import org.junit.Test;
 import responder.RefreshResponder;
+import responder.RefreshResponse;
 import responder.View;
-import ui_swing.RefreshPresenter;
 import usecase.RefreshRequest;
 import usecase.RefreshUseCase;
 
 import static org.junit.Assert.assertTrue;
 
-public class RefreshControllerTest {
+public class RefreshControllerTest implements RefreshResponder {
+    private boolean responderGenerateViewCalled = false;
+
+    @Override
+    public void present(RefreshResponse response) {
+
+    }
+
+    @Override
+    public Object generateView() {
+        responderGenerateViewCalled = true;
+        return null;
+    }
+
     private final RefreshRequest request = new RefreshRequest();
     private final UseCase useCase = new RefreshUseCaseSpy(null, null);
-    private final RefreshResponder presenter = new RefreshPresenter();
     private final View view = object -> null;
+    private final RefreshResponder presenter = this;
+    private final Controller controller = new RefreshController(request, useCase, presenter, view);
+
     private RefreshRequest r;
 
     @Test
     public void shouldSendRequestToUseCase() {
-        Controller controller = new RefreshController(request, useCase, presenter, view);
-
         controller.execute();
 
         assertTrue(r != null);
+    }
+
+    @Test
+    public void shouldCallResponder() {
+        controller.execute();
+
+        assertTrue(responderGenerateViewCalled);
     }
 
     private class RefreshUseCaseSpy extends RefreshUseCase {

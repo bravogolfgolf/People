@@ -7,13 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 import responder.RefreshResponder;
 import responder.RefreshResponse;
-import ui_swing.RefreshViewModel;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class RefreshUseCaseTest implements RefreshResponder {
-
     private RefreshResponse response;
 
     @Override
@@ -22,7 +20,7 @@ public class RefreshUseCaseTest implements RefreshResponder {
     }
 
     @Override
-    public RefreshViewModel[] getViewModel() {
+    public Object generateView() {
         return null;
     }
 

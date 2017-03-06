@@ -22,6 +22,6 @@ public class AddPersonController extends Controller {
     @Override
     public Object execute() {
         useCase.execute(request);
-        return view.generateView(responder.getViewModel());
+        return responder.generateView();
     }
 }

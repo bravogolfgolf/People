@@ -7,19 +7,34 @@ import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
 import responder.DeletePersonResponder;
+import responder.DeletePersonResponse;
 import responder.View;
-import ui_swing.DeletePersonPresenter;
 import ui_swing.DeletePersonView;
 import usecase.DeletePersonRequest;
 import usecase.DeletePersonUseCase;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-public class DeletePersonControllerTest {
+public class DeletePersonControllerTest implements DeletePersonResponder {
+    private boolean responderGenerateViewCalled = false;
+
+    @Override
+    public void present(DeletePersonResponse response) {
+
+    }
+
+    @Override
+    public Object generateView() {
+        responderGenerateViewCalled = true;
+        return null;
+    }
+
     private final DeletePersonRequest request = new DeletePersonRequest();
     private final UseCase useCase = new DeletePersonUseCaseSpy(null, null);
-    private final DeletePersonResponder responder = new DeletePersonPresenter();
     private final View view = new DeletePersonView();
+    private final DeletePersonResponder responder = this;
+    private final Controller controller = new DeletePersonController(request, useCase, responder, view);
     private final int idToDelete = 1;
     private DeletePersonRequest r;
 
@@ -30,11 +45,16 @@ public class DeletePersonControllerTest {
 
     @Test
     public void shouldSendRequestToUseCase() {
-        Controller controller = new DeletePersonController(request, useCase, responder, view);
-
         controller.execute();
 
         assertEquals(idToDelete, r.id);
+    }
+
+    @Test
+    public void shouldCallResponder() {
+        controller.execute();
+
+        assertTrue(responderGenerateViewCalled);
     }
 
     private class DeletePersonUseCaseSpy extends DeletePersonUseCase {

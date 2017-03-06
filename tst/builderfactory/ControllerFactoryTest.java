@@ -33,8 +33,8 @@ public class ControllerFactoryTest {
 
     @Test
     public void makeMethodReturnsRefreshController() {
-        RefreshResponder presenter = new RefreshPresenter();
         View view = new RefreshView();
+        RefreshResponder presenter = new RefreshPresenter(view);
         Controller controller = factory.make("Refresh", requestArgs, presenter, view);
         assertTrue(controller instanceof RefreshController);
     }
@@ -48,8 +48,8 @@ public class ControllerFactoryTest {
         requestArgs.put(4, true);
         requestArgs.put(5, "Tax ID");
         requestArgs.put(6, "Gender");
-        AddPersonResponder presenter = new AddPersonPresenter();
         View view = new AddPersonView();
+        AddPersonResponder presenter = new AddPersonPresenter(view);
         Controller controller = factory.make("AddPerson", requestArgs, presenter, view);
         assertTrue(controller instanceof AddPersonController);
     }
@@ -58,8 +58,8 @@ public class ControllerFactoryTest {
     public void makeMethodReturnsDeletePersonController() {
         int idToDelete = 1;
         requestArgs.put(0, idToDelete);
-        DeletePersonResponder presenter = new DeletePersonPresenter();
         View view = new DeletePersonView();
+        DeletePersonResponder presenter = new DeletePersonPresenter(view);
         Controller controller = factory.make("DeletePerson", requestArgs, presenter, view);
         assertTrue(controller instanceof DeletePersonController);
     }
@@ -68,8 +68,8 @@ public class ControllerFactoryTest {
     public void makeMethodReturnsExportController() {
         File file = new File("Export.per");
         requestArgs.put(0, file);
-        ExportResponder presenter = new ExportPresenter();
         View view = new ExportView();
+        ExportResponder presenter = new ExportPresenter(view);
         Controller controller = factory.make("Export", requestArgs, presenter, view);
         assertTrue(controller instanceof ExportController);
     }
@@ -78,8 +78,8 @@ public class ControllerFactoryTest {
     public void makeMethodReturnsImportController() {
         File file = new File("Import.per");
         requestArgs.put(0, file);
-        ImportResponder presenter = new ImportPresenter();
         View view = new ImportView();
+        ImportResponder presenter = new ImportPresenter(view);
         Controller controller = factory.make("Import", requestArgs, presenter, view);
         assertTrue(controller instanceof ImportController);
     }
