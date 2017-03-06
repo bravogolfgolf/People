@@ -8,8 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import responder.AddPersonResponder;
 import responder.AddPersonResponse;
-import responder.View;
-import ui_swing.AddPersonView;
 import usecase.AddPersonRequest;
 import usecase.AddPersonUseCase;
 
@@ -32,9 +30,8 @@ public class AddPersonControllerTest implements AddPersonResponder {
 
     private final AddPersonRequest request = new AddPersonRequest();
     private final UseCase useCase = new AddPersonUseCaseSpy(null, null);
-    private final View view = new AddPersonView();
     private final AddPersonResponder responder = this;
-    private final Controller controller = new AddPersonController(request, useCase, responder, view);
+    private final Controller controller = new AddPersonController(request, useCase, responder);
     private AddPersonRequest r;
 
     @Before

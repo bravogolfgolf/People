@@ -7,7 +7,6 @@ import gateway.PersonRepository;
 import org.junit.Test;
 import responder.RefreshResponder;
 import responder.RefreshResponse;
-import responder.View;
 import usecase.RefreshRequest;
 import usecase.RefreshUseCase;
 
@@ -29,9 +28,8 @@ public class RefreshControllerTest implements RefreshResponder {
 
     private final RefreshRequest request = new RefreshRequest();
     private final UseCase useCase = new RefreshUseCaseSpy(null, null);
-    private final View view = object -> null;
-    private final RefreshResponder presenter = this;
-    private final Controller controller = new RefreshController(request, useCase, presenter, view);
+    private final RefreshResponder responder = this;
+    private final Controller controller = new RefreshController(request, useCase, responder);
 
     private RefreshRequest r;
 

@@ -22,11 +22,11 @@ public class ControllerFactoryTest {
         put("Import", ImportController.class);
     }};
     private final Map<String, Class[]> constructorClasses = new HashMap<String, Class[]>() {{
-        put("Refresh", new Class[]{Request.class, UseCase.class, RefreshResponder.class, View.class});
-        put("AddPerson", new Class[]{Request.class, UseCase.class, AddPersonResponder.class, View.class});
-        put("DeletePerson", new Class[]{Request.class, UseCase.class, DeletePersonResponder.class, View.class});
-        put("Export", new Class[]{Request.class, UseCase.class, ExportResponder.class, View.class});
-        put("Import", new Class[]{Request.class, UseCase.class, ImportResponder.class, View.class});
+        put("Refresh", new Class[]{Request.class, UseCase.class, RefreshResponder.class});
+        put("AddPerson", new Class[]{Request.class, UseCase.class, AddPersonResponder.class});
+        put("DeletePerson", new Class[]{Request.class, UseCase.class, DeletePersonResponder.class});
+        put("Export", new Class[]{Request.class, UseCase.class, ExportResponder.class});
+        put("Import", new Class[]{Request.class, UseCase.class, ImportResponder.class});
     }};
     private final ControllerFactory factory = new ControllerFactory(requestBuilder, useCaseFactory, controllers, constructorClasses);
     private final Map<Integer, Object> requestArgs = new HashMap<>();
@@ -34,8 +34,8 @@ public class ControllerFactoryTest {
     @Test
     public void makeMethodReturnsRefreshController() {
         View view = new RefreshView();
-        RefreshResponder presenter = new RefreshPresenter(view);
-        Controller controller = factory.make("Refresh", requestArgs, presenter, view);
+        RefreshResponder responder = new RefreshPresenter(view);
+        Controller controller = factory.make("Refresh", requestArgs, responder);
         assertTrue(controller instanceof RefreshController);
     }
 
@@ -49,8 +49,8 @@ public class ControllerFactoryTest {
         requestArgs.put(5, "Tax ID");
         requestArgs.put(6, "Gender");
         View view = new AddPersonView();
-        AddPersonResponder presenter = new AddPersonPresenter(view);
-        Controller controller = factory.make("AddPerson", requestArgs, presenter, view);
+        AddPersonResponder responder = new AddPersonPresenter(view);
+        Controller controller = factory.make("AddPerson", requestArgs, responder);
         assertTrue(controller instanceof AddPersonController);
     }
 
@@ -59,8 +59,8 @@ public class ControllerFactoryTest {
         int idToDelete = 1;
         requestArgs.put(0, idToDelete);
         View view = new DeletePersonView();
-        DeletePersonResponder presenter = new DeletePersonPresenter(view);
-        Controller controller = factory.make("DeletePerson", requestArgs, presenter, view);
+        DeletePersonResponder responder = new DeletePersonPresenter(view);
+        Controller controller = factory.make("DeletePerson", requestArgs, responder);
         assertTrue(controller instanceof DeletePersonController);
     }
 
@@ -69,8 +69,8 @@ public class ControllerFactoryTest {
         File file = new File("Export.per");
         requestArgs.put(0, file);
         View view = new ExportView();
-        ExportResponder presenter = new ExportPresenter(view);
-        Controller controller = factory.make("Export", requestArgs, presenter, view);
+        ExportResponder responder = new ExportPresenter(view);
+        Controller controller = factory.make("Export", requestArgs, responder);
         assertTrue(controller instanceof ExportController);
     }
 
@@ -79,8 +79,8 @@ public class ControllerFactoryTest {
         File file = new File("Import.per");
         requestArgs.put(0, file);
         View view = new ImportView();
-        ImportResponder presenter = new ImportPresenter(view);
-        Controller controller = factory.make("Import", requestArgs, presenter, view);
+        ImportResponder responder = new ImportPresenter(view);
+        Controller controller = factory.make("Import", requestArgs, responder);
         assertTrue(controller instanceof ImportController);
     }
 

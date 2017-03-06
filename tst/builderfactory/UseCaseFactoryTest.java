@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class UseCaseFactoryTest {
     private final PersonRepository repository = null;
     private final PersonRepositoryExportImport exportImport = null;
-    private final RefreshResponder presenter = null;
+    private final RefreshResponder responder = null;
     private final Map<String, Class> useCases = new HashMap<>();
     private final Map<String, Class[]> constructorClasses = new HashMap<>();
     private final Map<String, Object[]> constructorObjects = new HashMap<>();
@@ -31,11 +31,11 @@ public class UseCaseFactoryTest {
 
     @Test
     public void makeMethodReturnsProperUseCase() {
-        assertTrue(factory.make("Refresh", presenter) instanceof RefreshUseCase);
-        assertTrue(factory.make("AddPerson", presenter) instanceof AddPersonUseCase);
-        assertTrue(factory.make("DeletePerson", presenter) instanceof DeletePersonUseCase);
-        assertTrue(factory.make("Export", presenter) instanceof ExportUseCase);
-        assertTrue(factory.make("Import", presenter) instanceof ImportUseCase);
+        assertTrue(factory.make("Refresh", responder) instanceof RefreshUseCase);
+        assertTrue(factory.make("AddPerson", responder) instanceof AddPersonUseCase);
+        assertTrue(factory.make("DeletePerson", responder) instanceof DeletePersonUseCase);
+        assertTrue(factory.make("Export", responder) instanceof ExportUseCase);
+        assertTrue(factory.make("Import", responder) instanceof ImportUseCase);
     }
 
     private void setUseCases() {

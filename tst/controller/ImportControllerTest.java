@@ -8,8 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import responder.ImportResponder;
 import responder.ImportResponse;
-import responder.View;
-import ui_swing.ImportView;
 import usecase.ImportRequest;
 import usecase.ImportUseCase;
 
@@ -34,9 +32,8 @@ public class ImportControllerTest implements ImportResponder {
 
     private final ImportRequest request = new ImportRequest();
     private final UseCase useCase = new ImportUseCaseSpy(null, null);
-    private final View view = new ImportView();
     private final ImportResponder responder = this;
-    private final Controller controller = new ImportController(request, useCase, responder, view);
+    private final Controller controller = new ImportController(request, useCase, responder);
     private final File file = new File("ImportTest.per");
 
     private ImportRequest r;

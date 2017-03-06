@@ -8,8 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import responder.DeletePersonResponder;
 import responder.DeletePersonResponse;
-import responder.View;
-import ui_swing.DeletePersonView;
 import usecase.DeletePersonRequest;
 import usecase.DeletePersonUseCase;
 
@@ -32,9 +30,8 @@ public class DeletePersonControllerTest implements DeletePersonResponder {
 
     private final DeletePersonRequest request = new DeletePersonRequest();
     private final UseCase useCase = new DeletePersonUseCaseSpy(null, null);
-    private final View view = new DeletePersonView();
     private final DeletePersonResponder responder = this;
-    private final Controller controller = new DeletePersonController(request, useCase, responder, view);
+    private final Controller controller = new DeletePersonController(request, useCase, responder);
     private final int idToDelete = 1;
     private DeletePersonRequest r;
 

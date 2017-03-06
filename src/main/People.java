@@ -15,11 +15,11 @@ import java.util.Map;
 class People {
     private static final Map<Class, Object> gateways = new HashMap<>();
     private static final List<String[]> registry = new ArrayList<String[]>() {{
-        add(new String[]{"Refresh", "controller.RefreshController", "responder.RefreshResponder", "responder.View", "usecase.RefreshRequest", "usecase.RefreshUseCase", "gateway.PersonRepository"});
-        add(new String[]{"AddPerson", "controller.AddPersonController", "responder.AddPersonResponder", "responder.View", "usecase.AddPersonRequest", "usecase.AddPersonUseCase", "gateway.PersonRepository"});
-        add(new String[]{"DeletePerson", "controller.DeletePersonController", "responder.DeletePersonResponder", "responder.View", "usecase.DeletePersonRequest", "usecase.DeletePersonUseCase", "gateway.PersonRepository"});
-        add(new String[]{"Export", "controller.ExportController", "responder.ExportResponder", "responder.View", "usecase.ExportRequest", "usecase.ExportUseCase", "gateway.ExportImport"});
-        add(new String[]{"Import", "controller.ImportController", "responder.ImportResponder", "responder.View", "usecase.ImportRequest", "usecase.ImportUseCase", "gateway.ExportImport"});
+        add(new String[]{"Refresh", "controller.RefreshController", "responder.RefreshResponder", "usecase.RefreshRequest", "usecase.RefreshUseCase", "gateway.PersonRepository"});
+        add(new String[]{"AddPerson", "controller.AddPersonController", "responder.AddPersonResponder", "usecase.AddPersonRequest", "usecase.AddPersonUseCase", "gateway.PersonRepository"});
+        add(new String[]{"DeletePerson", "controller.DeletePersonController", "responder.DeletePersonResponder", "usecase.DeletePersonRequest", "usecase.DeletePersonUseCase", "gateway.PersonRepository"});
+        add(new String[]{"Export", "controller.ExportController", "responder.ExportResponder", "usecase.ExportRequest", "usecase.ExportUseCase", "gateway.ExportImport"});
+        add(new String[]{"Import", "controller.ImportController", "responder.ImportResponder", "usecase.ImportRequest", "usecase.ImportUseCase", "gateway.ExportImport"});
     }};
     private static final Map<String, Class> controllers = new HashMap<>();
     private static final Map<String, Class[]> controllerConstructorClasses = new HashMap<>();
@@ -100,19 +100,19 @@ class People {
     }
 
     private static void createAllOtherMaps(String[] entry) {
-        String key = entry[0];
-        Class controllerClass = tryGetClass(entry[1]);
-        Class presenterClass = tryGetClass(entry[2]);
-        Class viewClass = tryGetClass(entry[3]);
-        Class requestClass = tryGetClass(entry[4]);
-        Class useCaseClass = tryGetClass(entry[5]);
-        Class gatewayClass = tryGetClass(entry[6]);
+        int i = 0;
+        String key = entry[i++];
+        Class controllerClass = tryGetClass(entry[i++]);
+        Class responderClass = tryGetClass(entry[i++]);
+        Class requestClass = tryGetClass(entry[i++]);
+        Class useCaseClass = tryGetClass(entry[i++]);
+        Class gatewayClass = tryGetClass(entry[i]);
 
         controllers.put(key, controllerClass);
-        controllerConstructorClasses.put(key, new Class[]{Request.class, UseCase.class, presenterClass, viewClass});
+        controllerConstructorClasses.put(key, new Class[]{Request.class, UseCase.class, responderClass});
         requests.put(key, requestClass);
         useCases.put(key, useCaseClass);
-        useCaseConstructorClasses.put(key, new Class[]{gatewayClass, presenterClass});
+        useCaseConstructorClasses.put(key, new Class[]{gatewayClass, responderClass});
         useCaseConstructorObjects.put(key, new Object[]{gateways.get(gatewayClass)});
     }
 

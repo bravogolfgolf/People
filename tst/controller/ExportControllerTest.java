@@ -8,8 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import responder.ExportResponder;
 import responder.ExportResponse;
-import responder.View;
-import ui_swing.ExportView;
 import usecase.ExportRequest;
 import usecase.ExportUseCase;
 
@@ -34,9 +32,8 @@ public class ExportControllerTest implements ExportResponder {
 
     private final ExportRequest request = new ExportRequest();
     private final UseCase useCase = new ExportUseCaseSpy(null, null);
-    private final View view = new ExportView();
     private final ExportResponder responder = this;
-    private final Controller controller = new ExportController(request, useCase, responder, view);
+    private final Controller controller = new ExportController(request, useCase, responder);
     private final File file = new File("Export.per");
 
     private ExportRequest r;
