@@ -20,6 +20,7 @@ class People {
         add(new String[]{"DeletePerson", "controller.DeletePersonController", "usecase.DeletePersonRequest", "usecase.DeletePersonUseCase", "gateway.PersonRepository", "responder.DeletePersonResponder"});
         add(new String[]{"Export", "controller.ExportController", "usecase.ExportRequest", "usecase.ExportUseCase", "gateway.ExportImport", "responder.ExportResponder"});
         add(new String[]{"Import", "controller.ImportController", "usecase.ImportRequest", "usecase.ImportUseCase", "gateway.ExportImport", "responder.ImportResponder"});
+        add(new String[]{"UpdatePerson", "controller.UpdatePersonController", "usecase.UpdatePersonRequest", "usecase.UpdatePersonUseCase", "gateway.PersonRepository", "responder.UpdatePersonResponder"});
     }};
     private static final Map<String, Class> controllers = new HashMap<>();
     private static Class[] controllerConstructorClasses = new Class[3];

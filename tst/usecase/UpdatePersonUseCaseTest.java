@@ -1,17 +1,25 @@
 package usecase;
 
-import database.Person;
 import database.PersonRepositoryInMemory;
 import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
+import responder.UpdatePersonResponder;
+import responder.UpdatePersonResponse;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-public class UpdatePersonUseCaseTest {
+public class UpdatePersonUseCaseTest implements UpdatePersonResponder {
+
+    private UpdatePersonResponse response;
+
+    @Override
+    public void present(UpdatePersonResponse response) {
+        this.response = response;
+    }
+
     private final PersonRepository repository = new PersonRepositoryInMemory();
-    private final UpdatePersonUseCase useCase = new UpdatePersonUseCase(repository);
+    private final UpdatePersonUseCase useCase = new UpdatePersonUseCase(repository, this);
     private final UpdatePersonRequest request = new UpdatePersonRequest();
 
     @Before
@@ -33,16 +41,6 @@ public class UpdatePersonUseCaseTest {
 
         assertEquals(1, repository.findAll().size());
 
-        for (Object object : repository.findAll()) {
-            Person expected = (Person) object;
-            assertEquals(request.id, expected.getId());
-            assertEquals(request.fullName, expected.getFullName());
-            assertEquals(request.occupation, expected.getOccupation());
-            assertEquals(request.ageCategory, expected.getAgeCategory());
-            assertEquals(request.employmentStatus, expected.getEmploymentStatus());
-            assertTrue(expected.isUsCitizen());
-            assertEquals(request.taxId, expected.getTaxId());
-            assertEquals(request.gender, expected.getGender());
-        }
+        assertEquals(request.id, response.getId());
     }
 }

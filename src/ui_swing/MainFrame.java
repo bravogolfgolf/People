@@ -10,8 +10,8 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.prefs.Preferences;
@@ -233,7 +233,7 @@ public class MainFrame extends JFrame implements Runnable {
 
     private void addFullScreenToggleMenuItem() {
         fullScreenToggleMenuItem = new JMenuItem(ENTER_FULL_SCREEN);
-        fullScreenToggleMenuItem.setAccelerator(KeyStroke.getKeyStroke(VK_F, ActionEvent.CTRL_MASK | ActionEvent.META_MASK));
+        fullScreenToggleMenuItem.setAccelerator(KeyStroke.getKeyStroke(VK_F, InputEvent.CTRL_DOWN_MASK | InputEvent.META_DOWN_MASK));
         fullScreenToggleMenuItem.addActionListener(e -> application.requestToggleFullScreen(MainFrame.this));
         viewMenu.add(fullScreenToggleMenuItem);
     }
@@ -253,7 +253,7 @@ public class MainFrame extends JFrame implements Runnable {
 
     private void addMinimizeMenuItem() {
         minimizeMenuItem = new JMenuItem("Minimize");
-        minimizeMenuItem.setAccelerator(KeyStroke.getKeyStroke(VK_M, ActionEvent.META_MASK));
+        minimizeMenuItem.setAccelerator(KeyStroke.getKeyStroke(VK_M, InputEvent.META_DOWN_MASK));
         minimizeMenuItem.addActionListener(e -> setState(JFrame.ICONIFIED));
         windowMenu.add(minimizeMenuItem);
     }

@@ -5,7 +5,6 @@ import org.junit.Test;
 import responder.*;
 import ui_swing.*;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +19,8 @@ public class ControllerFactoryTest {
         put("DeletePerson", DeletePersonController.class);
         put("Export", ExportController.class);
         put("Import", ImportController.class);
+        put("Update", UpdatePersonController.class);
+
     }};
     private final Class[] constructorClasses = new Class[]{Request.class, UseCase.class, Responder.class};
     private final ControllerFactory factory = new ControllerFactory(requestBuilder, useCaseFactory, controllers, constructorClasses);
@@ -27,55 +28,44 @@ public class ControllerFactoryTest {
 
     @Test
     public void makeMethodReturnsRefreshController() {
-        View view = new RefreshView();
-        RefreshResponder responder = new RefreshPresenter(view);
+        RefreshResponder responder = new RefreshPresenter(null);
         Controller controller = factory.make("Refresh", requestArgs, responder);
         assertTrue(controller instanceof RefreshController);
     }
 
     @Test
     public void makeMethodReturnsAddPersonController() {
-        requestArgs.put(0, "Full Name");
-        requestArgs.put(1, "Occupation");
-        requestArgs.put(2, 0);
-        requestArgs.put(3, 0);
-        requestArgs.put(4, true);
-        requestArgs.put(5, "Tax ID");
-        requestArgs.put(6, "Gender");
-        View view = new AddPersonView();
-        AddPersonResponder responder = new AddPersonPresenter(view);
+        AddPersonResponder responder = new AddPersonPresenter(null);
         Controller controller = factory.make("AddPerson", requestArgs, responder);
         assertTrue(controller instanceof AddPersonController);
     }
 
     @Test
     public void makeMethodReturnsDeletePersonController() {
-        int idToDelete = 1;
-        requestArgs.put(0, idToDelete);
-        View view = new DeletePersonView();
-        DeletePersonResponder responder = new DeletePersonPresenter(view);
+        DeletePersonResponder responder = new DeletePersonPresenter(null);
         Controller controller = factory.make("DeletePerson", requestArgs, responder);
         assertTrue(controller instanceof DeletePersonController);
     }
 
     @Test
     public void makeMethodReturnsExportController() {
-        File file = new File("Export.per");
-        requestArgs.put(0, file);
-        View view = new ExportView();
-        ExportResponder responder = new ExportPresenter(view);
+        ExportResponder responder = new ExportPresenter(null);
         Controller controller = factory.make("Export", requestArgs, responder);
         assertTrue(controller instanceof ExportController);
     }
 
     @Test
     public void makeMethodReturnsImportController() {
-        File file = new File("Import.per");
-        requestArgs.put(0, file);
-        View view = new ImportView();
-        ImportResponder responder = new ImportPresenter(view);
+        ImportResponder responder = new ImportPresenter(null);
         Controller controller = factory.make("Import", requestArgs, responder);
         assertTrue(controller instanceof ImportController);
+    }
+
+    @Test
+    public void makeMethodReturnsUpdatePersonController() {
+        UpdatePersonResponder responder = new UpdatePersonPresenter(null);
+        Controller controller = factory.make("Update", requestArgs, responder);
+        assertTrue(controller instanceof UpdatePersonController);
     }
 
     private class RequestBuilderStub extends RequestBuilder {

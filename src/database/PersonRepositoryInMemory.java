@@ -12,8 +12,7 @@ public class PersonRepositoryInMemory implements PersonRepository {
     @Override
     public List findAll() {
         List<Person> people = new ArrayList<>();
-        for (Person person : this.people.values())
-            people.add(person);
+        people.addAll(this.people.values());
         return people;
     }
 

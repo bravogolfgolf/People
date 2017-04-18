@@ -2,7 +2,7 @@ package usecase;
 
 import builderfactory.Request;
 
-class UpdatePersonRequest extends Request {
+public class UpdatePersonRequest extends Request {
     public int id;
     public String fullName;
     public String occupation;
