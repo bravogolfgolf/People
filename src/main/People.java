@@ -54,7 +54,7 @@ class People {
     }
 
     private static void createGatewaysMap() {
-        Class<?> repositoryClass = tryGetClass("database.PersonRepositoryMySQL");
+        Class<?> repositoryClass = tryGetClass("database.PersonRepositoryInMemory");
         Object repositoryObject = getObject(repositoryClass);
         Class<?> exportImportClass = tryGetClass("database.PersonRepositoryExportImport");
         Constructor constructor = tryGetConstructor(exportImportClass, new Class[]{PersonRepository.class});

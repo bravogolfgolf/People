@@ -10,7 +10,7 @@ public class UpdatePersonController extends Controller {
     private final UseCase usecase;
     private final Responder responder;
 
-    UpdatePersonController(Request request, UseCase usecase, Responder responder) {
+    public UpdatePersonController(Request request, UseCase usecase, Responder responder) {
         this.request = request;
         this.usecase = usecase;
         this.responder = responder;

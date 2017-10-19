@@ -10,7 +10,7 @@ public class UpdatePersonUseCase extends UseCase {
     private final PersonRepository repository;
     private final UpdatePersonResponder responder;
 
-    UpdatePersonUseCase(PersonRepository repository, UpdatePersonResponder responder) {
+    public UpdatePersonUseCase(PersonRepository repository, UpdatePersonResponder responder) {
         this.repository = repository;
         this.responder = responder;
     }
