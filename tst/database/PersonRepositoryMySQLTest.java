@@ -38,7 +38,7 @@ public class PersonRepositoryMySQLTest {
 
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(url, "briangibson", "sKzuP3RMF");
+            connection = DriverManager.getConnection(url, "briangibson", "3g463b279Xq6#2f8");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,6 @@
 package usecase;
 
-import database.PersonRepositoryInMemory;
+import database.PersonRepositoryMySQL;
 import gateway.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class AddPersonUseCaseTest implements AddPersonResponder {
         this.response = response;
     }
 
-    private final PersonRepository repository = new PersonRepositoryInMemory();
+    private final PersonRepository repository = new PersonRepositoryMySQL();
     private final AddPersonUseCase useCase = new AddPersonUseCase(repository, this);
 
     private final AddPersonRequest request = new AddPersonRequest();

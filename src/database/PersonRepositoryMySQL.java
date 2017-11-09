@@ -42,7 +42,7 @@ public class PersonRepositoryMySQL implements PersonRepository {
 
     private void tryGetConnection(String url) {
         try {
-            connection = DriverManager.getConnection(url, "briangibson", "sKzuP3RMF");
+            connection = DriverManager.getConnection(url, "briangibson", "3g463b279Xq6#2f8");
         } catch (SQLException e) {
             throw new UnableToGetConnection(e);
         }
