@@ -3,7 +3,6 @@ package ui_swing;
 import javax.swing.table.AbstractTableModel;
 
 class PersonTableModel extends AbstractTableModel {
-
     private PersonTableModelRecord[] personTableModelData;
     private final String[] columnNames = {"ID", "Full Name", "Occupation", "Age Category",
             "Employment Status", "US Citizen", "Tax ID", "Gender"};
@@ -14,6 +13,34 @@ class PersonTableModel extends AbstractTableModel {
 
     int getIdOfPersonOn(int rowNumber) {
         return (int) getValueAt(rowNumber, 0);
+    }
+
+    String getFullNameOfPersonOn(int rowNumber) {
+        return (String) getValueAt(rowNumber, 1);
+    }
+
+    String getOccupationOfPersonOn(int rowNumber) {
+        return (String) getValueAt(rowNumber, 2);
+    }
+
+    int getAgeCategoryOfPersonOn(int rowNumber) {
+        return (int) getValueAt(rowNumber, 3);
+    }
+
+    int getEmploymentStatusOfPersonOn(int rowNumber) {
+        return (int) getValueAt(rowNumber, 4);
+    }
+
+    boolean getUsCitizenOfPersonOn(int rowNumber) {
+        return (boolean) getValueAt(rowNumber, 5);
+    }
+
+    String getTaxIdOfPersonOn(int rowNumber) {
+        return (String) getValueAt(rowNumber, 6);
+    }
+
+    String getGenderOfPersonOn(int rowNumber) {
+        return (String) getValueAt(rowNumber, 7);
     }
 
     @Override

@@ -2,7 +2,7 @@ package ui_swing;
 
 import java.util.EventObject;
 
-class EntryPanelEvent extends EventObject {
+class EntryPanelAddEvent extends EventObject {
     final String fullName;
     final String occupation;
     final int ageCategory;
@@ -11,7 +11,7 @@ class EntryPanelEvent extends EventObject {
     final String taxId;
     final String gender;
 
-    EntryPanelEvent(Object source, String fullName, String occupation, int ageCategory, int employmentStatus, Boolean uSCitizen, String taxId, String gender) {
+    EntryPanelAddEvent(Object source, String fullName, String occupation, int ageCategory, int employmentStatus, Boolean uSCitizen, String taxId, String gender) {
         super(source);
         this.fullName = fullName;
         this.occupation = occupation;

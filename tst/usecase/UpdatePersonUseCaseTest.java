@@ -42,5 +42,6 @@ public class UpdatePersonUseCaseTest implements UpdatePersonResponder {
         assertEquals(1, repository.findAll().size());
 
         assertEquals(request.id, response.getId());
+        assertEquals(request.fullName,"Update Person");
     }
 }

@@ -269,33 +269,55 @@ public class MainFrame extends JFrame implements Runnable {
     }
 
     private void createAndAddEntryPane() {
-        entryPanel = new EntryPanel(formEvent -> {
-            Map<Integer, Object> args = new HashMap<>();
-            args.put(0, formEvent.fullName);
-            args.put(1, formEvent.occupation);
-            args.put(2, formEvent.ageCategory);
-            args.put(3, formEvent.employmentStatus);
-            args.put(4, formEvent.uSCitizen);
-            args.put(5, formEvent.taxId);
-            args.put(6, formEvent.gender);
-            String string = (String) controllerFactory.make("AddPerson", args, new AddPersonPresenter(new AddPersonView())).execute();
-            statusBar.setStatusLabel(string);
+        entryPanel = new EntryPanel(new EntryPanelListener() {
+            @Override
+            public void addEventEmitted(EntryPanelAddEvent e) {
+                Map<Integer, Object> args = new HashMap<>();
+                args.put(0, e.fullName);
+                args.put(1, e.occupation);
+                args.put(2, e.ageCategory);
+                args.put(3, e.employmentStatus);
+                args.put(4, e.uSCitizen);
+                args.put(5, e.taxId);
+                args.put(6, e.gender);
+                String string = (String) controllerFactory.make("AddPerson", args, new AddPersonPresenter(new AddPersonView())).execute();
+                statusBar.setStatusLabel(string);
 
-            updatePersonTablePanelModel();
+                MainFrame.this.updatePersonTablePanelModel();
+            }
+
+            @Override
+            public void updateEventEmitted(EntryPanelUpdateEvent e) {
+                Map<Integer, Object> args = new HashMap<>();
+                args.put(0, e.id);
+                args.put(1, e.fullName);
+                args.put(2, e.occupation);
+                args.put(3, e.ageCategory);
+                args.put(4, e.employmentStatus);
+                args.put(5, e.uSCitizen);
+                args.put(6, e.taxId);
+                args.put(7, e.gender);
+                String string = (String) controllerFactory.make("UpdatePerson", args, new UpdatePersonPresenter(new UpdatePersonView())).execute();
+                statusBar.setStatusLabel(string);
+
+                MainFrame.this.updatePersonTablePanelModel();
+            }
+
+            @Override
+            public void deleteEventEmitted(EntryPanelDeleteEvent e) {
+                Map<Integer, Object> args = new HashMap<>();
+                args.put(0, e.id);
+                String string = (String) controllerFactory.make("DeletePerson", args, new DeletePersonPresenter(new DeletePersonView())).execute();
+                statusBar.setStatusLabel(string);
+
+                MainFrame.this.updatePersonTablePanelModel();
+            }
         });
         add(entryPanel, BorderLayout.LINE_START);
-        SwingUtilities.getRootPane(entryPanel.okButton).setDefaultButton(entryPanel.okButton);
     }
 
     private void createAndAddPersonTablePanel() {
-        personTablePanel = new PersonTablePanel(id -> {
-            Map<Integer, Object> args = new HashMap<>();
-            args.put(0, id);
-            String string = (String) controllerFactory.make("DeletePerson", args, new DeletePersonPresenter(new DeletePersonView())).execute();
-            statusBar.setStatusLabel(string);
-
-            updatePersonTablePanelModel();
-        });
+        personTablePanel = new PersonTablePanel(entryPanel::rowSelected);
         add(personTablePanel, BorderLayout.CENTER);
     }
 

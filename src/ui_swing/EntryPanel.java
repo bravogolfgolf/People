@@ -10,6 +10,7 @@ import java.text.ParseException;
 
 class EntryPanel extends JPanel {
 
+    private int id;
     private final EntryPanelListener entryPanelListener;
     private final JLabel nameLabel = new JLabel("Full Name:");
     private final JTextField nameField = new JTextField(10);
@@ -30,7 +31,9 @@ class EntryPanel extends JPanel {
     private final JRadioButton femaleRadioButton = new JRadioButton("Female");
     private final ButtonGroup genderButtonGroup = new ButtonGroup();
     private final JPanel radioButtonPanel = new JPanel(new FlowLayout());
-    final JButton okButton = new JButton("OK");
+    private final JButton deleteButton = new JButton("Delete");
+    private final JButton updateButton = new JButton("Update");
+    private final JButton addButton = new JButton("Add");
     private final JPanel paddingPanel = new JPanel();
     private final GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
@@ -48,7 +51,9 @@ class EntryPanel extends JPanel {
         setupTaxIdLabel();
         setupTaxIdField();
         setupGenderRadioButtons();
-        setupOkButton();
+        setupAddButton();
+        setupUpdateButton();
+        setupDeleteButton();
     }
 
     private void setupEntryPanel() {
@@ -119,35 +124,77 @@ class EntryPanel extends JPanel {
         radioButtonPanel.add(femaleRadioButton);
     }
 
-    private void setupOkButton() {
-        okButton.addActionListener(e -> {
-            EntryPanel.this.emitEntryEvent(e);
-            EntryPanel.this.resetEventPanel();
+    private void setupAddButton() {
+        addButton.addActionListener(e -> {
+            emitAddEvent(e);
+            resetEventPanel();
         });
     }
 
-    private void emitEntryEvent(ActionEvent e) {
-        String fullName = nameField.getText();
-        String occupation = occupationField.getText();
-        int ageCategory = ageList.getSelectedIndex();
-        int employmentStatus = statusCombo.getSelectedIndex();
-        boolean uSCitizen = uSCitizenCheckBox.isSelected();
-        String taxId = uSCitizenCheckBox.isSelected() ? (String) taxIdField.getValue() : "000-00-0000";
-        String gender = genderButtonGroup.getSelection().getActionCommand();
-        entryPanelListener.eventEmitted(new EntryPanelEvent(e, fullName, occupation, ageCategory, employmentStatus, uSCitizen, taxId, gender));
+    private void setupUpdateButton() {
+        updateButton.addActionListener(e -> {
+            emitUpdateEvent(e);
+            resetEventPanel();
+        });
+    }
+
+    private void setupDeleteButton() {
+        deleteButton.addActionListener(e -> {
+            emitDeleteEvent(e);
+            resetEventPanel();
+        });
+    }
+
+    private void emitAddEvent(ActionEvent e) {
+        entryPanelListener.addEventEmitted(new EntryPanelAddEvent(e, nameField.getText(), occupationField.getText(), ageList.getSelectedIndex(), statusCombo.getSelectedIndex(), uSCitizenCheckBox.isSelected(), getTaxId(), genderButtonGroup.getSelection().getActionCommand()));
+    }
+
+    private void emitUpdateEvent(ActionEvent e) {
+        entryPanelListener.updateEventEmitted(new EntryPanelUpdateEvent(e, id, nameField.getText(), occupationField.getText(), ageList.getSelectedIndex(), statusCombo.getSelectedIndex(), uSCitizenCheckBox.isSelected(), getTaxId(), genderButtonGroup.getSelection().getActionCommand()));
+    }
+
+    private void emitDeleteEvent(ActionEvent e) {
+        entryPanelListener.deleteEventEmitted(new EntryPanelDeleteEvent(e, id));
+
+    }
+
+    private String getTaxId() {
+        return uSCitizenCheckBox.isSelected() ? (String) taxIdField.getValue() : "000-00-0000";
+    }
+
+    void rowSelected(int id, String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {
+        this.id = id;
+        nameField.setText(fullName);
+        occupationField.setText(occupation);
+        ageList.setSelectedIndex(ageCategory);
+        statusCombo.setSelectedIndex(employmentStatus);
+        uSCitizenCheckBox.setSelected(uSCitizen);
+
+        for (ActionListener actionListener : uSCitizenCheckBox.getActionListeners()) {
+            actionListener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null) {
+            });
+        }
+
+        taxIdField.setText(taxId);
+        if (gender.equals("Male"))
+            maleRadioButton.setSelected(true);
+        else
+            femaleRadioButton.setSelected(true);
     }
 
     private void resetEventPanel() {
+        id = 0;
         nameField.setText("");
         occupationField.setText("");
         ageList.setSelectedIndex(1);
         statusCombo.setSelectedIndex(0);
         uSCitizenCheckBox.setSelected(false);
         setTaxIDValue();
-        ActionListener[] actionListeners = uSCitizenCheckBox.getActionListeners();
-        for (ActionListener listener : actionListeners) {
-            listener.actionPerformed(new ActionEvent(uSCitizenCheckBox, 1002, ""));
+
+        for (ActionListener listener : uSCitizenCheckBox.getActionListeners()) {
+            listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
         }
+
         maleRadioButton.setSelected(true);
     }
 
@@ -156,26 +203,26 @@ class EntryPanel extends JPanel {
         setGridBagConstraints(0, 0, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(nameLabel, gridBagConstraints);
 
-        setGridBagConstraints(0, 1, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(0, 1, 2, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(nameField, gridBagConstraints);
 
         setGridBagConstraints(1, 0, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(occupationLabel, gridBagConstraints);
 
-        setGridBagConstraints(1, 1, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(1, 1, 2, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(occupationField, gridBagConstraints);
 
         setGridBagConstraints(2, 0, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.FIRST_LINE_START);
         gridBagConstraints.insets = new Insets(3, 0, 0, 0);
         add(ageLabel, gridBagConstraints);
 
-        setGridBagConstraints(2, 1, 1, 3, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(2, 1, 2, 3, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(ageList, gridBagConstraints);
 
         setGridBagConstraints(3, 0, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.FIRST_LINE_START);
         add(statusLabel, gridBagConstraints);
 
-        setGridBagConstraints(3, 1, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(3, 1, 2, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(statusCombo, gridBagConstraints);
 
         setGridBagConstraints(4, 0, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.LINE_START);
@@ -187,17 +234,23 @@ class EntryPanel extends JPanel {
         setGridBagConstraints(5, 0, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(taxIdLabel, gridBagConstraints);
 
-        setGridBagConstraints(5, 1, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(5, 1, 2, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(taxIdField, gridBagConstraints);
 
         setGridBagConstraints(6, 0, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(genderLabel, gridBagConstraints);
 
-        setGridBagConstraints(6, 1, 1, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
+        setGridBagConstraints(6, 1, 2, 0, 0, 0, GridBagConstraints.BOTH, GridBagConstraints.LINE_START);
         add(radioButtonPanel, gridBagConstraints);
 
-        setGridBagConstraints(7, 1, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.FIRST_LINE_END);
-        add(okButton, gridBagConstraints);
+        setGridBagConstraints(7, 0, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.FIRST_LINE_START);
+        add(deleteButton, gridBagConstraints);
+
+        setGridBagConstraints(7, 1, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.CENTER);
+        add(updateButton, gridBagConstraints);
+
+        setGridBagConstraints(7, 2, 1, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.FIRST_LINE_END);
+        add(addButton, gridBagConstraints);
 
         setGridBagConstraints(8, 0, 2, 0, 1, 1, GridBagConstraints.BOTH, GridBagConstraints.PAGE_END);
         add(paddingPanel, gridBagConstraints);
