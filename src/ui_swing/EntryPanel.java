@@ -93,22 +93,16 @@ class EntryPanel extends JPanel {
     }
 
     private void setupTaxIdField() {
-        MaskFormatter ssnFormatter = tryGetMaskFormatter();
-        ssnFormatter.setPlaceholderCharacter('0');
+        SSNMaskFormatter ssnFormatter = tryGetMaskFormatter();
         taxIdField = new JFormattedTextField(ssnFormatter);
-        setTaxIDValue();
         taxIdField.setEnabled(false);
         taxIdField.setVisible(false);
     }
 
-    private void setTaxIDValue() {
-        taxIdField.setValue("000-00-0000");
-    }
-
-    private MaskFormatter tryGetMaskFormatter() {
-        MaskFormatter ssnFormatter = null;
+    private SSNMaskFormatter tryGetMaskFormatter() {
+        SSNMaskFormatter ssnFormatter = null;
         try {
-            ssnFormatter = new MaskFormatter("###-##-####");
+            ssnFormatter = new SSNMaskFormatter();
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -132,6 +126,7 @@ class EntryPanel extends JPanel {
     }
 
     private void setupUpdateButton() {
+        updateButton.setEnabled(false);
         updateButton.addActionListener(e -> {
             emitUpdateEvent(e);
             resetEventPanel();
@@ -139,6 +134,7 @@ class EntryPanel extends JPanel {
     }
 
     private void setupDeleteButton() {
+        deleteButton.setEnabled(false);
         deleteButton.addActionListener(e -> {
             emitDeleteEvent(e);
             resetEventPanel();
@@ -155,7 +151,6 @@ class EntryPanel extends JPanel {
 
     private void emitDeleteEvent(ActionEvent e) {
         entryPanelListener.deleteEventEmitted(new EntryPanelDeleteEvent(e, id));
-
     }
 
     private String getTaxId() {
@@ -163,6 +158,8 @@ class EntryPanel extends JPanel {
     }
 
     void rowSelected(int id, String fullName, String occupation, int ageCategory, int employmentStatus, boolean uSCitizen, String taxId, String gender) {
+        updateButton.setEnabled(true);
+        deleteButton.setEnabled(true);
         this.id = id;
         nameField.setText(fullName);
         occupationField.setText(occupation);
@@ -183,13 +180,15 @@ class EntryPanel extends JPanel {
     }
 
     private void resetEventPanel() {
+        deleteButton.setEnabled(false);
+        updateButton.setEnabled(false);
         id = 0;
         nameField.setText("");
         occupationField.setText("");
         ageList.setSelectedIndex(1);
         statusCombo.setSelectedIndex(0);
         uSCitizenCheckBox.setSelected(false);
-        setTaxIDValue();
+        taxIdField.setText("");
 
         for (ActionListener listener : uSCitizenCheckBox.getActionListeners()) {
             listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
