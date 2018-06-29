@@ -11,9 +11,7 @@ public class PersonRepositoryInMemory implements PersonRepository {
 
     @Override
     public List findAll() {
-        List<Person> people = new ArrayList<>();
-        people.addAll(this.people.values());
-        return people;
+        return new ArrayList<>(this.people.values());
     }
 
     @Override

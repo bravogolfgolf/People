@@ -34,7 +34,7 @@ public class ExportControllerTest implements Responder {
     private ExportRequest r;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         request.file = file;
     }
 

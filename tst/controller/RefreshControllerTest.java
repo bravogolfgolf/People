@@ -10,6 +10,7 @@ import responder.Responder;
 import usecase.RefreshRequest;
 import usecase.RefreshUseCase;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class RefreshControllerTest implements Responder {
@@ -31,8 +32,7 @@ public class RefreshControllerTest implements Responder {
     @Test
     public void shouldSendRequestToUseCase() {
         controller.execute();
-
-        assertTrue(r != null);
+        assertNotNull(r);
     }
 
     @Test

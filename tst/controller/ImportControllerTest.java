@@ -34,7 +34,7 @@ public class ImportControllerTest implements Responder {
     private ImportRequest r;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         request.file = file;
     }
 

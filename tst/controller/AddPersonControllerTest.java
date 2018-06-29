@@ -29,7 +29,7 @@ public class AddPersonControllerTest implements Responder {
     private AddPersonRequest r;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         request.fullName = "Full Name";
         request.occupation = "Occupation";
         request.ageCategory = 0;

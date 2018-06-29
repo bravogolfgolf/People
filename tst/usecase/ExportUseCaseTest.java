@@ -9,7 +9,6 @@ import responder.ExportResponder;
 import responder.ExportResponse;
 
 import java.io.File;
-import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -28,7 +27,7 @@ public class ExportUseCaseTest implements ExportResponder {
     private final ExportRequest request = new ExportRequest();
 
     @Test
-    public void shouldExportPersonRepositoryToFile() throws IOException {
+    public void shouldExportPersonRepositoryToFile() {
         repository.addPerson("Full Name", "Occupation", 1, 0, true, "123-45-6789", "Male");
         File file = new File("ExportTest.per");
         request.file = file;
@@ -39,7 +38,7 @@ public class ExportUseCaseTest implements ExportResponder {
     }
 
     @Test(expected = ExportUseCase.ExportFailed.class)
-    public void shouldThrowException() throws IOException {
+    public void shouldThrowException() {
         request.file = new File("/bad_path/ExportTest.per");
         useCase.execute(request);
     }

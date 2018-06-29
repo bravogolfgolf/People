@@ -23,7 +23,7 @@ public class UseCaseFactoryTest {
     private final UseCaseFactory factory = new UseCaseFactory(useCases, constructorClasses, constructorObjects);
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         setUseCases();
         setConstructorClasses();
         setConstructorObjects();

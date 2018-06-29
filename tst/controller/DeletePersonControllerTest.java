@@ -30,7 +30,7 @@ public class DeletePersonControllerTest implements Responder {
     private DeletePersonRequest r;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         request.id = idToDelete;
     }
 

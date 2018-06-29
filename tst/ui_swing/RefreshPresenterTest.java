@@ -14,7 +14,7 @@ public class RefreshPresenterTest {
     private final String fullName = "Full Name", occupation = "Occupation", taxId = "123-45-6789", gender = "Male";
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         Object[] record = new Object[8];
         record[0] = id;
         record[1] = fullName;

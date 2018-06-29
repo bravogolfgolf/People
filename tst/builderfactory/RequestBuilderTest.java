@@ -8,8 +8,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class RequestBuilderTest {
     private final Map<String, Class> requests = new HashMap<>();
@@ -30,7 +29,7 @@ public class RequestBuilderTest {
     @Test
     public void makeMethodShouldReturnRefreshRequest() {
         RefreshRequest request = (RefreshRequest) builder.make("Refresh", args);
-        assertTrue(request != null);
+        assertNotNull(request);
     }
 
     @Test

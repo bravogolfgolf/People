@@ -2,7 +2,6 @@ package ui_swing;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
