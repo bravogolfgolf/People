@@ -27,17 +27,8 @@ public class PersonRepositoryMySQL implements PersonRepository {
     }
 
     private void connect() {
-        trySettingDriver();
-        String url = "jdbc:mysql://localhost:3306/people?useSSL=true";
+        String url = "jdbc:mysql://localhost:3306/people?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         tryGetConnection(url);
-    }
-
-    private void trySettingDriver() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new DriverNotFound(e);
-        }
     }
 
     private void tryGetConnection(String url) {

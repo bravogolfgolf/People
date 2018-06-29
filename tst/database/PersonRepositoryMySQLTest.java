@@ -29,12 +29,7 @@ public class PersonRepositoryMySQLTest {
     }
 
     private void clearRepository() {
-        String url = "jdbc:mysql://localhost:3306/people?useSSL=true";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        String url = "jdbc:mysql://localhost:3306/people?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
         Connection connection = null;
         try {
