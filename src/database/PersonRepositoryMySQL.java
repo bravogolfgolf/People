@@ -206,12 +206,6 @@ public class PersonRepositoryMySQL implements PersonRepository {
         return people;
     }
 
-    private class DriverNotFound extends RuntimeException {
-        DriverNotFound(ClassNotFoundException e) {
-            super(e);
-        }
-    }
-
     private class UnableToGetConnection extends RuntimeException {
         UnableToGetConnection(SQLException e) {
             super(e);
