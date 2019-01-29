@@ -1,2 +1,2 @@
-# Mac desktop application that manages personnel information.
+# Mac-like Desktop Application using Java
 Project was designed to use only libraries available in standard Java, with the caveat that it must appear to be a native Mac application, which obviously includes using the Mac specific libraries for rendering Swing interface with Menu Bar and Standard Mac-like menu options. Front-end was developed using Swing, middle-tier was pure Java and back-end used JDBC and MYSQL.
